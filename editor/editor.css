@@ -90,3 +90,12 @@ dialog::backdrop { background:rgb(0 0 0 / .3); }
 .dlg-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:6px; }
 .btn:disabled { opacity:.4; cursor:default; }
 .secret { -webkit-text-security:disc; font-family:Menlo,monospace; }
+
+/* toggle switch */
+.switch { display:inline-flex; align-items:center; gap:10px; cursor:pointer; color:var(--ink); font-size:14px; user-select:none; }
+.switch input { position:absolute; opacity:0; width:0; height:0; }
+.switch i { position:relative; width:40px; height:24px; border-radius:12px; background:#cfcfd4; transition:background .15s; }
+.switch i::after { content:""; position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:50%; background:#fff; box-shadow:0 1px 2px rgb(0 0 0 / .25); transition:transform .15s; }
+.switch input:checked + i { background:#1f0e41; }
+.switch input:checked + i::after { transform:translateX(16px); }
+.switch input:focus-visible + i { outline:2px solid #7a4de8; outline-offset:2px; }

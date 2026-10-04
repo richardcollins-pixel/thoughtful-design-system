@@ -8,7 +8,7 @@
     /* canvas chrome only */
     body { padding: var(--space-6); }
     .label { margin-bottom: var(--space-2); }
-    .subject { display: flex; align-items: center; justify-content: center; min-height: 8rem; padding: var(--padding-lg); border-radius: var(--radius-md); background: var(--bg-elevation); }
+    .subject { display: flex; align-items: center; justify-content: center; min-height: 8rem; padding: var(--padding-lg); border-radius: var(--radius-md); background: var(--bg-elevation-5); }
     .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
     .panel { padding: var(--padding-md); border-radius: var(--radius-md); }
   </style>
@@ -45,7 +45,7 @@
     document.getElementById('subject').append(subject);
 
     const g = document.getElementById('gallery');
-    for (const [k, a] of attrs) if (a.type === 'enum') g.append(section(k, ...a.values.map((v) => make({ set: { [k]: v }, text: v }))));
+    for (const [k, a] of attrs) if (a.type === 'enum') g.append(section(a.when ? `${k} (${Object.values(a.when)[0]} only)` : k, ...a.values.map((v) => make({ set: { ...(a.when || {}), [k]: v }, text: v }))));
     if ((meta.states || []).length) g.append(section('states', ...meta.states.map((s) => make({ state: s, text: s }))));
     const first = attrs.find(([, a]) => a.type === 'enum');
     if (first) {

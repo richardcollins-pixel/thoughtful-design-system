@@ -9,6 +9,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 [data-surface] { color: var(--text-primary); background: var(--bg-base); }
-a { color: var(--action-bg); }
+a { color: var(--text-primary); }
 img, svg { display: block; max-width: 100%; }
 button, input { font: inherit; color: inherit; }
