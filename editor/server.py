@@ -4,8 +4,8 @@ import json, os, sys, mimetypes
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, os.path.join(ROOT, "tools"))
-import build_tokens as bt
+TOKENS_PATH = os.path.join(ROOT, "tds/foundations/tokens/tokens.json")
+CSS_PATH = os.path.join(ROOT, "tds/foundations/tokens/tokens.css")
 
 mimetypes.add_type("font/woff2", ".woff2")
 mimetypes.add_type("text/javascript", ".js")
@@ -48,13 +48,16 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         path = self.path.split("?")[0]
         if path == "/api/tokens":
-            with open(bt.TOKENS_PATH) as f:
+            with open(TOKENS_PATH) as f:
                 return self._json(200, json.load(f))
-        if path == "/api/schema":
-            return self._json(200, bt.load_schema())
         if path == "/":
             self.send_response(302); self.send_header("Location", "/editor/"); self.end_headers(); return
         return super().do_GET()
+
+    def do_HEAD(self):
+        if self.path.split("?")[0] == "/api/tokens":
+            self.send_response(200); self.send_header("Content-Length", "0"); self.end_headers(); return
+        return super().do_HEAD()
 
     def do_PUT(self):
         if self.path.split("?")[0] != "/api/tokens":
@@ -64,7 +67,12 @@ class Handler(SimpleHTTPRequestHandler):
             err = valid(data)
             if err:
                 return self._json(400, {"error": err})
-            bt.write_all(data)
+            if not isinstance(data.get("css"), str):
+                return self._json(400, {"error": "css missing"})
+            with open(TOKENS_PATH, "w") as f:
+                json.dump({"tokens": data["tokens"]}, f, indent=2); f.write("\n")
+            with open(CSS_PATH, "w") as f:
+                f.write(data["css"])
         except Exception as e:  # noqa
             return self._json(400, {"error": str(e)})
         self._json(200, {"ok": True})

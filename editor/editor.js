@@ -1,3 +1,6 @@
+import { buildCss } from '../tools/build-tokens.js';
+import * as gh from './github.js';
+
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const getPath = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
@@ -217,15 +220,67 @@ $('#add').addEventListener('click', () => {
 });
 
 /* ---------- save / load ---------- */
+const TOKENS_JSON = 'tds/foundations/tokens/tokens.json', TOKENS_CSS = 'tds/foundations/tokens/tokens.css';
+let mode = 'local', dirty = false;   // local: python server autosaves. github: explicit commit.
+
 function setStatus(msg, err) { const s = $('#status'); s.textContent = msg; s.className = 'status' + (err ? ' err' : ''); }
-function scheduleSave() { setStatus('Saving…'); clearTimeout(saveTimer); saveTimer = setTimeout(save, 300); }
-async function save() {
+const files = () => ({ [TOKENS_JSON]: JSON.stringify({ tokens }, null, 2) + '\n', [TOKENS_CSS]: buildCss(tokens, schema) });
+
+// Push the current (possibly unsaved) tokens into the canvas as a layer-scoped stylesheet.
+function applyLive() {
+  const doc = screen.contentDocument; if (!doc || !doc.head || !tokens.length) return;
+  let st = doc.getElementById('live-tokens');
+  if (!st) { st = doc.createElement('style'); st.id = 'live-tokens'; doc.head.appendChild(st); }
+  st.textContent = `@layer tokens {\n${buildCss(tokens, schema)}\n}`;
+}
+
+function scheduleSave() {
+  applyLive();
+  if (mode === 'github') { dirty = true; setStatus('Unsaved changes'); renderMode(); return; }
+  setStatus('Saving…'); clearTimeout(saveTimer); saveTimer = setTimeout(saveLocal, 300);
+}
+async function saveLocal() {
   try {
-    const r = await fetch('/api/tokens', { method: 'PUT', body: JSON.stringify({ tokens }) });
+    const f = files();
+    const r = await fetch('../api/tokens', { method: 'PUT', body: JSON.stringify({ tokens, css: f[TOKENS_CSS] }) });
     const j = await r.json();
     setStatus(r.ok ? 'Saved' : j.error, !r.ok);
-    if (r.ok) refreshCanvas();
   } catch { setStatus('Save failed — is the server running?', true); }
+}
+
+function renderMode() {
+  const gm = mode === 'github', cfg = gh.getCfg();
+  $('#signin').hidden = !gm; $('#commit').hidden = !gm;
+  $('#signin').textContent = cfg.token ? 'GitHub ✓' : 'Sign in';
+  $('#commit').disabled = !dirty;
+}
+$('#signin').addEventListener('click', () => {
+  const c = gh.getCfg(); $('#g-token').value = c.token; $('#g-repo').value = c.repo; $('#g-branch').value = c.branch; $('#dlg').showModal();
+});
+$('#dlg').addEventListener('close', async () => {
+  if ($('#dlg').returnValue !== 'ok') return;
+  gh.setCfg({ token: $('#g-token').value.trim(), repo: $('#g-repo').value.trim(), branch: $('#g-branch').value.trim() || 'main' });
+  renderMode();
+  if (!dirty) await loadTokens();   // pick up the latest from the repo
+});
+$('#commit').addEventListener('click', async () => {
+  if (!gh.getCfg().token) return $('#signin').click();
+  setStatus('Committing…'); $('#commit').disabled = true;
+  try {
+    await gh.commit(files(), 'Update design tokens via editor');
+    dirty = false; setStatus(`Committed to ${gh.getCfg().branch} — the site updates in about a minute`);
+  } catch (e) { setStatus(e.message, true); }
+  renderMode();
+});
+window.addEventListener('beforeunload', (e) => { if (dirty) e.preventDefault(); });
+
+async function loadTokens() {
+  try {
+    if (mode === 'github' && gh.getCfg().token) tokens = (await gh.load(TOKENS_JSON)).tokens;
+    else tokens = (await fetch(mode === 'local' ? '../api/tokens' : '../' + TOKENS_JSON, { cache: 'no-store' }).then((r) => r.json())).tokens;
+    selected = null; renderAll(); applyLive();
+    if (mode === 'github' && !gh.getCfg().token) setStatus('Read-only — sign in to commit changes');
+  } catch (e) { setStatus(e.message, true); }
 }
 
 function renderAll() { renderNav(); renderCrumbs(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind; }
@@ -286,14 +341,11 @@ function syncToggles() {
 $('#t-wire').addEventListener('click', () => { fidelity = fidelity === 'wireframe' ? 'styled' : 'wireframe'; applyModes(); syncToggles(); });
 $('#t-dark').addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; applyModes(); syncToggles(); });
 
-let scrollY = 0;
-screen.addEventListener('load', () => { applyModes(); screen.contentWindow.scrollTo(0, scrollY); });
-function refreshCanvas() {
-  try { scrollY = screen.contentWindow.scrollY; screen.contentWindow.location.reload(); } catch { /* not loaded yet */ }
-}
+screen.addEventListener('load', () => { applyModes(); applyLive(); });
 syncToggles();
 
 (async () => {
-  [tokens, schema] = await Promise.all([fetch('/api/tokens').then((r) => r.json()).then((j) => j.tokens), fetch('/api/schema').then((r) => r.json())]);
-  renderAll();
+  schema = await fetch('../tools/token-schema.json').then((r) => r.json());
+  mode = (await fetch('../api/tokens', { method: 'HEAD' }).catch(() => ({ ok: false }))).ok ? 'local' : 'github';
+  renderMode(); await loadTokens();
 })();

@@ -17,9 +17,16 @@ A layer may only use layers before it. Components consume **roles** (not primiti
 
 ## Editor
 
+Two ways to run it. Both read/write `tds/foundations/tokens/tokens.json` and generate `tokens.css`
+in the browser (`tools/build-tokens.js`) — don't hand-edit `tokens.css`.
+
+**On the web (GitHub Pages)** — `https://richardcollins-pixel.github.io/thoughtful-design-system/editor/`
+Open it read-only, or click *Sign in* and paste a fine-grained GitHub token with *Contents: read & write*
+on this repo (stored only in your browser). *Commit changes* saves everything as one commit; Pages
+redeploys in about a minute. The canvas updates live before you commit.
+
+**Locally** — autosaves to disk, no token needed (Python 3, no dependencies):
+
 ```
 python3 editor/server.py      # http://localhost:5173/editor/   (preview page at /preview/)
 ```
-
-Tokens live in `tds/foundations/tokens/tokens.json`. The editor saves to it and regenerates
-`tokens.css` (via `tools/build_tokens.py`). Don't hand-edit `tokens.css`. No dependencies beyond Python 3.

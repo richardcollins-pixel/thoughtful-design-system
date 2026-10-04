@@ -82,3 +82,10 @@ td.name { font-weight:500; white-space:nowrap; }
 #screen { display:block; border:0; background:#fff; }
 #frame.phone #screen { border-radius:34px; }
 #frame.plain #screen { border-radius:9px; }
+
+dialog { border:0; border-radius:14px; padding:0; width:420px; box-shadow:0 20px 60px rgb(0 0 0 / .25); }
+dialog::backdrop { background:rgb(0 0 0 / .3); }
+.dlg { padding:24px; display:flex; flex-direction:column; gap:14px; }
+.dlg a { color:#7a4de8; }
+.dlg-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:6px; }
+.btn:disabled { opacity:.4; cursor:default; }
