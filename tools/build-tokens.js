@@ -12,17 +12,15 @@ export function buildCss(tokens, schema) {
   const out = ['/* GENERATED from tokens.json by tools/build-tokens.js — edit in the editor, not here. */\n'];
   const block = (selector, lines) => out.push(`${selector} {\n${lines.map((l) => '  ' + l).join('\n')}\n}\n`);
 
-  block(':root', of('primitive').map((t) => `--${t.name}: ${t.hex};`));
+  const prims = of('primitive');
+  block(':root', prims.map((t) => `--${t.name}: ${t.hex};`));
+  // Wireframe = color out: every primitive drops to zero chroma (same lightness).
+  block(':root[data-fidelity="wireframe"]', prims.map((t) => `--${t.name}: oklch(from ${t.hex} l 0 h);`));
 
-  const roles = of('role'), pal = [];
-  for (const t of roles) {
-    const l = roleValue(t, 'light'), d = roleValue(t, 'dark');
-    pal.push(`--t-${t.name}: light-dark(${l}, ${d});`, `--t-${t.name}-i: light-dark(${d}, ${l});`);
-  }
-  block(':root', pal);
-  block(':root, [data-surface="normal"]', roles.flatMap((t) => [`--${t.name}: var(--t-${t.name});`, `--${t.name}-inverse: var(--t-${t.name}-i);`]));
-  block('[data-surface="inverse"]', roles.flatMap((t) => [`--${t.name}: var(--t-${t.name}-i);`, `--${t.name}-inverse: var(--t-${t.name});`]));
-  out.push(':root, [data-theme="light"] { color-scheme: light; }\n[data-theme="dark"] { color-scheme: dark; }\n');
+  const roles = of('role');
+  block(':root, [data-surface="normal"]', roles.flatMap((t) => [`--${t.name}: ${roleValue(t, 'base')};`, `--${t.name}-inverse: ${roleValue(t, 'inverse')};`]));
+  block('[data-surface="inverse"]', roles.flatMap((t) => [`--${t.name}: ${roleValue(t, 'inverse')};`, `--${t.name}-inverse: ${roleValue(t, 'base')};`]));
+  out.push(':root { color-scheme: dark; }\n');
 
   block(':root', ['padding', 'spacing', 'radius'].flatMap((k) => of(k).map((t) => `--${t.name}: ${fmt(t.px)}px;`)));
   block(':root', [

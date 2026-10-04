@@ -13,7 +13,8 @@ preview/        plain page for eyeballing the system
 
 Layer order: `tokens, base, styles, layout, parts, blocks, sections, templates, screens, modes`.
 A layer may only use layers before it. Components consume **roles** (not primitives), so
-`data-fidelity="wireframe"`, `data-theme="dark"` and `data-surface="inverse"` work without per-component code.
+`data-fidelity="wireframe"` (color + imagery out) and `data-surface="inverse"` work without per-component code.
+The system is dark-only for now; roles have a `base` and an `inverse` value.
 
 ## Editor
 

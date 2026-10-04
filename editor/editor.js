@@ -7,7 +7,7 @@ const getPath = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : a[k]), 
 const setPath = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); ks.reduce((a, k) => a[k], o)[last] = v; };
 
 let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
-let view = localStorage.tdsView || 'table', fidelity = 'styled', theme = 'light';
+let view = localStorage.tdsView || 'table', fidelity = 'styled';
 let components = [], component = null, cstate = { attrs: {}, state: '', vars: {} };
 let kind = 'primitive', navKey = 'tokens/color/primitives', selected = null, saveTimer;
 const expanded = new Set(['tokens', 'tokens/color', 'tokens/layout', 'tokens/type', 'tokens/motion', 'components', 'components/parts']);
@@ -35,14 +35,14 @@ const KINDS = {
     (t) => sw(t.hex, 100, true)),
   role: {
     path: ['tokens', 'color', 'roles'], noun: 'role',
-    make: () => ({ group: 'background', values: { light: { ref: 'gray-900', opacity: 100 }, dark: { ref: 'white', opacity: 100 } } }),
+    make: () => ({ group: 'background', values: { base: { ref: 'gray-50', opacity: 100 }, inverse: { ref: 'gray-900', opacity: 100 } } }),
     fields: [
       { key: 'group', label: 'Group', type: 'text', list: true }, NAME,
-      { section: 'Light' }, { key: 'values.light', label: 'Color + opacity', type: 'refop' },
-      { section: 'Dark' }, { key: 'values.dark', label: 'Color + opacity', type: 'refop' },
+      { section: 'Base' }, { key: 'values.base', label: 'Color + opacity', type: 'refop' },
+      { section: 'Inverse' }, { key: 'values.inverse', label: 'Color + opacity', type: 'refop' },
     ],
-    cols: [['Light', (t) => refChip(t.values.light)], ['Dark', (t) => refChip(t.values.dark)]],
-    preview: (t) => `<div class="pair" style="grid-template-columns:1fr 1fr">${sw(primHex(t.values.light.ref), t.values.light.opacity, true)}${sw(primHex(t.values.dark.ref), t.values.dark.opacity, true)}</div>`,
+    cols: [['Base', (t) => refChip(t.values.base)], ['Inverse', (t) => refChip(t.values.inverse)]],
+    preview: (t) => `<div class="pair" style="grid-template-columns:1fr 1fr">${sw(primHex(t.values.base.ref), t.values.base.opacity, true)}${sw(primHex(t.values.inverse.ref), t.values.inverse.opacity, true)}</div>`,
   },
   padding: simple(['tokens', 'layout', 'padding'], 'padding', () => ({ px: 16 }), [px()],
     [['px', (t) => `${t.px}px`], ['', (t) => `<div class="bar" style="width:${Math.min(t.px, 200)}px"></div>`]],
@@ -205,14 +205,14 @@ $('#panel').addEventListener('change', (e) => {
   if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(v)) { err.textContent = 'Use lowercase letters, numbers and dashes.'; return; }
   if (tokens.some((t) => t !== selected && t.name === v)) { err.textContent = 'That name is taken.'; return; }
   err.textContent = '';
-  if (selected.kind === 'primitive') tokens.forEach((t) => { if (t.kind === 'role') for (const m of ['light', 'dark']) if (t.values[m].ref === selected.name) t.values[m].ref = v; });
+  if (selected.kind === 'primitive') tokens.forEach((t) => { if (t.kind === 'role') for (const m of ['base', 'inverse']) if (t.values[m].ref === selected.name) t.values[m].ref = v; });
   selected.name = v; renderTable(); scheduleSave();
 });
 
 $('#panel').addEventListener('click', (e) => {
   if (e.target.id !== 'del' || !selected) return;
   if (selected.kind === 'primitive') {
-    const users = tokens.filter((t) => t.kind === 'role' && ['light', 'dark'].some((m) => t.values[m].ref === selected.name));
+    const users = tokens.filter((t) => t.kind === 'role' && ['base', 'inverse'].some((m) => t.values[m].ref === selected.name));
     if (users.length) { setStatus(`Can't delete: used by ${users.map((u) => u.name).join(', ')}`, true); return; }
   }
   tokens.splice(tokens.indexOf(selected), 1); selected = null;
@@ -286,10 +286,12 @@ $('#commit').addEventListener('click', async () => {
 });
 window.addEventListener('beforeunload', (e) => { if (dirty) e.preventDefault(); });
 
+const normalize = (list) => list.map((t) => (t.kind === 'role' && t.values.light ? { ...t, values: { base: t.values.dark, inverse: t.values.light } } : t));
+
 async function loadTokens() {
   try {
-    if (mode === 'github' && gh.getCfg().token) tokens = (await gh.load(TOKENS_JSON)).tokens;
-    else tokens = (await fetch(mode === 'local' ? '../api/tokens' : '../' + TOKENS_JSON, { cache: 'no-store' }).then((r) => r.json())).tokens;
+    if (mode === 'github' && gh.getCfg().token) tokens = normalize((await gh.load(TOKENS_JSON)).tokens);
+    else tokens = normalize((await fetch(mode === 'local' ? '../api/tokens' : '../' + TOKENS_JSON, { cache: 'no-store' }).then((r) => r.json())).tokens);
     selected = null; renderAll(); applyLive();
     if (mode === 'github' && !gh.getCfg().token) setStatus('Read-only — sign in to commit changes');
   } catch (e) { setStatus(e.message, true); }
@@ -407,13 +409,12 @@ for (const id of ['dw', 'dh']) $('#' + id).addEventListener('change', (e) => {
 
 function applyModes() {
   const root = screen.contentDocument && screen.contentDocument.documentElement; if (!root) return;
-  root.setAttribute('data-fidelity', fidelity); root.setAttribute('data-theme', theme);
+  root.setAttribute('data-fidelity', fidelity);
 }
 function syncToggles() {
-  $('#t-wire').classList.toggle('on', fidelity === 'wireframe'); $('#t-dark').classList.toggle('on', theme === 'dark');
+  $('#t-wire').classList.toggle('on', fidelity === 'wireframe');
 }
 $('#t-wire').addEventListener('click', () => { fidelity = fidelity === 'wireframe' ? 'styled' : 'wireframe'; applyModes(); syncToggles(); });
-$('#t-dark').addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; applyModes(); syncToggles(); });
 
 screen.addEventListener('load', () => { applyModes(); applyLive(); });
 syncToggles();
