@@ -89,3 +89,4 @@ dialog::backdrop { background:rgb(0 0 0 / .3); }
 .dlg a { color:#7a4de8; }
 .dlg-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:6px; }
 .btn:disabled { opacity:.4; cursor:default; }
+.secret { -webkit-text-security:disc; font-family:Menlo,monospace; }
