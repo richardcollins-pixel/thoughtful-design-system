@@ -1,0 +1,36 @@
+# Deploys the site to GitHub Pages and stamps every deploy with its commit, so the editor can load
+# files by version (see editor/index.html) and never mix old and new files.
+# One-time setup: repo Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
+name: Deploy site
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stamp version
+        run: |
+          V="${GITHUB_SHA::10}"
+          echo "{\"v\":\"$V\"}" > version.json
+          # version the stylesheets the preview pages pull in
+          sed -i -E "s#(@import url\(\"[^\"]+\.css)\"#\1?v=$V\"#" tds/tds.css
+          sed -i "s#\.\./tds/tds\.css#../tds/tds.css?v=$V#" preview/*.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

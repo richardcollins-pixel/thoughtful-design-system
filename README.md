@@ -57,3 +57,14 @@ python3 tools/build_libraries.py     # writes libraries/index.json and libraries
 Icons are used as `<i class="icon icon-check"></i>` (name = file name, lowercased, without `Name=`).
 They're drawn as masks, so they take the current text color — roles, inverse surfaces and
 wireframe mode all apply. Images are plain `<img>`; wireframe mode flattens them.
+
+## Deploys and caching
+
+GitHub Pages lets browsers and its CDN cache files for ~10 minutes, so right after a deploy a page could
+load with a stylesheet from the previous version. To prevent that, `editor/index.html` is a tiny loader that
+reads `version.json` (fetched with a unique URL) and loads the editor's files with that version in their URLs.
+
+- `.github/workflows/pages.yml` deploys on every push to `main` and writes `version.json` (the commit) and
+  stamps the preview pages' stylesheet URLs. Setup, once: **Settings → Pages → Source: GitHub Actions**.
+- Locally there is no `version.json`, so the loader falls back to a fresh timestamp each load.
+- Keep `editor/index.html` small and stable; everything it loads is versioned.
