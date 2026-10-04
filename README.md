@@ -40,3 +40,18 @@ python3 editor/server.py      # http://localhost:5173/editor/   (preview page at
 
 It then appears in the editor nav under components; the canvas renders it from its `meta.json`
 (markup, attributes, states, variables).
+
+## Libraries
+
+Shared assets live in `tds/libraries/`: `icons/`, `images/<group>/` (e.g. `images/therapists/`),
+`graphics/`, `videos/`. The editor's **libraries** nav browses them.
+
+After adding or removing files, regenerate the manifest and icon classes (static hosting can't scan folders):
+
+```
+python3 tools/build_libraries.py     # writes libraries/index.json and libraries/icons.css
+```
+
+Icons are used as `<i class="icon icon-check"></i>` (name = file name, lowercased, without `Name=`).
+They're drawn as masks, so they take the current text color — roles, inverse surfaces and
+wireframe mode all apply. Images are plain `<img>`; wireframe mode flattens them.

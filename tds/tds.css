@@ -16,6 +16,8 @@
 @import url("foundations/layout/layout.css")           layer(layout);
 
 @import url("components/parts/button/button.css")      layer(parts);
+@import url("libraries/icons.css")                      layer(parts);   /* generated */
+@import url("components/parts/icon/icon.css")           layer(parts);
 @import url("components/parts/icon-button/icon-button.css") layer(parts);
 
 @import url("modes/wireframe.css")                     layer(modes);
