@@ -1,7 +1,7 @@
 /* GENERATED from tokens.json by tools/build-tokens.js — edit in the editor, not here. */
 
 :root {
-  --black: #ffffff;
+  --black: #000000;
   --white: #ffffff;
   --gray-50: #f6f6f7;
   --gray-100: #ececee;
@@ -30,7 +30,6 @@
   --green-500: #2e9e55;
   --green-700: #1e7340;
   --green-900: #0f3f23;
-  --new-primitive: #7a4de8;
 }
 
 :root {
