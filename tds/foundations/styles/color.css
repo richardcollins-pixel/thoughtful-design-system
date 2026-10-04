@@ -1,4 +1,4 @@
+/* Named mesh gradients are tokens (--gradient-*, see tokens.css). This is the one linear style from Figma. */
 :root {
-  --gradient-brand: linear-gradient(135deg, var(--purple-500), var(--orange-500));
-  --gradient-brand-soft: linear-gradient(135deg, var(--purple-100), var(--orange-100));
+  --gradient-border: linear-gradient(118.74deg, var(--white) 0%, color-mix(in srgb, var(--white) 10%, transparent) 49.9%, var(--white) 99.9%);
 }
