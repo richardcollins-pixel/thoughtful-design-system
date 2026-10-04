@@ -1,0 +1,23 @@
+{
+  "name": "Button",
+  "tier": "parts",
+  "category": "actions",
+  "stateful": false,
+  "uses": [],
+  "markup": "<button class=\"button\" data-variant=\"primary\">Label</button>",
+  "attributes": {
+    "data-variant": { "type": "enum", "values": ["primary", "secondary", "ghost"], "default": "primary" },
+    "data-size": { "type": "enum", "values": ["sm", "md", "lg"], "default": "md" }
+  },
+  "states": ["hover", "pressed", "focus", "disabled"],
+  "variables": {
+    "--button-bg": "color",
+    "--button-text": "color",
+    "--button-border": "color",
+    "--button-radius": "radius",
+    "--button-padding-y": "padding",
+    "--button-padding-x": "padding",
+    "--button-scale-pressed": "number"
+  },
+  "styles": ["motion-state", "motion-press"]
+}

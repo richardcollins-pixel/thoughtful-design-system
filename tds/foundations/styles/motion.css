@@ -1,0 +1,18 @@
+/* Named motion presets. Apply with data-motion="enter" etc.; components use the
+   --motion-* custom properties for transitions. */
+:root {
+  --distance-enter: 12px;
+  --motion-press: transform var(--duration-instant) var(--ease-standard);
+  --motion-state: background-color var(--duration-fast) var(--ease-standard),
+                  color var(--duration-fast) var(--ease-standard),
+                  box-shadow var(--duration-fast) var(--ease-standard),
+                  border-color var(--duration-fast) var(--ease-standard);
+}
+@keyframes tds-fade-in  { from { opacity: 0; } }
+@keyframes tds-slide-up { from { opacity: 0; transform: translateY(var(--distance-enter)); } }
+@keyframes tds-pop      { from { opacity: 0; transform: scale(0.94); } }
+
+[data-motion="fade-in"]  { animation: tds-fade-in  var(--duration-base) var(--ease-standard) both; }
+[data-motion="enter"]    { animation: tds-slide-up var(--duration-base) var(--ease-standard) both; }
+[data-motion="pop"]      { animation: tds-pop      var(--duration-base) var(--ease-emphasized) both; }
+@media (prefers-reduced-motion: reduce) { :root { --distance-enter: 0; } }

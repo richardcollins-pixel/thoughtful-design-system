@@ -1,0 +1,202 @@
+/* GENERATED from tokens.json by tools/build_tokens.py — edit in the editor, not here. */
+
+:root {
+  --black: #0a0a0c;
+  --white: #ffffff;
+  --gray-50: #f6f6f7;
+  --gray-100: #ececee;
+  --gray-200: #dadadd;
+  --gray-400: #a0a0a8;
+  --gray-600: #62626b;
+  --gray-800: #2b2b31;
+  --gray-900: #17171b;
+  --purple-100: #f1ecfe;
+  --purple-300: #bca6f7;
+  --purple-500: #7a4de8;
+  --purple-700: #5530b5;
+  --purple-900: #2e1a6b;
+  --orange-100: #fff0e0;
+  --orange-300: #ffc285;
+  --orange-500: #f28a1e;
+  --orange-700: #b85f0a;
+  --orange-900: #6b3504;
+  --red-100: #fde8e8;
+  --red-300: #f4a0a0;
+  --red-500: #dc3b3b;
+  --red-700: #a62222;
+  --red-900: #5e1111;
+  --green-100: #e3f6e8;
+  --green-300: #8fd7a4;
+  --green-500: #2e9e55;
+  --green-700: #1e7340;
+  --green-900: #0f3f23;
+}
+
+:root {
+  --t-bg-base: light-dark(var(--white), var(--gray-900));
+  --t-bg-base-i: light-dark(var(--gray-900), var(--white));
+  --t-bg-elevation: light-dark(var(--gray-50), var(--gray-800));
+  --t-bg-elevation-i: light-dark(var(--gray-800), var(--gray-50));
+  --t-text-primary: light-dark(var(--gray-900), var(--gray-50));
+  --t-text-primary-i: light-dark(var(--gray-50), var(--gray-900));
+  --t-text-secondary: light-dark(var(--gray-600), var(--gray-400));
+  --t-text-secondary-i: light-dark(var(--gray-400), var(--gray-600));
+  --t-icon-primary: light-dark(var(--gray-900), var(--gray-50));
+  --t-icon-primary-i: light-dark(var(--gray-50), var(--gray-900));
+  --t-icon-secondary: light-dark(var(--gray-600), var(--gray-400));
+  --t-icon-secondary-i: light-dark(var(--gray-400), var(--gray-600));
+  --t-border-primary: light-dark(var(--gray-400), var(--gray-600));
+  --t-border-primary-i: light-dark(var(--gray-600), var(--gray-400));
+  --t-border-secondary: light-dark(var(--gray-200), var(--gray-800));
+  --t-border-secondary-i: light-dark(var(--gray-800), var(--gray-200));
+  --t-action-bg: light-dark(var(--purple-500), var(--purple-300));
+  --t-action-bg-i: light-dark(var(--purple-300), var(--purple-500));
+  --t-action-text: light-dark(var(--white), var(--gray-900));
+  --t-action-text-i: light-dark(var(--gray-900), var(--white));
+  --t-status-success: light-dark(var(--green-500), var(--green-300));
+  --t-status-success-i: light-dark(var(--green-300), var(--green-500));
+  --t-status-info: light-dark(var(--purple-500), var(--purple-300));
+  --t-status-info-i: light-dark(var(--purple-300), var(--purple-500));
+  --t-status-warning: light-dark(var(--orange-500), var(--orange-300));
+  --t-status-warning-i: light-dark(var(--orange-300), var(--orange-500));
+  --t-status-error: light-dark(var(--red-500), var(--red-300));
+  --t-status-error-i: light-dark(var(--red-300), var(--red-500));
+  --t-overlay-hover: light-dark(color-mix(in srgb, var(--gray-900) 8%, transparent), color-mix(in srgb, var(--white) 8%, transparent));
+  --t-overlay-hover-i: light-dark(color-mix(in srgb, var(--white) 8%, transparent), color-mix(in srgb, var(--gray-900) 8%, transparent));
+  --t-overlay-pressed: light-dark(color-mix(in srgb, var(--gray-900) 16%, transparent), color-mix(in srgb, var(--white) 16%, transparent));
+  --t-overlay-pressed-i: light-dark(color-mix(in srgb, var(--white) 16%, transparent), color-mix(in srgb, var(--gray-900) 16%, transparent));
+  --t-scrim: light-dark(color-mix(in srgb, var(--black) 50%, transparent), color-mix(in srgb, var(--black) 60%, transparent));
+  --t-scrim-i: light-dark(color-mix(in srgb, var(--black) 60%, transparent), color-mix(in srgb, var(--black) 50%, transparent));
+}
+
+:root, [data-surface="normal"] {
+  --bg-base: var(--t-bg-base);
+  --bg-base-inverse: var(--t-bg-base-i);
+  --bg-elevation: var(--t-bg-elevation);
+  --bg-elevation-inverse: var(--t-bg-elevation-i);
+  --text-primary: var(--t-text-primary);
+  --text-primary-inverse: var(--t-text-primary-i);
+  --text-secondary: var(--t-text-secondary);
+  --text-secondary-inverse: var(--t-text-secondary-i);
+  --icon-primary: var(--t-icon-primary);
+  --icon-primary-inverse: var(--t-icon-primary-i);
+  --icon-secondary: var(--t-icon-secondary);
+  --icon-secondary-inverse: var(--t-icon-secondary-i);
+  --border-primary: var(--t-border-primary);
+  --border-primary-inverse: var(--t-border-primary-i);
+  --border-secondary: var(--t-border-secondary);
+  --border-secondary-inverse: var(--t-border-secondary-i);
+  --action-bg: var(--t-action-bg);
+  --action-bg-inverse: var(--t-action-bg-i);
+  --action-text: var(--t-action-text);
+  --action-text-inverse: var(--t-action-text-i);
+  --status-success: var(--t-status-success);
+  --status-success-inverse: var(--t-status-success-i);
+  --status-info: var(--t-status-info);
+  --status-info-inverse: var(--t-status-info-i);
+  --status-warning: var(--t-status-warning);
+  --status-warning-inverse: var(--t-status-warning-i);
+  --status-error: var(--t-status-error);
+  --status-error-inverse: var(--t-status-error-i);
+  --overlay-hover: var(--t-overlay-hover);
+  --overlay-hover-inverse: var(--t-overlay-hover-i);
+  --overlay-pressed: var(--t-overlay-pressed);
+  --overlay-pressed-inverse: var(--t-overlay-pressed-i);
+  --scrim: var(--t-scrim);
+  --scrim-inverse: var(--t-scrim-i);
+}
+
+[data-surface="inverse"] {
+  --bg-base: var(--t-bg-base-i);
+  --bg-base-inverse: var(--t-bg-base);
+  --bg-elevation: var(--t-bg-elevation-i);
+  --bg-elevation-inverse: var(--t-bg-elevation);
+  --text-primary: var(--t-text-primary-i);
+  --text-primary-inverse: var(--t-text-primary);
+  --text-secondary: var(--t-text-secondary-i);
+  --text-secondary-inverse: var(--t-text-secondary);
+  --icon-primary: var(--t-icon-primary-i);
+  --icon-primary-inverse: var(--t-icon-primary);
+  --icon-secondary: var(--t-icon-secondary-i);
+  --icon-secondary-inverse: var(--t-icon-secondary);
+  --border-primary: var(--t-border-primary-i);
+  --border-primary-inverse: var(--t-border-primary);
+  --border-secondary: var(--t-border-secondary-i);
+  --border-secondary-inverse: var(--t-border-secondary);
+  --action-bg: var(--t-action-bg-i);
+  --action-bg-inverse: var(--t-action-bg);
+  --action-text: var(--t-action-text-i);
+  --action-text-inverse: var(--t-action-text);
+  --status-success: var(--t-status-success-i);
+  --status-success-inverse: var(--t-status-success);
+  --status-info: var(--t-status-info-i);
+  --status-info-inverse: var(--t-status-info);
+  --status-warning: var(--t-status-warning-i);
+  --status-warning-inverse: var(--t-status-warning);
+  --status-error: var(--t-status-error-i);
+  --status-error-inverse: var(--t-status-error);
+  --overlay-hover: var(--t-overlay-hover-i);
+  --overlay-hover-inverse: var(--t-overlay-hover);
+  --overlay-pressed: var(--t-overlay-pressed-i);
+  --overlay-pressed-inverse: var(--t-overlay-pressed);
+  --scrim: var(--t-scrim-i);
+  --scrim-inverse: var(--t-scrim);
+}
+
+:root, [data-theme="light"] { color-scheme: light; }
+[data-theme="dark"] { color-scheme: dark; }
+
+:root {
+  --padding-xs: 4px;
+  --padding-sm: 8px;
+  --padding-md: 16px;
+  --padding-lg: 24px;
+  --padding-xl: 32px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+}
+
+:root {
+  --font-family-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-family-display: "PP Editorial New", Georgia, "Times New Roman", serif;
+  --font-family-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.75rem;
+  --font-size-2xl: 2.25rem;
+  --line-height-tight: 1.15;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0em;
+  --letter-spacing-wide: 0.02em;
+}
+
+:root {
+  --duration-instant: 80ms;
+  --duration-fast: 160ms;
+  --duration-base: 240ms;
+  --duration-slow: 400ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1.2);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --duration-instant: 0.01ms; --duration-fast: 0.01ms; --duration-base: 0.01ms; --duration-slow: 0.01ms; }
+}

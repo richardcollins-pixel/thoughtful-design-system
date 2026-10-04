@@ -1,0 +1,34 @@
+/* Part: button. Stateless — pure CSS. Every interactive state can be forced with
+   data-state so the editor can design it, not just wait for a real :hover. */
+.button {
+  --button-bg: var(--action-bg);
+  --button-text: var(--action-text);
+  --button-border: transparent;
+  --button-radius: var(--radius-full);
+  --button-padding-y: var(--padding-sm);
+  --button-padding-x: var(--padding-lg);
+  --button-scale-pressed: 0.97;
+
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  padding: var(--button-padding-y) var(--button-padding-x);
+  font: var(--font-weight-medium) var(--font-size-sm)/var(--line-height-snug) var(--font-family-body);
+  color: var(--button-text);
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: var(--button-radius);
+  cursor: pointer;
+  transition: var(--motion-state), var(--motion-press);
+}
+.button[data-variant="secondary"] { --button-bg: transparent; --button-text: var(--text-primary); --button-border: var(--border-primary); }
+.button[data-variant="ghost"]     { --button-bg: transparent; --button-text: var(--text-primary); }
+.button[data-size="sm"] { --button-padding-y: var(--padding-xs); --button-padding-x: var(--padding-md); font-size: var(--font-size-xs); }
+.button[data-size="lg"] { --button-padding-y: var(--padding-md); --button-padding-x: var(--padding-xl); font-size: var(--font-size-md); }
+
+.button:hover, .button[data-state="hover"]   { filter: brightness(1.08); }
+.button[data-variant="secondary"]:hover, .button[data-variant="secondary"][data-state="hover"],
+.button[data-variant="ghost"]:hover,     .button[data-variant="ghost"][data-state="hover"] { filter: none; background: var(--overlay-hover); }
+.button:active, .button[data-state="pressed"] { transform: scale(var(--button-scale-pressed)); }
+.button:focus-visible, .button[data-state="focus"] { outline: 2px solid var(--action-bg); outline-offset: 2px; }
+.button:disabled, .button[data-state="disabled"] { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+.button[data-variant="secondary"]:active, .button[data-variant="secondary"][data-state="pressed"],
+.button[data-variant="ghost"]:active,     .button[data-variant="ghost"][data-state="pressed"] { background: var(--overlay-pressed); }
