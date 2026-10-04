@@ -412,9 +412,9 @@ function applyModes() {
   root.setAttribute('data-fidelity', fidelity);
 }
 function syncToggles() {
-  $('#t-wire').classList.toggle('on', fidelity === 'wireframe');
+  $('#t-wire').checked = fidelity === 'wireframe';
 }
-$('#t-wire').addEventListener('click', () => { fidelity = fidelity === 'wireframe' ? 'styled' : 'wireframe'; applyModes(); syncToggles(); });
+$('#t-wire').addEventListener('change', (e) => { fidelity = e.target.checked ? 'wireframe' : 'styled'; applyModes(); });
 
 screen.addEventListener('load', () => { applyModes(); applyLive(); });
 syncToggles();

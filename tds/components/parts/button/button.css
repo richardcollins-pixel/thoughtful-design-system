@@ -1,34 +1,95 @@
-/* Part: button. Stateless — pure CSS. Every interactive state can be forced with
-   data-state so the editor can design it, not just wait for a real :hover. */
+/* Part: button. Matches Figma buttons/* — filled, outline, glass, flat; lg/md/sm; default,
+   disabled, confirmation, loading (+ outline on/off). Stateless — pure CSS.
+   Interaction states can be forced with data-state so the editor can design them.
+   On an inverse surface the same roles flip, so no inverse variant is needed. */
 .button {
-  --button-bg: var(--action-bg);
-  --button-text: var(--action-text);
+  --button-fill: var(--bg-elevation-100);
+  --button-fill-hover: var(--bg-elevation-70);
+  --button-fill-pressed: var(--bg-elevation-40);
+  --button-text: var(--text-primary-inverse);
   --button-border: transparent;
   --button-radius: var(--radius-full);
-  --button-padding-y: var(--padding-sm);
+  --button-height: var(--space-12);
   --button-padding-x: var(--padding-lg);
+  --button-gap: var(--space-2);
+  --button-icon-size: var(--space-6);
   --button-scale-pressed: 0.97;
+  --button-blur: 0px;
 
-  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
-  padding: var(--button-padding-y) var(--button-padding-x);
-  font: var(--font-weight-medium) var(--font-size-sm)/var(--line-height-snug) var(--font-family-body);
+  box-sizing: border-box;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--button-gap);
+  height: var(--button-height); padding: 0 var(--button-padding-x);
+  font: var(--font-weight-semibold) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body);
+  letter-spacing: var(--letter-spacing-tight);
+  white-space: nowrap;
   color: var(--button-text);
-  background: var(--button-bg);
+  background: var(--button-fill);
   border: 1px solid var(--button-border);
   border-radius: var(--button-radius);
+  backdrop-filter: blur(var(--button-blur));
   cursor: pointer;
   transition: var(--motion-state), var(--motion-press);
 }
-.button[data-variant="secondary"] { --button-bg: transparent; --button-text: var(--text-primary); --button-border: var(--border-primary); }
-.button[data-variant="ghost"]     { --button-bg: transparent; --button-text: var(--text-primary); }
-.button[data-size="sm"] { --button-padding-y: var(--padding-xs); --button-padding-x: var(--padding-md); font-size: var(--font-size-xs); }
-.button[data-size="lg"] { --button-padding-y: var(--padding-md); --button-padding-x: var(--padding-xl); font-size: var(--font-size-md); }
 
-.button:hover, .button[data-state="hover"]   { filter: brightness(1.08); }
-.button[data-variant="secondary"]:hover, .button[data-variant="secondary"][data-state="hover"],
-.button[data-variant="ghost"]:hover,     .button[data-variant="ghost"][data-state="hover"] { filter: none; background: var(--overlay-hover); }
-.button:active, .button[data-state="pressed"] { transform: scale(var(--button-scale-pressed)); }
-.button:focus-visible, .button[data-state="focus"] { outline: 2px solid var(--action-bg); outline-offset: 2px; }
-.button:disabled, .button[data-state="disabled"] { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
-.button[data-variant="secondary"]:active, .button[data-variant="secondary"][data-state="pressed"],
-.button[data-variant="ghost"]:active,     .button[data-variant="ghost"][data-state="pressed"] { background: var(--overlay-pressed); }
+/* ---- sizes (lg 64 / md 48 / sm 24) ---- */
+.button[data-size="lg"] { --button-height: var(--space-16); }
+.button[data-size="sm"] {
+  --button-height: var(--space-6); --button-padding-x: var(--padding-md); --button-icon-size: var(--space-4);
+  font-size: var(--font-size-sm); letter-spacing: var(--letter-spacing-normal);
+}
+.button[data-width="full"] { display: flex; width: 100%; }
+
+/* ---- variants ---- */
+.button[data-variant="outline"] {
+  --button-fill: transparent; --button-fill-hover: var(--bg-elevation-10); --button-fill-pressed: var(--bg-elevation-20);
+  --button-text: var(--text-primary); --button-border: var(--border-primary);
+}
+.button[data-variant="outline"][data-on="false"] { --button-text: var(--text-tertiary); --button-border: var(--border-secondary); }
+
+.button[data-variant="glass"] {
+  --button-fill: var(--bg-elevation-20); --button-fill-hover: var(--bg-elevation-40); --button-fill-pressed: var(--bg-elevation-40);
+  --button-text: var(--text-primary); --button-blur: 44px;
+  font-weight: var(--font-weight-regular);
+}
+.button[data-variant="flat"] {
+  --button-fill: transparent; --button-fill-hover: var(--bg-elevation-10); --button-fill-pressed: var(--bg-elevation-20);
+  --button-text: var(--text-primary); --button-padding-x: var(--padding-sm);
+}
+
+/* ---- states ---- */
+.button:hover, .button[data-state="hover"]   { background: var(--button-fill-hover); }
+.button:active, .button[data-state="pressed"] { background: var(--button-fill-pressed); transform: scale(var(--button-scale-pressed)); }
+.button:focus-visible, .button[data-state="focus"] { outline: 2px solid var(--border-primary); outline-offset: 2px; }
+
+.button:disabled, .button[data-state="disabled"] {
+  --button-fill: var(--bg-elevation-20); --button-fill-hover: var(--bg-elevation-20);
+  cursor: not-allowed; pointer-events: none;
+}
+.button[data-variant="outline"]:disabled, .button[data-variant="outline"][data-state="disabled"] {
+  --button-fill: transparent; --button-fill-hover: transparent; --button-text: var(--text-tertiary); --button-border: var(--border-secondary);
+}
+.button[data-variant="glass"]:disabled, .button[data-variant="glass"][data-state="disabled"],
+.button[data-variant="flat"]:disabled,  .button[data-variant="flat"][data-state="disabled"] { opacity: 0.4; }
+
+.button[data-state="loading"] { --button-fill: var(--bg-elevation-20); --button-fill-hover: var(--bg-elevation-20); --button-text: var(--text-primary); pointer-events: none; }
+.button[data-variant="outline"][data-state="loading"] { --button-fill: transparent; --button-fill-hover: transparent; }
+
+.button[data-state="confirmation"] {
+  --button-fill: transparent; --button-fill-hover: var(--bg-elevation-10);
+  --button-text: var(--text-primary); --button-border: var(--border-primary);
+}
+
+/* ---- loading spinner + confirmation check ---- */
+.button[data-state="loading"]::before, .button[data-state="confirmation"]::before {
+  content: ""; flex: none; width: var(--button-icon-size); height: var(--button-icon-size);
+}
+.button[data-state="loading"]::before {
+  box-sizing: border-box; border-radius: 50%;
+  border: 2px solid color-mix(in srgb, currentColor 30%, transparent); border-top-color: currentColor;
+  animation: tds-spin 900ms linear infinite;
+}
+.button[data-state="confirmation"]::before {
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5.5 5.5L20 6.5'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5.5 5.5L20 6.5'/%3E%3C/svg%3E") center / contain no-repeat;
+}

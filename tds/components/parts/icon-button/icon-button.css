@@ -1,0 +1,35 @@
+/* Part: icon button. Matches Figma "Icon Button": circle, elevation 100/70/40/20/0, three sizes. */
+.icon-button {
+  --icon-button-fill: var(--bg-elevation-100);
+  --icon-button-fill-hover: var(--bg-elevation-70);
+  --icon-button-fill-pressed: var(--bg-elevation-40);
+  --icon-button-icon: var(--text-primary-inverse);
+  --icon-button-size: var(--space-12);
+  --icon-button-icon-size: var(--space-6);
+  --icon-button-radius: var(--radius-full);
+  --icon-button-scale-pressed: 0.94;
+
+  box-sizing: border-box; display: inline-grid; place-items: center; flex: none; padding: 0; border: 0;
+  width: var(--icon-button-size); height: var(--icon-button-size);
+  color: var(--icon-button-icon); background: var(--icon-button-fill);
+  border-radius: var(--icon-button-radius); cursor: pointer;
+  transition: var(--motion-state), var(--motion-press);
+}
+.icon-button > svg { width: var(--icon-button-icon-size); height: var(--icon-button-icon-size); }
+
+.icon-button[data-size="lg"] { --icon-button-size: var(--space-16); }
+.icon-button[data-size="sm"] { --icon-button-icon-size: var(--space-4); }
+
+.icon-button[data-elevation="70"] { --icon-button-fill: var(--bg-elevation-70); --icon-button-fill-hover: var(--bg-elevation-40); --icon-button-fill-pressed: var(--bg-elevation-20); }
+.icon-button[data-elevation="40"] { --icon-button-fill: var(--bg-elevation-40); --icon-button-fill-hover: var(--bg-elevation-70); --icon-button-fill-pressed: var(--bg-elevation-20); --icon-button-icon: var(--icon-primary); }
+.icon-button[data-elevation="20"] { --icon-button-fill: var(--bg-elevation-20); --icon-button-fill-hover: var(--bg-elevation-40); --icon-button-fill-pressed: var(--bg-elevation-70); --icon-button-icon: var(--icon-primary); }
+.icon-button[data-elevation="0"]  { --icon-button-fill: transparent; --icon-button-fill-hover: var(--bg-elevation-10); --icon-button-fill-pressed: var(--bg-elevation-20); --icon-button-icon: var(--icon-primary); }
+
+.icon-button:hover, .icon-button[data-state="hover"]    { background: var(--icon-button-fill-hover); }
+.icon-button:active, .icon-button[data-state="pressed"] { background: var(--icon-button-fill-pressed); transform: scale(var(--icon-button-scale-pressed)); }
+.icon-button:focus-visible, .icon-button[data-state="focus"] { outline: 2px solid var(--border-primary); outline-offset: 2px; }
+.icon-button:disabled, .icon-button[data-state="disabled"] {
+  --icon-button-fill: var(--bg-elevation-20); --icon-button-fill-hover: var(--bg-elevation-20); --icon-button-icon: var(--icon-secondary);
+  opacity: 0.6; cursor: not-allowed; pointer-events: none;
+}
+.icon-button[data-elevation="0"]:disabled, .icon-button[data-elevation="0"][data-state="disabled"] { --icon-button-fill: transparent; --icon-button-fill-hover: transparent; }
