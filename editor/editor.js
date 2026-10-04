@@ -4,6 +4,7 @@ const getPath = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : a[k]), 
 const setPath = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); ks.reduce((a, k) => a[k], o)[last] = v; };
 
 let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
+let view = localStorage.tdsView || 'table', fidelity = 'styled', theme = 'light';
 let kind = 'primitive', navKey = 'tokens/color/primitives', selected = null, saveTimer;
 const expanded = new Set(['tokens', 'tokens/color', 'tokens/layout', 'tokens/type', 'tokens/motion']);
 
@@ -223,10 +224,74 @@ async function save() {
     const r = await fetch('/api/tokens', { method: 'PUT', body: JSON.stringify({ tokens }) });
     const j = await r.json();
     setStatus(r.ok ? 'Saved' : j.error, !r.ok);
+    if (r.ok) refreshCanvas();
   } catch { setStatus('Save failed — is the server running?', true); }
 }
 
-function renderAll() { renderNav(); renderCrumbs(); renderTable(); renderPanel(); $('#add').disabled = !kind; }
+function renderAll() { renderNav(); renderCrumbs(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind; }
+
+/* ---------- canvas ---------- */
+const DEVICES = [
+  { name: 'iPhone 17', w: 390, h: 874, phone: true },
+  { name: 'iPhone 17 Pro Max', w: 440, h: 956, phone: true },
+  { name: 'iPhone SE', w: 375, h: 667, phone: true },
+  { name: 'Pixel 9', w: 412, h: 915, phone: true },
+  { name: 'iPad mini', w: 744, h: 1133, phone: true },
+  { name: 'Desktop', w: 1280, h: 800, phone: false },
+];
+let dims = { w: DEVICES[0].w, h: DEVICES[0].h }, phoneFrame = true;
+const screen = $('#screen');
+
+function renderView() {
+  const canvas = view === 'canvas';
+  $('#body').hidden = canvas; $('#stage').hidden = !canvas; $('#toolbar').hidden = !canvas;
+  $('#add').hidden = canvas;
+  document.querySelectorAll('#viewseg button').forEach((b) => b.classList.toggle('on', b.dataset.view === view));
+  if (canvas) fit();
+}
+$('#viewseg').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  view = localStorage.tdsView = b.dataset.view; renderView();
+});
+
+function fit() {
+  const st = $('#stage'), bez = phoneFrame ? 10 : 0;
+  const W = dims.w + 2 * bez, H = dims.h + 2 * bez;
+  const s = Math.min(1, (st.clientWidth - 48) / W, (st.clientHeight - 32) / H);
+  $('#wrap').style.cssText = `width:${W * s}px;height:${H * s}px`;
+  const f = $('#frame');
+  f.className = phoneFrame ? 'phone' : 'plain';
+  f.style.cssText = `width:${W}px;height:${H}px;transform:scale(${s})`;
+  screen.style.cssText = `width:${dims.w}px;height:${dims.h}px`;
+  $('#dw').value = dims.w; $('#dh').value = dims.h;
+}
+new ResizeObserver(() => { if (view === 'canvas') fit(); }).observe($('#stage'));
+
+$('#device').innerHTML = DEVICES.map((d, i) => `<option value="${i}">${d.name} ▾</option>`).join('');
+$('#device').addEventListener('change', (e) => {
+  const d = DEVICES[+e.target.value]; dims = { w: d.w, h: d.h }; phoneFrame = d.phone; fit();
+});
+for (const id of ['dw', 'dh']) $('#' + id).addEventListener('change', (e) => {
+  const v = Math.max(200, Math.min(3000, parseInt(e.target.value, 10) || 0)) ; if (!v) return fit();
+  dims[id === 'dw' ? 'w' : 'h'] = v; fit();
+});
+
+function applyModes() {
+  const root = screen.contentDocument && screen.contentDocument.documentElement; if (!root) return;
+  root.setAttribute('data-fidelity', fidelity); root.setAttribute('data-theme', theme);
+}
+function syncToggles() {
+  $('#t-wire').classList.toggle('on', fidelity === 'wireframe'); $('#t-dark').classList.toggle('on', theme === 'dark');
+}
+$('#t-wire').addEventListener('click', () => { fidelity = fidelity === 'wireframe' ? 'styled' : 'wireframe'; applyModes(); syncToggles(); });
+$('#t-dark').addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; applyModes(); syncToggles(); });
+
+let scrollY = 0;
+screen.addEventListener('load', () => { applyModes(); screen.contentWindow.scrollTo(0, scrollY); });
+function refreshCanvas() {
+  try { scrollY = screen.contentWindow.scrollY; screen.contentWindow.location.reload(); } catch { /* not loaded yet */ }
+}
+syncToggles();
 
 (async () => {
   [tokens, schema] = await Promise.all([fetch('/api/tokens').then((r) => r.json()).then((j) => j.tokens), fetch('/api/schema').then((r) => r.json())]);

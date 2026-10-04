@@ -2,7 +2,7 @@
 * { box-sizing:border-box; margin:0; }
 body { background:#f6f6f6; height:100vh; overflow:hidden; }
 button, input, select { font:inherit; color:inherit; }
-.app { display:grid; grid-template-columns:240px 1fr 340px; height:100vh; }
+.app { display:grid; grid-template-columns:240px minmax(0,1fr) 340px; grid-template-rows:minmax(0,1fr); height:100vh; }
 
 /* nav */
 .nav { background:#fff; padding:28px 0 24px 28px; overflow:auto; }
@@ -60,3 +60,25 @@ td.name { font-weight:500; white-space:nowrap; }
 .bez { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
 .err-msg { color:#c0392b; font-size:12px; min-height:14px; }
 .spacer { flex:1; }
+
+[hidden] { display:none !important; }
+
+/* view toggle + canvas toolbar */
+.seg { display:inline-flex; gap:2px; padding:3px; border-radius:10px; }
+.seg button { background:none; border:0; border-radius:8px; padding:5px 12px; cursor:pointer; color:var(--mute); }
+.seg button.on { background:#fff; color:var(--ink); box-shadow:0 1px 2px rgb(0 0 0 / .06); }
+.toolbar { display:flex; align-items:center; gap:14px; padding:0 24px 12px; color:var(--mute); }
+.toolbar select { background:none; border:0; font-size:15px; color:#444; cursor:pointer; padding:4px 0; }
+.dims { display:inline-flex; align-items:center; gap:6px; font-size:15px; }
+.dims input { width:56px; background:none; border:0; border-bottom:1px solid transparent; color:var(--mute); font-size:15px; text-align:center; -moz-appearance:textfield; }
+.dims input::-webkit-inner-spin-button { appearance:none; }
+.dims input:focus { outline:none; border-bottom-color:var(--mute); color:var(--ink); }
+
+/* canvas */
+.stage { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:8px 24px 24px; overflow:hidden; }
+#frame { transform-origin:top left; background:#000; box-shadow:0 12px 40px rgb(0 0 0 / .12); }
+#frame.phone { border-radius:44px; padding:10px; }
+#frame.plain { border-radius:10px; padding:0; border:1px solid var(--line); background:#fff; }
+#screen { display:block; border:0; background:#fff; }
+#frame.phone #screen { border-radius:34px; }
+#frame.plain #screen { border-radius:9px; }

@@ -4,8 +4,10 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TDS preview</title>
   <link rel="stylesheet" href="../tds/tds.css">
+  <script>if (self !== top) document.documentElement.setAttribute('data-embedded', '');</script>
   <style>
     /* preview chrome only */
+    [data-embedded] .toolbar { display: none; }
     .toolbar { position: sticky; top: 0; z-index: 1; padding: var(--space-3) var(--space-6); border-bottom: 1px solid var(--border-secondary); background: var(--bg-base); }
     main { padding: var(--space-6); max-width: 48rem; margin: 0 auto; }
     .swatch { width: 3rem; height: 3rem; border-radius: var(--radius-sm); border: 1px solid var(--border-secondary); }
