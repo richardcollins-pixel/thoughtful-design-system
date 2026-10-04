@@ -1,0 +1,4 @@
+:root {
+  --gradient-brand: linear-gradient(135deg, var(--purple-500), var(--orange-500));
+  --gradient-brand-soft: linear-gradient(135deg, var(--purple-100), var(--orange-100));
+}

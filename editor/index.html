@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tds editor</title>
+  <link rel="stylesheet" href="../tds/foundations/fonts.css">
+  <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+  <div class="app">
+    <nav class="nav" id="nav"></nav>
+    <main class="center">
+      <header class="center-head">
+        <div class="crumbs" id="crumbs"></div>
+        <div class="head-actions">
+          <span class="status" id="status"></span>
+          <div class="seg" id="viewseg"><button data-view="table">Table</button><button data-view="canvas">Canvas</button></div>
+          <button class="btn" id="signin" hidden>GitHub</button>
+          <button class="btn dark" id="commit" hidden>Commit changes</button>
+          <button class="btn" id="add">+ Add token</button>
+        </div>
+      </header>
+      <div class="toolbar" id="toolbar" hidden>
+        <select id="device"></select>
+        <span class="dims"><input id="dw" type="number" min="200" max="3000"> <span>×</span> <input id="dh" type="number" min="200" max="3000"></span>
+        <span class="spacer"></span>
+        <div class="seg"><button id="t-wire">Wireframe</button><button id="t-dark">Dark Mode</button></div>
+      </div>
+      <div class="center-body" id="body"></div>
+      <div class="stage" id="stage" hidden><div id="wrap"><div id="frame"><iframe id="screen" src="../preview/" title="canvas"></iframe></div></div></div>
+    </main>
+    <aside class="panel" id="panel"></aside>
+  </div>
+  <dialog id="dlg"><form method="dialog" class="dlg">
+    <h2>GitHub</h2>
+    <p class="mute">Edits are saved as commits to the repo. Create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained token</a> for this repository with <b>Contents: Read and write</b>. It is kept only in this browser.</p>
+    <div class="field"><label>Token</label><input type="password" id="g-token" autocomplete="off"></div>
+    <div class="field"><label>Repository</label><input id="g-repo" placeholder="owner/repo"></div>
+    <div class="field"><label>Branch</label><input id="g-branch"></div>
+    <div class="dlg-actions"><button class="btn" value="cancel">Cancel</button><button class="btn dark" value="ok">Save</button></div>
+  </form></dialog>
+  <script type="module" src="editor.js"></script>
+</body>
+</html>

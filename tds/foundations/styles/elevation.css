@@ -1,0 +1,10 @@
+/* Elevation = surface color + shadow. Wireframe swaps shadows for outlines (modes/). */
+:root {
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.08), 0 1px 1px rgb(0 0 0 / 0.04);
+  --shadow-2: 0 4px 12px rgb(0 0 0 / 0.12), 0 1px 3px rgb(0 0 0 / 0.08);
+  --shadow-3: 0 12px 32px rgb(0 0 0 / 0.18), 0 2px 6px rgb(0 0 0 / 0.1);
+}
+.elevation-0 { background: var(--bg-base); }
+.elevation-1 { background: var(--bg-elevation); box-shadow: var(--shadow-1); }
+.elevation-2 { background: var(--bg-elevation); box-shadow: var(--shadow-2); }
+.elevation-3 { background: var(--bg-elevation); box-shadow: var(--shadow-3); }
