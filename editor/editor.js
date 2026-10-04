@@ -382,7 +382,8 @@ async function loadComponents() {
 }
 
 function setCanvasSrc() {
-  const want = component ? `../preview/component.html?c=${component.path}` : '../preview/index.html';
+  const v = window.__V ? `${component ? '&' : '?'}v=${window.__V}` : '';
+  const want = (component ? `../preview/component.html?c=${component.path}` : '../preview/index.html') + v;
   if (screen.getAttribute('src') !== want) screen.setAttribute('src', want);
 }
 
@@ -510,5 +511,5 @@ setUi(localStorage.tdsUi !== 'off');
 (async () => {
   schema = await fetch('../tools/token-schema.json').then((r) => r.json());
   mode = (await fetch('../api/tokens', { method: 'HEAD' }).catch(() => ({ ok: false }))).ok ? 'local' : 'github';
-  renderMode(); await Promise.all([loadTokens(), loadComponents(), loadLibraries()]); renderAll();
+  renderMode(); await Promise.all([loadTokens(), loadComponents(), loadLibraries()]); renderAll(); setCanvasSrc();
 })();

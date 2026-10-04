@@ -3,49 +3,30 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>tds editor</title>
-  <link rel="stylesheet" href="../tds/foundations/fonts.css">
-  <link rel="stylesheet" href="editor.css">
+  <style>html, body { margin: 0; height: 100%; background: #ececef; }</style>
 </head>
 <body>
-  <div class="app" id="app" data-ui="on">
-    <!-- the design: full-screen canvas -->
-    <div class="stage" id="stage" hidden><div id="wrap"><div id="frame"><iframe id="screen" src="../preview/index.html" title="canvas"></iframe></div></div></div>
-
-    <!-- everything below floats on top and hides with ⌘\ -->
-    <nav class="float nav" id="nav"></nav>
-
-    <div class="float tb top" id="topbar">
-      <div class="crumbs" id="crumbs"></div>
-      <div class="group" id="toolbar" hidden>
-        <i class="sep"></i>
-        <select id="device" aria-label="Device"></select>
-        <span class="dims"><input id="dw" type="number" min="200" max="3000" aria-label="Width"><span>×</span><input id="dh" type="number" min="200" max="3000" aria-label="Height"></span>
-        <i class="sep"></i>
-        <label class="switch"><span>Wireframe Mode</span><input type="checkbox" id="t-wire" role="switch"><i></i></label>
-      </div>
-      <div class="seg" id="viewseg"><button data-view="table">Table</button><button data-view="canvas">Canvas</button></div>
-    </div>
-
-    <div class="float tb actions" id="actions">
-      <span class="status" id="status"></span>
-      <button class="btn" id="signin" hidden>GitHub</button>
-      <button class="btn dark" id="commit" hidden>Commit</button>
-      <button class="btn" id="add">+ Add token</button>
-    </div>
-
-    <main class="float sheet" id="sheet"><div class="center-body" id="body"></div></main>
-    <aside class="float panel" id="panel"></aside>
-  </div>
-  <div class="hint" id="hint">⌘\ shows the interface</div>
-
-  <dialog id="dlg"><form method="dialog" class="dlg">
-    <h2>GitHub</h2>
-    <p class="mute">Edits are saved as commits to the repo. Create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained token</a> for this repository with <b>Contents: Read and write</b>. It is kept only in this browser.</p>
-    <div class="field"><label>Token</label><input type="text" id="g-token" class="secret" autocomplete="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore></div>
-    <div class="field"><label>Repository</label><input id="g-repo" placeholder="owner/repo"></div>
-    <div class="field"><label>Branch</label><input id="g-branch"></div>
-    <div class="dlg-actions"><button class="btn" value="cancel">Cancel</button><button class="btn dark" value="ok">Save</button></div>
-  </form></dialog>
-  <script type="module" src="editor.js"></script>
+<script>
+/* Loader — keep this file tiny and stable. GitHub Pages lets browsers cache files for ~10 minutes, so
+   after a deploy the page, stylesheet and scripts could come from different versions. Instead we read
+   the deploy version with a unique URL (so neither the browser nor GitHub's CDN can serve a stale copy), then
+   load everything else with that version in its URL. */
+(async () => {
+  let v;
+  try { v = (await (await fetch('../version.json?t=' + Date.now(), { cache: 'no-store' })).json()).v; } catch { v = Date.now(); } // local dev: always fresh
+  window.__V = v;
+  const q = '?v=' + v;
+  const css = (href) => new Promise((done) => {
+    const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = href + q; l.onload = l.onerror = done; document.head.append(l);
+  });
+  const [shell] = await Promise.all([fetch('shell.html' + q).then((r) => r.text()), css('../tds/foundations/fonts.css'), css('editor.css')]);
+  document.body.insertAdjacentHTML('afterbegin', shell);
+  // version the modules' own imports too
+  const map = document.createElement('script'); map.type = 'importmap';
+  map.textContent = JSON.stringify({ imports: { './github.js': './github.js' + q, '../tools/build-tokens.js': '../tools/build-tokens.js' + q } });
+  document.head.append(map);
+  import('./editor.js' + q);
+})();
+</script>
 </body>
 </html>
