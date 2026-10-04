@@ -18,6 +18,8 @@ The system is dark-only for now; roles have a `base` and an `inverse` value.
 
 ## Editor
 
+The canvas is full-screen; the nav, toolbar and properties panels float on top. **⌘\\** (Ctrl+\\) hides or shows them.
+
 Two ways to run it. Both read/write `tds/foundations/tokens/tokens.json` and generate `tokens.css`
 in the browser (`tools/build-tokens.js`) — don't hand-edit `tokens.css`.
 

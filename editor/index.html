@@ -7,30 +7,37 @@
   <link rel="stylesheet" href="editor.css">
 </head>
 <body>
-  <div class="app">
-    <nav class="nav" id="nav"></nav>
-    <main class="center">
-      <header class="center-head">
-        <div class="crumbs" id="crumbs"></div>
-        <div class="head-actions">
-          <span class="status" id="status"></span>
-          <div class="seg" id="viewseg"><button data-view="table">Table</button><button data-view="canvas">Canvas</button></div>
-          <button class="btn" id="signin" hidden>GitHub</button>
-          <button class="btn dark" id="commit" hidden>Commit changes</button>
-          <button class="btn" id="add">+ Add token</button>
-        </div>
-      </header>
-      <div class="toolbar" id="toolbar" hidden>
-        <select id="device"></select>
-        <span class="dims"><input id="dw" type="number" min="200" max="3000"> <span>×</span> <input id="dh" type="number" min="200" max="3000"></span>
-        <span class="spacer"></span>
+  <div class="app" id="app" data-ui="on">
+    <!-- the design: full-screen canvas -->
+    <div class="stage" id="stage" hidden><div id="wrap"><div id="frame"><iframe id="screen" src="../preview/index.html" title="canvas"></iframe></div></div></div>
+
+    <!-- everything below floats on top and hides with ⌘\ -->
+    <nav class="float nav" id="nav"></nav>
+
+    <div class="float tb top" id="topbar">
+      <div class="crumbs" id="crumbs"></div>
+      <div class="group" id="toolbar" hidden>
+        <i class="sep"></i>
+        <select id="device" aria-label="Device"></select>
+        <span class="dims"><input id="dw" type="number" min="200" max="3000" aria-label="Width"><span>×</span><input id="dh" type="number" min="200" max="3000" aria-label="Height"></span>
+        <i class="sep"></i>
         <label class="switch"><span>Wireframe Mode</span><input type="checkbox" id="t-wire" role="switch"><i></i></label>
       </div>
-      <div class="center-body" id="body"></div>
-      <div class="stage" id="stage" hidden><div id="wrap"><div id="frame"><iframe id="screen" src="../preview/index.html" title="canvas"></iframe></div></div></div>
-    </main>
-    <aside class="panel" id="panel"></aside>
+      <div class="seg" id="viewseg"><button data-view="table">Table</button><button data-view="canvas">Canvas</button></div>
+    </div>
+
+    <div class="float tb actions" id="actions">
+      <span class="status" id="status"></span>
+      <button class="btn" id="signin" hidden>GitHub</button>
+      <button class="btn dark" id="commit" hidden>Commit</button>
+      <button class="btn" id="add">+ Add token</button>
+    </div>
+
+    <main class="float sheet" id="sheet"><div class="center-body" id="body"></div></main>
+    <aside class="float panel" id="panel"></aside>
   </div>
+  <div class="hint" id="hint">⌘\ shows the interface</div>
+
   <dialog id="dlg"><form method="dialog" class="dlg">
     <h2>GitHub</h2>
     <p class="mute">Edits are saved as commits to the repo. Create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained token</a> for this repository with <b>Contents: Read and write</b>. It is kept only in this browser.</p>
