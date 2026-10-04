@@ -30,3 +30,12 @@ redeploys in about a minute. The canvas updates live before you commit.
 ```
 python3 editor/server.py      # http://localhost:5173/editor/   (preview page at /preview/)
 ```
+
+## Adding a component
+
+1. Create `tds/components/<tier>/<name>/` with `<name>.css` and `<name>.meta.json` (copy the button's as a template).
+2. Import the CSS in `tds/tds.css` under its tier layer (`parts`, `blocks` or `sections`).
+3. Add `"<tier>/<name>"` to `tds/components/index.json`.
+
+It then appears in the editor nav under components; the canvas renders it from its `meta.json`
+(markup, attributes, states, variables).

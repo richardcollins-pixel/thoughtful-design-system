@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" data-fidelity="styled" data-theme="light">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TDS component</title>
+  <link rel="stylesheet" href="../tds/tds.css">
+  <style>
+    /* canvas chrome only */
+    body { padding: var(--space-6); }
+    .label { margin-bottom: var(--space-2); }
+    .subject { display: flex; align-items: center; justify-content: center; min-height: 8rem; padding: var(--padding-lg); border-radius: var(--radius-md); background: var(--bg-elevation); }
+    .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+    .panel { padding: var(--padding-md); border-radius: var(--radius-md); }
+  </style>
+</head>
+<body>
+  <main class="stack" style="--stack-gap: var(--space-8)">
+    <section><p class="label text-body-sm text-secondary" id="title">Loading…</p><div class="subject" id="subject"></div></section>
+    <div id="gallery" class="stack" style="--stack-gap: var(--space-6)"></div>
+  </main>
+  <script type="module">
+    const path = new URLSearchParams(location.search).get('c');
+    const name = path.split('/').pop();
+    const meta = await fetch(`../tds/components/${path}/${name}.meta.json`, { cache: 'no-store' }).then((r) => r.json());
+    const attrs = Object.entries(meta.attributes || {});
+    const defaults = Object.fromEntries(attrs.map(([k, a]) => [k, a.default]));
+
+    function make({ set = {}, state, text } = {}) {
+      const t = document.createElement('template'); t.innerHTML = meta.markup.trim();
+      const el = t.content.firstElementChild;
+      for (const [k, v] of Object.entries({ ...defaults, ...set })) el.setAttribute(k, v);
+      if (state) el.dataset.state = state;
+      if (text != null && !el.children.length) el.textContent = text;
+      el.setAttribute('data-tds-instance', '');
+      return el;
+    }
+    const section = (title, ...nodes) => {
+      const s = document.createElement('section');
+      s.innerHTML = `<p class="label text-body-sm text-secondary">${title}</p>`;
+      const row = document.createElement('div'); row.className = 'row'; row.append(...nodes); s.append(row); return s;
+    };
+
+    document.getElementById('title').textContent = `${meta.name} — ${meta.tier}`;
+    const subject = make({ text: meta.name });
+    document.getElementById('subject').append(subject);
+
+    const g = document.getElementById('gallery');
+    for (const [k, a] of attrs) if (a.type === 'enum') g.append(section(k, ...a.values.map((v) => make({ set: { [k]: v }, text: v }))));
+    if ((meta.states || []).length) g.append(section('states', ...meta.states.map((s) => make({ state: s, text: s }))));
+    const first = attrs.find(([, a]) => a.type === 'enum');
+    if (first) {
+      const inv = section('on inverse surface', ...first[1].values.map((v) => make({ set: { [first[0]]: v }, text: v })));
+      inv.className = 'panel'; inv.dataset.surface = 'inverse'; g.append(inv);
+    }
+
+    // Driven by the editor (same origin). Overrides here are previews only — they are not saved.
+    const vars = {};
+    const all = () => document.querySelectorAll('[data-tds-instance]');
+    window.tdsComponent = {
+      setAttr: (k, v) => subject.setAttribute(k, v),
+      setState: (s) => (s ? (subject.dataset.state = s) : delete subject.dataset.state),
+      setVar(k, v) { v ? (vars[k] = v) : delete vars[k]; all().forEach((e) => (v ? e.style.setProperty(k, v) : e.style.removeProperty(k))); },
+      reset() { Object.keys(vars).forEach((k) => this.setVar(k, null)); this.setState(''); for (const [k, v] of Object.entries(defaults)) subject.setAttribute(k, v); },
+    };
+    if (self !== top) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
+  </script>
+</body>
+</html>
