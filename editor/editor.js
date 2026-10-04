@@ -1,4 +1,4 @@
-import { buildCss } from '../tools/build-tokens.js';
+import { buildCss, gradientCss } from '../tools/build-tokens.js';
 import * as gh from './github.js';
 
 const $ = (s) => document.querySelector(s);
@@ -45,6 +45,10 @@ const KINDS = {
     cols: [['Base', (t) => refChip(t.values.base)], ['Inverse', (t) => refChip(t.values.inverse)]],
     preview: (t) => `<div class="pair" style="grid-template-columns:1fr 1fr">${sw(primHex(t.values.base.ref), t.values.base.opacity, true)}${sw(primHex(t.values.inverse.ref), t.values.inverse.opacity, true)}</div>`,
   },
+  gradient: simple(['styles', 'color'], 'gradient', () => ({ base: '#3f0786', topRight: '#3f0786', topLeft: '#5a1f9b', bottomRight: '#62c2e5' }),
+    [{ key: 'base', label: 'Base fill', type: 'hex' }, { key: 'topRight', label: 'Glow — top right', type: 'hex' }, { key: 'topLeft', label: 'Glow — top left', type: 'hex' }, { key: 'bottomRight', label: 'Glow — bottom right', type: 'hex' }],
+    [['Gradient', (t) => `<i class="gradsw" style="background:${gradientCss(t)}"></i>`], ['Colors', (t) => `<span class="mute">${[t.base, t.topRight, t.topLeft, t.bottomRight].join(' · ')}</span>`]],
+    (t) => `<i class="gradsw lg" style="background:${gradientCss(t)}"></i>`),
   padding: simple(['tokens', 'layout', 'padding'], 'padding', () => ({ px: 16 }), [px()],
     [['px', (t) => `${t.px}px`], ['', (t) => `<div class="bar" style="width:${Math.min(t.px, 200)}px"></div>`]],
     (t) => `<div class="bar" style="width:${Math.min(t.px, 280)}px"></div>`),
@@ -92,7 +96,7 @@ const NAV = [
     { label: 'type', children: [{ label: 'font family', kind: 'font-family' }, { label: 'weight', kind: 'font-weight' }, { label: 'size', kind: 'font-size' }, { label: 'line height', kind: 'line-height' }, { label: 'letter spacing', kind: 'letter-spacing' }] },
     { label: 'motion', children: [{ label: 'duration', kind: 'duration' }, { label: 'easing', kind: 'easing' }] },
   ] },
-  { label: 'styles', children: [{ label: 'color' }, { label: 'type' }, { label: 'elevation' }, { label: 'motion' }] },
+  { label: 'styles', children: [{ label: 'color', kind: 'gradient' }, { label: 'type' }, { label: 'elevation' }, { label: 'motion' }] },
   { label: 'layout utilities' },
   { label: 'components', children: [{ label: 'parts' }, { label: 'blocks' }, { label: 'sections' }] },
   { label: 'libraries' },
@@ -145,13 +149,20 @@ function renderCrumbs() {
   $('#crumbs').innerHTML = parts.map((p, i) => (i === parts.length - 1 ? `<b>${p}</b>` : p)).join(' / ');
 }
 
+const DESC = {
+  primitive: 'The raw values. Reference these only when defining tokens, not in components.',
+  role: 'Semantic tokens mapped to roles: background, text, icon, border, status.',
+  gradient: 'Named gradient styles for surfaces and chat UI.',
+};
+
 function renderTable() {
   const body = $('#body');
   if (library) return renderLibrary();
   if (!kind) { body.innerHTML = '<p class="empty">Placeholder — coming in a later step.</p>'; return; }
   const def = KINDS[kind];
   const list = tokens.filter((t) => t.kind === kind);
-  if (!list.length) { body.innerHTML = `<p class="empty">No ${def.noun}s yet. Use “Add token”.</p>`; return; }
+  const desc = DESC[kind] ? `<p class="mute desc">${DESC[kind]}</p>` : '';
+  if (!list.length) { body.innerHTML = `${desc}<p class="empty">No ${def.noun}s yet. Use “Add token”.</p>`; return; }
   const cols = def.cols;
   let html = `<table><thead><tr><th>Name</th>${cols.map(([h]) => `<th>${h}</th>`).join('')}</tr></thead><tbody>`;
   let group = null;
@@ -159,7 +170,7 @@ function renderTable() {
     if (kind === 'role' && t.group !== group) { group = t.group; html += `<tr class="group"><td colspan="${cols.length + 1}">color / ${esc(group)}</td></tr>`; }
     html += `<tr class="item${t === selected ? ' sel' : ''}" data-i="${tokens.indexOf(t)}"><td class="name">${esc(t.name)}</td>${cols.map(([, f]) => `<td>${f(t)}</td>`).join('')}</tr>`;
   }
-  body.innerHTML = html + '</tbody></table>';
+  body.innerHTML = desc + html + '</tbody></table>';
 }
 
 $('#body').addEventListener('click', (e) => {

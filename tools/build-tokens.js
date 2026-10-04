@@ -6,6 +6,17 @@ function roleValue(t, mode) {
   return op >= 100 ? ref : `color-mix(in srgb, ${ref} ${fmt(op)}%, transparent)`;
 }
 
+// Figma mesh gradient: a solid base fill under three soft corner glows (colors fade to transparent).
+export function gradientCss(t, gray = false) {
+  const c = (hex) => (gray ? `oklch(from ${hex} l 0 h)` : hex);
+  return [
+    `radial-gradient(ellipse 68% 60% at 100% 0%, ${c(t.topRight)}, transparent)`,
+    `radial-gradient(ellipse 43% 40% at 0% 0%, ${c(t.topLeft)}, transparent)`,
+    `radial-gradient(ellipse 94% 82% at 100% 100%, ${c(t.bottomRight)}, transparent)`,
+    c(t.base),
+  ].join(', ');
+}
+
 export function buildCss(tokens, schema) {
   const stacks = Object.fromEntries(schema.fontFamilies.map((f) => [f.key, f.stack]));
   const of = (kind) => tokens.filter((t) => t.kind === kind);
@@ -21,6 +32,10 @@ export function buildCss(tokens, schema) {
   block(':root, [data-surface="normal"]', roles.flatMap((t) => [`--${t.name}: ${roleValue(t, 'base')};`, `--${t.name}-inverse: ${roleValue(t, 'inverse')};`]));
   block('[data-surface="inverse"]', roles.flatMap((t) => [`--${t.name}: ${roleValue(t, 'inverse')};`, `--${t.name}-inverse: ${roleValue(t, 'base')};`]));
   out.push(':root { color-scheme: dark; }\n');
+
+  const grads = of('gradient');
+  block(':root', grads.map((t) => `--${t.name}: ${gradientCss(t)};`));
+  block(':root[data-fidelity="wireframe"]', grads.map((t) => `--${t.name}: ${gradientCss(t, true)};`));
 
   block(':root', ['padding', 'spacing', 'radius'].flatMap((k) => of(k).map((t) => `--${t.name}: ${fmt(t.px)}px;`)));
   block(':root', [
