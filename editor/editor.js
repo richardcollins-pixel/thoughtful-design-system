@@ -8,8 +8,9 @@ const setPath = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); k
 
 let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
 let view = localStorage.tdsView || 'table', fidelity = 'styled', theme = 'light';
+let components = [], component = null, cstate = { attrs: {}, state: '', vars: {} };
 let kind = 'primitive', navKey = 'tokens/color/primitives', selected = null, saveTimer;
-const expanded = new Set(['tokens', 'tokens/color', 'tokens/layout', 'tokens/type', 'tokens/motion']);
+const expanded = new Set(['tokens', 'tokens/color', 'tokens/layout', 'tokens/type', 'tokens/motion', 'components', 'components/parts']);
 
 /* ---------- color helpers ---------- */
 const primHex = (name) => (tokens.find((t) => t.kind === 'primitive' && t.name === name) || { hex: '#000000' }).hex;
@@ -97,6 +98,11 @@ const NAV = [
   { label: 'screens' },
 ];
 
+const compNav = () => ({ label: 'components', children: ['parts', 'blocks', 'sections'].map((t) => {
+  const items = components.filter((c) => c.tier === t);
+  return items.length ? { label: t, children: items.map((c) => ({ label: c.meta.name.toLowerCase(), component: c.path })) } : { label: t };
+}) });
+
 function renderNav() {
   const walk = (items, prefix) => `<ul>${items.map((n) => {
     const key = prefix ? `${prefix}/${n.label}` : n.label;
@@ -104,16 +110,21 @@ function renderNav() {
       const open = expanded.has(key);
       return `<li><button class="row${n.kind ? '' : ' ph'}" data-toggle="${key}"><span class="caret">${open ? '▼' : '▶'}</span>${n.label}</button>${open ? walk(n.children, key) : ''}</li>`;
     }
-    const cls = `row${key === navKey ? ' active' : ''}${n.kind ? '' : ' ph'}`;
-    return `<li><button class="${cls}" data-nav="${key}" data-kind="${n.kind || ''}">${n.label}</button></li>`;
+    const cls = `row${key === navKey ? ' active' : ''}${n.kind || n.component ? '' : ' ph'}`;
+    return `<li><button class="${cls}" data-nav="${key}" data-kind="${n.kind || ''}" data-component="${n.component || ''}">${n.label}</button></li>`;
   }).join('')}</ul>`;
-  $('#nav').innerHTML = `<h1>tds</h1>${walk(NAV, '')}`;
+  $('#nav').innerHTML = `<h1>tds</h1>${walk(NAV.map((n) => (n.label === 'components' ? compNav() : n)), '')}`;
 }
 
 $('#nav').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
   if (b.dataset.toggle) { expanded.has(b.dataset.toggle) ? expanded.delete(b.dataset.toggle) : expanded.add(b.dataset.toggle); }
-  if (b.dataset.nav) { navKey = b.dataset.nav; kind = b.dataset.kind || null; selected = null; }
+  if (b.dataset.nav) {
+    navKey = b.dataset.nav; kind = b.dataset.kind || null; selected = null;
+    component = components.find((c) => c.path === b.dataset.component) || null;
+    cstate = { attrs: {}, state: '', vars: {} };
+    setCanvasSrc();
+  }
   renderAll();
 });
 
@@ -161,6 +172,7 @@ function fieldHtml(f, t) {
 }
 
 function renderPanel() {
+  if (component) return renderComponentPanel();
   const p = $('#panel');
   if (!selected) { p.innerHTML = '<h2>Variables and Properties</h2><p class="mute">Select a token to edit it.</p>'; return; }
   const def = KINDS[kind];
@@ -285,6 +297,67 @@ async function loadTokens() {
 
 function renderAll() { renderNav(); renderCrumbs(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind; }
 
+/* ---------- components ---------- */
+async function loadComponents() {
+  try {
+    const idx = await fetch('../tds/components/index.json', { cache: 'no-store' }).then((r) => r.json());
+    components = await Promise.all(idx.components.map(async (path) => ({
+      path, tier: path.split('/')[0],
+      meta: await fetch(`../tds/components/${path}/${path.split('/').pop()}.meta.json`, { cache: 'no-store' }).then((r) => r.json()),
+    })));
+  } catch { components = []; }
+}
+
+function setCanvasSrc() {
+  const want = component ? `../preview/component.html?c=${component.path}` : '../preview/index.html';
+  if (screen.getAttribute('src') !== want) screen.setAttribute('src', want);
+}
+
+const tokenOptions = (type) => {
+  const of = (k) => tokens.filter((t) => t.kind === k);
+  const opts = (list) => list.map((t) => `<option value="var(--${esc(t.name)})">${esc(t.name)}</option>`).join('');
+  if (type === 'color') return `<optgroup label="Roles">${opts(of('role'))}</optgroup><optgroup label="Primitives">${opts(of('primitive'))}</optgroup>`;
+  if (type === 'radius') return opts(of('radius'));
+  if (type === 'padding') return `<optgroup label="Padding">${opts(of('padding'))}</optgroup><optgroup label="Spacing">${opts(of('spacing'))}</optgroup>`;
+  return '';
+};
+
+function renderComponentPanel() {
+  const m = component.meta, p = $('#panel');
+  const attrs = Object.entries(m.attributes || {}).map(([k, a]) => `<div class="field"><label>${esc(k)}</label>
+    <select data-cattr="${esc(k)}">${a.values.map((v) => `<option ${(cstate.attrs[k] || a.default) === v ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select></div>`).join('');
+  const states = (m.states || []).length ? `<div class="field"><label>state (forced)</label><select id="cstate"><option value="">none</option>${m.states.map((s) => `<option ${cstate.state === s ? 'selected' : ''}>${esc(s)}</option>`).join('')}</select></div>` : '';
+  const vars = Object.entries(m.variables || {}).map(([k, type]) => {
+    const cur = cstate.vars[k] || '';
+    const ctl = type === 'number'
+      ? `<input type="number" step="0.01" data-cvar="${esc(k)}" value="${esc(cur)}" placeholder="default">`
+      : `<select data-cvar="${esc(k)}"><option value="">Default</option>${tokenOptions(type).replace(`value="${cur}"`, `value="${cur}" selected`)}</select>`;
+    return `<div class="field"><label>${esc(k)}</label>${ctl}</div>`;
+  }).join('');
+  p.innerHTML = `<h2>Variables and Properties</h2>
+    <p class="mute">${esc(m.name)} · ${esc(m.tier)} · ${m.stateful ? 'stateful' : 'stateless'}${(m.uses || []).length ? ' · uses ' + m.uses.join(', ') : ''}</p>
+    ${attrs ? `<div class="section">Properties</div>${attrs}` : ''}${states}
+    ${vars ? `<div class="section">Variables</div>${vars}` : ''}
+    <p class="mute">Changes here preview in the canvas only; they aren't saved yet.</p>
+    <div class="spacer"></div><button class="btn" id="creset">Reset overrides</button>`;
+}
+
+$('#panel').addEventListener('input', (e) => {
+  const el = e.target, api = component && screen.contentWindow.tdsComponent; if (!api) return;
+  if (el.dataset.cattr) { api.setAttr(el.dataset.cattr, el.value); cstate.attrs[el.dataset.cattr] = el.value; }
+  else if (el.id === 'cstate') { api.setState(el.value); cstate.state = el.value; }
+  else if (el.dataset.cvar) {
+    const v = el.type === 'number' ? (el.value === '' ? '' : el.value) : el.value;
+    api.setVar(el.dataset.cvar, v || null); cstate.vars[el.dataset.cvar] = v;
+  }
+});
+$('#panel').addEventListener('click', (e) => {
+  if (e.target.id !== 'creset' || !component) return;
+  const api = screen.contentWindow.tdsComponent; if (api) api.reset();
+  cstate = { attrs: {}, state: '', vars: {} }; renderComponentPanel();
+});
+window.addEventListener('message', (e) => { if (e.origin === location.origin && e.data && e.data.type === 'tds-ready' && component) renderComponentPanel(); });
+
 /* ---------- canvas ---------- */
 const DEVICES = [
   { name: 'iPhone 17', w: 390, h: 874, phone: true },
@@ -298,7 +371,8 @@ let dims = { w: DEVICES[0].w, h: DEVICES[0].h }, phoneFrame = true;
 const screen = $('#screen');
 
 function renderView() {
-  const canvas = view === 'canvas';
+  const canvas = view === 'canvas' || !!component;
+  $('#viewseg').hidden = !!component;
   $('#body').hidden = canvas; $('#stage').hidden = !canvas; $('#toolbar').hidden = !canvas;
   $('#add').hidden = canvas;
   document.querySelectorAll('#viewseg button').forEach((b) => b.classList.toggle('on', b.dataset.view === view));
@@ -312,7 +386,7 @@ $('#viewseg').addEventListener('click', (e) => {
 function fit() {
   const st = $('#stage'), bez = phoneFrame ? 10 : 0;
   const W = dims.w + 2 * bez, H = dims.h + 2 * bez;
-  const s = Math.min(1, (st.clientWidth - 48) / W, (st.clientHeight - 32) / H);
+  const s = Math.max(0.1, Math.min(1, (st.clientWidth - 48) / W, (st.clientHeight - 32) / H));
   $('#wrap').style.cssText = `width:${W * s}px;height:${H * s}px`;
   const f = $('#frame');
   f.className = phoneFrame ? 'phone' : 'plain';
@@ -320,7 +394,7 @@ function fit() {
   screen.style.cssText = `width:${dims.w}px;height:${dims.h}px`;
   $('#dw').value = dims.w; $('#dh').value = dims.h;
 }
-new ResizeObserver(() => { if (view === 'canvas') fit(); }).observe($('#stage'));
+new ResizeObserver(() => { if (view === 'canvas' || component) fit(); }).observe($('#stage'));
 
 $('#device').innerHTML = DEVICES.map((d, i) => `<option value="${i}">${d.name} ▾</option>`).join('');
 $('#device').addEventListener('change', (e) => {
@@ -347,5 +421,5 @@ syncToggles();
 (async () => {
   schema = await fetch('../tools/token-schema.json').then((r) => r.json());
   mode = (await fetch('../api/tokens', { method: 'HEAD' }).catch(() => ({ ok: false }))).ok ? 'local' : 'github';
-  renderMode(); await loadTokens();
+  renderMode(); await Promise.all([loadTokens(), loadComponents()]); renderAll();
 })();

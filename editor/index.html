@@ -27,14 +27,14 @@
         <div class="seg"><button id="t-wire">Wireframe</button><button id="t-dark">Dark Mode</button></div>
       </div>
       <div class="center-body" id="body"></div>
-      <div class="stage" id="stage" hidden><div id="wrap"><div id="frame"><iframe id="screen" src="../preview/" title="canvas"></iframe></div></div></div>
+      <div class="stage" id="stage" hidden><div id="wrap"><div id="frame"><iframe id="screen" src="../preview/index.html" title="canvas"></iframe></div></div></div>
     </main>
     <aside class="panel" id="panel"></aside>
   </div>
   <dialog id="dlg"><form method="dialog" class="dlg">
     <h2>GitHub</h2>
     <p class="mute">Edits are saved as commits to the repo. Create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained token</a> for this repository with <b>Contents: Read and write</b>. It is kept only in this browser.</p>
-    <div class="field"><label>Token</label><input type="password" id="g-token" autocomplete="off"></div>
+    <div class="field"><label>Token</label><input type="text" id="g-token" class="secret" autocomplete="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore></div>
     <div class="field"><label>Repository</label><input id="g-repo" placeholder="owner/repo"></div>
     <div class="field"><label>Branch</label><input id="g-branch"></div>
     <div class="dlg-actions"><button class="btn" value="cancel">Cancel</button><button class="btn dark" value="ok">Save</button></div>
