@@ -8,9 +8,10 @@ const setPath = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); k
 
 let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
 let view = localStorage.tdsView || 'table', fidelity = 'styled';
+let libraries = [], library = null, asset = null;
 let components = [], component = null, cstate = { attrs: {}, state: '', vars: {} };
 let kind = 'primitive', navKey = 'tokens/color/primitives', selected = null, saveTimer;
-const expanded = new Set(['tokens', 'tokens/color', 'tokens/layout', 'tokens/type', 'tokens/motion', 'components', 'components/parts']);
+const expanded = new Set(['tokens', 'tokens/color', 'tokens/layout', 'tokens/type', 'tokens/motion', 'components', 'components/parts', 'libraries', 'libraries/images']);
 
 /* ---------- color helpers ---------- */
 const primHex = (name) => (tokens.find((t) => t.kind === 'primitive' && t.name === name) || { hex: '#000000' }).hex;
@@ -94,6 +95,7 @@ const NAV = [
   { label: 'styles', children: [{ label: 'color' }, { label: 'type' }, { label: 'elevation' }, { label: 'motion' }] },
   { label: 'layout utilities' },
   { label: 'components', children: [{ label: 'parts' }, { label: 'blocks' }, { label: 'sections' }] },
+  { label: 'libraries' },
   { label: 'templates' },
   { label: 'screens' },
 ];
@@ -103,6 +105,13 @@ const compNav = () => ({ label: 'components', children: ['parts', 'blocks', 'sec
   return items.length ? { label: t, children: items.map((c) => ({ label: c.meta.name.toLowerCase(), component: c.path })) } : { label: t };
 }) });
 
+const libNav = () => ({ label: 'libraries', children: libraries.map((l) => {
+  const gs = l.groups.filter((g) => g.items.length);
+  if (!gs.length) return { label: l.id };
+  if (gs.length === 1 && gs[0].id === 'all') return { label: l.id, library: `${l.id}/all` };
+  return { label: l.id, children: gs.map((g) => ({ label: g.id, library: `${l.id}/${g.id}` })) };
+}) });
+
 function renderNav() {
   const walk = (items, prefix) => `<ul>${items.map((n) => {
     const key = prefix ? `${prefix}/${n.label}` : n.label;
@@ -110,10 +119,10 @@ function renderNav() {
       const open = expanded.has(key);
       return `<li><button class="row${n.kind ? '' : ' ph'}" data-toggle="${key}"><span class="caret">${open ? '▼' : '▶'}</span>${n.label}</button>${open ? walk(n.children, key) : ''}</li>`;
     }
-    const cls = `row${key === navKey ? ' active' : ''}${n.kind || n.component ? '' : ' ph'}`;
-    return `<li><button class="${cls}" data-nav="${key}" data-kind="${n.kind || ''}" data-component="${n.component || ''}">${n.label}</button></li>`;
+    const cls = `row${key === navKey ? ' active' : ''}${n.kind || n.component || n.library ? '' : ' ph'}`;
+    return `<li><button class="${cls}" data-nav="${key}" data-kind="${n.kind || ''}" data-component="${n.component || ''}" data-library="${n.library || ''}">${n.label}</button></li>`;
   }).join('')}</ul>`;
-  $('#nav').innerHTML = `<h1>tds</h1>${walk(NAV.map((n) => (n.label === 'components' ? compNav() : n)), '')}`;
+  $('#nav').innerHTML = `<h1>tds</h1>${walk(NAV.map((n) => (n.label === 'components' ? compNav() : n.label === 'libraries' ? libNav() : n)), '')}`;
 }
 
 $('#nav').addEventListener('click', (e) => {
@@ -122,6 +131,8 @@ $('#nav').addEventListener('click', (e) => {
   if (b.dataset.nav) {
     navKey = b.dataset.nav; kind = b.dataset.kind || null; selected = null;
     component = components.find((c) => c.path === b.dataset.component) || null;
+    library = null; asset = null;
+    if (b.dataset.library) { const [lid, gid] = b.dataset.library.split('/'); const l = libraries.find((x) => x.id === lid); library = { lib: l, group: l.groups.find((g) => g.id === gid) }; }
     cstate = { attrs: {}, state: '', vars: {} };
     setCanvasSrc();
   }
@@ -136,6 +147,7 @@ function renderCrumbs() {
 
 function renderTable() {
   const body = $('#body');
+  if (library) return renderLibrary();
   if (!kind) { body.innerHTML = '<p class="empty">Placeholder — coming in a later step.</p>'; return; }
   const def = KINDS[kind];
   const list = tokens.filter((t) => t.kind === kind);
@@ -173,6 +185,7 @@ function fieldHtml(f, t) {
 
 function renderPanel() {
   if (component) return renderComponentPanel();
+  if (library) return renderLibraryPanel();
   const p = $('#panel');
   if (!selected) { p.innerHTML = '<h2>Variables and Properties</h2><p class="mute">Select a token to edit it.</p>'; return; }
   const def = KINDS[kind];
@@ -299,6 +312,53 @@ async function loadTokens() {
 
 function renderAll() { renderNav(); renderCrumbs(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind; }
 
+/* ---------- libraries ---------- */
+const LIB_BASE = '../tds/libraries/';
+const assetUrl = (file) => LIB_BASE + file.split('/').map(encodeURIComponent).join('/');
+const kb = (b) => (b < 1024 ? `${b} B` : b < 1048576 ? `${(b / 1024).toFixed(1)} KB` : `${(b / 1048576).toFixed(1)} MB`);
+
+async function loadLibraries() {
+  try { libraries = (await fetch(LIB_BASE + 'index.json', { cache: 'no-store' }).then((r) => r.json())).libraries; } catch { libraries = []; }
+}
+
+function renderLibrary() {
+  const items = library.group.items, isIcons = library.lib.id === 'icons';
+  $('#body').innerHTML = `<p class="mute" style="margin-bottom:12px">${items.length} ${esc(library.lib.id)}${library.group.id === 'all' ? '' : ' · ' + esc(library.group.label)}</p>
+    <div class="lib-grid ${isIcons ? 'icons' : 'photos'}">${items.map((it, i) => `
+      <button class="tile${it === asset ? ' sel' : ''}" data-i="${i}">
+        <span class="thumb">${isIcons
+          ? `<i class="mask" style="-webkit-mask-image:url('${assetUrl(it.file)}');mask-image:url('${assetUrl(it.file)}')"></i>`
+          : `<img src="${assetUrl(it.file)}" alt="${esc(it.name)}" loading="lazy">`}</span>
+        <span class="cap">${esc(it.name)}</span>
+      </button>`).join('')}</div>`;
+}
+
+$('#body').addEventListener('click', (e) => {
+  const t = e.target.closest('.tile'); if (!t || !library) return;
+  asset = library.group.items[+t.dataset.i]; renderLibrary(); renderLibraryPanel();
+});
+
+function renderLibraryPanel() {
+  const p = $('#panel'), isIcons = library.lib.id === 'icons';
+  if (!asset) { p.innerHTML = '<h2>Variables and Properties</h2><p class="mute">Select an asset to see its details.</p>'; return; }
+  const url = assetUrl(asset.file), dims = asset.width ? `${Math.round(asset.width)} × ${Math.round(asset.height)}` : '—';
+  const snippet = isIcons ? `<i class="icon icon-${asset.name}"></i>` : `<img src="tds/libraries/${asset.file}" alt="">`;
+  const ro = (label, v, id) => `<div class="field"><label>${label}</label><input readonly value="${esc(v)}" ${id ? `id="${id}"` : ''}></div>`;
+  p.innerHTML = `<h2>Variables and Properties</h2>
+    <div class="asset-prev ${isIcons ? 'icons' : ''}">${isIcons
+      ? `<i class="mask big" style="-webkit-mask-image:url('${url}');mask-image:url('${url}')"></i>`
+      : `<img src="${url}" alt="${esc(asset.name)}">`}</div>
+    ${ro('Name', asset.name)}${ro('File', 'tds/libraries/' + asset.file)}${ro('Dimensions', dims)}${ro('Size', kb(asset.bytes))}
+    <div class="section">Usage</div>
+    ${ro('Snippet', snippet)}
+    <button class="btn" id="copy">Copy snippet</button>`;
+  p.dataset.snippet = snippet;
+}
+$('#panel').addEventListener('click', async (e) => {
+  if (e.target.id !== 'copy') return;
+  try { await navigator.clipboard.writeText($('#panel').dataset.snippet); e.target.textContent = 'Copied'; setTimeout(() => (e.target.textContent = 'Copy snippet'), 1200); } catch { /* clipboard blocked */ }
+});
+
 /* ---------- components ---------- */
 async function loadComponents() {
   try {
@@ -373,10 +433,10 @@ let dims = { w: DEVICES[0].w, h: DEVICES[0].h }, phoneFrame = true;
 const screen = $('#screen');
 
 function renderView() {
-  const canvas = view === 'canvas' || !!component;
-  $('#viewseg').hidden = !!component;
+  const canvas = !library && (view === 'canvas' || !!component);
+  $('#viewseg').hidden = !!component || !!library;
   $('#body').hidden = canvas; $('#stage').hidden = !canvas; $('#toolbar').hidden = !canvas;
-  $('#add').hidden = canvas;
+  $('#add').hidden = canvas || !!library;
   document.querySelectorAll('#viewseg button').forEach((b) => b.classList.toggle('on', b.dataset.view === view));
   if (canvas) fit();
 }
@@ -422,5 +482,5 @@ syncToggles();
 (async () => {
   schema = await fetch('../tools/token-schema.json').then((r) => r.json());
   mode = (await fetch('../api/tokens', { method: 'HEAD' }).catch(() => ({ ok: false }))).ok ? 'local' : 'github';
-  renderMode(); await Promise.all([loadTokens(), loadComponents()]); renderAll();
+  renderMode(); await Promise.all([loadTokens(), loadComponents(), loadLibraries()]); renderAll();
 })();

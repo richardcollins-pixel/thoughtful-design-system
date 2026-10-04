@@ -1,0 +1,15 @@
+/* Part: icon. The glyph comes from the icon library (libraries/icons.css, one .icon-<name> class each)
+   and is drawn as a mask, so it takes the current text color: roles, inverse surfaces and
+   wireframe all apply with no per-icon work. Usage: <i class="icon icon-check"></i> */
+.icon {
+  --icon-size: var(--space-6);
+  --icon-color: currentColor;
+  display: inline-block; flex: none; vertical-align: middle;
+  width: var(--icon-size); height: var(--icon-size);
+  background-color: var(--icon-color);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center;  mask-position: center;
+  -webkit-mask-size: contain;     mask-size: contain;
+}
+.icon[data-size="sm"] { --icon-size: var(--space-4); }
+.icon[data-size="lg"] { --icon-size: var(--space-8); }
