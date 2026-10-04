@@ -446,7 +446,7 @@ const screen = $('#screen');
 function renderView() {
   const canvas = !library && (view === 'canvas' || !!component);
   $('#viewseg').hidden = !!component || !!library;
-  $('#body').hidden = canvas; $('#stage').hidden = !canvas; $('#toolbar').hidden = !canvas;
+  $('#body').hidden = canvas; $('#sheet').hidden = canvas; $('#stage').hidden = !canvas; $('#toolbar').hidden = !canvas;
   $('#add').hidden = canvas || !!library;
   document.querySelectorAll('#viewseg button').forEach((b) => b.classList.toggle('on', b.dataset.view === view));
   if (canvas) fit();
@@ -456,11 +456,15 @@ $('#viewseg').addEventListener('click', (e) => {
   view = localStorage.tdsView = b.dataset.view; renderView();
 });
 
+// The canvas is full-screen. While the interface is showing, keep the frame clear of the floating panels.
+const UI_AREA = { l: 10 + 208 + 10, r: 10 + 272 + 10, t: 56, b: 10 };
 function fit() {
-  const st = $('#stage'), bez = phoneFrame ? 10 : 0;
-  const W = dims.w + 2 * bez, H = dims.h + 2 * bez;
-  const s = Math.max(0.1, Math.min(1, (st.clientWidth - 48) / W, (st.clientHeight - 32) / H));
-  $('#wrap').style.cssText = `width:${W * s}px;height:${H * s}px`;
+  const on = $('#app').dataset.ui !== 'off', a = on ? UI_AREA : { l: 0, r: 0, t: 0, b: 0 };
+  const bez = phoneFrame ? 10 : 0, W = dims.w + 2 * bez, H = dims.h + 2 * bez, pad = 24;
+  const aw = innerWidth - a.l - a.r, ah = innerHeight - a.t - a.b;
+  const s = Math.max(0.1, Math.min(1, (aw - 2 * pad) / W, (ah - 2 * pad) / H));
+  const w = W * s, h = H * s;
+  $('#wrap').style.cssText = `width:${w}px;height:${h}px;left:${a.l + (aw - w) / 2}px;top:${a.t + (ah - h) / 2}px`;
   const f = $('#frame');
   f.className = phoneFrame ? 'phone' : 'plain';
   f.style.cssText = `width:${W}px;height:${H}px;transform:scale(${s})`;
@@ -489,6 +493,19 @@ $('#t-wire').addEventListener('change', (e) => { fidelity = e.target.checked ? '
 
 screen.addEventListener('load', () => { applyModes(); applyLive(); });
 syncToggles();
+
+/* ---------- ⌘\ hides the interface ---------- */
+function setUi(on) {
+  $('#app').dataset.ui = on ? 'on' : 'off'; localStorage.tdsUi = on ? 'on' : 'off';
+  if (!on) { const h = $('#hint'); h.classList.add('show'); clearTimeout(h.t); h.t = setTimeout(() => h.classList.remove('show'), 1800); }
+  else $('#hint').classList.remove('show');
+  if (view === 'canvas' || component) fit();
+}
+window.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.code === 'Backslash') { e.preventDefault(); setUi($('#app').dataset.ui === 'off'); }
+});
+window.addEventListener('resize', () => { if (view === 'canvas' || component) fit(); });
+setUi(localStorage.tdsUi !== 'off');
 
 (async () => {
   schema = await fetch('../tools/token-schema.json').then((r) => r.json());
