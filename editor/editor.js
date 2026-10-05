@@ -7,7 +7,7 @@ const getPath = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : a[k]), 
 const setPath = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); ks.reduce((a, k) => a[k], o)[last] = v; };
 
 let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
-let view = localStorage.tdsView || 'table', fidelity = 'styled';
+let fidelity = 'styled';
 let libraries = [], library = null, asset = null;
 let components = [], component = null, cstate = { attrs: {}, state: '', vars: {} };
 let kind = 'primitive', navKey = 'tokens/color/primitives', selected = null, saveTimer;
@@ -259,7 +259,9 @@ $('#add').addEventListener('click', () => {
 const TOKENS_JSON = 'tds/foundations/tokens/tokens.json', TOKENS_CSS = 'tds/foundations/tokens/tokens.css';
 let mode = 'local', dirty = false;   // local: python server autosaves. github: explicit commit.
 
-function setStatus(msg, err) { const s = $('#status'); s.textContent = msg; s.className = 'status' + (err ? ' err' : ''); }
+// The top-right pill only shows when it has something in it.
+function updateActions() { $('#actions').hidden = !$('#status').textContent && $('#add').hidden && $('#signin').hidden && $('#commit').hidden; }
+function setStatus(msg, err) { const s = $('#status'); s.textContent = msg; s.className = 'status' + (err ? ' err' : ''); updateActions(); }
 const files = () => ({ [TOKENS_JSON]: JSON.stringify({ tokens }, null, 2) + '\n', [TOKENS_CSS]: buildCss(tokens, schema) });
 
 // Push the current (possibly unsaved) tokens into the canvas as a layer-scoped stylesheet.
@@ -289,6 +291,7 @@ function renderMode() {
   $('#signin').hidden = !gm; $('#commit').hidden = !gm;
   $('#signin').textContent = cfg.token ? 'GitHub ✓' : 'Sign in';
   $('#commit').disabled = !dirty;
+  updateActions();
 }
 $('#signin').addEventListener('click', () => {
   const c = gh.getCfg(); $('#g-token').value = c.token; $('#g-repo').value = c.repo; $('#g-branch').value = c.branch; $('#dlg').showModal();
@@ -382,8 +385,8 @@ async function loadComponents() {
 }
 
 function setCanvasSrc() {
-  const v = window.__V ? `${component ? '&' : '?'}v=${window.__V}` : '';
-  const want = (component ? `../preview/component.html?c=${component.path}` : '../preview/index.html') + v;
+  if (!component) return;
+  const want = `../preview/component.html?c=${component.path}${window.__V ? `&v=${window.__V}` : ''}`;
   if (screen.getAttribute('src') !== want) screen.setAttribute('src', want);
 }
 
@@ -444,18 +447,14 @@ const DEVICES = [
 let dims = { w: DEVICES[0].w, h: DEVICES[0].h }, phoneFrame = true;
 const screen = $('#screen');
 
+// The content decides the view: components open on the canvas; tokens, libraries and everything else are tables.
 function renderView() {
-  const canvas = !library && (view === 'canvas' || !!component);
-  $('#viewseg').hidden = !!component || !!library;
-  $('#body').hidden = canvas; $('#sheet').hidden = canvas; $('#stage').hidden = !canvas; $('#toolbar').hidden = !canvas;
-  $('#add').hidden = canvas || !!library;
-  document.querySelectorAll('#viewseg button').forEach((b) => b.classList.toggle('on', b.dataset.view === view));
+  const canvas = !!component;
+  $('#sheet').hidden = canvas; $('#stage').hidden = !canvas; $('#toolbar').hidden = !canvas;
+  $('#add').hidden = !kind;
+  updateActions();
   if (canvas) fit();
 }
-$('#viewseg').addEventListener('click', (e) => {
-  const b = e.target.closest('button'); if (!b) return;
-  view = localStorage.tdsView = b.dataset.view; renderView();
-});
 
 // The canvas is full-screen. While the interface is showing, keep the frame clear of the floating panels.
 const UI_AREA = { l: 10 + 208 + 10, r: 10 + 272 + 10, t: 56, b: 10 };
@@ -472,7 +471,7 @@ function fit() {
   screen.style.cssText = `width:${dims.w}px;height:${dims.h}px`;
   $('#dw').value = dims.w; $('#dh').value = dims.h;
 }
-new ResizeObserver(() => { if (view === 'canvas' || component) fit(); }).observe($('#stage'));
+new ResizeObserver(() => { if (component) fit(); }).observe($('#stage'));
 
 $('#device').innerHTML = DEVICES.map((d, i) => `<option value="${i}">${d.name} ▾</option>`).join('');
 $('#device').addEventListener('change', (e) => {
@@ -500,12 +499,12 @@ function setUi(on) {
   $('#app').dataset.ui = on ? 'on' : 'off'; localStorage.tdsUi = on ? 'on' : 'off';
   if (!on) { const h = $('#hint'); h.classList.add('show'); clearTimeout(h.t); h.t = setTimeout(() => h.classList.remove('show'), 1800); }
   else $('#hint').classList.remove('show');
-  if (view === 'canvas' || component) fit();
+  if (component) fit();
 }
 window.addEventListener('keydown', (e) => {
   if ((e.metaKey || e.ctrlKey) && e.code === 'Backslash') { e.preventDefault(); setUi($('#app').dataset.ui === 'off'); }
 });
-window.addEventListener('resize', () => { if (view === 'canvas' || component) fit(); });
+window.addEventListener('resize', () => { if (component) fit(); });
 setUi(localStorage.tdsUi !== 'off');
 
 (async () => {

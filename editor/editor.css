@@ -47,10 +47,6 @@ button { cursor:pointer; }
 .btn.dark { background:var(--ink); color:#fff; border-color:var(--ink); }
 .btn:disabled { opacity:.35; cursor:default; }
 
-.seg { display:inline-flex; gap:1px; padding:2px; border-radius:9px; background:var(--chip); }
-.seg button { background:none; border:0; border-radius:7px; padding:2px 9px; color:var(--mute); height:22px; }
-.seg button.on { background:#fff; color:var(--ink); box-shadow:0 1px 2px rgb(0 0 0 / .08); }
-
 .top select { background:none; border:0; color:var(--ink); padding:2px 0; max-width:130px; }
 .dims { display:inline-flex; align-items:center; gap:3px; color:var(--mute); }
 .dims input { width:38px; background:none; border:0; text-align:center; color:var(--mute); -moz-appearance:textfield; padding:2px 0; border-radius:4px; }
