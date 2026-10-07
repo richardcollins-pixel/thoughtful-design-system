@@ -1,0 +1,49 @@
+{
+  "name": "Appointment Card",
+  "tier": "organisms",
+  "category": "cards",
+  "stateful": false,
+  "uses": [
+    "atoms/card",
+    "atoms/avatar",
+    "atoms/button",
+    "atoms/icon",
+    "molecules/icon-label",
+    "molecules/avatar-group"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
+  "markup": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><div class=\"appointment-card__main\"><div class=\"appointment-card__titles\"><div class=\"appointment-card__title-row\"><h3 class=\"appointment-card__headline\">This is the headline</h3><button class=\"appointment-card__edit\" aria-label=\"Edit\"><i class=\"icon icon-edit\"></i></button></div><div class=\"appointment-card__details\"><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-calendar\" data-size=\"sm\"></i><span>Wed, Jun 4 at 10:00 am</span></div><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>1 hr</span></div></div></div><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div></div></article>",
+  "examples": [
+    {
+      "name": "Booked",
+      "markup": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><div class=\"appointment-card__main\"><div class=\"appointment-card__titles\"><div class=\"appointment-card__title-row\"><h3 class=\"appointment-card__headline\">This is the headline</h3><button class=\"appointment-card__edit\" aria-label=\"Edit\"><i class=\"icon icon-edit\"></i></button></div><div class=\"appointment-card__details\"><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-calendar\" data-size=\"sm\"></i><span>Wed, Jun 4 at 10:00 am</span></div><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>1 hr</span></div></div></div><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div></div></article>"
+    },
+    {
+      "name": "No appointment",
+      "markup": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><div class=\"appointment-card__main\" style=\"gap:0\"><h3 class=\"appointment-card__headline\">This is the headline</h3><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div></div><button class=\"button\" data-width=\"full\">Button</button></article>"
+    },
+    {
+      "name": "Provider CTA",
+      "markup": "<article class=\"card appointment-card\" data-layout=\"centered\"><div class=\"avatar-group\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-1.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-3.png\" alt=\"\"></span></div><div class=\"appointment-card__main\"><h3 class=\"appointment-card__headline\">This is the headline</h3><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div><button class=\"button\" data-width=\"full\">Button</button></article>"
+    }
+  ],
+  "attributes": {
+    "data-fill": {
+      "type": "enum",
+      "values": [
+        "gradient",
+        "flat"
+      ],
+      "default": "gradient"
+    }
+  },
+  "states": [],
+  "variables": {
+    "--card-fill": "color",
+    "--card-padding-x": "padding",
+    "--card-padding-y": "padding",
+    "--card-radius": "radius",
+    "--card-gap": "padding"
+  },
+  "styles": []
+}

@@ -3,10 +3,27 @@
   "tier": "molecules",
   "category": "content",
   "stateful": false,
-  "uses": ["atoms/icon"],
-  "markup": "<div class=\"icon-label\"><i class=\"icon icon-calendar\" data-size=\"sm\"></i><span>Next available Tue, Oct 13 · 2:30 PM</span></div>",
+  "uses": [
+    "atoms/icon"
+  ],
+  "markup": "<div class=\"icon-label\"><i class=\"icon icon-calendar\" data-size=\"sm\"></i><span>Next available Tue, Oct 13 \u00b7 2:30 PM</span></div>",
   "attributes": {
-    "data-emphasis": { "type": "enum", "values": ["secondary", "primary"], "default": "secondary" }
+    "data-emphasis": {
+      "type": "enum",
+      "values": [
+        "secondary",
+        "primary"
+      ],
+      "default": "secondary"
+    },
+    "data-size": {
+      "type": "enum",
+      "values": [
+        "sm",
+        "md"
+      ],
+      "default": "sm"
+    }
   },
   "states": [],
   "variables": {

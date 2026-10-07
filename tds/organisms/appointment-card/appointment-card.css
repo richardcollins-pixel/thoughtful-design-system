@@ -1,0 +1,30 @@
+/* Organism: appointment card — the home-screen card in its three states (booked, no appointment,
+   provider CTA). One surface (the card atom) with two layouts: row and centered. The states are
+   content, so they are examples in the meta, not separate components. */
+.appointment-card { --card-gap: var(--space-6); }
+
+.appointment-card__row { display: flex; align-items: flex-start; gap: var(--space-4); }
+.appointment-card__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-4); }
+.appointment-card__titles { display: flex; flex-direction: column; gap: var(--space-2); }
+.appointment-card__title-row { display: flex; align-items: center; gap: var(--space-2); }
+.appointment-card__headline {
+  flex: 1; min-width: 0;
+  font: var(--font-weight-semibold) var(--font-size-lg)/var(--line-height-relaxed) var(--font-family-body);
+}
+.appointment-card__body {
+  color: var(--text-secondary);
+  font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body);
+}
+.appointment-card__details { display: flex; flex-direction: column; }
+.appointment-card__edit {
+  flex: none; display: inline-grid; place-items: center; padding: 0; border: 0; background: none;
+  color: var(--icon-primary); cursor: pointer;
+}
+
+/* centered layout: avatar group, serif headline, body, button */
+.appointment-card[data-layout="centered"] { --card-padding-y: var(--padding-xl); align-items: center; text-align: center; }
+.appointment-card[data-layout="centered"] .appointment-card__main { align-items: center; }
+.appointment-card[data-layout="centered"] .appointment-card__headline {
+  flex: none; font: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-tight) var(--font-family-display); letter-spacing: var(--letter-spacing-tight);
+}
+.appointment-card[data-layout="centered"] > .button { align-self: stretch; }

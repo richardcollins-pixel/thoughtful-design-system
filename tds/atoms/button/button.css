@@ -49,7 +49,7 @@
 .button[data-variant="glass"] {
   --button-fill: var(--bg-elevation-20); --button-fill-hover: var(--bg-elevation-40); --button-fill-pressed: var(--bg-elevation-40);
   --button-text: var(--text-primary); --button-blur: 44px;
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-body);
 }
 .button[data-variant="flat"] {
   --button-fill: transparent; --button-fill-hover: var(--bg-elevation-10); --button-fill-pressed: var(--bg-elevation-20);

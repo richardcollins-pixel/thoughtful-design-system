@@ -1,0 +1,21 @@
+{
+  "name": "Card",
+  "tier": "atoms",
+  "category": "surfaces",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
+  "markup": "<div class=\"card\"><p class=\"text-body-lg-semibold\">This is the headline</p><p class=\"text-body-md text-secondary\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>",
+  "attributes": {
+    "data-fill": { "type": "enum", "values": ["gradient", "flat"], "default": "gradient" }
+  },
+  "states": [],
+  "variables": {
+    "--card-fill": "color",
+    "--card-padding-x": "padding",
+    "--card-padding-y": "padding",
+    "--card-radius": "radius",
+    "--card-gap": "padding"
+  },
+  "styles": []
+}

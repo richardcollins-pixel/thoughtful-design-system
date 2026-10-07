@@ -1,11 +1,15 @@
-/* Type styles: bundles of type tokens. Apply as classes. */
-.text-headline-1 { font: var(--font-weight-bold) var(--font-size-2xl)/var(--line-height-tight) var(--font-family-display); letter-spacing: var(--letter-spacing-tight); }
-.text-headline-2 { font: var(--font-weight-bold) var(--font-size-xl)/var(--line-height-tight) var(--font-family-display); letter-spacing: var(--letter-spacing-tight); }
-.text-subhead    { font: var(--font-weight-medium) var(--font-size-lg)/var(--line-height-snug) var(--font-family-body); }
-.text-body-lg    { font: var(--font-weight-regular) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
-.text-body-md    { font: var(--font-weight-regular) var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body); }
-.text-body-sm    { font: var(--font-weight-regular) var(--font-size-xs)/var(--line-height-normal) var(--font-family-body); letter-spacing: var(--letter-spacing-wide); }
-.text-body-xs    { font: var(--font-weight-medium) 0.6875rem/var(--line-height-normal) var(--font-family-body); letter-spacing: var(--letter-spacing-wide); }
+/* Type styles — from the Figma text styles. Each bundles type tokens; apply as a class. */
+.text-headline-1 { font: var(--font-weight-light)    var(--font-size-3xl)/var(--line-height-tight)   var(--font-family-body);    letter-spacing: var(--letter-spacing-tight); }
+.text-headline-2 { font: var(--font-weight-regular)  var(--font-size-2xl)/var(--line-height-snug)    var(--font-family-body);    letter-spacing: var(--letter-spacing-tighter); }
+.text-subhead    { font: var(--font-weight-regular)  var(--font-size-xl)/var(--line-height-tight)    var(--font-family-display); letter-spacing: var(--letter-spacing-tight); }
+
+.text-body-lg          { font: var(--font-weight-body)     var(--font-size-lg)/var(--line-height-relaxed) var(--font-family-body); }
+.text-body-lg-semibold { font: var(--font-weight-semibold) var(--font-size-lg)/var(--line-height-relaxed) var(--font-family-body); }
+.text-body-md          { font: var(--font-weight-body)     var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
 .text-body-md-semibold { font: var(--font-weight-semibold) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); letter-spacing: var(--letter-spacing-tight); }
+.text-body-sm          { font: var(--font-weight-body)     var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body); }
 .text-body-sm-semibold { font: var(--font-weight-semibold) var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body); }
-.text-secondary  { color: var(--text-secondary); }
+.text-body-xs          { font: var(--font-weight-medium)   var(--font-size-xs)/var(--line-height-relaxed) var(--font-family-body); letter-spacing: var(--letter-spacing-wide); }
+
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary  { color: var(--text-tertiary); }

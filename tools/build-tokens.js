@@ -7,8 +7,8 @@ function roleValue(t, mode) {
 }
 
 // Figma mesh gradient: a solid base fill under three soft corner glows (colors fade to transparent).
-export function gradientCss(t, gray = false) {
-  const c = (hex) => (gray ? `oklch(from ${hex} l 0 h)` : hex);
+export function gradientCss(t) {
+  const c = (hex) => hex;
   return [
     `radial-gradient(ellipse 68% 60% at 100% 0%, ${c(t.topRight)}, transparent)`,
     `radial-gradient(ellipse 43% 40% at 0% 0%, ${c(t.topLeft)}, transparent)`,
@@ -25,8 +25,9 @@ export function buildCss(tokens, schema) {
 
   const prims = of('primitive');
   block(':root', prims.map((t) => `--${t.name}: ${t.hex};`));
-  // Wireframe = color out: every primitive drops to zero chroma (same lightness).
-  block(':root[data-fidelity="wireframe"]', prims.map((t) => `--${t.name}: oklch(from ${t.hex} l 0 h);`));
+  // Wireframe = accent color out: primitives drop to zero chroma (same lightness), except the base
+  // surfaces flagged keepInWireframe.
+  block(':root[data-fidelity="wireframe"]', prims.filter((t) => !t.keepInWireframe).map((t) => `--${t.name}: oklch(from ${t.hex} l 0 h);`));
 
   const roles = of('role');
   block(':root, [data-surface="normal"]', roles.flatMap((t) => [`--${t.name}: ${roleValue(t, 'base')};`, `--${t.name}-inverse: ${roleValue(t, 'inverse')};`]));
@@ -35,7 +36,8 @@ export function buildCss(tokens, schema) {
 
   const grads = of('gradient');
   block(':root', grads.map((t) => `--${t.name}: ${gradientCss(t)};`));
-  block(':root[data-fidelity="wireframe"]', grads.map((t) => `--${t.name}: ${gradientCss(t, true)};`));
+  // wireframe: gradients flatten to a plain elevation fill
+  block(':root[data-fidelity="wireframe"]', grads.map((t) => `--${t.name}: linear-gradient(var(--bg-elevation-20), var(--bg-elevation-20));`));
 
   block(':root', ['padding', 'spacing', 'radius'].flatMap((k) => of(k).map((t) => `--${t.name}: ${fmt(t.px)}px;`)));
   block(':root', [

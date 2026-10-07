@@ -15,11 +15,9 @@
 }
 
 :root[data-fidelity="wireframe"] {
-  --purple-900: oklch(from #1f0e41 l 0 h);
   --purple-700: oklch(from #390c81 l 0 h);
   --purple-500: oklch(from #8f5ac8 l 0 h);
   --purple-300: oklch(from #bfa4ff l 0 h);
-  --slate: oklch(from #352654 l 0 h);
   --white: oklch(from #ffffff l 0 h);
   --black: oklch(from #000000 l 0 h);
   --orange: oklch(from #f57f70 l 0 h);
@@ -148,10 +146,10 @@
 }
 
 :root[data-fidelity="wireframe"] {
-  --gradient-purple-to-blue: radial-gradient(ellipse 68% 60% at 100% 0%, oklch(from #3f0786 l 0 h), transparent), radial-gradient(ellipse 43% 40% at 0% 0%, oklch(from #5a1f9b l 0 h), transparent), radial-gradient(ellipse 94% 82% at 100% 100%, oklch(from #62c2e5 l 0 h), transparent), oklch(from #3f0786 l 0 h);
-  --gradient-purple-to-orange: radial-gradient(ellipse 68% 60% at 100% 0%, oklch(from #683a94 l 0 h), transparent), radial-gradient(ellipse 43% 40% at 0% 0%, oklch(from #743498 l 0 h), transparent), radial-gradient(ellipse 94% 82% at 100% 100%, oklch(from #f57f70 l 0 h), transparent), oklch(from #852a9c l 0 h);
-  --gradient-dark-rose-to-orange: radial-gradient(ellipse 68% 60% at 100% 0%, oklch(from #723983 l 0 h), transparent), radial-gradient(ellipse 43% 40% at 0% 0%, oklch(from #82347a l 0 h), transparent), radial-gradient(ellipse 94% 82% at 100% 100%, oklch(from #f57f70 l 0 h), transparent), oklch(from #9c2a6a l 0 h);
-  --gradient-orange-to-light-rose: radial-gradient(ellipse 68% 60% at 100% 0%, oklch(from #e15e9b l 0 h), transparent), radial-gradient(ellipse 43% 40% at 0% 0%, oklch(from #ff8e5e l 0 h), transparent), radial-gradient(ellipse 94% 82% at 100% 100%, oklch(from #ffa86b l 0 h), transparent), oklch(from #ff8e5d l 0 h);
+  --gradient-purple-to-blue: linear-gradient(var(--bg-elevation-20), var(--bg-elevation-20));
+  --gradient-purple-to-orange: linear-gradient(var(--bg-elevation-20), var(--bg-elevation-20));
+  --gradient-dark-rose-to-orange: linear-gradient(var(--bg-elevation-20), var(--bg-elevation-20));
+  --gradient-orange-to-light-rose: linear-gradient(var(--bg-elevation-20), var(--bg-elevation-20));
 }
 
 :root {
@@ -168,9 +166,9 @@
   --space-8: 32px;
   --space-12: 48px;
   --space-16: 64px;
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
   --radius-full: 999px;
 }
 
@@ -182,19 +180,23 @@
   --font-weight-medium: 500;
   --font-weight-bold: 700;
   --font-weight-semibold: 600;
+  --font-weight-light: 300;
+  --font-weight-body: 420;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-md: 1rem;
-  --font-size-lg: 1.25rem;
-  --font-size-xl: 1.75rem;
-  --font-size-2xl: 2.25rem;
-  --line-height-tight: 1.15;
-  --line-height-snug: 1.3;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 1.75rem;
+  --font-size-3xl: 2.25rem;
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.4;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.6;
   --letter-spacing-tight: -0.02em;
   --letter-spacing-normal: 0em;
   --letter-spacing-wide: 0.02em;
+  --letter-spacing-tighter: -0.04em;
 }
 
 :root {

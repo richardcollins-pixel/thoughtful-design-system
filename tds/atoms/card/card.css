@@ -1,0 +1,15 @@
+/* Atom: card — the bare surface every card type shares: fill, padding, radius, clipping.
+   Default fill is the purple-to-blue gradient; wireframe mode flattens it automatically. */
+.card {
+  --card-fill: var(--gradient-purple-to-blue);
+  --card-padding-x: var(--padding-md);
+  --card-padding-y: var(--padding-lg);
+  --card-radius: var(--radius-md);
+  --card-gap: var(--space-4);
+
+  box-sizing: border-box; display: flex; flex-direction: column; gap: var(--card-gap);
+  width: 100%; padding: var(--card-padding-y) var(--card-padding-x);
+  color: var(--text-primary); background: var(--card-fill);
+  border-radius: var(--card-radius); overflow: clip;
+}
+.card[data-fill="flat"] { --card-fill: var(--bg-elevation-20); }

@@ -20,7 +20,8 @@ Screens are not part of this system; they use all of it.
 
 Layer order: `tokens, base, styles, layout, atoms, molecules, organisms, patterns, modes`.
 A layer may only use layers before it, so an atom never uses a molecule. Components consume **roles**
-(not primitives), so `data-fidelity="wireframe"` (color + imagery out) and `data-surface="inverse"` work
+(not primitives), so `data-fidelity="wireframe"` (accent colors and imagery out, gradients flatten, the base surfaces stay) and
+`data-surface="inverse"` work
 without per-component code. The system is dark-only for now; roles have a `base` and an `inverse` value.
 
 ## Editor
