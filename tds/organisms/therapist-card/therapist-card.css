@@ -1,0 +1,24 @@
+/* Organism: therapist card. Composes the avatar and button atoms and the icon-label molecule. */
+.therapist-card {
+  --therapist-card-fill: var(--bg-elevation-10);
+  --therapist-card-border: var(--border-tertiary);
+  --therapist-card-radius: var(--radius-lg);
+  --therapist-card-padding: var(--padding-md);
+  --therapist-card-gap: var(--space-4);
+
+  box-sizing: border-box; display: flex; flex-direction: column; gap: var(--therapist-card-gap);
+  width: 100%; padding: var(--therapist-card-padding);
+  color: var(--text-primary); background: var(--therapist-card-fill);
+  border: 1px solid var(--therapist-card-border); border-radius: var(--therapist-card-radius);
+}
+.therapist-card__head { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.therapist-card__name {
+  font: var(--font-weight-semibold) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body);
+  letter-spacing: var(--letter-spacing-tight);
+}
+.therapist-card__role {
+  color: var(--text-secondary);
+  font: var(--font-weight-regular) var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body);
+}
+.therapist-card__details { display: flex; flex-direction: column; gap: var(--space-2); }
+.therapist-card[data-variant="compact"] .therapist-card__details { display: none; }

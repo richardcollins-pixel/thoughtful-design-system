@@ -1,1 +1,1 @@
-{ "components": ["atoms/button", "atoms/icon", "atoms/icon-button"] }
+{ "components": ["atoms/avatar", "atoms/button", "atoms/icon", "atoms/icon-button", "molecules/icon-label", "organisms/therapist-card"] }

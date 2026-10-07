@@ -11,7 +11,7 @@ let fidelity = 'styled';
 let libraries = [], library = null, asset = null;
 let components = [], component = null, cstate = { attrs: {}, state: '', vars: {} };
 let kind = 'primitive', navKey = 'foundations/tokens/color/primitives', selected = null, saveTimer;
-const expanded = new Set(['foundations', 'foundations/tokens', 'foundations/tokens/color', 'foundations/tokens/layout', 'foundations/tokens/type', 'foundations/tokens/motion', 'atoms', 'assets', 'assets/images']);
+const expanded = new Set(['foundations', 'foundations/tokens', 'foundations/tokens/color', 'foundations/tokens/layout', 'foundations/tokens/type', 'foundations/tokens/motion', 'atoms', 'molecules', 'organisms', 'patterns', 'assets', 'assets/images']);
 
 /* ---------- color helpers ---------- */
 const primHex = (name) => (tokens.find((t) => t.kind === 'primitive' && t.name === name) || { hex: '#000000' }).hex;
