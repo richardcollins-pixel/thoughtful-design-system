@@ -1,17 +1,26 @@
 {
   "name": "Icon",
-  "tier": "parts",
+  "tier": "atoms",
   "category": "media",
   "stateful": false,
   "uses": [],
   "markup": "<i class=\"icon icon-check\"></i>",
   "attributes": {
-    "data-size": { "type": "enum", "values": ["sm", "md", "lg"], "default": "md" }
+    "data-size": {
+      "type": "enum",
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md"
+    }
   },
   "states": [],
   "variables": {
     "--icon-color": "color",
     "--icon-size": "padding"
   },
-  "styles": []
+  "styles": [],
+  "glyphs": "glyphs.json"
 }

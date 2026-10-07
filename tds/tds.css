@@ -1,6 +1,6 @@
 /* Thoughtful Design System — entry point.
    Layer order is the dependency order: a layer may only use layers before it. */
-@layer tokens, base, styles, layout, parts, blocks, sections, templates, screens, modes;
+@layer tokens, base, styles, layout, atoms, molecules, organisms, patterns, modes;
 
 
 @import url("foundations/fonts.css");
@@ -15,9 +15,9 @@
 
 @import url("foundations/layout/layout.css")           layer(layout);
 
-@import url("components/parts/button/button.css")      layer(parts);
-@import url("libraries/icons.css")                      layer(parts);   /* generated */
-@import url("components/parts/icon/icon.css")           layer(parts);
-@import url("components/parts/icon-button/icon-button.css") layer(parts);
+@import url("atoms/button/button.css")                  layer(atoms);
+@import url("atoms/icon/icons.css")                     layer(atoms);   /* generated */
+@import url("atoms/icon/icon.css")                      layer(atoms);
+@import url("atoms/icon-button/icon-button.css")        layer(atoms);
 
 @import url("modes/wireframe.css")                     layer(modes);

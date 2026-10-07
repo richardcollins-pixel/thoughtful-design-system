@@ -4,17 +4,24 @@ HTML, CSS and JS design system, plus (later) an editor in `editor/`.
 
 ```
 tds/
-  foundations/  tokens · styles · layout · base
-  components/   parts · blocks · sections
-  templates/ · screens/ · modes/
+  foundations/  tokens · styles · layout utilities · base
+  atoms/        single elements: button, icon (+ its glyphs), icon button
+  molecules/    a few atoms with one job: form field, list row, toast, search field
+  organisms/    self-contained sections: therapist card, app header, tab bar, chat thread
+  patterns/     page layouts with slots
+  assets/       images, graphics, videos
+  modes/        wireframe
   tds.css       declares @layer order and imports everything
-preview/        plain page for eyeballing the system
+  index.json    lists every component for the editor
+preview/        the page the editor's canvas renders each component on
 ```
 
-Layer order: `tokens, base, styles, layout, parts, blocks, sections, templates, screens, modes`.
-A layer may only use layers before it. Components consume **roles** (not primitives), so
-`data-fidelity="wireframe"` (color + imagery out) and `data-surface="inverse"` work without per-component code.
-The system is dark-only for now; roles have a `base` and an `inverse` value.
+Screens are not part of this system; they use all of it.
+
+Layer order: `tokens, base, styles, layout, atoms, molecules, organisms, patterns, modes`.
+A layer may only use layers before it, so an atom never uses a molecule. Components consume **roles**
+(not primitives), so `data-fidelity="wireframe"` (color + imagery out) and `data-surface="inverse"` work
+without per-component code. The system is dark-only for now; roles have a `base` and an `inverse` value.
 
 ## Editor
 
@@ -31,32 +38,33 @@ redeploys in about a minute. The canvas updates live before you commit.
 **Locally** — autosaves to disk, no token needed (Python 3, no dependencies):
 
 ```
-python3 editor/server.py      # http://localhost:5173/editor/   (preview page at /preview/)
+python3 editor/server.py      # http://localhost:5173/editor/   
 ```
 
 ## Adding a component
 
-1. Create `tds/components/<tier>/<name>/` with `<name>.css` and `<name>.meta.json` (copy the button's as a template).
-2. Import the CSS in `tds/tds.css` under its tier layer (`parts`, `blocks` or `sections`).
-3. Add `"<tier>/<name>"` to `tds/components/index.json`.
+1. Create `tds/<level>/<name>/` (level = `atoms`, `molecules`, `organisms` or `patterns`) with
+   `<name>.css` and `<name>.meta.json` (copy the button's as a template; set `"tier"` to the level).
+2. Import the CSS in `tds/tds.css` under the same layer name.
+3. Add `"<level>/<name>"` to `tds/index.json`.
 
-It then appears in the editor nav under components; the canvas renders it from its `meta.json`
+It then appears in the editor nav under that level; the canvas renders it from its `meta.json`
 (markup, attributes, states, variables).
 
-## Libraries
+## Assets and icons
 
-Shared assets live in `tds/libraries/`: `icons/`, `images/<group>/` (e.g. `images/therapists/`),
-`graphics/`, `videos/`. The editor's **libraries** nav browses them.
+- **Images, graphics, videos** live in `tds/assets/` (`images/<group>/`, `graphics/`, `videos/`); the editor's
+  **assets** nav browses them. Images are plain `<img>`; wireframe mode flattens them.
+- **Icons** are an atom: the glyph SVGs live in `tds/atoms/icon/glyphs/` and the icon's canvas page shows them all.
+  Use `<i class="icon icon-check"></i>` (name = file name, lowercased, without `Name=`). They're drawn as masks,
+  so they take the current text color — roles, inverse surfaces and wireframe mode all apply.
 
-After adding or removing files, regenerate the manifest and icon classes (static hosting can't scan folders):
+After adding or removing files in either place, regenerate the manifests and icon classes (static hosting
+can't scan folders):
 
 ```
-python3 tools/build_libraries.py     # writes libraries/index.json and libraries/icons.css
+python3 tools/build_assets.py   # writes assets/index.json, atoms/icon/glyphs.json and atoms/icon/icons.css
 ```
-
-Icons are used as `<i class="icon icon-check"></i>` (name = file name, lowercased, without `Name=`).
-They're drawn as masks, so they take the current text color — roles, inverse surfaces and
-wireframe mode all apply. Images are plain `<img>`; wireframe mode flattens them.
 
 ## Deploys and caching
 
