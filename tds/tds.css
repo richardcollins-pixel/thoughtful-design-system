@@ -27,4 +27,6 @@
 
 @import url("organisms/appointment-card/appointment-card.css") layer(organisms);
 
+@import url("defaults.css");                              /* generated: components' saved defaults */
+
 @import url("modes/wireframe.css")                     layer(modes);

@@ -23,7 +23,7 @@
   document.body.insertAdjacentHTML('afterbegin', shell);
   // version the modules' own imports too
   const map = document.createElement('script'); map.type = 'importmap';
-  map.textContent = JSON.stringify({ imports: { './github.js': './github.js' + q, '../tools/build-tokens.js': '../tools/build-tokens.js' + q } });
+  map.textContent = JSON.stringify({ imports: { './github.js': './github.js' + q, '../tools/build-tokens.js': '../tools/build-tokens.js' + q, '../tools/build-defaults.js': '../tools/build-defaults.js' + q } });
   document.head.append(map);
   import('./editor.js' + q);
 })();
