@@ -48,6 +48,9 @@ python3 editor/server.py      # http://localhost:5173/editor/
 2. Import the CSS in `tds/tds.css` under the same layer name.
 3. Add `"<level>/<name>"` to `tds/index.json`.
 
+4. List what it's built from in `"uses"` in its meta, then run `python3 tools/check_layers.py`: a component may only
+   use components from lower levels (atoms < molecules < organisms < patterns).
+
 It then appears in the editor nav under that level; the canvas renders it from its `meta.json`
 (markup, attributes, states, variables).
 
