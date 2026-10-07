@@ -1,15 +1,49 @@
 {
   "fontFamilies": [
-    { "key": "inter",     "label": "Inter",            "stack": "\"Inter\", system-ui, -apple-system, \"Segoe UI\", sans-serif" },
-    { "key": "editorial", "label": "PP Editorial New", "stack": "\"PP Editorial New\", Georgia, \"Times New Roman\", serif" },
-    { "key": "dm-mono",   "label": "DM Mono",          "stack": "\"DM Mono\", ui-monospace, SFMono-Regular, Menlo, monospace" }
+    {
+      "key": "inter",
+      "label": "Inter",
+      "stack": "\"Inter\", system-ui, -apple-system, \"Segoe UI\", sans-serif"
+    },
+    {
+      "key": "editorial",
+      "label": "PP Editorial New",
+      "stack": "\"PP Editorial New\", Georgia, \"Times New Roman\", serif"
+    },
+    {
+      "key": "dm-mono",
+      "label": "DM Mono",
+      "stack": "\"DM Mono\", ui-monospace, SFMono-Regular, Menlo, monospace"
+    }
   ],
   "fontWeights": [
-    { "value": 300, "label": "Light" },
-    { "value": 400, "label": "Regular" },
-    { "value": 500, "label": "Medium" },
-    { "value": 600, "label": "Semibold" },
-    { "value": 700, "label": "Bold" },
-    { "value": 800, "label": "Extrabold" }
+    {
+      "value": 300,
+      "label": "Light"
+    },
+    {
+      "value": 400,
+      "label": "Regular"
+    },
+    {
+      "value": 420,
+      "label": "Body"
+    },
+    {
+      "value": 500,
+      "label": "Medium"
+    },
+    {
+      "value": 600,
+      "label": "Semibold"
+    },
+    {
+      "value": 700,
+      "label": "Bold"
+    },
+    {
+      "value": 800,
+      "label": "Extrabold"
+    }
   ]
 }

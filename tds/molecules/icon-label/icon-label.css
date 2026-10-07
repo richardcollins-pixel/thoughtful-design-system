@@ -6,7 +6,8 @@
 
   display: flex; align-items: center; gap: var(--icon-label-gap);
   color: var(--icon-label-text);
-  font: var(--font-weight-regular) var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body);
+  font: var(--font-weight-body) var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body);
 }
 .icon-label > .icon { --icon-color: var(--icon-label-icon); }
 .icon-label[data-emphasis="primary"] { --icon-label-text: var(--text-primary); --icon-label-icon: var(--icon-primary); }
+.icon-label[data-size="md"] { font-size: var(--font-size-md); }

@@ -1,6 +1,7 @@
-/* Wireframe = color and imagery out of the picture. Nothing structural changes:
+/* Wireframe = accent color and imagery out of the picture. Nothing structural changes:
    type, radius, spacing, shadows and motion all stay as designed.
-   The grayscale primitives are generated into tokens/tokens.css; this file handles imagery. */
+   The base surfaces stay; accent primitives go gray and gradients flatten (both generated into
+   tokens/tokens.css). This file handles imagery. */
 :root[data-fidelity="wireframe"] :is(img, video, picture, canvas, [data-imagery]) {
   filter: grayscale(1) contrast(0) brightness(1.15);
   outline: 1px solid var(--border-primary);

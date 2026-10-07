@@ -1,0 +1,8 @@
+/* Molecule: avatar group — avatars overlapping by 4px. */
+.avatar-group {
+  --avatar-group-size: 60px;
+  --avatar-group-overlap: var(--space-1);
+  display: inline-flex; align-items: center;
+}
+.avatar-group > .avatar { --avatar-size: var(--avatar-group-size); margin-inline-start: calc(var(--avatar-group-overlap) * -1); }
+.avatar-group > .avatar:first-child { margin-inline-start: 0; }

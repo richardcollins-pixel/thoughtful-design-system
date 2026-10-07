@@ -31,7 +31,7 @@ const simple = (path, noun, make, fields, cols, preview) => ({ path, noun, make,
 
 const KINDS = {
   primitive: simple(['tokens', 'color', 'primitives'], 'primitive', () => ({ hex: '#7a4de8' }),
-    [{ key: 'hex', label: 'Hex', type: 'hex' }],
+    [{ key: 'hex', label: 'Hex', type: 'hex' }, { key: 'keepInWireframe', label: 'Wireframe mode', type: 'bool', text: 'Keep this color (a base surface)' }],
     [['Value', (t) => `<span class="chip">${sw(t.hex)}${esc(t.hex)}</span>`]],
     (t) => sw(t.hex, 100, true)),
   role: {
@@ -194,6 +194,7 @@ function fieldHtml(f, t) {
     case 'number': return wrap(`<input type="number" data-key="${f.key}" value="${v}" ${f.min != null ? `min="${f.min}"` : ''} step="${f.step || 1}">`);
     case 'select': return wrap(`<select data-key="${f.key}" ${f.numeric ? 'data-numeric' : ''}>${f.options().map(([val, label]) => `<option value="${esc(val)}" ${String(val) === String(v) ? 'selected' : ''}>${esc(label)}</option>`).join('')}</select>`);
     case 'refop': return wrap(`<div class="pair"><select data-key="${f.key}.ref">${tokens.filter((x) => x.kind === 'primitive').map((p) => `<option ${p.name === v.ref ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}</select><input type="number" data-key="${f.key}.opacity" min="0" max="100" value="${v.opacity}" title="Opacity %"></div>`);
+    case 'bool': return wrap(`<label class="check"><input type="checkbox" data-key="${f.key}" ${v ? 'checked' : ''}> ${f.text}</label>`);
     case 'bezier': return wrap(`<div class="bez">${v.map((n, i) => `<input type="number" step="0.05" data-key="bezier.${i}" value="${n}">`).join('')}</div>`);
   }
 }
@@ -213,7 +214,8 @@ const HEX = /^#[0-9a-f]{6}$/i;
 $('#panel').addEventListener('input', (e) => {
   const el = e.target, key = el.dataset.key; if (!key || key === 'name' || !selected) return;
   let v = el.value;
-  if (el.type === 'number') { v = parseFloat(v); if (Number.isNaN(v)) return; }
+  if (el.type === 'checkbox') v = el.checked;
+  else if (el.type === 'number') { v = parseFloat(v); if (Number.isNaN(v)) return; }
   else if (el.hasAttribute('data-numeric')) v = Number(v);
   if (key === 'hex') {
     if (!HEX.test(v)) return;

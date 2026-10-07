@@ -20,9 +20,11 @@
 @import url("atoms/icon/icon.css")                      layer(atoms);
 @import url("atoms/icon-button/icon-button.css")        layer(atoms);
 @import url("atoms/avatar/avatar.css")                  layer(atoms);
+@import url("atoms/card/card.css")                      layer(atoms);
 
 @import url("molecules/icon-label/icon-label.css")      layer(molecules);
+@import url("molecules/avatar-group/avatar-group.css")  layer(molecules);
 
-@import url("organisms/therapist-card/therapist-card.css") layer(organisms);
+@import url("organisms/appointment-card/appointment-card.css") layer(organisms);
 
 @import url("modes/wireframe.css")                     layer(modes);
