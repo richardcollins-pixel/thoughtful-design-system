@@ -42,6 +42,15 @@ redeploys in about a minute. The canvas updates live before you commit.
 python3 editor/server.py      # http://localhost:5173/editor/   
 ```
 
+## Editing a component
+
+Select a component to see it on the canvas. Atoms and molecules show every variant at once; organisms and
+patterns show a single instance, and the panel on the right switches its variant, properties and surface
+(variable changes there are previews). **Edit Component** switches the panel to edit mode: the variable
+values you set become that component's **defaults**, saved in its `meta.json` (`"defaults"`) and in the
+generated `tds/defaults.css` (`tools/build-defaults.js`). Locally *Save* writes the files; on the web *Commit
+changes* commits them. Token pages keep the same save bar at the bottom of the panel.
+
 ## Adding a component
 
 1. Create `tds/<level>/<name>/` (level = `atoms`, `molecules`, `organisms` or `patterns`) with

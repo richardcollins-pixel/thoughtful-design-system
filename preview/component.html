@@ -11,6 +11,10 @@
     .subject { display: flex; align-items: center; justify-content: center; min-height: 8rem; padding: var(--padding-lg); border-radius: var(--radius-md); background: var(--bg-elevation-5); }
     .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
     .panel { padding: var(--padding-md); border-radius: var(--radius-md); }
+    /* organisms and beyond: one instance, centred, no labels */
+    .single main { min-height: calc(100vh - 2 * var(--space-6)); display: flex; flex-direction: column; justify-content: center; }
+    .single .label { display: none; }
+    .single .subject { display: block; min-height: 0; padding: 0; background: none; border-radius: 0; }
     .glyphs { display: grid; grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr)); gap: var(--space-2); }
     .glyph { display: flex; flex-direction: column; align-items: center; gap: var(--space-1); padding: var(--padding-sm); border-radius: var(--radius-sm); background: var(--bg-elevation-5); text-align: center; overflow: hidden; }
     .glyph span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -27,6 +31,11 @@
     const meta = await fetch(`../tds/${path}/${name}.meta.json`, { cache: 'no-store' }).then((r) => r.json());
     const attrs = Object.entries(meta.attributes || {});
     const defaults = Object.fromEntries(attrs.map(([k, a]) => [k, a.default]));
+    const examples = meta.examples || [];
+    // Atoms and molecules show every variant at once. Organisms and beyond show one instance; the editor's
+    // panel switches variants, state and surface.
+    const single = ['organisms', 'patterns'].includes(meta.tier);
+    document.body.classList.toggle('single', single);
 
     function make({ set = {}, state, text, markup } = {}) {
       const t = document.createElement('template'); t.innerHTML = (markup || meta.markup).trim();
@@ -43,37 +52,44 @@
       const row = document.createElement('div'); row.className = 'row'; row.append(...nodes); s.append(row); return s;
     };
 
-    document.getElementById('title').textContent = `${meta.name} — ${meta.tier}`;
-    const subject = make({ text: meta.name });
-    document.getElementById('subject').append(subject);
-
-    const g = document.getElementById('gallery');
-    for (const [k, a] of attrs) if (a.type === 'enum') g.append(section(a.when ? `${k} (${Object.values(a.when)[0]} only)` : k, ...a.values.map((v) => make({ set: { ...(a.when || {}), [k]: v }, text: v }))));
-    if ((meta.states || []).length) g.append(section('states', ...meta.states.map((s) => make({ state: s, text: s }))));
-    // Named examples: states that differ in content, not just attributes (e.g. a card's booked / empty / CTA).
-    for (const ex of meta.examples || []) g.append(section(ex.name, make({ markup: ex.markup })));
-    const first = attrs.find(([, a]) => a.type === 'enum');
-    if (first) {
-      const inv = section('on inverse surface', ...first[1].values.map((v) => make({ set: { [first[0]]: v }, text: v })));
-      inv.className = 'panel'; inv.dataset.surface = 'inverse'; g.append(inv);
-    }
-
-    // Some atoms carry a glyph library (the icon atom): show every glyph.
-    if (meta.glyphs) {
-      const { items } = await fetch(`../tds/${path}/${meta.glyphs}`, { cache: 'no-store' }).then((r) => r.json());
-      const s = document.createElement('section');
-      s.innerHTML = `<p class="label text-body-xs text-secondary">${items.length} glyphs</p><div class="glyphs">${items.map((g) => `<div class="glyph"><i class="icon icon-${g.name}"></i><span class="text-body-xs text-secondary">${g.name}</span></div>`).join('')}</div>`;
-      g.append(s);
-    }
-
-    // Driven by the editor (same origin). Overrides here are previews only — they are not saved.
+    // The subject: the one instance the editor's panel controls.
+    const slot = document.getElementById('subject');
+    const attrState = {}; let stateName = '', subject;
     const vars = {};
+    const build = (markup) => make({ markup, set: attrState, state: stateName || undefined, text: single ? undefined : meta.name });
+    function place(el) { subject = el; slot.replaceChildren(el); for (const [k, v] of Object.entries(vars)) el.style.setProperty(k, v); }
+    document.getElementById('title').textContent = `${meta.name} — ${meta.tier}`;
+    place(build(examples[0] && examples[0].markup));
+
+    if (!single) {
+      const g = document.getElementById('gallery');
+      for (const [k, a] of attrs) if (a.type === 'enum') g.append(section(a.when ? `${k} (${Object.values(a.when)[0]} only)` : k, ...a.values.map((v) => make({ set: { ...(a.when || {}), [k]: v }, text: v }))));
+      if ((meta.states || []).length) g.append(section('states', ...meta.states.map((s) => make({ state: s, text: s }))));
+      for (const ex of examples) g.append(section(ex.name, make({ markup: ex.markup })));
+      const first = attrs.find(([, a]) => a.type === 'enum');
+      if (first) {
+        const inv = section('on inverse surface', ...first[1].values.map((v) => make({ set: { [first[0]]: v }, text: v })));
+        inv.className = 'panel'; inv.dataset.surface = 'inverse'; g.append(inv);
+      }
+      // Some atoms carry a glyph library (the icon atom): show every glyph.
+      if (meta.glyphs) {
+        const { items } = await fetch(`../tds/${path}/${meta.glyphs}`, { cache: 'no-store' }).then((r) => r.json());
+        const s = document.createElement('section');
+        s.innerHTML = `<p class="label text-body-xs text-secondary">${items.length} glyphs</p><div class="glyphs">${items.map((i) => `<div class="glyph"><i class="icon icon-${i.name}"></i><span class="text-body-xs text-secondary">${i.name}</span></div>`).join('')}</div>`;
+        g.append(s);
+      }
+    }
+
+    // Driven by the editor (same origin). Nothing here is saved; the editor saves defaults to the repo.
     const all = () => document.querySelectorAll('[data-tds-instance]');
     window.tdsComponent = {
-      setAttr: (k, v) => subject.setAttribute(k, v),
-      setState: (s) => (s ? (subject.dataset.state = s) : delete subject.dataset.state),
-      setVar(k, v) { v ? (vars[k] = v) : delete vars[k]; all().forEach((e) => (v ? e.style.setProperty(k, v) : e.style.removeProperty(k))); },
-      reset() { Object.keys(vars).forEach((k) => this.setVar(k, null)); this.setState(''); for (const [k, v] of Object.entries(defaults)) subject.setAttribute(k, v); },
+      setAttr(k, v) { attrState[k] = v; subject.setAttribute(k, v); },
+      setState(s) { stateName = s; if (s) subject.dataset.state = s; else delete subject.dataset.state; },
+      setVar(k, v) { if (v) vars[k] = v; else delete vars[k]; all().forEach((e) => (v ? e.style.setProperty(k, v) : e.style.removeProperty(k))); },
+      clearVars() { Object.keys(vars).forEach((k) => this.setVar(k, null)); },
+      setExample(i) { if (examples[i]) place(build(examples[i].markup)); },
+      setSurface(v) { if (v === 'inverse') document.body.dataset.surface = 'inverse'; else delete document.body.dataset.surface; },
+      reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; this.setSurface('normal'); place(build(examples[0] && examples[0].markup)); },
     };
     if (self !== top) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
   </script>

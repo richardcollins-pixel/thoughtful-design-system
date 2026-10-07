@@ -2,13 +2,12 @@
     <!-- the design: full-screen canvas -->
     <div class="stage" id="stage" hidden><div id="wrap"><div id="frame"><iframe id="screen" title="canvas"></iframe></div></div></div>
 
-    <!-- everything below floats on top and hides with ⌘\ -->
+    <!-- everything below sits on top of the canvas and hides with ⌘\ -->
     <nav class="float nav" id="nav"></nav>
 
-    <div class="float tb top" id="topbar">
+    <div class="float top" id="topbar">
       <div class="crumbs" id="crumbs"></div>
       <div class="group" id="toolbar" hidden>
-        <i class="sep"></i>
         <select id="device" aria-label="Device"></select>
         <span class="dims"><input id="dw" type="number" min="200" max="3000" aria-label="Width"><span>×</span><input id="dh" type="number" min="200" max="3000" aria-label="Height"></span>
         <i class="sep"></i>
@@ -16,15 +15,23 @@
       </div>
     </div>
 
-    <div class="float tb actions" id="actions">
-      <span class="status" id="status"></span>
-      <button class="btn" id="signin" hidden>GitHub</button>
-      <button class="btn dark" id="commit" hidden>Commit</button>
-      <button class="btn" id="add">+ Add token</button>
-    </div>
+    <main class="float sheet" id="sheet">
+      <div class="sheet-head" id="sheethead"><span class="mute" id="sheet-desc"></span><button class="btn" id="add">+ Add token</button></div>
+      <div class="center-body" id="body"></div>
+    </main>
 
-    <main class="float sheet" id="sheet"><div class="center-body" id="body"></div></main>
-    <aside class="float panel" id="panel"></aside>
+    <aside class="float panel" id="panel">
+      <div class="panel-body" id="panel-body"></div>
+      <footer class="savebar" id="savebar" hidden>
+        <span class="status" id="status"></span>
+        <div class="savebtns">
+          <button class="btn" id="signin" hidden>GitHub</button>
+          <button class="btn dark" id="commit" hidden>Commit changes</button>
+          <button class="btn dark" id="save" hidden>Save</button>
+          <button class="btn" id="discard" hidden>Discard</button>
+        </div>
+      </footer>
+    </aside>
   </div>
   <div class="hint" id="hint">⌘\ shows the interface</div>
 

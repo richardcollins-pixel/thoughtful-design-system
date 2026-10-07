@@ -1,4 +1,5 @@
 import { buildCss, gradientCss } from '../tools/build-tokens.js';
+import { buildDefaultsCss } from '../tools/build-defaults.js';
 import * as gh from './github.js';
 
 const $ = (s) => document.querySelector(s);
@@ -9,7 +10,8 @@ const setPath = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); k
 let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
 let fidelity = 'styled';
 let libraries = [], library = null, asset = null;
-let components = [], component = null, cstate = { attrs: {}, state: '', vars: {} };
+const freshPreview = () => ({ attrs: {}, state: '', vars: {}, example: 0, surface: 'normal' });
+let components = [], component = null, editing = false, cstate = freshPreview();
 let kind = 'primitive', navKey = 'foundations/tokens/color/primitives', selected = null, saveTimer;
 const expanded = new Set(['foundations', 'foundations/tokens', 'foundations/tokens/color', 'foundations/tokens/layout', 'foundations/tokens/type', 'foundations/tokens/motion', 'atoms', 'molecules', 'organisms', 'patterns', 'assets', 'assets/images']);
 
@@ -141,7 +143,7 @@ $('#nav').addEventListener('click', (e) => {
     component = components.find((c) => c.path === b.dataset.component) || null;
     library = null; asset = null;
     if (b.dataset.library) { const [lid, gid] = b.dataset.library.split('/'); const l = libraries.find((x) => x.id === lid); library = { lib: l, group: l.groups.find((g) => g.id === gid) }; }
-    cstate = { attrs: {}, state: '', vars: {} };
+    cstate = freshPreview(); editing = false;
     setCanvasSrc();
   }
   renderAll();
@@ -161,12 +163,12 @@ const DESC = {
 
 function renderTable() {
   const body = $('#body');
+  $('#sheet-desc').textContent = (!library && kind && DESC[kind]) || '';
   if (library) return renderLibrary();
   if (!kind) { body.innerHTML = '<p class="empty">Placeholder — coming in a later step.</p>'; return; }
   const def = KINDS[kind];
   const list = tokens.filter((t) => t.kind === kind);
-  const desc = DESC[kind] ? `<p class="mute desc">${DESC[kind]}</p>` : '';
-  if (!list.length) { body.innerHTML = `${desc}<p class="empty">No ${def.noun}s yet. Use “Add token”.</p>`; return; }
+  if (!list.length) { body.innerHTML = `<p class="empty">No ${def.noun}s yet. Use “Add token”.</p>`; return; }
   const cols = def.cols;
   let html = `<table><thead><tr><th>Name</th>${cols.map(([h]) => `<th>${h}</th>`).join('')}</tr></thead><tbody>`;
   let group = null;
@@ -174,7 +176,7 @@ function renderTable() {
     if (kind === 'role' && t.group !== group) { group = t.group; html += `<tr class="group"><td colspan="${cols.length + 1}">color / ${esc(group)}</td></tr>`; }
     html += `<tr class="item${t === selected ? ' sel' : ''}" data-i="${tokens.indexOf(t)}"><td class="name">${esc(t.name)}</td>${cols.map(([, f]) => `<td>${f(t)}</td>`).join('')}</tr>`;
   }
-  body.innerHTML = desc + html + '</tbody></table>';
+  body.innerHTML = html + '</tbody></table>';
 }
 
 $('#body').addEventListener('click', (e) => {
@@ -202,7 +204,7 @@ function fieldHtml(f, t) {
 function renderPanel() {
   if (component) return renderComponentPanel();
   if (library) return renderLibraryPanel();
-  const p = $('#panel');
+  const p = $('#panel-body');
   if (!selected) { p.innerHTML = '<h2>Variables and Properties</h2><p class="mute">Select a token to edit it.</p>'; return; }
   const def = KINDS[kind];
   p.innerHTML = `<h2>Variables and Properties</h2><div id="pv">${def.preview(selected)}</div>
@@ -263,12 +265,43 @@ $('#add').addEventListener('click', () => {
 
 /* ---------- save / load ---------- */
 const TOKENS_JSON = 'tds/foundations/tokens/tokens.json', TOKENS_CSS = 'tds/foundations/tokens/tokens.css';
-let mode = 'local', dirty = false;   // local: python server autosaves. github: explicit commit.
+let mode = 'local';                       // local: the python server; github: explicit commits
+let dirtyTokens = false;
+const dirtyComps = new Set();             // component paths whose defaults changed
+const isDirty = () => dirtyTokens || dirtyComps.size > 0;
+const baseName = (path) => path.split('/').pop();
+const compByPath = (path) => components.find((c) => c.path === path);
+const metaPath = (c) => `tds/${c.path}/${baseName(c.path)}.meta.json`;
 
-// The top-right pill only shows when it has something in it.
-function updateActions() { $('#actions').hidden = !$('#status').textContent && $('#add').hidden && $('#signin').hidden && $('#commit').hidden; }
-function setStatus(msg, err) { const s = $('#status'); s.textContent = msg; s.className = 'status' + (err ? ' err' : ''); updateActions(); }
-const files = () => ({ [TOKENS_JSON]: JSON.stringify({ tokens }, null, 2) + '\n', [TOKENS_CSS]: buildCss(tokens, schema) });
+function setStatus(msg, err) { const st = $('#status'); st.textContent = msg; st.className = 'status' + (err ? ' err' : ''); updateSavebar(); }
+
+// The save bar belongs to whatever is being edited: token pages always, components only in edit mode.
+function updateSavebar() {
+  const onTokens = !component && !library && !!kind, editingComp = !!component && editing;
+  const gm = mode === 'github', cfg = gh.getCfg(), canSave = gm && (editingComp || onTokens);
+  $('#savebar').hidden = !(editingComp || (onTokens && (gm || !!$('#status').textContent)));
+  $('#signin').hidden = !canSave; $('#commit').hidden = !canSave;
+  $('#save').hidden = !(!gm && editingComp);
+  $('#discard').hidden = !(editingComp && dirtyComps.has(component.path));
+  $('#signin').textContent = cfg.token ? 'GitHub ✓' : 'Sign in';
+  $('#commit').disabled = !isDirty();
+  $('#save').disabled = !dirtyComps.size;
+}
+
+// Everything that has changed, as {path: text}. Components' edited metas plus the regenerated defaults.css.
+function changedFiles() {
+  const f = {};
+  if (dirtyTokens) { f[TOKENS_JSON] = JSON.stringify({ tokens }, null, 2) + '\n'; f[TOKENS_CSS] = buildCss(tokens, schema); }
+  if (dirtyComps.size) {
+    for (const path of dirtyComps) { const c = compByPath(path); f[metaPath(c)] = JSON.stringify(c.meta, null, 2) + '\n'; }
+    f['tds/defaults.css'] = buildDefaultsCss(components);
+  }
+  return f;
+}
+function markSaved() {
+  for (const path of dirtyComps) { const c = compByPath(path); c.saved = structuredClone(c.meta.defaults || {}); }
+  dirtyComps.clear(); dirtyTokens = false; updateSavebar();
+}
 
 // Push the current (possibly unsaved) tokens into the canvas as a layer-scoped stylesheet.
 function applyLive() {
@@ -279,58 +312,69 @@ function applyLive() {
 }
 
 function scheduleSave() {
-  applyLive();
-  if (mode === 'github') { dirty = true; setStatus('Unsaved changes'); renderMode(); return; }
+  applyLive(); dirtyTokens = true;
+  if (mode === 'github') { setStatus('Unsaved changes'); return; }
   setStatus('Saving…'); clearTimeout(saveTimer); saveTimer = setTimeout(saveLocal, 300);
 }
 async function saveLocal() {
   try {
-    const f = files();
-    const r = await fetch('../api/tokens', { method: 'PUT', body: JSON.stringify({ tokens, css: f[TOKENS_CSS] }) });
+    const r = await fetch('../api/tokens', { method: 'PUT', body: JSON.stringify({ tokens, css: buildCss(tokens, schema) }) });
     const j = await r.json();
+    if (r.ok) dirtyTokens = false;
     setStatus(r.ok ? 'Saved' : j.error, !r.ok);
   } catch { setStatus('Save failed — is the server running?', true); }
 }
 
-function renderMode() {
-  const gm = mode === 'github', cfg = gh.getCfg();
-  $('#signin').hidden = !gm; $('#commit').hidden = !gm;
-  $('#signin').textContent = cfg.token ? 'GitHub ✓' : 'Sign in';
-  $('#commit').disabled = !dirty;
-  updateActions();
-}
+$('#save').addEventListener('click', async () => {
+  setStatus('Saving…');
+  try {
+    const r = await fetch('../api/files', { method: 'PUT', body: JSON.stringify({ files: changedFiles() }) });
+    const j = await r.json(); if (!r.ok) throw new Error(j.error);
+    markSaved(); setStatus('Saved');
+  } catch (e) { setStatus(e.message || 'Save failed — is the server running?', true); }
+});
 $('#signin').addEventListener('click', () => {
   const c = gh.getCfg(); $('#g-token').value = c.token; $('#g-repo').value = c.repo; $('#g-branch').value = c.branch; $('#dlg').showModal();
 });
 $('#dlg').addEventListener('close', async () => {
   if ($('#dlg').returnValue !== 'ok') return;
   gh.setCfg({ token: $('#g-token').value.trim(), repo: $('#g-repo').value.trim(), branch: $('#g-branch').value.trim() || 'main' });
-  renderMode();
-  if (!dirty) await loadTokens();   // pick up the latest from the repo
+  updateSavebar();
+  if (!isDirty()) await loadTokens();   // pick up the latest from the repo
 });
 $('#commit').addEventListener('click', async () => {
   if (!gh.getCfg().token) return $('#signin').click();
+  const what = [dirtyTokens && 'design tokens', dirtyComps.size && `component defaults (${[...dirtyComps].map(baseName).join(', ')})`].filter(Boolean).join(' and ');
   setStatus('Committing…'); $('#commit').disabled = true;
   try {
-    await gh.commit(files(), 'Update design tokens via editor');
-    dirty = false; setStatus(`Committed to ${gh.getCfg().branch} — the site updates in about a minute`);
+    await gh.commit(changedFiles(), `Update ${what} via editor`);
+    markSaved(); setStatus(`Committed to ${gh.getCfg().branch} — the site updates in about a minute`);
   } catch (e) { setStatus(e.message, true); }
-  renderMode();
 });
-window.addEventListener('beforeunload', (e) => { if (dirty) e.preventDefault(); });
+$('#discard').addEventListener('click', () => {
+  for (const path of [...dirtyComps]) {
+    const c = compByPath(path); c.meta.defaults = structuredClone(c.saved);
+    if (!Object.keys(c.meta.defaults).length) delete c.meta.defaults;
+  }
+  dirtyComps.clear(); syncVars(); renderComponentPanel(); setStatus('');
+});
+window.addEventListener('beforeunload', (e) => { if (isDirty()) e.preventDefault(); });
 
 const normalize = (list) => list.map((t) => (t.kind === 'role' && t.values.light ? { ...t, values: { base: t.values.dark, inverse: t.values.light } } : t));
 
 async function loadTokens() {
+  const published = async () => normalize((await fetch(mode === 'local' ? '../api/tokens' : '../' + TOKENS_JSON, { cache: 'no-store' }).then((r) => r.json())).tokens);
   try {
-    if (mode === 'github' && gh.getCfg().token) tokens = normalize((await gh.load(TOKENS_JSON)).tokens);
-    else tokens = normalize((await fetch(mode === 'local' ? '../api/tokens' : '../' + TOKENS_JSON, { cache: 'no-store' }).then((r) => r.json())).tokens);
+    if (mode === 'github' && gh.getCfg().token) {
+      try { tokens = normalize((await gh.load(TOKENS_JSON)).tokens); }
+      catch (e) { tokens = await published(); setStatus(`${e.message} — showing the published tokens`, true); }   // a bad or expired token must not empty the editor
+    } else tokens = await published();
     selected = null; renderAll(); applyLive();
     if (mode === 'github' && !gh.getCfg().token) setStatus('Read-only — sign in to commit changes');
   } catch (e) { setStatus(e.message, true); }
 }
 
-function renderAll() { renderNav(); renderCrumbs(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind; }
+function renderAll() { renderNav(); renderCrumbs(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind; updateSavebar(); }
 
 /* ---------- assets ---------- */
 const LIB_BASE = '../tds/assets/';
@@ -357,7 +401,7 @@ $('#body').addEventListener('click', (e) => {
 });
 
 function renderLibraryPanel() {
-  const p = $('#panel');
+  const p = $('#panel-body');
   if (!asset) { p.innerHTML = '<h2>Variables and Properties</h2><p class="mute">Select an asset to see its details.</p>'; return; }
   const url = assetUrl(asset.file), dims = asset.width ? `${Math.round(asset.width)} × ${Math.round(asset.height)}` : '—';
   const snippet = `<img src="tds/assets/${asset.file}" alt="">`;
@@ -372,7 +416,7 @@ function renderLibraryPanel() {
 }
 $('#panel').addEventListener('click', async (e) => {
   if (e.target.id !== 'copy') return;
-  try { await navigator.clipboard.writeText($('#panel').dataset.snippet); e.target.textContent = 'Copied'; setTimeout(() => (e.target.textContent = 'Copy snippet'), 1200); } catch { /* clipboard blocked */ }
+  try { await navigator.clipboard.writeText($('#panel-body').dataset.snippet); e.target.textContent = 'Copied'; setTimeout(() => (e.target.textContent = 'Copy snippet'), 1200); } catch { /* clipboard blocked */ }
 });
 
 /* ---------- components (atoms, molecules, organisms, patterns) ---------- */
@@ -383,6 +427,7 @@ async function loadComponents() {
       path, tier: path.split('/')[0],
       meta: await fetch(`../tds/${path}/${path.split('/').pop()}.meta.json`, { cache: 'no-store' }).then((r) => r.json()),
     })));
+    components.forEach((c) => { c.saved = structuredClone(c.meta.defaults || {}); });
   } catch { components = []; }
 }
 
@@ -401,41 +446,76 @@ const tokenOptions = (type) => {
   return '';
 };
 
+const isSingle = (c) => ['organisms', 'patterns'].includes(c.tier);   // organisms and beyond: one instance, variants in the panel
+const field = (label, control) => `<div class="field"><label>${esc(label)}</label>${control}</div>`;
+const select = (attr, options, current) => `<select ${attr}>${options.map(([v, l]) => `<option value="${esc(v)}" ${String(v) === String(current) ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select>`;
+const varControl = (k, type, cur, attr) => (type === 'number'
+  ? `<input type="number" step="0.01" ${attr}="${esc(k)}" value="${esc(cur)}" placeholder="default">`
+  : `<select ${attr}="${esc(k)}"><option value="">Default</option>${tokenOptions(type).replace(`value="${cur}"`, `value="${cur}" selected`)}</select>`);
+
 function renderComponentPanel() {
-  const m = component.meta, p = $('#panel');
-  const attrs = Object.entries(m.attributes || {}).map(([k, a]) => `<div class="field"><label>${esc(k)}</label>
-    <select data-cattr="${esc(k)}">${a.values.map((v) => `<option ${(cstate.attrs[k] || a.default) === v ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select></div>`).join('');
-  const states = (m.states || []).length ? `<div class="field"><label>state (forced)</label><select id="cstate"><option value="">none</option>${m.states.map((s) => `<option ${cstate.state === s ? 'selected' : ''}>${esc(s)}</option>`).join('')}</select></div>` : '';
-  const vars = Object.entries(m.variables || {}).map(([k, type]) => {
-    const cur = cstate.vars[k] || '';
-    const ctl = type === 'number'
-      ? `<input type="number" step="0.01" data-cvar="${esc(k)}" value="${esc(cur)}" placeholder="default">`
-      : `<select data-cvar="${esc(k)}"><option value="">Default</option>${tokenOptions(type).replace(`value="${cur}"`, `value="${cur}" selected`)}</select>`;
-    return `<div class="field"><label>${esc(k)}</label>${ctl}</div>`;
-  }).join('');
-  p.innerHTML = `<h2>Variables and Properties</h2>
-    <p class="mute">${esc(m.name)} · ${esc(m.tier)} · ${m.stateful ? 'stateful' : 'stateless'}${(m.uses || []).length ? ' · uses ' + m.uses.join(', ') : ''}</p>
-    ${attrs ? `<div class="section">Properties</div>${attrs}` : ''}${states}
-    ${vars ? `<div class="section">Variables</div>${vars}` : ''}
-    <p class="mute">Changes here preview in the canvas only; they aren't saved yet.</p>
-    <div class="spacer"></div><button class="btn" id="creset">Reset overrides</button>`;
+  const m = component.meta, p = $('#panel-body');
+  const about = `<p class="mute">${esc(m.name)} · ${esc(m.tier)} · ${m.stateful ? 'stateful' : 'stateless'}${(m.uses || []).length ? ' · uses ' + m.uses.join(', ') : ''}</p>`;
+  if (editing) {
+    const vars = Object.entries(m.variables || {}).map(([k, type]) => field(k, varControl(k, type, (m.defaults || {})[k] || '', 'data-cdef'))).join('');
+    p.innerHTML = `<div class="between"><h2>Editing ${esc(m.name)}</h2><button class="link" id="edit-back">← Back</button></div>${about}
+      <div class="section">Defaults</div>${vars}
+      <p class="mute">What you set here becomes this component's default. It's saved in its meta.json and in tds/defaults.css.</p>`;
+    return;
+  }
+  const examples = (m.examples || []).length ? field('variant', select('data-cexample="1"', m.examples.map((e, i) => [i, e.name]), cstate.example)) : '';
+  const attrs = Object.entries(m.attributes || {}).map(([k, a]) => field(k, select(`data-cattr="${esc(k)}"`, a.values.map((v) => [v, v]), cstate.attrs[k] || a.default))).join('');
+  const states = (m.states || []).length ? field('state (forced)', select('id="cstate"', [['', 'none'], ...m.states.map((x) => [x, x])], cstate.state)) : '';
+  const surface = isSingle(component) ? field('surface', select('data-csurface="1"', [['normal', 'normal'], ['inverse', 'inverse']], cstate.surface)) : '';
+  const vars = Object.entries(m.variables || {}).map(([k, type]) => field(k, varControl(k, type, cstate.vars[k] || '', 'data-cvar'))).join('');
+  p.innerHTML = `<h2>Variables and Properties</h2>${about}
+    ${examples || attrs || states || surface ? `<div class="section">Properties</div>${examples}${attrs}${states}${surface}` : ''}
+    ${vars ? `<div class="section">Variables</div>${vars}<p class="mute">Previewed here only. Edit Component changes the defaults.</p>` : ''}
+    <div class="spacer"></div>
+    <button class="link" id="creset">Reset preview</button>
+    <button class="btn dark wide" id="edit-comp">Edit Component</button>`;
+}
+
+// Inline variables on the canvas = this component's saved defaults, with any preview overrides on top.
+function syncVars() {
+  const api = component && screen.contentWindow && screen.contentWindow.tdsComponent; if (!api) return;
+  api.clearVars();
+  for (const [k, v] of Object.entries({ ...(component.meta.defaults || {}), ...cstate.vars })) if (v) api.setVar(k, v);
+}
+
+function editDefault(k, v) {
+  const m = component.meta; m.defaults = m.defaults || {};
+  if (v) m.defaults[k] = v; else delete m.defaults[k];
+  if (!Object.keys(m.defaults).length) delete m.defaults;
+  delete cstate.vars[k]; dirtyComps.add(component.path);
+  syncVars(); setStatus('Unsaved changes');
 }
 
 $('#panel').addEventListener('input', (e) => {
   const el = e.target, api = component && screen.contentWindow.tdsComponent; if (!api) return;
-  if (el.dataset.cattr) { api.setAttr(el.dataset.cattr, el.value); cstate.attrs[el.dataset.cattr] = el.value; }
+  if (el.dataset.cdef) editDefault(el.dataset.cdef, el.value);
+  else if ('cexample' in el.dataset) { cstate.example = +el.value; api.setExample(cstate.example); }
+  else if ('csurface' in el.dataset) { cstate.surface = el.value; api.setSurface(el.value); }
+  else if (el.dataset.cattr) { api.setAttr(el.dataset.cattr, el.value); cstate.attrs[el.dataset.cattr] = el.value; }
   else if (el.id === 'cstate') { api.setState(el.value); cstate.state = el.value; }
   else if (el.dataset.cvar) {
-    const v = el.type === 'number' ? (el.value === '' ? '' : el.value) : el.value;
-    api.setVar(el.dataset.cvar, v || null); cstate.vars[el.dataset.cvar] = v;
+    const v = el.value;
+    if (v) cstate.vars[el.dataset.cvar] = v; else delete cstate.vars[el.dataset.cvar];
+    syncVars();
   }
 });
 $('#panel').addEventListener('click', (e) => {
-  if (e.target.id !== 'creset' || !component) return;
-  const api = screen.contentWindow.tdsComponent; if (api) api.reset();
-  cstate = { attrs: {}, state: '', vars: {} }; renderComponentPanel();
+  if (!component) return;
+  if (e.target.id === 'edit-comp') { editing = true; renderComponentPanel(); updateSavebar(); }
+  else if (e.target.id === 'edit-back') { editing = false; renderComponentPanel(); updateSavebar(); }
+  else if (e.target.id === 'creset') {
+    const api = screen.contentWindow.tdsComponent; if (api) api.reset();
+    cstate = freshPreview(); syncVars(); renderComponentPanel();
+  }
 });
-window.addEventListener('message', (e) => { if (e.origin === location.origin && e.data && e.data.type === 'tds-ready' && component) renderComponentPanel(); });
+window.addEventListener('message', (e) => {
+  if (e.origin === location.origin && e.data && e.data.type === 'tds-ready' && component) { syncVars(); renderComponentPanel(); }
+});
 
 /* ---------- canvas ---------- */
 const DEVICES = [
@@ -453,13 +533,12 @@ const screen = $('#screen');
 function renderView() {
   const canvas = !!component;
   $('#sheet').hidden = canvas; $('#stage').hidden = !canvas; $('#toolbar').hidden = !canvas;
-  $('#add').hidden = !kind;
-  updateActions();
+  $('#add').hidden = !kind; $('#sheethead').hidden = !kind;
   if (canvas) fit();
 }
 
-// The canvas is full-screen. While the interface is showing, keep the frame clear of the floating panels.
-const UI_AREA = { l: 10 + 208 + 10, r: 10 + 272 + 10, t: 56, b: 10 };
+// The canvas is full-screen. While the interface is showing, keep the frame clear of the panels.
+const UI_AREA = { l: 208, r: 288, t: 40, b: 0 };   // nav, properties panel, top bar
 function fit() {
   const on = $('#app').dataset.ui !== 'off', a = on ? UI_AREA : { l: 0, r: 0, t: 0, b: 0 };
   const bez = phoneFrame ? 10 : 0, W = dims.w + 2 * bez, H = dims.h + 2 * bez, pad = 24;
@@ -512,5 +591,5 @@ setUi(localStorage.tdsUi !== 'off');
 (async () => {
   schema = await fetch('../tools/token-schema.json').then((r) => r.json());
   mode = (await fetch('../api/tokens', { method: 'HEAD' }).catch(() => ({ ok: false }))).ok ? 'local' : 'github';
-  renderMode(); await Promise.all([loadTokens(), loadComponents(), loadLibraries()]); renderAll(); setCanvasSrc();
+  updateSavebar(); await Promise.all([loadTokens(), loadComponents(), loadLibraries()]); renderAll(); setCanvasSrc();
 })();

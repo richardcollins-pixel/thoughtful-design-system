@@ -59,7 +59,31 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_response(200); self.send_header("Content-Length", "0"); self.end_headers(); return
         return super().do_HEAD()
 
+    def _put_files(self):
+        """Write a batch of files the editor produced. Only tds/**.json and tds/**.css are accepted."""
+        data = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))))
+        files = data.get("files")
+        if not isinstance(files, dict) or not files:
+            return self._json(400, {"error": "files missing"})
+        for rel, text in files.items():
+            norm = os.path.normpath(rel)
+            ok = (isinstance(text, str) and not os.path.isabs(norm) and norm.split(os.sep)[0] == "tds"
+                  and ".." not in norm.split(os.sep) and norm.endswith((".json", ".css")))
+            if not ok:
+                return self._json(400, {"error": "not allowed: " + str(rel)})
+        for rel, text in files.items():
+            path = os.path.join(ROOT, os.path.normpath(rel))
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(text)
+        return self._json(200, {"ok": True, "written": list(files)})
+
     def do_PUT(self):
+        if self.path.split("?")[0] == "/api/files":
+            try:
+                return self._put_files()
+            except Exception as e:  # noqa
+                return self._json(400, {"error": str(e)})
         if self.path.split("?")[0] != "/api/tokens":
             return self._json(404, {"error": "not found"})
         try:

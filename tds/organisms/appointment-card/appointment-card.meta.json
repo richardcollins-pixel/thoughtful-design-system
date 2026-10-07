@@ -45,5 +45,6 @@
     "--card-radius": "radius",
     "--card-gap": "padding"
   },
-  "styles": []
+  "styles": [],
+  "selector": ".appointment-card"
 }
