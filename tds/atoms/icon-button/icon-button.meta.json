@@ -1,6 +1,6 @@
 {
   "name": "Icon Button",
-  "tier": "parts",
+  "tier": "atoms",
   "category": "actions",
   "stateful": false,
   "uses": [],

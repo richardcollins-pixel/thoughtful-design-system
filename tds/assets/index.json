@@ -1,0 +1,75 @@
+{
+ "libraries": [
+  {
+   "id": "images",
+   "label": "Images",
+   "groups": [
+    {
+     "id": "therapists",
+     "label": "Therapists",
+     "items": [
+      {
+       "name": "therapist-1",
+       "file": "images/therapists/Therapist-1.png",
+       "width": 800,
+       "height": 600,
+       "bytes": 695973
+      },
+      {
+       "name": "therapist-2",
+       "file": "images/therapists/Therapist-2.png",
+       "width": 800,
+       "height": 600,
+       "bytes": 472387
+      },
+      {
+       "name": "therapist-3",
+       "file": "images/therapists/Therapist-3.png",
+       "width": 800,
+       "height": 600,
+       "bytes": 714078
+      },
+      {
+       "name": "therapist-4",
+       "file": "images/therapists/Therapist-4.png",
+       "width": 800,
+       "height": 600,
+       "bytes": 588995
+      },
+      {
+       "name": "therapist-5",
+       "file": "images/therapists/Therapist-5.png",
+       "width": 800,
+       "height": 600,
+       "bytes": 635467
+      },
+      {
+       "name": "therapist-6",
+       "file": "images/therapists/Therapist-6.png",
+       "width": 800,
+       "height": 600,
+       "bytes": 444459
+      },
+      {
+       "name": "therapist-7",
+       "file": "images/therapists/Therapist-7.png",
+       "width": 800,
+       "height": 600,
+       "bytes": 540387
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "graphics",
+   "label": "Graphics",
+   "groups": []
+  },
+  {
+   "id": "videos",
+   "label": "Videos",
+   "groups": []
+  }
+ ]
+}

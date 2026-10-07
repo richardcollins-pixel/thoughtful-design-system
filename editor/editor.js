@@ -10,8 +10,8 @@ let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
 let fidelity = 'styled';
 let libraries = [], library = null, asset = null;
 let components = [], component = null, cstate = { attrs: {}, state: '', vars: {} };
-let kind = 'primitive', navKey = 'tokens/color/primitives', selected = null, saveTimer;
-const expanded = new Set(['tokens', 'tokens/color', 'tokens/layout', 'tokens/type', 'tokens/motion', 'components', 'components/parts', 'libraries', 'libraries/images']);
+let kind = 'primitive', navKey = 'foundations/tokens/color/primitives', selected = null, saveTimer;
+const expanded = new Set(['foundations', 'foundations/tokens', 'foundations/tokens/color', 'foundations/tokens/layout', 'foundations/tokens/type', 'foundations/tokens/motion', 'atoms', 'assets', 'assets/images']);
 
 /* ---------- color helpers ---------- */
 const primHex = (name) => (tokens.find((t) => t.kind === 'primitive' && t.name === name) || { hex: '#000000' }).hex;
@@ -90,26 +90,30 @@ function curve([x1, y1, x2, y2], size) {
 
 /* ---------- nav ---------- */
 const NAV = [
-  { label: 'tokens', children: [
-    { label: 'color', children: [{ label: 'primitives', kind: 'primitive' }, { label: 'roles', kind: 'role' }] },
-    { label: 'layout', children: [{ label: 'padding', kind: 'padding' }, { label: 'spacing', kind: 'spacing' }, { label: 'radius', kind: 'radius' }] },
-    { label: 'type', children: [{ label: 'font family', kind: 'font-family' }, { label: 'weight', kind: 'font-weight' }, { label: 'size', kind: 'font-size' }, { label: 'line height', kind: 'line-height' }, { label: 'letter spacing', kind: 'letter-spacing' }] },
-    { label: 'motion', children: [{ label: 'duration', kind: 'duration' }, { label: 'easing', kind: 'easing' }] },
+  { label: 'foundations', children: [
+    { label: 'tokens', children: [
+      { label: 'color', children: [{ label: 'primitives', kind: 'primitive' }, { label: 'roles', kind: 'role' }] },
+      { label: 'layout', children: [{ label: 'padding', kind: 'padding' }, { label: 'spacing', kind: 'spacing' }, { label: 'radius', kind: 'radius' }] },
+      { label: 'type', children: [{ label: 'font family', kind: 'font-family' }, { label: 'weight', kind: 'font-weight' }, { label: 'size', kind: 'font-size' }, { label: 'line height', kind: 'line-height' }, { label: 'letter spacing', kind: 'letter-spacing' }] },
+      { label: 'motion', children: [{ label: 'duration', kind: 'duration' }, { label: 'easing', kind: 'easing' }] },
+    ] },
+    { label: 'styles', children: [{ label: 'color', kind: 'gradient' }, { label: 'type' }, { label: 'elevation' }, { label: 'motion' }] },
+    { label: 'layout utilities' }
   ] },
-  { label: 'styles', children: [{ label: 'color', kind: 'gradient' }, { label: 'type' }, { label: 'elevation' }, { label: 'motion' }] },
-  { label: 'layout utilities' },
-  { label: 'components', children: [{ label: 'parts' }, { label: 'blocks' }, { label: 'sections' }] },
-  { label: 'libraries' },
-  { label: 'templates' },
-  { label: 'screens' },
+  { label: 'atoms' },
+  { label: 'molecules' },
+  { label: 'organisms' },
+  { label: 'patterns' },
+  { label: 'assets' },
 ];
 
-const compNav = () => ({ label: 'components', children: ['parts', 'blocks', 'sections'].map((t) => {
-  const items = components.filter((c) => c.tier === t);
-  return items.length ? { label: t, children: items.map((c) => ({ label: c.meta.name.toLowerCase(), component: c.path })) } : { label: t };
-}) });
+const TIERS = ['atoms', 'molecules', 'organisms', 'patterns'];
+const tierNav = (tier) => {
+  const items = components.filter((c) => c.tier === tier);
+  return items.length ? { label: tier, children: items.map((c) => ({ label: c.meta.name.toLowerCase(), component: c.path })) } : { label: tier };
+};
 
-const libNav = () => ({ label: 'libraries', children: libraries.map((l) => {
+const assetNav = () => ({ label: 'assets', children: libraries.map((l) => {
   const gs = l.groups.filter((g) => g.items.length);
   if (!gs.length) return { label: l.id };
   if (gs.length === 1 && gs[0].id === 'all') return { label: l.id, library: `${l.id}/all` };
@@ -126,7 +130,7 @@ function renderNav() {
     const cls = `row${key === navKey ? ' active' : ''}${n.kind || n.component || n.library ? '' : ' ph'}`;
     return `<li><button class="${cls}" data-nav="${key}" data-kind="${n.kind || ''}" data-component="${n.component || ''}" data-library="${n.library || ''}">${n.label}</button></li>`;
   }).join('')}</ul>`;
-  $('#nav').innerHTML = `<h1>tds</h1>${walk(NAV.map((n) => (n.label === 'components' ? compNav() : n.label === 'libraries' ? libNav() : n)), '')}`;
+  $('#nav').innerHTML = `<h1>tds</h1>${walk(NAV.map((n) => (TIERS.includes(n.label) ? tierNav(n.label) : n.label === 'assets' ? assetNav() : n)), '')}`;
 }
 
 $('#nav').addEventListener('click', (e) => {
@@ -326,8 +330,8 @@ async function loadTokens() {
 
 function renderAll() { renderNav(); renderCrumbs(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind; }
 
-/* ---------- libraries ---------- */
-const LIB_BASE = '../tds/libraries/';
+/* ---------- assets ---------- */
+const LIB_BASE = '../tds/assets/';
 const assetUrl = (file) => LIB_BASE + file.split('/').map(encodeURIComponent).join('/');
 const kb = (b) => (b < 1024 ? `${b} B` : b < 1048576 ? `${(b / 1024).toFixed(1)} KB` : `${(b / 1048576).toFixed(1)} MB`);
 
@@ -336,13 +340,11 @@ async function loadLibraries() {
 }
 
 function renderLibrary() {
-  const items = library.group.items, isIcons = library.lib.id === 'icons';
+  const items = library.group.items;
   $('#body').innerHTML = `<p class="mute" style="margin-bottom:12px">${items.length} ${esc(library.lib.id)}${library.group.id === 'all' ? '' : ' · ' + esc(library.group.label)}</p>
-    <div class="lib-grid ${isIcons ? 'icons' : 'photos'}">${items.map((it, i) => `
+    <div class="lib-grid photos">${items.map((it, i) => `
       <button class="tile${it === asset ? ' sel' : ''}" data-i="${i}">
-        <span class="thumb">${isIcons
-          ? `<i class="mask" style="-webkit-mask-image:url('${assetUrl(it.file)}');mask-image:url('${assetUrl(it.file)}')"></i>`
-          : `<img src="${assetUrl(it.file)}" alt="${esc(it.name)}" loading="lazy">`}</span>
+        <span class="thumb"><img src="${assetUrl(it.file)}" alt="${esc(it.name)}" loading="lazy"></span>
         <span class="cap">${esc(it.name)}</span>
       </button>`).join('')}</div>`;
 }
@@ -353,16 +355,14 @@ $('#body').addEventListener('click', (e) => {
 });
 
 function renderLibraryPanel() {
-  const p = $('#panel'), isIcons = library.lib.id === 'icons';
+  const p = $('#panel');
   if (!asset) { p.innerHTML = '<h2>Variables and Properties</h2><p class="mute">Select an asset to see its details.</p>'; return; }
   const url = assetUrl(asset.file), dims = asset.width ? `${Math.round(asset.width)} × ${Math.round(asset.height)}` : '—';
-  const snippet = isIcons ? `<i class="icon icon-${asset.name}"></i>` : `<img src="tds/libraries/${asset.file}" alt="">`;
-  const ro = (label, v, id) => `<div class="field"><label>${label}</label><input readonly value="${esc(v)}" ${id ? `id="${id}"` : ''}></div>`;
+  const snippet = `<img src="tds/assets/${asset.file}" alt="">`;
+  const ro = (label, v) => `<div class="field"><label>${label}</label><input readonly value="${esc(v)}"></div>`;
   p.innerHTML = `<h2>Variables and Properties</h2>
-    <div class="asset-prev ${isIcons ? 'icons' : ''}">${isIcons
-      ? `<i class="mask big" style="-webkit-mask-image:url('${url}');mask-image:url('${url}')"></i>`
-      : `<img src="${url}" alt="${esc(asset.name)}">`}</div>
-    ${ro('Name', asset.name)}${ro('File', 'tds/libraries/' + asset.file)}${ro('Dimensions', dims)}${ro('Size', kb(asset.bytes))}
+    <div class="asset-prev"><img src="${url}" alt="${esc(asset.name)}"></div>
+    ${ro('Name', asset.name)}${ro('File', 'tds/assets/' + asset.file)}${ro('Dimensions', dims)}${ro('Size', kb(asset.bytes))}
     <div class="section">Usage</div>
     ${ro('Snippet', snippet)}
     <button class="btn" id="copy">Copy snippet</button>`;
@@ -373,13 +373,13 @@ $('#panel').addEventListener('click', async (e) => {
   try { await navigator.clipboard.writeText($('#panel').dataset.snippet); e.target.textContent = 'Copied'; setTimeout(() => (e.target.textContent = 'Copy snippet'), 1200); } catch { /* clipboard blocked */ }
 });
 
-/* ---------- components ---------- */
+/* ---------- components (atoms, molecules, organisms, patterns) ---------- */
 async function loadComponents() {
   try {
-    const idx = await fetch('../tds/components/index.json', { cache: 'no-store' }).then((r) => r.json());
+    const idx = await fetch('../tds/index.json', { cache: 'no-store' }).then((r) => r.json());
     components = await Promise.all(idx.components.map(async (path) => ({
       path, tier: path.split('/')[0],
-      meta: await fetch(`../tds/components/${path}/${path.split('/').pop()}.meta.json`, { cache: 'no-store' }).then((r) => r.json()),
+      meta: await fetch(`../tds/${path}/${path.split('/').pop()}.meta.json`, { cache: 'no-store' }).then((r) => r.json()),
     })));
   } catch { components = []; }
 }
@@ -447,7 +447,7 @@ const DEVICES = [
 let dims = { w: DEVICES[0].w, h: DEVICES[0].h }, phoneFrame = true;
 const screen = $('#screen');
 
-// The content decides the view: components open on the canvas; tokens, libraries and everything else are tables.
+// The content decides the view: components open on the canvas; tokens, assets and everything else are tables.
 function renderView() {
   const canvas = !!component;
   $('#sheet').hidden = canvas; $('#stage').hidden = !canvas; $('#toolbar').hidden = !canvas;
