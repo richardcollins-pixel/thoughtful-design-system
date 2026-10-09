@@ -16,15 +16,61 @@
   "examples": [
     {
       "name": "Booked",
-      "markup": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><div class=\"appointment-card__main\"><div class=\"appointment-card__titles\"><div class=\"appointment-card__title-row\"><h3 class=\"appointment-card__headline\">This is the headline</h3><button class=\"appointment-card__edit\" aria-label=\"Edit\"><i class=\"icon icon-edit\"></i></button></div><div class=\"appointment-card__details\"><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-calendar\" data-size=\"sm\"></i><span>Wed, Jun 4 at 10:00 am</span></div><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>1 hr</span></div></div></div><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div></div></article>"
+      "markup": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><div class=\"appointment-card__main\"><div class=\"appointment-card__titles\"><div class=\"appointment-card__title-row\"><h3 class=\"appointment-card__headline\">This is the headline</h3><button class=\"appointment-card__edit\" aria-label=\"Edit\"><i class=\"icon icon-edit\"></i></button></div><div class=\"appointment-card__details\"><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-calendar\" data-size=\"sm\"></i><span>Wed, Jun 4 at 10:00 am</span></div><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>1 hr</span></div></div></div><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div></div></article>",
+      "content": [
+        {
+          "label": "Headline",
+          "selector": ".appointment-card__headline"
+        },
+        {
+          "label": "Date",
+          "selector": ".icon-label:nth-child(1) > span"
+        },
+        {
+          "label": "Duration",
+          "selector": ".icon-label:nth-child(2) > span"
+        },
+        {
+          "label": "Body copy",
+          "selector": ".appointment-card__body"
+        }
+      ]
     },
     {
       "name": "No appointment",
-      "markup": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><div class=\"appointment-card__main\" style=\"gap:0\"><h3 class=\"appointment-card__headline\">This is the headline</h3><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div></div><button class=\"button\" data-width=\"full\">Button</button></article>"
+      "markup": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><div class=\"appointment-card__main\" style=\"gap:0\"><h3 class=\"appointment-card__headline\">This is the headline</h3><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div></div><button class=\"button\" data-width=\"full\">Button</button></article>",
+      "content": [
+        {
+          "label": "Headline",
+          "selector": ".appointment-card__headline"
+        },
+        {
+          "label": "Body copy",
+          "selector": ".appointment-card__body"
+        },
+        {
+          "label": "Button label",
+          "selector": ".button"
+        }
+      ]
     },
     {
       "name": "Provider CTA",
-      "markup": "<article class=\"card appointment-card\" data-layout=\"centered\"><div class=\"avatar-group\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-1.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-3.png\" alt=\"\"></span></div><div class=\"appointment-card__main\"><h3 class=\"appointment-card__headline\">This is the headline</h3><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div><button class=\"button\" data-width=\"full\">Button</button></article>"
+      "markup": "<article class=\"card appointment-card\" data-layout=\"centered\"><div class=\"avatar-group\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-1.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-3.png\" alt=\"\"></span></div><div class=\"appointment-card__main\"><h3 class=\"appointment-card__headline\">This is the headline</h3><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div><button class=\"button\" data-width=\"full\">Button</button></article>",
+      "content": [
+        {
+          "label": "Headline",
+          "selector": ".appointment-card__headline"
+        },
+        {
+          "label": "Body copy",
+          "selector": ".appointment-card__body"
+        },
+        {
+          "label": "Button label",
+          "selector": ".button"
+        }
+      ]
     }
   ],
   "attributes": {
@@ -39,12 +85,15 @@
   },
   "states": [],
   "variables": {
-    "--card-fill": "color",
+    "--card-fill": "fill",
     "--card-padding-x": "padding",
     "--card-padding-y": "padding",
     "--card-radius": "radius",
     "--card-gap": "padding"
   },
   "styles": [],
-  "selector": ".appointment-card"
+  "selector": ".appointment-card",
+  "description": "The home-screen card about the user's care. Use Booked to show an upcoming appointment, No appointment to prompt booking, and Provider CTA to invite choosing a provider. One card shows at a time.",
+  "backgroundVar": "--card-fill",
+  "backgroundDefault": "var(--gradient-purple-to-blue)"
 }

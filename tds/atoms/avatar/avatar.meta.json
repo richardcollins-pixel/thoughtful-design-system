@@ -6,7 +6,15 @@
   "uses": [],
   "markup": "<span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-1.png\" alt=\"\"></span>",
   "attributes": {
-    "data-size": { "type": "enum", "values": ["sm", "md", "lg"], "default": "md" }
+    "data-size": {
+      "type": "enum",
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md"
+    }
   },
   "states": [],
   "variables": {
@@ -14,5 +22,6 @@
     "--avatar-size": "padding",
     "--avatar-radius": "radius"
   },
-  "styles": []
+  "styles": [],
+  "description": "A round photo, or initials when there's no photo. Use it beside a person's name in lists, cards and headers. Three sizes: 32, 48 and 64."
 }

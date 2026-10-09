@@ -6,7 +6,7 @@
   "uses": [
     "atoms/icon"
   ],
-  "markup": "<div class=\"icon-label\"><i class=\"icon icon-calendar\" data-size=\"sm\"></i><span>Next available Tue, Oct 13 \u00b7 2:30 PM</span></div>",
+  "markup": "<div class=\"icon-label\"><i class=\"icon icon-calendar\" data-size=\"sm\"></i><span>Next available Tue, Oct 13 · 2:30 PM</span></div>",
   "attributes": {
     "data-emphasis": {
       "type": "enum",
@@ -31,5 +31,12 @@
     "--icon-label-icon": "color",
     "--icon-label-gap": "padding"
   },
-  "styles": []
+  "styles": [],
+  "description": "An icon with a line of text. Use it for short facts such as a date, a duration or a location. Primary emphasis for key details, secondary for supporting ones.",
+  "content": [
+    {
+      "label": "Text",
+      "selector": ":scope > span"
+    }
+  ]
 }

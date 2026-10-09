@@ -22,5 +22,6 @@
     "--icon-size": "padding"
   },
   "styles": [],
-  "glyphs": "glyphs.json"
+  "glyphs": "glyphs.json",
+  "description": "A single glyph from the icon library, drawn in the current text color so it works on any surface. Use it inline with text or inside buttons. Three sizes: 16, 24 and 32."
 }
