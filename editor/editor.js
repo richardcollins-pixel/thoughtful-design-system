@@ -440,7 +440,7 @@ function setCanvasSrc() {
 const tokenOptions = (type) => {
   const of = (k) => tokens.filter((t) => t.kind === k);
   const opts = (list) => list.map((t) => `<option value="var(--${esc(t.name)})">${esc(t.name)}</option>`).join('');
-  if (type === 'color') return `<optgroup label="Roles">${opts(of('role'))}</optgroup><optgroup label="Primitives">${opts(of('primitive'))}</optgroup>`;
+  if (type === 'color' || type === 'fill') return `<optgroup label="Roles">${opts(of('role'))}</optgroup><optgroup label="Primitives">${opts(of('primitive'))}</optgroup>${type === 'fill' ? `<optgroup label="Gradients">${opts(of('gradient'))}</optgroup>` : ''}`;
   if (type === 'radius') return opts(of('radius'));
   if (type === 'padding') return `<optgroup label="Padding">${opts(of('padding'))}</optgroup><optgroup label="Spacing">${opts(of('spacing'))}</optgroup>`;
   return '';
@@ -463,17 +463,50 @@ function renderComponentPanel() {
       <p class="mute">What you set here becomes this component's default. It's saved in its meta.json and in tds/defaults.css.</p>`;
     return;
   }
-  const examples = (m.examples || []).length ? field('variant', select('data-cexample="1"', m.examples.map((e, i) => [i, e.name]), cstate.example)) : '';
-  const attrs = Object.entries(m.attributes || {}).map(([k, a]) => field(k, select(`data-cattr="${esc(k)}"`, a.values.map((v) => [v, v]), cstate.attrs[k] || a.default))).join('');
+  const api = screen.contentWindow && screen.contentWindow.tdsComponent;
+  const vs = variantThumbs(m);
+  const thumbs = vs.items.length > 1 ? `<div class="section">Variants</div><div class="thumbs">${vs.items.map((it, i) => `
+      <button class="thumb-tile${i === vs.selected ? ' sel' : ''}" data-cthumb="${i}" title="${esc(it.label)}">
+        <span class="thumb-frame"><iframe tabindex="-1" loading="lazy" title="${esc(it.label)}" src="${thumbSrc(it.param)}"></iframe></span>
+        <span class="thumb-label">${esc(it.label)}</span></button>`).join('')}</div>` : '';
+  const bg = m.backgroundVar ? (() => {
+    const cur = cstate.vars[m.backgroundVar] ?? (m.defaults || {})[m.backgroundVar] ?? m.backgroundDefault;
+    const chips = [...tokens.filter((t) => t.kind === 'gradient').map((t) => [`var(--${t.name})`, gradientCss(t), t.name]), ['var(--bg-elevation-20)', 'linear-gradient(rgb(255 255 255 / .2), rgb(255 255 255 / .2)), #1f0e41', 'flat']];
+    return `<div class="section">Background</div><div class="chips">${chips.map(([v, css, label]) => `<button class="chip-bg${v === cur ? ' sel' : ''}" data-cbg="${esc(v)}" title="${esc(label)}" style="background:${css}"></button>`).join('')}</div>`;
+  })() : '';
+  const content = api && api.getContent().length ? `<div class="section">Content</div>${api.getContent().map((c) => field(c.label, c.value.length > 44
+    ? `<textarea rows="3" data-ccontent="${c.i}">${esc(c.value)}</textarea>` : `<input data-ccontent="${c.i}" value="${esc(c.value)}">`)).join('')}` : '';
+  const mainAttr = vs.attr;
+  const attrs = Object.entries(m.attributes || {}).filter(([k]) => k !== mainAttr && !(m.backgroundVar && k === 'data-fill'))
+    .map(([k, a]) => field(k, select(`data-cattr="${esc(k)}"`, a.values.map((v) => [v, v]), cstate.attrs[k] || a.default))).join('');
   const states = (m.states || []).length ? field('state (forced)', select('id="cstate"', [['', 'none'], ...m.states.map((x) => [x, x])], cstate.state)) : '';
   const surface = isSingle(component) ? field('surface', select('data-csurface="1"', [['normal', 'normal'], ['inverse', 'inverse']], cstate.surface)) : '';
-  const vars = Object.entries(m.variables || {}).map(([k, type]) => field(k, varControl(k, type, cstate.vars[k] || '', 'data-cvar'))).join('');
-  p.innerHTML = `<h2>Variables and Properties</h2>${about}
-    ${examples || attrs || states || surface ? `<div class="section">Properties</div>${examples}${attrs}${states}${surface}` : ''}
-    ${vars ? `<div class="section">Variables</div>${vars}<p class="mute">Previewed here only. Edit Component changes the defaults.</p>` : ''}
+  const more = attrs || states || surface ? `<div class="section">Options</div>${attrs}${states}${surface}` : '';
+  const built = (m.uses || []).length ? ` · built from ${m.uses.map((u) => u.split('/')[1]).join(', ')}` : '';
+  p.innerHTML = `<div class="cp-head"><h2 class="cp-title">${esc(m.name)}</h2><p class="cp-tier">${esc(m.tier.replace(/s$/, '').replace(/^./, (c) => c.toUpperCase()))}${esc(built)}</p></div>
+    ${m.description ? `<p class="cp-desc">${esc(m.description)}</p>` : ''}
+    ${thumbs}${bg}${content}${more}
     <div class="spacer"></div>
     <button class="link" id="creset">Reset preview</button>
     <button class="btn dark wide" id="edit-comp">Edit Component</button>`;
+  scaleThumbs();
+}
+
+// "Main variants" = the examples if there are any, else the values of the main attribute (the first enum without a condition).
+function variantThumbs(m) {
+  if ((m.examples || []).length) return { attr: null, selected: cstate.example, items: m.examples.map((e, i) => ({ label: e.name, param: { example: i }, apply: (api) => { cstate.example = i; api.setExample(i); } })) };
+  const hit = Object.entries(m.attributes || {}).find(([k, a]) => a.type === 'enum' && !a.when && !(m.backgroundVar && k === 'data-fill'));
+  if (!hit) return { attr: null, selected: 0, items: [] };
+  const [k, a] = hit;
+  return { attr: k, selected: Math.max(0, a.values.indexOf(cstate.attrs[k] || a.default)), items: a.values.map((v) => ({ label: v, param: { set: { [k]: v } }, apply: (api) => { cstate.attrs[k] = v; api.setAttr(k, v); } })) };
+}
+const thumbSrc = (param) => `../preview/component.html?c=${component.path}&thumb=${encodeURIComponent(JSON.stringify(param))}${window.__V ? `&v=${window.__V}` : ''}`;
+// Each thumbnail is a real 390px-wide page, scaled down to fit its tile.
+function scaleThumbs() {
+  requestAnimationFrame(() => document.querySelectorAll('.thumb-frame').forEach((f) => {
+    f.firstElementChild.style.transform = `scale(${f.clientWidth / 390})`;
+    f.firstElementChild.addEventListener('load', applyModes);
+  }));
 }
 
 // Inline variables on the canvas = this component's saved defaults, with any preview overrides on top.
@@ -494,6 +527,7 @@ function editDefault(k, v) {
 $('#panel').addEventListener('input', (e) => {
   const el = e.target, api = component && screen.contentWindow.tdsComponent; if (!api) return;
   if (el.dataset.cdef) editDefault(el.dataset.cdef, el.value);
+  else if ('ccontent' in el.dataset) api.setContent(+el.dataset.ccontent, el.value);
   else if ('cexample' in el.dataset) { cstate.example = +el.value; api.setExample(cstate.example); }
   else if ('csurface' in el.dataset) { cstate.surface = el.value; api.setSurface(el.value); }
   else if (el.dataset.cattr) { api.setAttr(el.dataset.cattr, el.value); cstate.attrs[el.dataset.cattr] = el.value; }
@@ -506,7 +540,14 @@ $('#panel').addEventListener('input', (e) => {
 });
 $('#panel').addEventListener('click', (e) => {
   if (!component) return;
-  if (e.target.id === 'edit-comp') { editing = true; renderComponentPanel(); updateSavebar(); }
+  const api = screen.contentWindow.tdsComponent, thumb = e.target.closest('[data-cthumb]'), chip = e.target.closest('[data-cbg]');
+  if (thumb && api) { variantThumbs(component.meta).items[+thumb.dataset.cthumb].apply(api); syncVars(); renderComponentPanel(); }
+  else if (chip && api) {
+    const k = component.meta.backgroundVar, v = chip.dataset.cbg, base = (component.meta.defaults || {})[k] ?? component.meta.backgroundDefault;
+    if (v === base) delete cstate.vars[k]; else cstate.vars[k] = v;
+    syncVars(); renderComponentPanel();
+  }
+  else if (e.target.id === 'edit-comp') { editing = true; renderComponentPanel(); updateSavebar(); }
   else if (e.target.id === 'edit-back') { editing = false; renderComponentPanel(); updateSavebar(); }
   else if (e.target.id === 'creset') {
     const api = screen.contentWindow.tdsComponent; if (api) api.reset();
@@ -541,7 +582,7 @@ function renderView() {
 const UI_AREA = { l: 208, r: 288, t: 40, b: 0 };   // nav, properties panel, top bar
 function fit() {
   const on = $('#app').dataset.ui !== 'off', a = on ? UI_AREA : { l: 0, r: 0, t: 0, b: 0 };
-  const bez = phoneFrame ? 10 : 0, W = dims.w + 2 * bez, H = dims.h + 2 * bez, pad = 24;
+  const W = dims.w, H = dims.h, pad = 24;
   const aw = innerWidth - a.l - a.r, ah = innerHeight - a.t - a.b;
   const s = Math.max(0.1, Math.min(1, (aw - 2 * pad) / W, (ah - 2 * pad) / H));
   const w = W * s, h = H * s;
@@ -564,8 +605,8 @@ for (const id of ['dw', 'dh']) $('#' + id).addEventListener('change', (e) => {
 });
 
 function applyModes() {
-  const root = screen.contentDocument && screen.contentDocument.documentElement; if (!root) return;
-  root.setAttribute('data-fidelity', fidelity);
+  const docs = [screen, ...document.querySelectorAll('.thumb-frame iframe')].map((f) => f.contentDocument).filter(Boolean);   // the canvas and the panel thumbnails
+  for (const d of docs) d.documentElement.setAttribute('data-fidelity', fidelity);
 }
 function syncToggles() {
   $('#t-wire').checked = fidelity === 'wireframe';

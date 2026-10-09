@@ -61,6 +61,12 @@ changes* commits them. Token pages keep the same save bar at the bottom of the p
 4. List what it's built from in `"uses"` in its meta, then run `python3 tools/check_layers.py`: a component may only
    use components from lower levels (atoms < molecules < organisms < patterns).
 
+The editor's right panel is driven by optional fields in the meta:
+`description` (how to use it), `examples` (named variants whose content differs; otherwise the first enum
+attribute's values are the variants), `content` (text fields the panel can edit: label + CSS selector),
+`backgroundVar` / `backgroundDefault` (the variable the gradient chips set) and `selector` (the CSS class
+that saved defaults attach to, if it isn't the first class in `markup`).
+
 It then appears in the editor nav under that level; the canvas renders it from its `meta.json`
 (markup, attributes, states, variables).
 

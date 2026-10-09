@@ -15,6 +15,11 @@
     .single main { min-height: calc(100vh - 2 * var(--space-6)); display: flex; flex-direction: column; justify-content: center; }
     .single .label { display: none; }
     .single .subject { display: block; min-height: 0; padding: 0; background: none; border-radius: 0; }
+    /* panel thumbnails: just the one variant, centered, not interactive */
+    .thumb { padding: 0; pointer-events: none; overflow: hidden; }
+    .thumb main { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--space-4); }
+    .thumb .label { display: none; }
+    .thumb .subject { display: flex; justify-content: center; width: 100%; min-height: 0; padding: 0; background: none; border-radius: 0; }
     .glyphs { display: grid; grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr)); gap: var(--space-2); }
     .glyph { display: flex; flex-direction: column; align-items: center; gap: var(--space-1); padding: var(--padding-sm); border-radius: var(--radius-sm); background: var(--bg-elevation-5); text-align: center; overflow: hidden; }
     .glyph span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -35,7 +40,11 @@
     // Atoms and molecules show every variant at once. Organisms and beyond show one instance; the editor's
     // panel switches variants, state and surface.
     const single = ['organisms', 'patterns'].includes(meta.tier);
-    document.body.classList.toggle('single', single);
+    // ?thumb={"example":1} or {"set":{"data-variant":"outline"}}: render just that variant, for the editor's panel thumbnails.
+    const thumbParam = new URLSearchParams(location.search).get('thumb');
+    const thumb = thumbParam ? JSON.parse(thumbParam) : null;
+    document.body.classList.toggle('single', single && !thumb);
+    document.body.classList.toggle('thumb', !!thumb);
 
     function make({ set = {}, state, text, markup } = {}) {
       const t = document.createElement('template'); t.innerHTML = (markup || meta.markup).trim();
@@ -54,14 +63,18 @@
 
     // The subject: the one instance the editor's panel controls.
     const slot = document.getElementById('subject');
-    const attrState = {}; let stateName = '', subject;
+    const attrState = { ...((thumb && thumb.set) || {}) }; let stateName = '', surfaceState = 'normal', curExample = (thumb && thumb.example) || 0, subject;
     const vars = {};
     const build = (markup) => make({ markup, set: attrState, state: stateName || undefined, text: single ? undefined : meta.name });
-    function place(el) { subject = el; slot.replaceChildren(el); for (const [k, v] of Object.entries(vars)) el.style.setProperty(k, v); }
+    function place(el) {
+      subject = el; slot.replaceChildren(el);
+      for (const [k, v] of Object.entries(vars)) el.style.setProperty(k, v);
+      if (surfaceState === 'inverse') el.dataset.surface = 'inverse';   // inverse applies to the component, not the page
+    }
     document.getElementById('title').textContent = `${meta.name} — ${meta.tier}`;
-    place(build(examples[0] && examples[0].markup));
+    place(build(examples[curExample] && examples[curExample].markup));
 
-    if (!single) {
+    if (!single && !thumb) {
       const g = document.getElementById('gallery');
       for (const [k, a] of attrs) if (a.type === 'enum') g.append(section(a.when ? `${k} (${Object.values(a.when)[0]} only)` : k, ...a.values.map((v) => make({ set: { ...(a.when || {}), [k]: v }, text: v }))));
       if ((meta.states || []).length) g.append(section('states', ...meta.states.map((s) => make({ state: s, text: s }))));
@@ -82,16 +95,20 @@
 
     // Driven by the editor (same origin). Nothing here is saved; the editor saves defaults to the repo.
     const all = () => document.querySelectorAll('[data-tds-instance]');
+    const contentDefs = () => (examples[curExample] && examples[curExample].content) || meta.content || [];
+    const target = (c) => (c.selector === ':scope' ? subject : subject.querySelector(c.selector));
     window.tdsComponent = {
       setAttr(k, v) { attrState[k] = v; subject.setAttribute(k, v); },
       setState(s) { stateName = s; if (s) subject.dataset.state = s; else delete subject.dataset.state; },
       setVar(k, v) { if (v) vars[k] = v; else delete vars[k]; all().forEach((e) => (v ? e.style.setProperty(k, v) : e.style.removeProperty(k))); },
       clearVars() { Object.keys(vars).forEach((k) => this.setVar(k, null)); },
-      setExample(i) { if (examples[i]) place(build(examples[i].markup)); },
-      setSurface(v) { if (v === 'inverse') document.body.dataset.surface = 'inverse'; else delete document.body.dataset.surface; },
-      reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; this.setSurface('normal'); place(build(examples[0] && examples[0].markup)); },
+      setExample(i) { if (examples[i]) { curExample = i; place(build(examples[i].markup)); } },
+      setSurface(v) { surfaceState = v; if (v === 'inverse') subject.dataset.surface = 'inverse'; else delete subject.dataset.surface; },
+      getContent() { return contentDefs().map((c, i) => { const el = target(c); return { i, label: c.label, value: el ? el.textContent.trim() : '' }; }); },
+      setContent(i, v) { const el = contentDefs()[i] && target(contentDefs()[i]); if (el) el.textContent = v; },
+      reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; surfaceState = 'normal'; curExample = 0; place(build(examples[0] && examples[0].markup)); },
     };
-    if (self !== top) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
+    if (self !== top && !thumb) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
   </script>
 </body>
 </html>

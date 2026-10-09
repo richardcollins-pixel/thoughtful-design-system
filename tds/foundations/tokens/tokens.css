@@ -18,6 +18,7 @@
   --purple-700: oklch(from #390c81 l 0 h);
   --purple-500: oklch(from #8f5ac8 l 0 h);
   --purple-300: oklch(from #bfa4ff l 0 h);
+  --slate: oklch(from #352654 l 0 h);
   --white: oklch(from #ffffff l 0 h);
   --black: oklch(from #000000 l 0 h);
   --orange: oklch(from #f57f70 l 0 h);

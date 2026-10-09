@@ -7,10 +7,33 @@
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=119-7050",
   "markup": "<button class=\"icon-button\" data-elevation=\"100\" aria-label=\"Image\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"9\" cy=\"9\" r=\"2\"/><path d=\"m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21\"/></svg></button>",
   "attributes": {
-    "data-elevation": { "type": "enum", "values": ["100", "70", "40", "20", "0"], "default": "100" },
-    "data-size": { "type": "enum", "values": ["lg", "md", "sm"], "default": "md" }
+    "data-elevation": {
+      "type": "enum",
+      "values": [
+        "100",
+        "70",
+        "40",
+        "20",
+        "0"
+      ],
+      "default": "100"
+    },
+    "data-size": {
+      "type": "enum",
+      "values": [
+        "lg",
+        "md",
+        "sm"
+      ],
+      "default": "md"
+    }
   },
-  "states": ["hover", "pressed", "focus", "disabled"],
+  "states": [
+    "hover",
+    "pressed",
+    "focus",
+    "disabled"
+  ],
   "variables": {
     "--icon-button-fill": "color",
     "--icon-button-icon": "color",
@@ -19,5 +42,9 @@
     "--icon-button-radius": "radius",
     "--icon-button-scale-pressed": "number"
   },
-  "styles": ["motion-state", "motion-press"]
+  "styles": [
+    "motion-state",
+    "motion-press"
+  ],
+  "description": "A circular button that holds only an icon. Use it for compact actions such as edit, close or share. Elevation controls how strongly it stands off the background."
 }

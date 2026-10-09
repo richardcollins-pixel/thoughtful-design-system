@@ -7,3 +7,6 @@
   outline: 1px solid var(--border-primary);
   outline-offset: -1px;
 }
+
+/* The base surface is black in wireframe mode (purple-900 is the base, so everything built on it follows). */
+:root[data-fidelity="wireframe"] { --purple-900: var(--black); }

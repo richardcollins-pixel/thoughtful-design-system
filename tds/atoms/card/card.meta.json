@@ -7,15 +7,35 @@
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
   "markup": "<div class=\"card\"><p class=\"text-body-lg-semibold\">This is the headline</p><p class=\"text-body-md text-secondary\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>",
   "attributes": {
-    "data-fill": { "type": "enum", "values": ["gradient", "flat"], "default": "gradient" }
+    "data-fill": {
+      "type": "enum",
+      "values": [
+        "gradient",
+        "flat"
+      ],
+      "default": "gradient"
+    }
   },
   "states": [],
   "variables": {
-    "--card-fill": "color",
+    "--card-fill": "fill",
     "--card-padding-x": "padding",
     "--card-padding-y": "padding",
     "--card-radius": "radius",
     "--card-gap": "padding"
   },
-  "styles": []
+  "styles": [],
+  "description": "The bare surface every card is built on: a fill, padding and rounded corners. Use it as the base for any card, then put content inside. The fill is a gradient by default and flat when you want it quiet.",
+  "content": [
+    {
+      "label": "Headline",
+      "selector": "p:nth-of-type(1)"
+    },
+    {
+      "label": "Body copy",
+      "selector": "p:nth-of-type(2)"
+    }
+  ],
+  "backgroundVar": "--card-fill",
+  "backgroundDefault": "var(--gradient-purple-to-blue)"
 }

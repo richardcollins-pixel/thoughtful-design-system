@@ -3,7 +3,9 @@
   "tier": "molecules",
   "category": "media",
   "stateful": false,
-  "uses": ["atoms/avatar"],
+  "uses": [
+    "atoms/avatar"
+  ],
   "markup": "<div class=\"avatar-group\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-1.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-3.png\" alt=\"\"></span></div>",
   "attributes": {},
   "states": [],
@@ -11,5 +13,6 @@
     "--avatar-group-size": "padding",
     "--avatar-group-overlap": "padding"
   },
-  "styles": []
+  "styles": [],
+  "description": "Avatars overlapping in a row. Use it to suggest several people at once, such as available providers."
 }

@@ -7,12 +7,53 @@
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=19-366",
   "markup": "<button class=\"button\" data-variant=\"filled\">Button</button>",
   "attributes": {
-    "data-variant": { "type": "enum", "values": ["filled", "outline", "glass", "flat"], "default": "filled" },
-    "data-size": { "type": "enum", "values": ["lg", "md", "sm"], "default": "md" },
-    "data-on": { "type": "enum", "values": ["true", "false"], "default": "true", "when": { "data-variant": "outline" } },
-    "data-width": { "type": "enum", "values": ["hug", "full"], "default": "hug" }
+    "data-variant": {
+      "type": "enum",
+      "values": [
+        "filled",
+        "outline",
+        "glass",
+        "flat"
+      ],
+      "default": "filled"
+    },
+    "data-size": {
+      "type": "enum",
+      "values": [
+        "lg",
+        "md",
+        "sm"
+      ],
+      "default": "md"
+    },
+    "data-on": {
+      "type": "enum",
+      "values": [
+        "true",
+        "false"
+      ],
+      "default": "true",
+      "when": {
+        "data-variant": "outline"
+      }
+    },
+    "data-width": {
+      "type": "enum",
+      "values": [
+        "hug",
+        "full"
+      ],
+      "default": "hug"
+    }
   },
-  "states": ["hover", "pressed", "focus", "disabled", "loading", "confirmation"],
+  "states": [
+    "hover",
+    "pressed",
+    "focus",
+    "disabled",
+    "loading",
+    "confirmation"
+  ],
   "variables": {
     "--button-fill": "color",
     "--button-text": "color",
@@ -23,5 +64,15 @@
     "--button-gap": "padding",
     "--button-scale-pressed": "number"
   },
-  "styles": ["motion-state", "motion-press"]
+  "styles": [
+    "motion-state",
+    "motion-press"
+  ],
+  "description": "The main action on a screen. Use filled for the one primary action, outline for secondary or toggled choices, glass over imagery, and flat for low-emphasis text actions. Loading and confirmation are states, not separate buttons.",
+  "content": [
+    {
+      "label": "Label",
+      "selector": ":scope"
+    }
+  ]
 }
