@@ -70,6 +70,21 @@ that saved defaults attach to, if it isn't the first class in `markup`).
 It then appears in the editor nav under that level; the canvas renders it from its `meta.json`
 (markup, attributes, states, variables).
 
+## Composed organisms
+
+An organism is data, not hand-written markup. Its `meta.json` holds:
+
+- `layouts[]` — named arrangements. Each has an HTML `template` with `{{item:id}}` placeholders, the `slots`
+  (label + item ids) the panel shows for it, and optional `overrides` (per-layout copy).
+- `items{}` — the things that fill the slots: `{ "type": "text", tag, class, value }` (text may contain
+  `{{variables}}` from `tds/sample-data.json`) or `{ "type": "component", component, props, expose }`.
+- `properties[]` — token-bound controls: `gradients` (chips) or `scale` (a radius/padding token scale).
+
+An atom or molecule opts in by declaring `props` (type `text`, `enum`, `person` or `icon`) and a `template`
+with `{{prop}}` placeholders. `tools/compose.js` renders the HTML for the canvas and the model the right
+panel is generated from, so every organism gets the same inspector. People for the avatar picker live in
+`tds/assets/people.json`.
+
 ## Assets and icons
 
 - **Images, graphics, videos** live in `tds/assets/` (`images/<group>/`, `graphics/`, `videos/`); the editor's

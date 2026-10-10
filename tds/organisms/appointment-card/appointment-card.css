@@ -15,10 +15,11 @@
   color: var(--text-secondary);
   font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body);
 }
+.appointment-card__main--tight { gap: 0; }
 .appointment-card__details { display: flex; flex-direction: column; }
-.appointment-card__edit {
-  flex: none; display: inline-grid; place-items: center; padding: 0; border: 0; background: none;
-  color: var(--icon-primary); cursor: pointer;
+.appointment-card__footnote {
+  color: var(--text-primary);
+  font: var(--font-weight-body) var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body);
 }
 
 /* centered layout: avatar group, serif headline, body, button */

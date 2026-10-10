@@ -1,5 +1,5 @@
 {
-  "name": "Icon Button",
+  "name": "Icon button",
   "tier": "atoms",
   "category": "actions",
   "stateful": false,
@@ -23,7 +23,8 @@
       "values": [
         "lg",
         "md",
-        "sm"
+        "sm",
+        "xs"
       ],
       "default": "md"
     }
@@ -46,5 +47,37 @@
     "motion-state",
     "motion-press"
   ],
-  "description": "A circular button that holds only an icon. Use it for compact actions such as edit, close or share. Elevation controls how strongly it stands off the background."
+  "description": "A circular button that holds only an icon. Use it for compact actions such as edit, close or share. Elevation controls how strongly it stands off the background.",
+  "props": {
+    "elevation": {
+      "type": "enum",
+      "label": "Elevation",
+      "values": [
+        "100",
+        "70",
+        "40",
+        "20",
+        "0"
+      ],
+      "default": "100",
+      "ui": "steps"
+    },
+    "icon": {
+      "type": "icon",
+      "label": "Icon Name",
+      "default": "image"
+    },
+    "size": {
+      "type": "enum",
+      "label": "Size",
+      "values": [
+        "lg",
+        "md",
+        "sm",
+        "xs"
+      ],
+      "default": "md"
+    }
+  },
+  "template": "<button class=\"icon-button\" data-elevation=\"{{elevation}}\" data-size=\"{{size}}\" aria-label=\"{{icon}}\"><i class=\"icon icon-{{icon}}\"></i></button>"
 }

@@ -36,6 +36,33 @@
       "selector": "p:nth-of-type(2)"
     }
   ],
-  "backgroundVar": "--card-fill",
-  "backgroundDefault": "var(--gradient-purple-to-blue)"
+  "properties": [
+    {
+      "id": "background",
+      "label": "Background Color",
+      "type": "gradients",
+      "var": "--card-fill",
+      "default": "var(--gradient-purple-to-blue)"
+    },
+    {
+      "id": "radius",
+      "label": "Corner Radius",
+      "type": "scale",
+      "scale": "radius",
+      "vars": [
+        "--card-radius"
+      ],
+      "default": "var(--radius-md)"
+    },
+    {
+      "id": "padding",
+      "label": "Padding",
+      "type": "scale",
+      "scale": "padding",
+      "vars": [
+        "--card-padding-x",
+        "--card-padding-y"
+      ]
+    }
+  ]
 }

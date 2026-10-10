@@ -11,9 +11,9 @@ let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
 let fidelity = 'styled';
 let libraries = [], library = null, asset = null;
 const freshPreview = () => ({ attrs: {}, state: '', vars: {}, example: 0, surface: 'normal' });
+let collapsed = {};   // panel sections the user folded
 let components = [], component = null, editing = false, cstate = freshPreview();
-let kind = 'primitive', navKey = 'foundations/tokens/color/primitives', selected = null, saveTimer;
-const expanded = new Set(['foundations', 'foundations/tokens', 'foundations/tokens/color', 'foundations/tokens/layout', 'foundations/tokens/type', 'foundations/tokens/motion', 'atoms', 'molecules', 'organisms', 'patterns', 'assets', 'assets/images']);
+let kind = 'primitive', navKey = 'tokens/primitives', selected = null, saveTimer;
 
 /* ---------- color helpers ---------- */
 const primHex = (name) => (tokens.find((t) => t.kind === 'primitive' && t.name === name) || { hex: '#000000' }).hex;
@@ -90,59 +90,36 @@ function curve([x1, y1, x2, y2], size) {
   return `<svg class="curve" width="${size}" height="${size * 1.4}" viewBox="-4 -24 68 108"><path d="M0 ${s} C${f(x1)} ${s - f(y1)} ${f(x2)} ${s - f(y2)} ${s} 0" fill="none" stroke="#7a4de8" stroke-width="3"/><path d="M0 ${s}H${s}M0 0H${s}" stroke="#ddd" stroke-dasharray="2 3"/></svg>`;
 }
 
-/* ---------- nav ---------- */
-const NAV = [
-  { label: 'foundations', children: [
-    { label: 'tokens', children: [
-      { label: 'color', children: [{ label: 'primitives', kind: 'primitive' }, { label: 'roles', kind: 'role' }] },
-      { label: 'layout', children: [{ label: 'padding', kind: 'padding' }, { label: 'spacing', kind: 'spacing' }, { label: 'radius', kind: 'radius' }] },
-      { label: 'type', children: [{ label: 'font family', kind: 'font-family' }, { label: 'weight', kind: 'font-weight' }, { label: 'size', kind: 'font-size' }, { label: 'line height', kind: 'line-height' }, { label: 'letter spacing', kind: 'letter-spacing' }] },
-      { label: 'motion', children: [{ label: 'duration', kind: 'duration' }, { label: 'easing', kind: 'easing' }] },
-    ] },
-    { label: 'styles', children: [{ label: 'color', kind: 'gradient' }, { label: 'type' }, { label: 'elevation' }, { label: 'motion' }] },
-    { label: 'layout utilities' }
-  ] },
-  { label: 'atoms' },
-  { label: 'molecules' },
-  { label: 'organisms' },
-  { label: 'patterns' },
-  { label: 'assets' },
-];
-
-const TIERS = ['atoms', 'molecules', 'organisms', 'patterns'];
-const tierNav = (tier) => {
-  const items = components.filter((c) => c.tier === tier);
-  return items.length ? { label: tier, children: items.map((c) => ({ label: c.meta.name.toLowerCase(), component: c.path })) } : { label: tier };
+/* ---------- nav: tokens, styles, atoms, molecules, organisms, patterns ---------- */
+const LEVELS = ['tokens', 'styles', 'atoms', 'molecules', 'organisms', 'patterns'];
+const TOKEN_LEAVES = [['primitives', 'primitive'], ['roles', 'role'], ['padding', 'padding'], ['spacing', 'spacing'], ['radius', 'radius'], ['font family', 'font-family'], ['weight', 'font-weight'], ['size', 'font-size'], ['line height', 'line-height'], ['letter spacing', 'letter-spacing'], ['duration', 'duration'], ['easing', 'easing']];
+const camel = (str) => str.replace(/-(\w)/g, (m, c) => c.toUpperCase());
+const levelLeaves = (level) => {
+  if (level === 'tokens') return TOKEN_LEAVES.map(([label, k]) => ({ label, kind: k }));
+  if (level === 'styles') return [{ label: 'color', kind: 'gradient' }, { label: 'type' }, { label: 'elevation' }, { label: 'motion' }];
+  return components.filter((c) => c.tier === level).map((c) => ({ label: camel(c.path.split('/')[1]), component: c.path }));
 };
-
-const assetNav = () => ({ label: 'assets', children: libraries.map((l) => {
-  const gs = l.groups.filter((g) => g.items.length);
-  if (!gs.length) return { label: l.id };
-  if (gs.length === 1 && gs[0].id === 'all') return { label: l.id, library: `${l.id}/all` };
-  return { label: l.id, children: gs.map((g) => ({ label: g.id, library: `${l.id}/${g.id}` })) };
-}) });
+let openLevel = 'tokens';   // one level open at a time
 
 function renderNav() {
-  const walk = (items, prefix) => `<ul>${items.map((n) => {
-    const key = prefix ? `${prefix}/${n.label}` : n.label;
-    if (n.children) {
-      const open = expanded.has(key);
-      return `<li><button class="row${n.kind ? '' : ' ph'}" data-toggle="${key}"><span class="caret">${open ? '▼' : '▶'}</span>${n.label}</button>${open ? walk(n.children, key) : ''}</li>`;
-    }
-    const cls = `row${key === navKey ? ' active' : ''}${n.kind || n.component || n.library ? '' : ' ph'}`;
-    return `<li><button class="${cls}" data-nav="${key}" data-kind="${n.kind || ''}" data-component="${n.component || ''}" data-library="${n.library || ''}">${n.label}</button></li>`;
+  $('#nav').innerHTML = `<h1>tds</h1><ul>${LEVELS.map((lv) => {
+    const open = openLevel === lv;
+    const leaves = open ? `<ul>${levelLeaves(lv).map((n) => {
+      const key = `${lv}/${n.label}`;
+      const cls = `row leaf${key === navKey ? ' active' : ''}${n.kind || n.component ? '' : ' ph'}`;
+      return `<li><button class="${cls}" data-nav="${key}" data-kind="${n.kind || ''}" data-component="${n.component || ''}">/${n.label}</button></li>`;
+    }).join('') || '<li class="none">nothing yet</li>'}</ul>` : '';
+    return `<li><button class="row level${open ? ' open' : ''}" data-level="${lv}">${lv}</button>${leaves}</li>`;
   }).join('')}</ul>`;
-  $('#nav').innerHTML = `<h1>tds</h1>${walk(NAV.map((n) => (TIERS.includes(n.label) ? tierNav(n.label) : n.label === 'assets' ? assetNav() : n)), '')}`;
 }
 
 $('#nav').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
-  if (b.dataset.toggle) { expanded.has(b.dataset.toggle) ? expanded.delete(b.dataset.toggle) : expanded.add(b.dataset.toggle); }
+  if (b.dataset.level) { openLevel = openLevel === b.dataset.level ? null : b.dataset.level; renderNav(); return; }
   if (b.dataset.nav) {
     navKey = b.dataset.nav; kind = b.dataset.kind || null; selected = null;
     component = components.find((c) => c.path === b.dataset.component) || null;
     library = null; asset = null;
-    if (b.dataset.library) { const [lid, gid] = b.dataset.library.split('/'); const l = libraries.find((x) => x.id === lid); library = { lib: l, group: l.groups.find((g) => g.id === gid) }; }
     cstate = freshPreview(); editing = false;
     setCanvasSrc();
   }
@@ -150,11 +127,6 @@ $('#nav').addEventListener('click', (e) => {
 });
 
 /* ---------- table ---------- */
-function renderCrumbs() {
-  const parts = navKey.split('/');
-  $('#crumbs').innerHTML = parts.map((p, i) => (i === parts.length - 1 ? `<b>${p}</b>` : p)).join(' / ');
-}
-
 const DESC = {
   primitive: 'The raw values. Reference these only when defining tokens, not in components.',
   role: 'Semantic tokens mapped to roles: background, text, icon, border, status.',
@@ -374,7 +346,7 @@ async function loadTokens() {
   } catch (e) { setStatus(e.message, true); }
 }
 
-function renderAll() { renderNav(); renderCrumbs(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind; updateSavebar(); }
+function renderAll() { renderNav(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind; updateSavebar(); }
 
 /* ---------- assets ---------- */
 const LIB_BASE = '../tds/assets/';
@@ -453,9 +425,73 @@ const varControl = (k, type, cur, attr) => (type === 'number'
   ? `<input type="number" step="0.01" ${attr}="${esc(k)}" value="${esc(cur)}" placeholder="default">`
   : `<select ${attr}="${esc(k)}"><option value="">Default</option>${tokenOptions(type).replace(`value="${cur}"`, `value="${cur}" selected`)}</select>`);
 
+const svg = (d, w = 14) => `<svg viewBox="0 0 16 16" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const CHEV_UP = svg('<path d="m4 10 4-4 4 4"/>'), CHEV_DOWN = svg('<path d="m4 6 4 4 4-4"/>');
+const VAR_ICON = svg('<circle cx="8" cy="8" r="5.5"/><path d="M5.5 8h5M8 5.5v5"/>', 16);
+const encPath = (rel) => rel.split('/').map(encodeURIComponent).join('/');
+const photoUrl = (rel) => `../tds/assets/${encPath(rel)}`;
+const glyphUrl = (file) => `../tds/atoms/icon/${encPath(file)}`;
+const iconMask = (file) => `<i class="mask" style="-webkit-mask-image:url('${glyphUrl(file)}');mask-image:url('${glyphUrl(file)}')"></i>`;
+
+// ---- layout of the panel: collapsible sections, label-left / control-right rows, dashed "add" placeholders
+const sec = (id, title, body) => `<section class="cp-sec${collapsed[id] ? '' : ' open'}"><button class="cp-sec-head" data-csec="${id}"><span>${esc(title)}</span>${CHEV_UP}</button><div class="cp-sec-body" ${collapsed[id] ? 'hidden' : ''}>${body}</div></section>`;
+const prow = (label, control) => `<div class="prow"><span class="plabel">${esc(label)}</span><div class="pctl">${control}</div></div>`;
+const adder = (label) => `<div class="adder" title="Coming soon">${esc(label)}<span>+</span></div>`;
+const panelHead = (m) => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><label class="switch"><span>Charcoal</span><input type="checkbox" id="t-wire" role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>
+  <div class="field"><label>Description</label><textarea class="cp-desc-edit" rows="3" data-cdesc>${esc(m.description || '')}</textarea></div>`;
+
+// ---- controls
+const steps = (opts, value, attrs) => `<div class="steps" ${attrs}>${opts.map((o) => { const on = String(o.value) === String(value); return `<button class="step${on ? ' sel' : ''}" type="button" data-step="${esc(o.value)}" title="${esc(o.title || o.label)}">${on ? esc(o.label) : '<i></i>'}</button>`; }).join('')}</div>`;
+function dd(attrs, options, value, kind) {
+  const cur = options.find((o) => String(o.value) === String(value)) || options[0] || { label: '' };
+  const thumb = (o) => (kind === 'person' ? `<img class="dd-thumb" src="${photoUrl(o.photo)}" alt="">` : kind === 'icon' ? iconMask(o.file) : '');
+  return `<div class="dd" ${attrs}><button class="dd-btn" type="button" data-dd>${thumb(cur)}<span>${esc(cur.label)}</span>${CHEV_DOWN}</button>
+    <div class="dd-menu" hidden>${options.map((o) => `<button class="dd-opt${String(o.value) === String(value) ? ' sel' : ''}" type="button" data-dd-opt="${esc(o.value)}">${thumb(o)}<span>${esc(o.label)}</span></button>`).join('')}</div></div>`;
+}
+const varMenu = (vars) => `<div class="varmenu" hidden>${vars.map((v) => `<button type="button" data-var-insert="${esc(v.name)}"><code>{{${esc(v.name)}}}</code><span>${esc(v.value)}</span></button>`).join('')}</div>`;
+const textControl = (attrs, value, model, long) => `<div class="inwrap">${long ? `<textarea rows="2" ${attrs}>${esc(value)}</textarea>` : `<input ${attrs} value="${esc(value)}">`}<button class="varbtn" type="button" data-var title="Insert a variable">${VAR_ICON}</button>${varMenu(model.variables)}</div>`;
+
+function itemHtml(it, model) {
+  if (it.type === 'text') return `<div class="field"><label>${esc(it.label)}</label>${textControl(`data-cm-item="${it.id}"`, it.value, model, it.value.length > 40)}</div>`;
+  const hasPair = it.controls.some((c) => c.type === 'text') && it.controls.some((c) => c.type === 'icon');
+  const rows = it.controls.map((c) => {
+    const a = `data-cm-item="${it.id}" data-cm-prop="${c.key}"`;
+    if (c.type === 'text' && hasPair) { const ic = it.controls.find((x) => x.type === 'icon'); return `<div class="pairrow">${textControl(a, c.value, model, false)}${dd(`data-cm-item="${it.id}" data-cm-prop="${ic.key}"`, ic.options, ic.value, 'icon')}</div>`; }
+    if (c.type === 'icon' && hasPair) return '';
+    if (c.type === 'text') return `<div class="field"><label>${esc(c.label)}</label>${textControl(a, c.value, model, false)}</div>`;
+    if (c.type === 'person') return prow(c.label, dd(a, c.options, c.value, 'person'));
+    if (c.type === 'icon') return prow(c.label, dd(a, c.options, c.value, 'icon'));
+    if (c.type === 'enum' && c.ui === 'steps') return prow(c.label, steps(c.values.map((v) => ({ value: v, label: v })), c.value, a));
+    if (c.type === 'enum') return prow(c.label, select(`${a} data-cm-select`, c.values.map((v) => [v, v]), c.value));
+    return prow(c.label, `<input ${a} value="${esc(c.value)}">`);
+  }).join('');
+  return `<div class="cp-comp"><div class="cp-sub">${esc(it.label)}</div>${rows}</div>`;
+}
+const slotsHtml = (model) => model.slots.map((sl, i) => sec('slot' + i, sl.label, sl.items.map((it) => itemHtml(it, model)).join('') + adder('Add component'))).join('');
+
+// ---- token-bound properties (background, corner radius, padding)
+const propCur = (m, v, dflt) => cstate.vars[v] ?? (m.defaults || {})[v] ?? dflt;
+const propVars = (pr) => pr.vars || [pr.var];
+function propsBody(m) {
+  return (m.properties || []).map((pr) => {
+    if (pr.type === 'gradients') {
+      const cur = propCur(m, propVars(pr)[0], pr.default);
+      return prow(pr.label, `<div class="chips">${tokens.filter((t) => t.kind === 'gradient').map((t) => `<button class="chip-bg${`var(--${t.name})` === cur ? ' sel' : ''}" type="button" data-cprop="${pr.id}" data-cvalue="var(--${t.name})" title="${esc(t.name)}" style="background:${gradientCss(t)}"></button>`).join('')}</div>`);
+    }
+    const toks = tokens.filter((t) => t.kind === pr.scale), vars = propVars(pr);
+    const cur = vars.map((v) => propCur(m, v, vars.length === 1 ? pr.default : undefined));
+    const sel = toks.findIndex((t) => cur.every((c) => c === `var(--${t.name})`));
+    return prow(pr.label, `<div class="steps">${toks.map((t, i) => `<button class="step${i === sel ? ' sel' : ''}" type="button" data-cprop="${pr.id}" data-cvalue="var(--${t.name})" title="${esc(t.name)} · ${t.px}px">${i === sel ? esc(t.name.split('-').pop().toUpperCase()) : '<i></i>'}</button>`).join('')}</div>`);
+  }).join('');
+}
+
+const layoutThumbs = (model) => `<div class="thumbs three">${model.layouts.map((l) => `<button class="thumb-tile${l.id === model.layout ? ' sel' : ''}" data-clayout="${l.id}" title="${esc(l.name)}"><span class="thumb-frame"><iframe tabindex="-1" loading="lazy" title="${esc(l.name)}" src="${thumbSrc({ layout: l.id })}"></iframe></span><span class="thumb-label">${esc(l.name)}</span></button>`).join('')}</div>`;
+const surfaceField = () => field('surface', select('data-csurface="1"', [['normal', 'normal'], ['inverse', 'inverse']], cstate.surface));
+
 function renderComponentPanel() {
   const m = component.meta, p = $('#panel-body');
-  const about = `<p class="mute">${esc(m.name)} · ${esc(m.tier)} · ${m.stateful ? 'stateful' : 'stateless'}${(m.uses || []).length ? ' · uses ' + m.uses.join(', ') : ''}</p>`;
+  const api = screen.contentWindow && screen.contentWindow.tdsComponent;
+  const about = `<p class="mute">${esc(m.name)} · ${esc(m.tier)}${(m.uses || []).length ? ' · uses ' + m.uses.join(', ') : ''}</p>`;
   if (editing) {
     const vars = Object.entries(m.variables || {}).map(([k, type]) => field(k, varControl(k, type, (m.defaults || {})[k] || '', 'data-cdef'))).join('');
     p.innerHTML = `<div class="between"><h2>Editing ${esc(m.name)}</h2><button class="link" id="edit-back">← Back</button></div>${about}
@@ -463,39 +499,33 @@ function renderComponentPanel() {
       <p class="mute">What you set here becomes this component's default. It's saved in its meta.json and in tds/defaults.css.</p>`;
     return;
   }
-  const api = screen.contentWindow && screen.contentWindow.tdsComponent;
-  const vs = variantThumbs(m);
-  const thumbs = vs.items.length > 1 ? `<div class="section">Variants</div><div class="thumbs">${vs.items.map((it, i) => `
+  const footer = `<div class="spacer"></div><button class="link" id="creset">Reset preview</button><button class="btn dark wide" id="edit-comp">Edit Component</button>`;
+  if (m.layouts) {   // a composed organism: layouts, properties, slots
+    const model = api && api.getModel();
+    p.innerHTML = panelHead(m) + (model
+      ? sec('layout', 'Layout', layoutThumbs(model)) + sec('props', 'Properties', propsBody(m)) + `<div id="cp-slots">${slotsHtml(model)}</div>${adder('Add slot')}` + sec('options', 'Options', surfaceField())
+      : '') + footer;
+  } else {            // an atom or molecule: variants, properties, content, options
+    const vs = variantThumbs(m);
+    const thumbs = vs.items.length > 1 ? sec('variants', 'Variants', `<div class="thumbs">${vs.items.map((it, i) => `
       <button class="thumb-tile${i === vs.selected ? ' sel' : ''}" data-cthumb="${i}" title="${esc(it.label)}">
         <span class="thumb-frame"><iframe tabindex="-1" loading="lazy" title="${esc(it.label)}" src="${thumbSrc(it.param)}"></iframe></span>
-        <span class="thumb-label">${esc(it.label)}</span></button>`).join('')}</div>` : '';
-  const bg = m.backgroundVar ? (() => {
-    const cur = cstate.vars[m.backgroundVar] ?? (m.defaults || {})[m.backgroundVar] ?? m.backgroundDefault;
-    const chips = [...tokens.filter((t) => t.kind === 'gradient').map((t) => [`var(--${t.name})`, gradientCss(t), t.name]), ['var(--bg-elevation-20)', 'linear-gradient(rgb(255 255 255 / .2), rgb(255 255 255 / .2)), #1f0e41', 'flat']];
-    return `<div class="section">Background</div><div class="chips">${chips.map(([v, css, label]) => `<button class="chip-bg${v === cur ? ' sel' : ''}" data-cbg="${esc(v)}" title="${esc(label)}" style="background:${css}"></button>`).join('')}</div>`;
-  })() : '';
-  const content = api && api.getContent().length ? `<div class="section">Content</div>${api.getContent().map((c) => field(c.label, c.value.length > 44
-    ? `<textarea rows="3" data-ccontent="${c.i}">${esc(c.value)}</textarea>` : `<input data-ccontent="${c.i}" value="${esc(c.value)}">`)).join('')}` : '';
-  const mainAttr = vs.attr;
-  const attrs = Object.entries(m.attributes || {}).filter(([k]) => k !== mainAttr && !(m.backgroundVar && k === 'data-fill'))
-    .map(([k, a]) => field(k, select(`data-cattr="${esc(k)}"`, a.values.map((v) => [v, v]), cstate.attrs[k] || a.default))).join('');
-  const states = (m.states || []).length ? field('state (forced)', select('id="cstate"', [['', 'none'], ...m.states.map((x) => [x, x])], cstate.state)) : '';
-  const surface = isSingle(component) ? field('surface', select('data-csurface="1"', [['normal', 'normal'], ['inverse', 'inverse']], cstate.surface)) : '';
-  const more = attrs || states || surface ? `<div class="section">Options</div>${attrs}${states}${surface}` : '';
-  const built = (m.uses || []).length ? ` · built from ${m.uses.map((u) => u.split('/')[1]).join(', ')}` : '';
-  p.innerHTML = `<div class="cp-head"><h2 class="cp-title">${esc(m.name)}</h2><p class="cp-tier">${esc(m.tier.replace(/s$/, '').replace(/^./, (c) => c.toUpperCase()))}${esc(built)}</p></div>
-    ${m.description ? `<p class="cp-desc">${esc(m.description)}</p>` : ''}
-    ${thumbs}${bg}${content}${more}
-    <div class="spacer"></div>
-    <button class="link" id="creset">Reset preview</button>
-    <button class="btn dark wide" id="edit-comp">Edit Component</button>`;
+        <span class="thumb-label">${esc(it.label)}</span></button>`).join('')}</div>`) : '';
+    const props = (m.properties || []).length ? sec('props', 'Properties', propsBody(m)) : '';
+    const content = api && api.getContent().length ? sec('content', 'Content', api.getContent().map((c) => field(c.label, c.value.length > 44
+      ? `<textarea rows="3" data-ccontent="${c.i}">${esc(c.value)}</textarea>` : `<input data-ccontent="${c.i}" value="${esc(c.value)}">`)).join('')) : '';
+    const attrs = Object.entries(m.attributes || {}).filter(([k]) => k !== vs.attr && !(m.properties && k === 'data-fill'))
+      .map(([k, a]) => field(k, select(`data-cattr="${esc(k)}"`, a.values.map((v) => [v, v]), cstate.attrs[k] || a.default))).join('');
+    const states = (m.states || []).length ? field('state (forced)', select('id="cstate"', [['', 'none'], ...m.states.map((x) => [x, x])], cstate.state)) : '';
+    const options = attrs || states ? sec('options', 'Options', attrs + states) : '';
+    p.innerHTML = panelHead(m) + thumbs + props + content + options + footer;
+  }
   scaleThumbs();
 }
 
-// "Main variants" = the examples if there are any, else the values of the main attribute (the first enum without a condition).
+// "Main variants" = the values of the main attribute (the first enum without a condition).
 function variantThumbs(m) {
-  if ((m.examples || []).length) return { attr: null, selected: cstate.example, items: m.examples.map((e, i) => ({ label: e.name, param: { example: i }, apply: (api) => { cstate.example = i; api.setExample(i); } })) };
-  const hit = Object.entries(m.attributes || {}).find(([k, a]) => a.type === 'enum' && !a.when && !(m.backgroundVar && k === 'data-fill'));
+  const hit = Object.entries(m.attributes || {}).find(([k, a]) => a.type === 'enum' && !a.when && !(m.properties && k === 'data-fill'));
   if (!hit) return { attr: null, selected: 0, items: [] };
   const [k, a] = hit;
   return { attr: k, selected: Math.max(0, a.values.indexOf(cstate.attrs[k] || a.default)), items: a.values.map((v) => ({ label: v, param: { set: { [k]: v } }, apply: (api) => { cstate.attrs[k] = v; api.setAttr(k, v); } })) };
@@ -524,11 +554,18 @@ function editDefault(k, v) {
   syncVars(); setStatus('Unsaved changes');
 }
 
+const setItem = (api, item, prop, value) => api.setItem(item, prop ? { props: { [prop]: value } } : { value });
+const refreshSlots = (api) => { const model = api.getModel(), box = $('#cp-slots'); if (box) box.innerHTML = slotsHtml(model); };
+const closeMenus = (except) => document.querySelectorAll('.dd-menu, .varmenu').forEach((mn) => { if (mn !== except) mn.hidden = true; });
+document.addEventListener('click', (e) => { if (!e.target.closest('.dd, .inwrap')) closeMenus(); });
+
 $('#panel').addEventListener('input', (e) => {
-  const el = e.target, api = component && screen.contentWindow.tdsComponent; if (!api) return;
-  if (el.dataset.cdef) editDefault(el.dataset.cdef, el.value);
+  const el = e.target;
+  if ('cdesc' in el.dataset) { if (component) component.meta.description = el.value; return; }   // not saved yet
+  const api = component && screen.contentWindow.tdsComponent; if (!api) return;
+  if (el.dataset.cmItem !== undefined && el.matches('input, textarea, select')) setItem(api, el.dataset.cmItem, el.dataset.cmProp, el.value);
+  else if (el.dataset.cdef) editDefault(el.dataset.cdef, el.value);
   else if ('ccontent' in el.dataset) api.setContent(+el.dataset.ccontent, el.value);
-  else if ('cexample' in el.dataset) { cstate.example = +el.value; api.setExample(cstate.example); }
   else if ('csurface' in el.dataset) { cstate.surface = el.value; api.setSurface(el.value); }
   else if (el.dataset.cattr) { api.setAttr(el.dataset.cattr, el.value); cstate.attrs[el.dataset.cattr] = el.value; }
   else if (el.id === 'cstate') { api.setState(el.value); cstate.state = el.value; }
@@ -538,19 +575,47 @@ $('#panel').addEventListener('input', (e) => {
     syncVars();
   }
 });
+$('#panel').addEventListener('change', (e) => {
+  if (e.target.id !== 't-wire') return;
+  fidelity = e.target.checked ? 'wireframe' : 'styled'; applyModes();   // "Charcoal"
+});
 $('#panel').addEventListener('click', (e) => {
   if (!component) return;
-  const api = screen.contentWindow.tdsComponent, thumb = e.target.closest('[data-cthumb]'), chip = e.target.closest('[data-cbg]');
-  if (thumb && api) { variantThumbs(component.meta).items[+thumb.dataset.cthumb].apply(api); syncVars(); renderComponentPanel(); }
-  else if (chip && api) {
-    const k = component.meta.backgroundVar, v = chip.dataset.cbg, base = (component.meta.defaults || {})[k] ?? component.meta.backgroundDefault;
-    if (v === base) delete cstate.vars[k]; else cstate.vars[k] = v;
-    syncVars(); renderComponentPanel();
+  const t = e.target, api = screen.contentWindow.tdsComponent;
+  const head = t.closest('[data-csec]');
+  if (head) {   // fold / unfold a section in place
+    const section = head.parentElement, open = section.classList.toggle('open');
+    section.querySelector('.cp-sec-body').hidden = !open; collapsed[head.dataset.csec] = !open; return;
   }
-  else if (e.target.id === 'edit-comp') { editing = true; renderComponentPanel(); updateSavebar(); }
-  else if (e.target.id === 'edit-back') { editing = false; renderComponentPanel(); updateSavebar(); }
-  else if (e.target.id === 'creset') {
-    const api = screen.contentWindow.tdsComponent; if (api) api.reset();
+  const ddBtn = t.closest('[data-dd]'), opt = t.closest('[data-dd-opt]'), vb = t.closest('[data-var]'), vi = t.closest('[data-var-insert]');
+  if (ddBtn) { const mn = ddBtn.nextElementSibling; closeMenus(mn); mn.hidden = !mn.hidden; return; }
+  if (opt && api) { const root = opt.closest('.dd'); setItem(api, root.dataset.cmItem, root.dataset.cmProp, opt.dataset.ddOpt); refreshSlots(api); return; }
+  if (vb) { const mn = vb.nextElementSibling; closeMenus(mn); mn.hidden = !mn.hidden; return; }
+  if (vi) {
+    const wrap = vi.closest('.inwrap'), inp = wrap.querySelector('input, textarea'), at = inp.selectionEnd ?? inp.value.length;
+    inp.value = inp.value.slice(0, at) + `{{${vi.dataset.varInsert}}}` + inp.value.slice(at);
+    inp.dispatchEvent(new Event('input', { bubbles: true })); closeMenus(); inp.focus(); return;
+  }
+  const lay = t.closest('[data-clayout]'), stp = t.closest('[data-step]'), prop = t.closest('[data-cprop]'), thumb = t.closest('[data-cthumb]');
+  if (lay && api) {
+    api.setLayout(lay.dataset.clayout);
+    document.querySelectorAll('[data-clayout]').forEach((b) => b.classList.toggle('sel', b === lay));
+    refreshSlots(api); return;
+  }
+  if (prop) {   // gradient chips and scale steps set token-bound variables
+    const pr = component.meta.properties.find((x) => x.id === prop.dataset.cprop), vars = propVars(pr);
+    for (const v of vars) {
+      const base = (component.meta.defaults || {})[v] ?? (vars.length === 1 ? pr.default : undefined);
+      if (prop.dataset.cvalue === base) delete cstate.vars[v]; else cstate.vars[v] = prop.dataset.cvalue;
+    }
+    syncVars(); document.querySelectorAll('.cp-sec-body').forEach((bd) => { if (bd.querySelector('[data-cprop]')) bd.innerHTML = propsBody(component.meta); }); return;
+  }
+  if (stp && stp.closest('[data-cm-item]') && api) { const root = stp.closest('[data-cm-item]'); setItem(api, root.dataset.cmItem, root.dataset.cmProp, stp.dataset.step); refreshSlots(api); return; }
+  if (thumb && api) { variantThumbs(component.meta).items[+thumb.dataset.cthumb].apply(api); syncVars(); renderComponentPanel(); return; }
+  if (t.id === 'edit-comp') { editing = true; renderComponentPanel(); updateSavebar(); }
+  else if (t.id === 'edit-back') { editing = false; renderComponentPanel(); updateSavebar(); }
+  else if (t.id === 'creset') {
+    if (api) api.reset();
     cstate = freshPreview(); syncVars(); renderComponentPanel();
   }
 });
@@ -608,13 +673,8 @@ function applyModes() {
   const docs = [screen, ...document.querySelectorAll('.thumb-frame iframe')].map((f) => f.contentDocument).filter(Boolean);   // the canvas and the panel thumbnails
   for (const d of docs) d.documentElement.setAttribute('data-fidelity', fidelity);
 }
-function syncToggles() {
-  $('#t-wire').checked = fidelity === 'wireframe';
-}
-$('#t-wire').addEventListener('change', (e) => { fidelity = e.target.checked ? 'wireframe' : 'styled'; applyModes(); });
 
 screen.addEventListener('load', () => { applyModes(); applyLive(); });
-syncToggles();
 
 /* ---------- ⌘\ hides the interface ---------- */
 function setUi(on) {

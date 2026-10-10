@@ -23,5 +23,23 @@
     "--avatar-radius": "radius"
   },
   "styles": [],
-  "description": "A round photo, or initials when there's no photo. Use it beside a person's name in lists, cards and headers. Three sizes: 32, 48 and 64."
+  "description": "A round photo, or initials when there's no photo. Use it beside a person's name in lists, cards and headers. Three sizes: 32, 48 and 64.",
+  "props": {
+    "person": {
+      "type": "person",
+      "label": "Name",
+      "default": "kristina"
+    },
+    "size": {
+      "type": "enum",
+      "label": "Size",
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md"
+    }
+  },
+  "template": "<span class=\"avatar\" data-size=\"{{size}}\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span>"
 }

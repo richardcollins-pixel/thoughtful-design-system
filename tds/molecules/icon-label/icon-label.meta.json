@@ -1,5 +1,5 @@
 {
-  "name": "Icon Label",
+  "name": "Icon label",
   "tier": "molecules",
   "category": "content",
   "stateful": false,
@@ -38,5 +38,37 @@
       "label": "Text",
       "selector": ":scope > span"
     }
-  ]
+  ],
+  "props": {
+    "text": {
+      "type": "text",
+      "label": "Label",
+      "default": "Label",
+      "vars": true
+    },
+    "icon": {
+      "type": "icon",
+      "label": "Icon",
+      "default": "calendar"
+    },
+    "emphasis": {
+      "type": "enum",
+      "label": "Emphasis",
+      "values": [
+        "secondary",
+        "primary"
+      ],
+      "default": "secondary"
+    },
+    "size": {
+      "type": "enum",
+      "label": "Size",
+      "values": [
+        "sm",
+        "md"
+      ],
+      "default": "sm"
+    }
+  },
+  "template": "<div class=\"icon-label\" data-emphasis=\"{{emphasis}}\" data-size=\"{{size}}\"><i class=\"icon icon-{{icon}}\" data-size=\"sm\"></i><span>{{text}}</span></div>"
 }
