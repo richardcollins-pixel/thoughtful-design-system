@@ -1,7 +1,5 @@
 {
   "variables": {
-    "therapist-name": "Kristina",
-    "therapist-specialty": "Licensed clinical social worker",
     "appointment-date": "Wed, Jun 4 at 10:00 am",
     "appointment-duration": "1 hr"
   }

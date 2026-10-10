@@ -74,16 +74,28 @@ It then appears in the editor nav under that level; the canvas renders it from i
 
 An organism is data, not hand-written markup. Its `meta.json` holds:
 
-- `layouts[]` — named arrangements. Each has an HTML `template` with `{{item:id}}` placeholders, the `slots`
-  (label + item ids) the panel shows for it, and optional `overrides` (per-layout copy).
-- `items{}` — the things that fill the slots: `{ "type": "text", tag, class, value }` (text may contain
-  `{{variables}}` from `tds/sample-data.json`) or `{ "type": "component", component, props, expose }`.
-- `properties[]` — token-bound controls: `gradients` (chips) or `scale` (a radius/padding token scale).
+- `states[]` — the states it can be in (e.g. Booked, No appointment, Provider CTA). Each has an HTML `template` with
+  `{{item:id}}` placeholders, its `slots` (id, label, item ids — the card uses Header, Content and CTA) and optional
+  `overrides` (copy specific to that state). Atoms use `states` for hover/pressed/…; an organism is recognised by `items`.
+- `items{}` — what fills the slots: `{ "type": "text", tag, class, value }` (text may use `{{variables}}`) or
+  `{ "type": "component", component, props, bind, expose }`. `bind` ties a prop to a persona.
+- `personas[]` — roles the organism uses, e.g. `["provider"]`. People live in `tds/assets/personas.json` (providers now,
+  users later); the chosen one fills the avatar and `{{provider-name}}`, `{{provider-specialty}}`.
+- `properties[]` — token-bound controls: `gradients` (chips) or `scale` (a radius/padding token scale). `"edit": true`
+  keeps one out of the everyday panel.
+- `prompts[]` — see below.
 
-An atom or molecule opts in by declaring `props` (type `text`, `enum`, `person` or `icon`) and a `template`
-with `{{prop}}` placeholders. `tools/compose.js` renders the HTML for the canvas and the model the right
-panel is generated from, so every organism gets the same inspector. People for the avatar picker live in
-`tds/assets/people.json`.
+An atom or molecule opts in by declaring `props` (type `text`, `enum`, `person` or `icon`) and a `template` with
+`{{prop}}` placeholders. `tools/compose.js` renders the HTML for the canvas and the model the right panel is built from.
+
+**Everyday panel vs edit mode.** The everyday panel shows only content: Provider, State, Background and each slot's text.
+Structure (icons, elevation, sizes, radius, padding, adding components or slots) is reserved for edit mode. A component
+can opt into a Surface (normal/inverse) option with `"surface": true`; cards don't, coachmarks will.
+
+**Prompts.** The icon beside a text field connects it to a prompt. A prompt produces a *group* of fields together
+(a Recent Topic card's headline and body), so it lists `outputs` (item ids) and `inputs` (e.g. `provider`, `state`), and
+may be limited to some `states`. A prompt set on the organism is the design-system default; `tds/environments.json`
+(`production`, `dev`, `sandbox`) holds per-environment overrides. Nothing runs prompts yet; this is the structure.
 
 ## Assets and icons
 
