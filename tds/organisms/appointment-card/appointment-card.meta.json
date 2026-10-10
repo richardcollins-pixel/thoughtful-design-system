@@ -1,5 +1,5 @@
 {
-  "name": "Appointment Card",
+  "name": "Appointment card",
   "tier": "organisms",
   "category": "cards",
   "stateful": false,
@@ -7,82 +7,12 @@
     "atoms/card",
     "atoms/avatar",
     "atoms/button",
+    "atoms/icon-button",
     "atoms/icon",
     "molecules/icon-label",
     "molecules/avatar-group"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
-  "markup": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><div class=\"appointment-card__main\"><div class=\"appointment-card__titles\"><div class=\"appointment-card__title-row\"><h3 class=\"appointment-card__headline\">This is the headline</h3><button class=\"appointment-card__edit\" aria-label=\"Edit\"><i class=\"icon icon-edit\"></i></button></div><div class=\"appointment-card__details\"><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-calendar\" data-size=\"sm\"></i><span>Wed, Jun 4 at 10:00 am</span></div><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>1 hr</span></div></div></div><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div></div></article>",
-  "examples": [
-    {
-      "name": "Booked",
-      "markup": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><div class=\"appointment-card__main\"><div class=\"appointment-card__titles\"><div class=\"appointment-card__title-row\"><h3 class=\"appointment-card__headline\">This is the headline</h3><button class=\"appointment-card__edit\" aria-label=\"Edit\"><i class=\"icon icon-edit\"></i></button></div><div class=\"appointment-card__details\"><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-calendar\" data-size=\"sm\"></i><span>Wed, Jun 4 at 10:00 am</span></div><div class=\"icon-label\" data-emphasis=\"primary\" data-size=\"md\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>1 hr</span></div></div></div><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div></div></article>",
-      "content": [
-        {
-          "label": "Headline",
-          "selector": ".appointment-card__headline"
-        },
-        {
-          "label": "Date",
-          "selector": ".icon-label:nth-child(1) > span"
-        },
-        {
-          "label": "Duration",
-          "selector": ".icon-label:nth-child(2) > span"
-        },
-        {
-          "label": "Body copy",
-          "selector": ".appointment-card__body"
-        }
-      ]
-    },
-    {
-      "name": "No appointment",
-      "markup": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><div class=\"appointment-card__main\" style=\"gap:0\"><h3 class=\"appointment-card__headline\">This is the headline</h3><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div></div><button class=\"button\" data-width=\"full\">Button</button></article>",
-      "content": [
-        {
-          "label": "Headline",
-          "selector": ".appointment-card__headline"
-        },
-        {
-          "label": "Body copy",
-          "selector": ".appointment-card__body"
-        },
-        {
-          "label": "Button label",
-          "selector": ".button"
-        }
-      ]
-    },
-    {
-      "name": "Provider CTA",
-      "markup": "<article class=\"card appointment-card\" data-layout=\"centered\"><div class=\"avatar-group\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-1.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-3.png\" alt=\"\"></span></div><div class=\"appointment-card__main\"><h3 class=\"appointment-card__headline\">This is the headline</h3><p class=\"appointment-card__body\">Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div><button class=\"button\" data-width=\"full\">Button</button></article>",
-      "content": [
-        {
-          "label": "Headline",
-          "selector": ".appointment-card__headline"
-        },
-        {
-          "label": "Body copy",
-          "selector": ".appointment-card__body"
-        },
-        {
-          "label": "Button label",
-          "selector": ".button"
-        }
-      ]
-    }
-  ],
-  "attributes": {
-    "data-fill": {
-      "type": "enum",
-      "values": [
-        "gradient",
-        "flat"
-      ],
-      "default": "gradient"
-    }
-  },
   "states": [],
   "variables": {
     "--card-fill": "fill",
@@ -94,6 +24,222 @@
   "styles": [],
   "selector": ".appointment-card",
   "description": "The home-screen card about the user's care. Use Booked to show an upcoming appointment, No appointment to prompt booking, and Provider CTA to invite choosing a provider. One card shows at a time.",
-  "backgroundVar": "--card-fill",
-  "backgroundDefault": "var(--gradient-purple-to-blue)"
+  "items": {
+    "avatar": {
+      "type": "component",
+      "component": "atoms/avatar",
+      "label": "Avatar",
+      "props": {
+        "person": "kristina",
+        "size": "md"
+      },
+      "expose": [
+        "person"
+      ]
+    },
+    "group": {
+      "type": "component",
+      "component": "molecules/avatar-group",
+      "label": "Avatar group",
+      "props": {},
+      "expose": []
+    },
+    "headline": {
+      "type": "text",
+      "tag": "h3",
+      "class": "appointment-card__headline",
+      "label": "Headline",
+      "value": "Appointment with {{therapist-name}}"
+    },
+    "edit": {
+      "type": "component",
+      "component": "atoms/icon-button",
+      "label": "Icon Button",
+      "props": {
+        "elevation": "0",
+        "size": "xs",
+        "icon": "edit"
+      },
+      "expose": [
+        "elevation",
+        "icon"
+      ]
+    },
+    "date": {
+      "type": "component",
+      "component": "molecules/icon-label",
+      "label": "Label",
+      "props": {
+        "text": "Wed, Jun 4 at 10:00 am",
+        "icon": "calendar",
+        "emphasis": "primary",
+        "size": "md"
+      },
+      "expose": [
+        "text",
+        "icon"
+      ]
+    },
+    "duration": {
+      "type": "component",
+      "component": "molecules/icon-label",
+      "label": "Label",
+      "props": {
+        "text": "1 hr",
+        "icon": "clock",
+        "emphasis": "primary",
+        "size": "md"
+      },
+      "expose": [
+        "text",
+        "icon"
+      ]
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "appointment-card__body",
+      "label": "Body Copy",
+      "value": "Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    "footnote": {
+      "type": "text",
+      "tag": "p",
+      "class": "appointment-card__footnote",
+      "label": "Footnote",
+      "value": "Footnote goes here"
+    },
+    "button": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Button",
+      "props": {
+        "label": "Book a session",
+        "variant": "filled",
+        "size": "md",
+        "width": "full"
+      },
+      "expose": [
+        "label"
+      ]
+    }
+  },
+  "layouts": [
+    {
+      "id": "booked",
+      "name": "Booked",
+      "template": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\">{{item:avatar}}<div class=\"appointment-card__main\"><div class=\"appointment-card__titles\"><div class=\"appointment-card__title-row\">{{item:headline}}{{item:edit}}</div><div class=\"appointment-card__details\">{{item:date}}{{item:duration}}</div></div>{{item:body}}{{item:footnote}}</div></div></article>",
+      "slots": [
+        {
+          "label": "Slot 1",
+          "items": [
+            "avatar",
+            "headline",
+            "edit",
+            "date",
+            "duration"
+          ]
+        },
+        {
+          "label": "Slot 2",
+          "items": [
+            "body",
+            "footnote"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "no-appointment",
+      "name": "No appointment",
+      "template": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\">{{item:avatar}}<div class=\"appointment-card__main appointment-card__main--tight\">{{item:headline}}{{item:body}}</div></div>{{item:button}}</article>",
+      "overrides": {
+        "headline": {
+          "value": "Ready to book your next session?"
+        },
+        "body": {
+          "value": "Pick a time that works for you and we'll take care of the rest."
+        }
+      },
+      "slots": [
+        {
+          "label": "Slot 1",
+          "items": [
+            "avatar",
+            "headline",
+            "body"
+          ]
+        },
+        {
+          "label": "Slot 2",
+          "items": [
+            "button"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "provider-cta",
+      "name": "Provider CTA",
+      "template": "<article class=\"card appointment-card\" data-layout=\"centered\">{{item:group}}<div class=\"appointment-card__main\">{{item:headline}}{{item:body}}</div>{{item:button}}</article>",
+      "overrides": {
+        "headline": {
+          "value": "Find your match"
+        },
+        "body": {
+          "value": "Browse providers who fit what you're looking for."
+        },
+        "button": {
+          "props": {
+            "label": "See providers"
+          }
+        }
+      },
+      "slots": [
+        {
+          "label": "Slot 1",
+          "items": [
+            "group",
+            "headline",
+            "body"
+          ]
+        },
+        {
+          "label": "Slot 2",
+          "items": [
+            "button"
+          ]
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "id": "background",
+      "label": "Background Color",
+      "type": "gradients",
+      "var": "--card-fill",
+      "default": "var(--gradient-purple-to-blue)"
+    },
+    {
+      "id": "radius",
+      "label": "Corner Radius",
+      "type": "scale",
+      "scale": "radius",
+      "vars": [
+        "--card-radius"
+      ],
+      "default": "var(--radius-md)"
+    },
+    {
+      "id": "padding",
+      "label": "Padding",
+      "type": "scale",
+      "scale": "padding",
+      "vars": [
+        "--card-padding-x",
+        "--card-padding-y"
+      ]
+    }
+  ]
 }

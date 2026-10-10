@@ -74,5 +74,43 @@
       "label": "Label",
       "selector": ":scope"
     }
-  ]
+  ],
+  "props": {
+    "label": {
+      "type": "text",
+      "label": "Label",
+      "default": "Button"
+    },
+    "variant": {
+      "type": "enum",
+      "label": "Variant",
+      "values": [
+        "filled",
+        "outline",
+        "glass",
+        "flat"
+      ],
+      "default": "filled"
+    },
+    "size": {
+      "type": "enum",
+      "label": "Size",
+      "values": [
+        "lg",
+        "md",
+        "sm"
+      ],
+      "default": "md"
+    },
+    "width": {
+      "type": "enum",
+      "label": "Width",
+      "values": [
+        "hug",
+        "full"
+      ],
+      "default": "hug"
+    }
+  },
+  "template": "<button class=\"button\" data-variant=\"{{variant}}\" data-size=\"{{size}}\" data-width=\"{{width}}\">{{label}}</button>"
 }

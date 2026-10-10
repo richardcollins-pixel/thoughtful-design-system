@@ -37,6 +37,23 @@
     const attrs = Object.entries(meta.attributes || {});
     const defaults = Object.fromEntries(attrs.map(([k, a]) => [k, a.default]));
     const examples = meta.examples || [];
+    // Composed organisms (layouts + items + slots) are rendered by tools/compose.js; the panel reads their model back.
+    const spec = !!meta.layouts;
+    const ver = new URLSearchParams(location.search).get('v');
+    let compose, ctx, state;
+    if (spec) {
+      compose = await import('../tools/compose.js' + (ver ? `?v=${ver}` : ''));
+      const j = (u) => fetch(u, { cache: 'no-store' }).then((r) => r.json());
+      const idx = await j('../tds/index.json'), components = {};
+      await Promise.all(idx.components.map(async (cp) => { components[cp] = await j(`../tds/${cp}/${cp.split('/').pop()}.meta.json`); }));
+      ctx = {
+        components,
+        people: (await j('../tds/assets/people.json')).people,
+        glyphs: (await j('../tds/atoms/icon/glyphs.json')).items.map((g) => ({ value: g.name, label: g.name, file: g.file })),
+        data: (await j('../tds/sample-data.json')).variables,
+      };
+      state = { layout: (new URLSearchParams(location.search).get('thumb') && JSON.parse(new URLSearchParams(location.search).get('thumb')).layout) || meta.layouts[0].id, items: {} };
+    }
     // Atoms and molecules show every variant at once. Organisms and beyond show one instance; the editor's
     // panel switches variants, state and surface.
     const single = ['organisms', 'patterns'].includes(meta.tier);
@@ -65,7 +82,7 @@
     const slot = document.getElementById('subject');
     const attrState = { ...((thumb && thumb.set) || {}) }; let stateName = '', surfaceState = 'normal', curExample = (thumb && thumb.example) || 0, subject;
     const vars = {};
-    const build = (markup) => make({ markup, set: attrState, state: stateName || undefined, text: single ? undefined : meta.name });
+    const build = (markup) => make({ markup: spec ? compose.renderOrganism(meta, state, ctx) : markup, set: attrState, state: stateName || undefined, text: single ? undefined : meta.name });
     function place(el) {
       subject = el; slot.replaceChildren(el);
       for (const [k, v] of Object.entries(vars)) el.style.setProperty(k, v);
@@ -103,10 +120,18 @@
       setVar(k, v) { if (v) vars[k] = v; else delete vars[k]; all().forEach((e) => (v ? e.style.setProperty(k, v) : e.style.removeProperty(k))); },
       clearVars() { Object.keys(vars).forEach((k) => this.setVar(k, null)); },
       setExample(i) { if (examples[i]) { curExample = i; place(build(examples[i].markup)); } },
+      // composed organisms
+      getModel() { return spec ? compose.getModel(meta, state, ctx) : null; },
+      setLayout(id) { state.layout = id; place(build()); },
+      setItem(id, patch) {
+        const cur = state.items[id] || {};
+        state.items[id] = { ...cur, ...('value' in patch ? { value: patch.value } : {}), props: { ...(cur.props || {}), ...(patch.props || {}) } };
+        place(build());
+      },
       setSurface(v) { surfaceState = v; if (v === 'inverse') subject.dataset.surface = 'inverse'; else delete subject.dataset.surface; },
       getContent() { return contentDefs().map((c, i) => { const el = target(c); return { i, label: c.label, value: el ? el.textContent.trim() : '' }; }); },
       setContent(i, v) { const el = contentDefs()[i] && target(contentDefs()[i]); if (el) el.textContent = v; },
-      reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; surfaceState = 'normal'; curExample = 0; place(build(examples[0] && examples[0].markup)); },
+      reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; surfaceState = 'normal'; curExample = 0; if (spec) state = { layout: meta.layouts[0].id, items: {} }; place(build(examples[0] && examples[0].markup)); },
     };
     if (self !== top && !thumb) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
   </script>

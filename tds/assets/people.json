@@ -1,0 +1,39 @@
+{
+  "people": [
+    {
+      "id": "kristina",
+      "name": "Kristina",
+      "photo": "images/therapists/Therapist-7.png"
+    },
+    {
+      "id": "marco",
+      "name": "Marco",
+      "photo": "images/therapists/Therapist-1.png"
+    },
+    {
+      "id": "elena",
+      "name": "Elena",
+      "photo": "images/therapists/Therapist-2.png"
+    },
+    {
+      "id": "priya",
+      "name": "Priya",
+      "photo": "images/therapists/Therapist-3.png"
+    },
+    {
+      "id": "daniel",
+      "name": "Daniel",
+      "photo": "images/therapists/Therapist-4.png"
+    },
+    {
+      "id": "grace",
+      "name": "Grace",
+      "photo": "images/therapists/Therapist-5.png"
+    },
+    {
+      "id": "naomi",
+      "name": "Naomi",
+      "photo": "images/therapists/Therapist-6.png"
+    }
+  ]
+}

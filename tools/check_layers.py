@@ -12,6 +12,15 @@ for path in index:
     tier = path.split("/")[0]
     if meta.get("tier") != tier:
         print(f"{path}: meta tier is '{meta.get('tier')}', folder says '{tier}'"); bad += 1
+    for item_id, item in (meta.get("items") or {}).items():   # a composed organism may only place what it declares in "uses"
+        comp = item.get("component")
+        if comp and comp not in meta.get("uses", []):
+            print(f"{path}: item '{item_id}' places {comp}, which is not in uses"); bad += 1
+    for layout in meta.get("layouts", []):
+        for slot in layout.get("slots", []):
+            for item_id in slot["items"]:
+                if item_id not in (meta.get("items") or {}):
+                    print(f"{path}: layout '{layout['id']}' lists unknown item '{item_id}'"); bad += 1
     for used in meta.get("uses", []):
         if used not in index:
             print(f"{path}: uses unknown component '{used}'"); bad += 1
