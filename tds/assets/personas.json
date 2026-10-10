@@ -1,38 +1,45 @@
 {
-  "people": [
+  "provider": [
     {
       "id": "kristina",
       "name": "Kristina",
+      "specialty": "Licensed clinical social worker",
       "photo": "images/therapists/Therapist-7.png"
     },
     {
       "id": "marco",
       "name": "Marco",
+      "specialty": "Licensed professional counselor",
       "photo": "images/therapists/Therapist-1.png"
     },
     {
       "id": "elena",
       "name": "Elena",
+      "specialty": "Marriage and family therapist",
       "photo": "images/therapists/Therapist-2.png"
     },
     {
       "id": "priya",
       "name": "Priya",
+      "specialty": "Clinical psychologist",
       "photo": "images/therapists/Therapist-3.png"
     },
     {
       "id": "daniel",
       "name": "Daniel",
+      "specialty": "Licensed clinical social worker",
       "photo": "images/therapists/Therapist-4.png"
     },
     {
       "id": "grace",
       "name": "Grace",
+      "specialty": "Licensed professional counselor",
       "photo": "images/therapists/Therapist-5.png"
     },
     {
       "id": "naomi",
       "name": "Naomi",
+      "specialty": "Clinical psychologist",
       "photo": "images/therapists/Therapist-6.png"
     }
   ]

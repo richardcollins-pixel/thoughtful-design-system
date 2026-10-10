@@ -1,0 +1,13 @@
+{
+  "environments": [
+    "production",
+    "dev",
+    "sandbox"
+  ],
+  "overrides": {
+    "production": {},
+    "dev": {},
+    "sandbox": {}
+  },
+  "shape": "overrides[environment][component path] = { prompts: { <prompt id>: { instruction?, inputs?, outputs? } } }. Anything not overridden uses the component's own prompt (the design-system default)."
+}

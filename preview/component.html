@@ -37,8 +37,11 @@
     const attrs = Object.entries(meta.attributes || {});
     const defaults = Object.fromEntries(attrs.map(([k, a]) => [k, a.default]));
     const examples = meta.examples || [];
-    // Composed organisms (layouts + items + slots) are rendered by tools/compose.js; the panel reads their model back.
-    const spec = !!meta.layouts;
+    // Composed organisms (states + items + slots) are rendered by tools/compose.js; the panel reads their model back.
+    // ?thumb={"state":"provider-cta"} or {"set":{"data-variant":"outline"}}: render just that variant, for the panel's thumbnails.
+    const thumbParam = new URLSearchParams(location.search).get('thumb');
+    const thumb = thumbParam ? JSON.parse(thumbParam) : null;
+    const spec = !!meta.items;   // composed organisms have items (atoms use "states" for hover, pressed, …)
     const ver = new URLSearchParams(location.search).get('v');
     let compose, ctx, state;
     if (spec) {
@@ -48,18 +51,16 @@
       await Promise.all(idx.components.map(async (cp) => { components[cp] = await j(`../tds/${cp}/${cp.split('/').pop()}.meta.json`); }));
       ctx = {
         components,
-        people: (await j('../tds/assets/people.json')).people,
+        personas: await j('../tds/assets/personas.json'),
+        environments: await j('../tds/environments.json').catch(() => ({})),
         glyphs: (await j('../tds/atoms/icon/glyphs.json')).items.map((g) => ({ value: g.name, label: g.name, file: g.file })),
         data: (await j('../tds/sample-data.json')).variables,
       };
-      state = { layout: (new URLSearchParams(location.search).get('thumb') && JSON.parse(new URLSearchParams(location.search).get('thumb')).layout) || meta.layouts[0].id, items: {} };
+      state = { state: (thumb && thumb.state) || meta.states[0].id, personas: {}, items: {} };
     }
     // Atoms and molecules show every variant at once. Organisms and beyond show one instance; the editor's
     // panel switches variants, state and surface.
     const single = ['organisms', 'patterns'].includes(meta.tier);
-    // ?thumb={"example":1} or {"set":{"data-variant":"outline"}}: render just that variant, for the editor's panel thumbnails.
-    const thumbParam = new URLSearchParams(location.search).get('thumb');
-    const thumb = thumbParam ? JSON.parse(thumbParam) : null;
     document.body.classList.toggle('single', single && !thumb);
     document.body.classList.toggle('thumb', !!thumb);
 
@@ -121,8 +122,9 @@
       clearVars() { Object.keys(vars).forEach((k) => this.setVar(k, null)); },
       setExample(i) { if (examples[i]) { curExample = i; place(build(examples[i].markup)); } },
       // composed organisms
-      getModel() { return spec ? compose.getModel(meta, state, ctx) : null; },
-      setLayout(id) { state.layout = id; place(build()); },
+      getModel(opts) { return spec ? compose.getModel(meta, state, ctx, opts) : null; },
+      setVariant(id) { state.state = id; place(build()); },
+      setPersona(role, id) { state.personas[role] = id; place(build()); },
       setItem(id, patch) {
         const cur = state.items[id] || {};
         state.items[id] = { ...cur, ...('value' in patch ? { value: patch.value } : {}), props: { ...(cur.props || {}), ...(patch.props || {}) } };
@@ -131,7 +133,7 @@
       setSurface(v) { surfaceState = v; if (v === 'inverse') subject.dataset.surface = 'inverse'; else delete subject.dataset.surface; },
       getContent() { return contentDefs().map((c, i) => { const el = target(c); return { i, label: c.label, value: el ? el.textContent.trim() : '' }; }); },
       setContent(i, v) { const el = contentDefs()[i] && target(contentDefs()[i]); if (el) el.textContent = v; },
-      reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; surfaceState = 'normal'; curExample = 0; if (spec) state = { layout: meta.layouts[0].id, items: {} }; place(build(examples[0] && examples[0].markup)); },
+      reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; surfaceState = 'normal'; curExample = 0; if (spec) state = { state: meta.states[0].id, personas: {}, items: {} }; place(build(examples[0] && examples[0].markup)); },
     };
     if (self !== top && !thumb) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
   </script>

@@ -427,7 +427,6 @@ const varControl = (k, type, cur, attr) => (type === 'number'
 
 const svg = (d, w = 14) => `<svg viewBox="0 0 16 16" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 const CHEV_UP = svg('<path d="m4 10 4-4 4 4"/>'), CHEV_DOWN = svg('<path d="m4 6 4 4 4-4"/>');
-const VAR_ICON = svg('<circle cx="8" cy="8" r="5.5"/><path d="M5.5 8h5M8 5.5v5"/>', 16);
 const encPath = (rel) => rel.split('/').map(encodeURIComponent).join('/');
 const photoUrl = (rel) => `../tds/assets/${encPath(rel)}`;
 const glyphUrl = (file) => `../tds/atoms/icon/${encPath(file)}`;
@@ -436,8 +435,7 @@ const iconMask = (file) => `<i class="mask" style="-webkit-mask-image:url('${gly
 // ---- layout of the panel: collapsible sections, label-left / control-right rows, dashed "add" placeholders
 const sec = (id, title, body) => `<section class="cp-sec${collapsed[id] ? '' : ' open'}"><button class="cp-sec-head" data-csec="${id}"><span>${esc(title)}</span>${CHEV_UP}</button><div class="cp-sec-body" ${collapsed[id] ? 'hidden' : ''}>${body}</div></section>`;
 const prow = (label, control) => `<div class="prow"><span class="plabel">${esc(label)}</span><div class="pctl">${control}</div></div>`;
-const adder = (label) => `<div class="adder" title="Coming soon">${esc(label)}<span>+</span></div>`;
-const panelHead = (m) => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><label class="switch"><span>Charcoal</span><input type="checkbox" id="t-wire" role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>
+const panelHead = (m, extra = '') => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><label class="switch"><span>Charcoal</span><input type="checkbox" id="t-wire" role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>${extra}
   <div class="field"><label>Description</label><textarea class="cp-desc-edit" rows="3" data-cdesc>${esc(m.description || '')}</textarea></div>`;
 
 // ---- controls
@@ -448,32 +446,30 @@ function dd(attrs, options, value, kind) {
   return `<div class="dd" ${attrs}><button class="dd-btn" type="button" data-dd>${thumb(cur)}<span>${esc(cur.label)}</span>${CHEV_DOWN}</button>
     <div class="dd-menu" hidden>${options.map((o) => `<button class="dd-opt${String(o.value) === String(value) ? ' sel' : ''}" type="button" data-dd-opt="${esc(o.value)}">${thumb(o)}<span>${esc(o.label)}</span></button>`).join('')}</div></div>`;
 }
-const varMenu = (vars) => `<div class="varmenu" hidden>${vars.map((v) => `<button type="button" data-var-insert="${esc(v.name)}"><code>{{${esc(v.name)}}}</code><span>${esc(v.value)}</span></button>`).join('')}</div>`;
-const textControl = (attrs, value, model, long) => `<div class="inwrap">${long ? `<textarea rows="2" ${attrs}>${esc(value)}</textarea>` : `<input ${attrs} value="${esc(value)}">`}<button class="varbtn" type="button" data-var title="Insert a variable">${VAR_ICON}</button>${varMenu(model.variables)}</div>`;
-
-function itemHtml(it, model) {
-  if (it.type === 'text') return `<div class="field"><label>${esc(it.label)}</label>${textControl(`data-cm-item="${it.id}"`, it.value, model, it.value.length > 40)}</div>`;
-  const hasPair = it.controls.some((c) => c.type === 'text') && it.controls.some((c) => c.type === 'icon');
-  const rows = it.controls.map((c) => {
-    const a = `data-cm-item="${it.id}" data-cm-prop="${c.key}"`;
-    if (c.type === 'text' && hasPair) { const ic = it.controls.find((x) => x.type === 'icon'); return `<div class="pairrow">${textControl(a, c.value, model, false)}${dd(`data-cm-item="${it.id}" data-cm-prop="${ic.key}"`, ic.options, ic.value, 'icon')}</div>`; }
-    if (c.type === 'icon' && hasPair) return '';
-    if (c.type === 'text') return `<div class="field"><label>${esc(c.label)}</label>${textControl(a, c.value, model, false)}</div>`;
-    if (c.type === 'person') return prow(c.label, dd(a, c.options, c.value, 'person'));
-    if (c.type === 'icon') return prow(c.label, dd(a, c.options, c.value, 'icon'));
-    if (c.type === 'enum' && c.ui === 'steps') return prow(c.label, steps(c.values.map((v) => ({ value: v, label: v })), c.value, a));
-    if (c.type === 'enum') return prow(c.label, select(`${a} data-cm-select`, c.values.map((v) => [v, v]), c.value));
-    return prow(c.label, `<input ${a} value="${esc(c.value)}">`);
-  }).join('');
-  return `<div class="cp-comp"><div class="cp-sub">${esc(it.label)}</div>${rows}</div>`;
+// The icon beside a text field connects it to a prompt. A prompt fills a group of fields together; it's set on the organism
+// in the design system, and an environment (production / dev / sandbox) can override it.
+const AI_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 19.4 7v10L12 21.2 4.6 17V7z"/><path d="M12 8.2l1 2.8 2.8 1-2.8 1-1 2.8-1-2.8-2.8-1 2.8-1z"/><path d="M1.5 12h3"/></svg>`;
+function aiMenu(prompt, model) {
+  const envs = esc(model.environments.join(' · '));
+  if (!prompt) return `<div class="aimenu" hidden><p class="ai-title">No prompt connected</p><p class="ai-note">A prompt attaches to the organism in the design system, or per environment (${envs}).</p></div>`;
+  return `<div class="aimenu" hidden><p class="ai-title">${esc(prompt.label)}</p><p class="ai-note">Fills together: ${prompt.outputs.map(esc).join(' + ')}</p>
+    <p class="ai-instr">${esc(prompt.instruction)}</p><p class="ai-note">Inputs: ${prompt.inputs.map(esc).join(', ')}<br>Set at: ${esc(prompt.level)} · overrides: none yet (${envs})</p></div>`;
 }
-const slotsHtml = (model) => model.slots.map((sl, i) => sec('slot' + i, sl.label, sl.items.map((it) => itemHtml(it, model)).join('') + adder('Add component'))).join('');
+const textControl = (attrs, value, model, long, prompt) => `<div class="inwrap">${long ? `<textarea rows="2" ${attrs}>${esc(value)}</textarea>` : `<input ${attrs} value="${esc(value)}">`}<button class="aibtn${prompt ? ' on' : ''}" type="button" data-ai title="${prompt ? 'Connected to a prompt' : 'Connect a prompt'}">${AI_ICON}</button>${aiMenu(prompt, model)}</div>`;
+
+// Everyday panel: content only. Structure (icons, sizes, adding things) is for edit mode.
+function itemHtml(it, model) {
+  if (it.type === 'text') return field(it.label, textControl(`data-cm-item="${it.id}"`, it.value, model, it.value.length > 40, it.prompt));
+  return it.controls.map((c) => field(it.controls.length > 1 ? c.label : it.label, textControl(`data-cm-item="${it.id}" data-cm-prop="${c.key}"`, c.value, model, false, it.prompt))).join('');
+}
+const slotsHtml = (model) => model.slots.map((sl) => sec('slot-' + sl.id, sl.label, sl.items.map((it) => itemHtml(it, model)).join(''))).join('');
+const personaRows = (model) => model.personas.map((pe) => prow(pe.label, dd(`data-cpersona="${pe.role}"`, pe.options, pe.value, 'person'))).join('');
 
 // ---- token-bound properties (background, corner radius, padding)
 const propCur = (m, v, dflt) => cstate.vars[v] ?? (m.defaults || {})[v] ?? dflt;
 const propVars = (pr) => pr.vars || [pr.var];
-function propsBody(m) {
-  return (m.properties || []).map((pr) => {
+function propsBody(m, viewOnly = false) {
+  return (m.properties || []).filter((pr) => !(viewOnly && pr.edit)).map((pr) => {
     if (pr.type === 'gradients') {
       const cur = propCur(m, propVars(pr)[0], pr.default);
       return prow(pr.label, `<div class="chips">${tokens.filter((t) => t.kind === 'gradient').map((t) => `<button class="chip-bg${`var(--${t.name})` === cur ? ' sel' : ''}" type="button" data-cprop="${pr.id}" data-cvalue="var(--${t.name})" title="${esc(t.name)}" style="background:${gradientCss(t)}"></button>`).join('')}</div>`);
@@ -485,7 +481,7 @@ function propsBody(m) {
   }).join('');
 }
 
-const layoutThumbs = (model) => `<div class="thumbs three">${model.layouts.map((l) => `<button class="thumb-tile${l.id === model.layout ? ' sel' : ''}" data-clayout="${l.id}" title="${esc(l.name)}"><span class="thumb-frame"><iframe tabindex="-1" loading="lazy" title="${esc(l.name)}" src="${thumbSrc({ layout: l.id })}"></iframe></span><span class="thumb-label">${esc(l.name)}</span></button>`).join('')}</div>`;
+const stateThumbs = (model) => `<div class="thumbs three">${model.states.map((st) => `<button class="thumb-tile${st.id === model.state ? ' sel' : ''}" data-cvariant="${st.id}" title="${esc(st.name)}"><span class="thumb-frame"><iframe tabindex="-1" loading="lazy" title="${esc(st.name)}" src="${thumbSrc({ state: st.id })}"></iframe></span><span class="thumb-label">${esc(st.name)}</span></button>`).join('')}</div>`;
 const surfaceField = () => field('surface', select('data-csurface="1"', [['normal', 'normal'], ['inverse', 'inverse']], cstate.surface));
 
 function renderComponentPanel() {
@@ -500,10 +496,10 @@ function renderComponentPanel() {
     return;
   }
   const footer = `<div class="spacer"></div><button class="link" id="creset">Reset preview</button><button class="btn dark wide" id="edit-comp">Edit Component</button>`;
-  if (m.layouts) {   // a composed organism: layouts, properties, slots
+  if (m.items) {   // a composed organism: provider, state, background, then its slots' content
     const model = api && api.getModel();
-    p.innerHTML = panelHead(m) + (model
-      ? sec('layout', 'Layout', layoutThumbs(model)) + sec('props', 'Properties', propsBody(m)) + `<div id="cp-slots">${slotsHtml(model)}</div>${adder('Add slot')}` + sec('options', 'Options', surfaceField())
+    p.innerHTML = panelHead(m, model ? `<div id="cp-persona">${personaRows(model)}</div>` : '') + (model
+      ? sec('state', 'State', stateThumbs(model)) + sec('props', 'Properties', propsBody(m, true)) + `<div id="cp-slots">${slotsHtml(model)}</div>` + (m.surface ? sec('options', 'Options', surfaceField()) : '')
       : '') + footer;
   } else {            // an atom or molecule: variants, properties, content, options
     const vs = variantThumbs(m);
@@ -556,7 +552,7 @@ function editDefault(k, v) {
 
 const setItem = (api, item, prop, value) => api.setItem(item, prop ? { props: { [prop]: value } } : { value });
 const refreshSlots = (api) => { const model = api.getModel(), box = $('#cp-slots'); if (box) box.innerHTML = slotsHtml(model); };
-const closeMenus = (except) => document.querySelectorAll('.dd-menu, .varmenu').forEach((mn) => { if (mn !== except) mn.hidden = true; });
+const closeMenus = (except) => document.querySelectorAll('.dd-menu, .aimenu').forEach((mn) => { if (mn !== except) mn.hidden = true; });
 document.addEventListener('click', (e) => { if (!e.target.closest('.dd, .inwrap')) closeMenus(); });
 
 $('#panel').addEventListener('input', (e) => {
@@ -587,19 +583,18 @@ $('#panel').addEventListener('click', (e) => {
     const section = head.parentElement, open = section.classList.toggle('open');
     section.querySelector('.cp-sec-body').hidden = !open; collapsed[head.dataset.csec] = !open; return;
   }
-  const ddBtn = t.closest('[data-dd]'), opt = t.closest('[data-dd-opt]'), vb = t.closest('[data-var]'), vi = t.closest('[data-var-insert]');
+  const ddBtn = t.closest('[data-dd]'), opt = t.closest('[data-dd-opt]'), ai = t.closest('[data-ai]');
   if (ddBtn) { const mn = ddBtn.nextElementSibling; closeMenus(mn); mn.hidden = !mn.hidden; return; }
-  if (opt && api) { const root = opt.closest('.dd'); setItem(api, root.dataset.cmItem, root.dataset.cmProp, opt.dataset.ddOpt); refreshSlots(api); return; }
-  if (vb) { const mn = vb.nextElementSibling; closeMenus(mn); mn.hidden = !mn.hidden; return; }
-  if (vi) {
-    const wrap = vi.closest('.inwrap'), inp = wrap.querySelector('input, textarea'), at = inp.selectionEnd ?? inp.value.length;
-    inp.value = inp.value.slice(0, at) + `{{${vi.dataset.varInsert}}}` + inp.value.slice(at);
-    inp.dispatchEvent(new Event('input', { bubbles: true })); closeMenus(); inp.focus(); return;
+  if (opt && api) {
+    const root = opt.closest('.dd');
+    if (root.dataset.cpersona) { api.setPersona(root.dataset.cpersona, opt.dataset.ddOpt); $('#cp-persona').innerHTML = personaRows(api.getModel()); return; }
+    setItem(api, root.dataset.cmItem, root.dataset.cmProp, opt.dataset.ddOpt); refreshSlots(api); return;
   }
-  const lay = t.closest('[data-clayout]'), stp = t.closest('[data-step]'), prop = t.closest('[data-cprop]'), thumb = t.closest('[data-cthumb]');
+  if (ai) { const mn = ai.nextElementSibling; closeMenus(mn); mn.hidden = !mn.hidden; return; }
+  const lay = t.closest('[data-cvariant]'), stp = t.closest('[data-step]'), prop = t.closest('[data-cprop]'), thumb = t.closest('[data-cthumb]');
   if (lay && api) {
-    api.setLayout(lay.dataset.clayout);
-    document.querySelectorAll('[data-clayout]').forEach((b) => b.classList.toggle('sel', b === lay));
+    api.setVariant(lay.dataset.cvariant);
+    document.querySelectorAll('[data-cvariant]').forEach((b) => b.classList.toggle('sel', b === lay));
     refreshSlots(api); return;
   }
   if (prop) {   // gradient chips and scale steps set token-bound variables
@@ -608,7 +603,7 @@ $('#panel').addEventListener('click', (e) => {
       const base = (component.meta.defaults || {})[v] ?? (vars.length === 1 ? pr.default : undefined);
       if (prop.dataset.cvalue === base) delete cstate.vars[v]; else cstate.vars[v] = prop.dataset.cvalue;
     }
-    syncVars(); document.querySelectorAll('.cp-sec-body').forEach((bd) => { if (bd.querySelector('[data-cprop]')) bd.innerHTML = propsBody(component.meta); }); return;
+    syncVars(); document.querySelectorAll('.cp-sec-body').forEach((bd) => { if (bd.querySelector('[data-cprop]')) bd.innerHTML = propsBody(component.meta, !!component.meta.items); }); return;
   }
   if (stp && stp.closest('[data-cm-item]') && api) { const root = stp.closest('[data-cm-item]'); setItem(api, root.dataset.cmItem, root.dataset.cmProp, stp.dataset.step); refreshSlots(api); return; }
   if (thumb && api) { variantThumbs(component.meta).items[+thumb.dataset.cthumb].apply(api); syncVars(); renderComponentPanel(); return; }
