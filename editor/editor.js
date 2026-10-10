@@ -11,7 +11,7 @@ let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
 let fidelity = 'styled';
 let libraries = [], library = null, asset = null;
 const freshPreview = () => ({ attrs: {}, state: '', vars: {}, example: 0, surface: 'normal' });
-let collapsed = {};   // panel sections the user folded
+let collapsed = { 'slot-header': true, 'slot-content': true, 'slot-cta': true };   // panel sections that are folded; slots start closed
 let components = [], component = null, editing = false, cstate = freshPreview();
 let kind = 'primitive', navKey = 'tokens/primitives', selected = null, saveTimer;
 
@@ -498,8 +498,8 @@ function renderComponentPanel() {
   const footer = `<div class="spacer"></div><button class="link" id="creset">Reset preview</button><button class="btn dark wide" id="edit-comp">Edit Component</button>`;
   if (m.items) {   // a composed organism: provider, state, background, then its slots' content
     const model = api && api.getModel();
-    p.innerHTML = panelHead(m, model ? `<div id="cp-persona">${personaRows(model)}</div>` : '') + (model
-      ? sec('state', 'State', stateThumbs(model)) + sec('props', 'Properties', propsBody(m, true)) + `<div id="cp-slots">${slotsHtml(model)}</div>` + (m.surface ? sec('options', 'Options', surfaceField()) : '')
+    p.innerHTML = panelHead(m) + (model
+      ? `<div class="cp-sections">${sec('state', 'State', stateThumbs(model))}${sec('props', 'Properties', propsBody(m, true))}<div class="cp-persona" id="cp-persona">${personaRows(model)}</div><div id="cp-slots">${slotsHtml(model)}</div>${m.surface ? sec('options', 'Options', surfaceField()) : ''}</div>`
       : '') + footer;
   } else {            // an atom or molecule: variants, properties, content, options
     const vs = variantThumbs(m);
@@ -514,7 +514,7 @@ function renderComponentPanel() {
       .map(([k, a]) => field(k, select(`data-cattr="${esc(k)}"`, a.values.map((v) => [v, v]), cstate.attrs[k] || a.default))).join('');
     const states = (m.states || []).length ? field('state (forced)', select('id="cstate"', [['', 'none'], ...m.states.map((x) => [x, x])], cstate.state)) : '';
     const options = attrs || states ? sec('options', 'Options', attrs + states) : '';
-    p.innerHTML = panelHead(m) + thumbs + props + content + options + footer;
+    p.innerHTML = panelHead(m) + `<div class="cp-sections">${thumbs}${props}${content}${options}</div>` + footer;
   }
   scaleThumbs();
 }
