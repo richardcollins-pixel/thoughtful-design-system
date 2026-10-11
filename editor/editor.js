@@ -591,8 +591,8 @@ function elementPanel(it, model) {
     else if (c.bound) props.push(prow(c.label, `<span class="bound">${esc(c.bound.label)} · ${esc(c.bound.value)}</span>`));
     else if (c.type === 'person') props.push(prow(c.label, dd(a, c.options, c.value, 'person')));
     else if (c.type === 'icon') props.push(prow(c.label, dd(a, c.options, c.value, 'icon')));
-    else if (c.type === 'enum' && c.ui === 'steps') props.push(prow(c.label, steps(c.values.map((v) => ({ value: v, label: v })), c.value, a)));
-    else if (c.type === 'enum') props.push(prow(c.label, select(`${a} data-cm-select`, c.values.map((v) => [v, v]), c.value)));
+    else if (c.type === 'enum') props.push(prow(c.label, steps(c.values.map((v) => ({ value: v, label: v })), c.value, a)));
+
   }
   const body = (content.length ? sec('el-content', 'Content', content.join('')) : '') + (props.length ? sec('el-props', 'Properties', props.join('')) : '');
   return `${selectionHead(model, it.slot, it.label)}
