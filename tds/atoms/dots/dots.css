@@ -7,3 +7,10 @@
 .dots[data-current="4"] > i:nth-child(4) { width: var(--space-6); background: var(--dots-current); }
 .dots[data-current="5"] > i:nth-child(5) { width: var(--space-6); background: var(--dots-current); }
 .dots[data-current="6"] > i:nth-child(6) { width: var(--space-6); background: var(--dots-current); }
+
+/* fewer than six steps: hide the extra dots */
+.dots[data-count="1"] > i:nth-child(n+2) { display: none; }
+.dots[data-count="2"] > i:nth-child(n+3) { display: none; }
+.dots[data-count="3"] > i:nth-child(n+4) { display: none; }
+.dots[data-count="4"] > i:nth-child(n+5) { display: none; }
+.dots[data-count="5"] > i:nth-child(n+6) { display: none; }

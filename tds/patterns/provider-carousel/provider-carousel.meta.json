@@ -1,0 +1,134 @@
+{
+  "name": "Provider carousel",
+  "tier": "patterns",
+  "category": "carousels",
+  "stateful": false,
+  "uses": [
+    "organisms/provider-bio-card",
+    "atoms/dots"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<section class=\"provider-carousel\"><div class=\"provider-carousel__cards\" data-slot=\"cards\" data-carousel>{{item:card1}}{{item:card2}}{{item:card3}}{{item:card4}}{{item:card5}}</div><div class=\"provider-carousel__dots\" data-slot=\"dots\" data-carousel-dots>{{item:dots}}</div></section>",
+      "slots": [
+        {
+          "id": "cards",
+          "label": "Cards slot",
+          "items": [
+            "card1",
+            "card2",
+            "card3",
+            "card4",
+            "card5"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "dots",
+          "label": "Dots slot",
+          "items": [
+            "dots"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".provider-carousel",
+  "description": "Provider bio cards in a row that bleeds to the screen edges and locks onto one card per swipe. The card in view is fully opaque, the others fade, and the dots underneath follow along.",
+  "items": {
+    "card1": {
+      "type": "component",
+      "component": "organisms/provider-bio-card",
+      "label": "Provider card 1",
+      "props": {
+        "state": "focused",
+        "provider": "kristina"
+      },
+      "expose": [
+        "provider",
+        "name",
+        "quote",
+        "bio"
+      ]
+    },
+    "card2": {
+      "type": "component",
+      "component": "organisms/provider-bio-card",
+      "label": "Provider card 2",
+      "props": {
+        "state": "focused",
+        "provider": "marco"
+      },
+      "expose": [
+        "provider",
+        "name",
+        "quote",
+        "bio"
+      ]
+    },
+    "card3": {
+      "type": "component",
+      "component": "organisms/provider-bio-card",
+      "label": "Provider card 3",
+      "props": {
+        "state": "focused",
+        "provider": "elena"
+      },
+      "expose": [
+        "provider",
+        "name",
+        "quote",
+        "bio"
+      ]
+    },
+    "card4": {
+      "type": "component",
+      "component": "organisms/provider-bio-card",
+      "label": "Provider card 4",
+      "props": {
+        "state": "focused",
+        "provider": "priya"
+      },
+      "expose": [
+        "provider",
+        "name",
+        "quote",
+        "bio"
+      ]
+    },
+    "card5": {
+      "type": "component",
+      "component": "organisms/provider-bio-card",
+      "label": "Provider card 5",
+      "props": {
+        "state": "focused",
+        "provider": "daniel"
+      },
+      "expose": [
+        "provider",
+        "name",
+        "quote",
+        "bio"
+      ]
+    },
+    "dots": {
+      "type": "component",
+      "component": "atoms/dots",
+      "label": "Progress dots",
+      "props": {
+        "current": "1",
+        "count": "5"
+      },
+      "expose": []
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}

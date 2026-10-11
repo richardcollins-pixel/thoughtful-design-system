@@ -1,0 +1,6 @@
+/* Organism: error card. The card that stands in when something couldn't load: centred message and a Retry button, on the flat fill.
+   Slots: content, action. */
+.error-card { --card-padding-y: var(--padding-xl); --card-gap: var(--space-6); align-items: center; text-align: center; }
+.error-card__content { display: flex; flex-direction: column; gap: var(--space-4); }
+.error-card__headline { font: var(--font-weight-semibold) var(--font-size-lg)/var(--line-height-relaxed) var(--font-family-body); }
+.error-card__body { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }

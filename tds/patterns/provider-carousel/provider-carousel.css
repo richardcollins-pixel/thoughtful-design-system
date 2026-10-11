@@ -1,0 +1,5 @@
+/* Pattern: provider carousel. Provider bio cards in the shared carousel (styles > carousel does the bleed, the snapping and the
+   fade), with progress dots underneath that follow the card in focus. Slots: cards, dots. */
+.provider-carousel { display: flex; flex-direction: column; gap: var(--space-6); width: 100%; }
+.provider-carousel__cards > .provider-bio-card { flex: 0 0 336px; width: 336px; }
+.provider-carousel__dots { display: flex; justify-content: center; }

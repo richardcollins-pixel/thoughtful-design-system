@@ -94,7 +94,8 @@
       "label": "Name",
       "value": "{{provider-name}}",
       "skeleton": {
-        "lines": 1
+        "lines": 1,
+        "width": 40
       }
     },
     "quote": {
@@ -103,16 +104,17 @@
       "class": "provider-bio-card__quote",
       "label": "Quote",
       "value": "\"{{provider-quote}}\"",
-      "skeleton": {
-        "lines": 1
-      }
+      "skeleton": false
     },
     "bio": {
       "type": "text",
       "tag": "p",
       "class": "provider-bio-card__bio",
       "label": "Bio",
-      "value": "{{provider-bio}}"
+      "value": "{{provider-bio}}",
+      "skeleton": {
+        "lines": 4
+      }
     }
   },
   "personas": [

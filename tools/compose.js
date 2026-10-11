@@ -57,6 +57,7 @@ export function effectiveItem(meta, st, id) {
 // A component's editable props. An organism placed inside a pattern exposes its state and its text items.
 const compProps = (comp) => comp.items ? {
   state: { type: 'enum', label: 'State', values: comp.states.map((s) => s.id), default: comp.states[0].id },
+  ...Object.fromEntries((comp.personas || []).map((role) => [role, { type: 'person', label: cap(role), default: '' }])),
   ...Object.fromEntries(Object.entries(comp.items).filter(([, i]) => i.type === 'text').map(([k, i]) => [k, { type: 'text', label: i.label || k, default: i.value }])),
 } : (comp.props || {});
 
@@ -64,7 +65,10 @@ const compProps = (comp) => comp.items ? {
 // from out here, so their data-item / data-slot markers are dropped; the whole card is the item.
 function renderNested(comp, it, scope) {
   const inner = { state: it.props.state || comp.states[0].id, personas: scope.st.personas || {}, items: {}, loading: scope.st.loading };
-  for (const [k, v] of Object.entries(it.props)) if (k !== 'state' && comp.items[k] && comp.items[k].type === 'text') inner.items[k] = { value: v, props: {} };
+  for (const [k, v] of Object.entries(it.props)) {
+    if ((comp.personas || []).includes(k)) inner.personas = { ...inner.personas, [k]: v };   // this card's own provider
+    else if (k !== 'state' && comp.items[k] && comp.items[k].type === 'text') inner.items[k] = { value: v, props: {} };
+  }
   return renderOrganism(comp, inner, scope.ctx).replace(/ data-(?:item|slot)="[^"]*"/g, '');
 }
 
@@ -91,7 +95,7 @@ function textSkeleton(it, data) {
   const perLine = /^h[1-6]$/.test(it.tag || '') ? 22 : 34;
   const lines = Math.min(4, (it.skeleton && it.skeleton.lines) || Math.max(1, Math.ceil(plain.length / perLine)));
   const tag = it.tag || 'p';
-  return `<${tag}${it.class ? ` class="${it.class}"` : ''} style="width:100%"><span class="skeleton-text" data-lines="${lines}">${'<span class="skeleton" data-shape="line"></span>'.repeat(4)}</span></${tag}>`;
+  return `<${tag}${it.class ? ` class="${it.class}"` : ''} style="width:100%"><span class="skeleton-text" data-lines="${lines}"${it.skeleton && it.skeleton.width ? ` style="--skeleton-first-width:${it.skeleton.width}%"` : ''}>${'<span class="skeleton" data-shape="line"></span>'.repeat(4)}</span></${tag}>`;
 }
 
 function renderItem(scope, id) {
