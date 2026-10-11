@@ -1,4 +1,0 @@
-/* Organism: bit size columns. Two columns of five tiles in the shared carousel (styles > carousel: bleed, snapping, fade), so
-   the column in view is fully opaque and the other fades. Slots are real elements ([data-slot]): column-1, column-2. */
-.bit-size-columns { --carousel-gap: var(--space-8); }
-.bit-size-columns__column { display: flex; flex-direction: column; gap: var(--space-6); width: 336px; }

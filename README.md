@@ -131,9 +131,9 @@ The Background property depends on the state: gradient states offer the gradient
 
 The appointment card also has an **Error** state (Couldn't load, with Retry) for when it fails to load; it is not a separate card.
 
-## The bite-size section (home screen)
+## The bite size support section (home screen)
 
-`molecules/tile` (a face on an orange tile, a title, a duration, a round button; the ten faces are SVGs in `assets/images/faces`), `organisms/bit-size-columns` (two columns of five tiles in the shared carousel, so the column in view is opaque and the other fades) and `patterns/section` (a subhead and a line of copy, then one thing: bite-size columns, your topics, deep dives or your therapist, as four states). A nested card exposes its own text, including the text of the components inside it (a button's label, a duration) as "item.prop".
+`atoms/face` (one of ten faces on an orange tile; the SVGs are in `assets/images/faces`), `molecules/tile` (a face, a title, a duration and a round arrow; the whole row is one button), `organisms/bite-size-columns` (two columns of five tiles in the shared carousel, a little narrower than the row so the next column peeks in at the edge) and `patterns/bite-size-support-section` (the subhead, the line of copy and the columns). The other home sections (your topics, deep dives, your therapist) will each be their own pattern. A nested card exposes its own text, including the text of the components inside it (a button's label, a duration) as "item.prop".
 
 ## Sticker sheets
 

@@ -1,0 +1,5 @@
+/* Organism: bite size columns. Two columns of five tiles in the shared carousel (styles > carousel: bleed, snapping, fade), so the
+   column in view is fully opaque and the next one fades in. A column is a little narrower than the row so a sliver of the next one
+   shows at the screen edge (--bite-size-peek). Slots are real elements ([data-slot]): column-1, column-2. */
+.bite-size-columns { --carousel-gap: var(--space-8); --bite-size-peek: 18px; }
+.bite-size-columns__column { display: flex; flex-direction: column; gap: var(--space-6); width: calc(100% + var(--page-gutter, var(--space-6)) - var(--carousel-gap) - var(--bite-size-peek)); }

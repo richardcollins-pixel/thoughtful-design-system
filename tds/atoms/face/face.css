@@ -1,0 +1,17 @@
+/* Atom: face. A small face (one of ten feelings) on an orange tile. It is the picture on a bite-size tile. Each face sits where
+   it was drawn inside the 80px square, and scales with --face-size. Loading shimmers like the avatar. */
+.face { --face-size: 80px; position: relative; display: block; flex: none; box-sizing: border-box; width: var(--face-size); height: var(--face-size); border-radius: var(--radius-sm); overflow: clip; background: var(--gradient-orange-to-light-rose); }
+.face > img { position: absolute; display: block; }
+.face[data-state="loading"] { background: var(--skeleton-fill); background-size: 200% 100%; animation: var(--skeleton-animation); }
+.face[data-state="loading"] > * { visibility: hidden; }
+/* where each face sits (these are for the 80px tile; the percentages follow the size, the pixel ones are tuned for 80) */
+.face[data-face="calm-down"] > img { inset: 31.44% 18.28% 35.49% 18.75%; }
+.face[data-face="balance-the-thought"] > img { inset: 34.18% 24.25% 28.48% 23.75%; }
+.face[data-face="nourish-yourself"] > img { inset: 30.97% 18.74% 27.5% 17.5%; }
+.face[data-face="give-yourself-grace"] > img { left: 26px; top: 35.28%; bottom: 38%; width: 28.423px; }
+.face[data-face="settle-for-sleep"] > img { inset: 27.5% 20.04% 27.11% 20%; }
+.face[data-face="reflect-on-today"] > img { inset: 31.04% 29% 31.62% 26.53%; }
+.face[data-face="set-boundaries"] > img { left: calc(50% + 0.5px); top: 32.09%; bottom: 32.06%; width: 45px; transform: translateX(-50%); }
+.face[data-face="get-motivated"] > img { left: calc(50% + 0.09px); top: 30.66%; bottom: 24.14%; width: 38.175px; transform: translateX(-50%); }
+.face[data-face="build-connections"] > img { inset: 31.17% 29.25% 32% 28.75%; }
+.face[data-face="start-a-plan"] > img { inset: 35.78% 31.97% 32% 32.5%; }
