@@ -14,6 +14,9 @@ function update(row) {
     if (focus > bestFocus) { best = item; bestFocus = focus; }
   }
   for (const item of row.children) item.toggleAttribute('data-focused', item === best);
+  // progress dots: a [data-carousel-dots] right after the row holds a .dots that follows the focused item
+  const dots = row.nextElementSibling && row.nextElementSibling.matches('[data-carousel-dots]') ? row.nextElementSibling.querySelector('.dots') : null;
+  if (dots) { dots.dataset.current = String(Math.min(6, [...row.children].indexOf(best) + 1)); dots.dataset.count = String(Math.min(6, row.children.length)); }
 }
 
 function attach(row) {
