@@ -127,7 +127,7 @@ More cards from Figma: `session-history-card` (Default, With image), `cta-card`,
 
 The provider set: `patterns/provider-carousel` (five provider bio cards in the shared carousel, each with its own provider, and progress dots under it that follow the card in focus: put a `[data-carousel-dots]` after a carousel and its `.dots` is kept in step). Figma's Provider Card loading and Post-Appointment Skeleton are covered by the skeleton system rather than separate cards: every organism has a loading state that holds its loaded height.
 
-Properties can be limited to some states (`"states": [...]` on a property): a flat card has no gradient to pick, so the Provider header and the resource card show no background control, while gradient cards get the gradients plus a **flat** swatch (the plain 20% fill).
+The Background property depends on the state: gradient states offer the gradients, and a state that is flat in the real UI (`"flatStates": [...]` on the property: the Error state, the Provider header, the provider bio card, the resource card) shows just its flat fill. A property can also be limited to some states with `"states": [...]`.
 
 The appointment card also has an **Error** state (Couldn't load, with Retry) for when it fails to load; it is not a separate card.
 

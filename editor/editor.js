@@ -485,8 +485,10 @@ function propsBody(m, viewOnly = false, stateId = null) {
   return (m.properties || []).filter((pr) => !(viewOnly && pr.edit) && (!pr.states || !stateId || pr.states.includes(stateId))).map((pr) => {
     if (pr.type === 'gradients') {
       const cur = propCur(m, propVars(pr)[0], pr.default);
-      const FLAT = 'var(--bg-elevation-20)';   // the flat option: the card's plain fill, no gradient
-      return prow(pr.label, `<div class="chips"><button class="chip-bg${FLAT === cur ? ' sel' : ''}" type="button" data-cprop="${pr.id}" data-cvalue="${FLAT}" title="flat" style="background:#6b5a8a"></button>${tokens.filter((t) => t.kind === 'gradient').map((t) => `<button class="chip-bg${`var(--${t.name})` === cur ? ' sel' : ''}" type="button" data-cprop="${pr.id}" data-cvalue="var(--${t.name})" title="${esc(t.name)}" style="background:${gradientCss(t)}"></button>`).join('')}</div>`);
+      // Gradient states offer the gradients. A state that is flat in the real UI (`flatStates`) shows just its flat fill, selected,
+      // so you can see what it is without being offered gradients it doesn't use.
+      if ((pr.flatStates || []).includes(stateId)) return prow(pr.label, `<div class="chips"><button class="chip-bg sel" type="button" data-cprop="${pr.id}" data-cvalue="${pr.default}" title="flat" style="background:#6b5a8a"></button></div>`);
+      return prow(pr.label, `<div class="chips">${tokens.filter((t) => t.kind === 'gradient').map((t) => `<button class="chip-bg${`var(--${t.name})` === cur ? ' sel' : ''}" type="button" data-cprop="${pr.id}" data-cvalue="var(--${t.name})" title="${esc(t.name)}" style="background:${gradientCss(t)}"></button>`).join('')}</div>`);
     }
     const toks = tokens.filter((t) => t.kind === pr.scale), vars = propVars(pr);
     const cur = vars.map((v) => propCur(m, v, vars.length === 1 ? pr.default : undefined));

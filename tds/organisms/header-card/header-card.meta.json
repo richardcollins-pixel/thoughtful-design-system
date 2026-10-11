@@ -165,8 +165,8 @@
       "type": "gradients",
       "var": "--card-fill",
       "default": "var(--gradient-dark-rose-to-orange)",
-      "states": [
-        "default"
+      "flatStates": [
+        "provider"
       ]
     },
     {

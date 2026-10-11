@@ -302,10 +302,8 @@
       "type": "gradients",
       "var": "--card-fill",
       "default": "var(--gradient-purple-to-blue)",
-      "states": [
-        "booked",
-        "no-appointment",
-        "provider-cta"
+      "flatStates": [
+        "error"
       ]
     },
     {
