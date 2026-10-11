@@ -5,6 +5,82 @@
    "label": "Images",
    "groups": [
     {
+     "id": "faces",
+     "label": "Faces",
+     "items": [
+      {
+       "name": "balance-the-thought",
+       "file": "images/faces/balance-the-thought.svg",
+       "width": 41.6,
+       "height": 29.875,
+       "bytes": 1093
+      },
+      {
+       "name": "build-connections",
+       "file": "images/faces/build-connections.svg",
+       "width": 33.5995,
+       "height": 29.4656,
+       "bytes": 1016
+      },
+      {
+       "name": "calm-down",
+       "file": "images/faces/calm-down.svg",
+       "width": 50.378,
+       "height": 26.4564,
+       "bytes": 1473
+      },
+      {
+       "name": "get-motivated",
+       "file": "images/faces/get-motivated.svg",
+       "width": 38.1755,
+       "height": 36.1628,
+       "bytes": 1981
+      },
+      {
+       "name": "give-yourself-grace",
+       "file": "images/faces/give-yourself-grace.svg",
+       "width": 28.4231,
+       "height": 21.3783,
+       "bytes": 1117
+      },
+      {
+       "name": "nourish-yourself",
+       "file": "images/faces/nourish-yourself.svg",
+       "width": 51.0077,
+       "height": 33.2245,
+       "bytes": 1469
+      },
+      {
+       "name": "reflect-on-today",
+       "file": "images/faces/reflect-on-today.svg",
+       "width": 35.5804,
+       "height": 29.8695,
+       "bytes": 1978
+      },
+      {
+       "name": "set-boundaries",
+       "file": "images/faces/set-boundaries.svg",
+       "width": 44.9997,
+       "height": 28.6748,
+       "bytes": 2073
+      },
+      {
+       "name": "settle-for-sleep",
+       "file": "images/faces/settle-for-sleep.svg",
+       "width": 47.9705,
+       "height": 36.3141,
+       "bytes": 1371
+      },
+      {
+       "name": "start-a-plan",
+       "file": "images/faces/start-a-plan.svg",
+       "width": 28.4231,
+       "height": 25.7778,
+       "bytes": 1020
+      }
+     ]
+    },
+    {
      "id": "therapists",
      "label": "Therapists",
      "items": [

@@ -33,8 +33,10 @@
 @import url("molecules/skeleton-text/skeleton-text.css") layer(molecules);
 @import url("molecules/chat-input/chat-input.css")      layer(molecules);
 @import url("molecules/header/header.css")             layer(molecules);
+@import url("molecules/tile/tile.css")                 layer(molecules);
 
 @import url("organisms/appointment-card/appointment-card.css") layer(organisms);
+@import url("organisms/bit-size-columns/bit-size-columns.css") layer(organisms);
 @import url("organisms/provider-bio-card/provider-bio-card.css") layer(organisms);
 @import url("organisms/session-card/session-card.css") layer(organisms);
 @import url("organisms/header-card/header-card.css") layer(organisms);
@@ -45,6 +47,7 @@
 @import url("organisms/resource-card/resource-card.css") layer(organisms);
 
 @import url("patterns/topics-section/topics-section.css") layer(patterns);
+@import url("patterns/section/section.css") layer(patterns);
 @import url("patterns/provider-carousel/provider-carousel.css") layer(patterns);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */

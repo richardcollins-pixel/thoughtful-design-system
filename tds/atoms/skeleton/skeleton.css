@@ -6,6 +6,7 @@
   background-image: var(--skeleton-fill); background-size: 200% 100%; animation: var(--skeleton-animation);
 }
 .skeleton[data-shape="line"] { width: 100%; height: 0.9em; }
+.skeleton[data-shape="square"] { width: var(--space-16); height: var(--space-16); border-radius: var(--radius-sm); }
 .skeleton[data-shape="dot"]  { display: inline-block; width: var(--space-4); height: var(--space-4); }
 .skeleton[data-shape="pill"] { width: 100%; height: var(--space-12); }
 .skeleton[data-shape="pill"][data-size="lg"] { height: var(--space-16); }
