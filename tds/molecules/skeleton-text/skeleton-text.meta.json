@@ -1,0 +1,41 @@
+{
+  "name": "Skeleton text",
+  "tier": "molecules",
+  "category": "feedback",
+  "stateful": false,
+  "uses": [
+    "atoms/skeleton"
+  ],
+  "markup": "<span class=\"skeleton-text\" data-lines=\"3\" style=\"width:20em\"><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span></span>",
+  "attributes": {
+    "data-lines": {
+      "type": "enum",
+      "values": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "default": "3"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A multi-line placeholder for a block of text that is still loading. Pick how many lines; each line takes the height of the text around it.",
+  "props": {
+    "lines": {
+      "type": "enum",
+      "label": "Lines",
+      "ui": "steps",
+      "values": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "default": "3"
+    }
+  },
+  "template": "<span class=\"skeleton-text\" data-lines=\"{{lines}}\"><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span></span>"
+}

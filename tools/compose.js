@@ -68,17 +68,15 @@ function propVars(compMeta, item, scope) {
   return vars;
 }
 
-// A text item's skeleton: shimmering pill lines in the same element (so the same type rhythm). The item says how many
-// (`skeleton: { lines }`), otherwise as many as the copy is expected to take (about 22 characters per line in a heading,
-// 34 in body text). The last line is shorter. `skeleton: false` leaves the item out.
+// A text item's skeleton: the skeleton-text molecule inside the same element (so the same type rhythm). The item says how
+// many lines (`skeleton: { lines }`), otherwise as many as the copy is expected to take (about 22 characters per line in a
+// heading, 34 in body text). `skeleton: false` leaves the item out.
 function textSkeleton(it, data) {
   const plain = String(it.value).replace(/\{\{\s*([\w.-]+)\s*\}\}/g, (m, k) => (k in data ? data[k] : m));
   const perLine = /^h[1-6]$/.test(it.tag || '') ? 22 : 34;
-  const lines = (it.skeleton && it.skeleton.lines) || Math.max(1, Math.ceil(plain.length / perLine));
-  // line widths vary a little, like ragged text; the last line is shorter
-  const width = (i) => (lines === 1 ? 90 : i === lines - 1 ? 80 : [96, 100, 92][i % 3]);
-  const bars = Array.from({ length: lines }, (_, i) => `<span class="skeleton-line" style="width:${width(i)}%"></span>`).join('');
-  return `<${it.tag || 'p'}${it.class ? ` class="${it.class}"` : ''} style="width:100%">${bars}</${it.tag || 'p'}>`;
+  const lines = Math.min(4, (it.skeleton && it.skeleton.lines) || Math.max(1, Math.ceil(plain.length / perLine)));
+  const tag = it.tag || 'p';
+  return `<${tag}${it.class ? ` class="${it.class}"` : ''} style="width:100%"><span class="skeleton-text" data-lines="${lines}">${'<span class="skeleton" data-shape="line"></span>'.repeat(4)}</span></${tag}>`;
 }
 
 function renderItem(scope, id) {
@@ -100,7 +98,9 @@ export function renderOrganism(meta, st, ctx) {
   // while loading, the items of every slot that declares a skeleton are drawn as skeletons
   const skeleton = new Set(st.loading ? state.slots.filter((sl) => sl.skeleton).flatMap((sl) => sl.items) : []);
   const scope = { meta, st, ctx, data: dataFor(meta, st, ctx), skeleton };
-  return state.template.replace(/\{\{item:([\w-]+)\}\}/g, (m, id) => (meta.items[id] ? renderItem(scope, id) : ''));
+  // a loading card says so on its root, so the organism's CSS can lay out its skeleton
+  const html = st.loading ? state.template.replace(/^(\s*<[\w-]+)/, '$1 data-loading') : state.template;
+  return html.replace(/\{\{item:([\w-]+)\}\}/g, (m, id) => (meta.items[id] ? renderItem(scope, id) : ''));
 }
 
 const promptFor = (meta, state, id) => {

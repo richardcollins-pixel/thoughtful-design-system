@@ -1,0 +1,36 @@
+{
+  "name": "Skeleton",
+  "tier": "atoms",
+  "category": "feedback",
+  "stateful": false,
+  "uses": [],
+  "markup": "<span class=\"skeleton\" data-shape=\"line\" style=\"width:12em\"></span>",
+  "attributes": {
+    "data-shape": {
+      "type": "enum",
+      "values": [
+        "line",
+        "dot",
+        "pill"
+      ],
+      "default": "line"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A shimmering placeholder shown while content loads. A line stands in for text, a dot for an icon, a pill for a button. Always fully rounded, and always the same shimmer.",
+  "props": {
+    "shape": {
+      "type": "enum",
+      "label": "Shape",
+      "values": [
+        "line",
+        "dot",
+        "pill"
+      ],
+      "default": "line"
+    }
+  },
+  "template": "<span class=\"skeleton\" data-shape=\"{{shape}}\"></span>"
+}

@@ -4,7 +4,8 @@
   "category": "content",
   "stateful": false,
   "uses": [
-    "atoms/icon"
+    "atoms/icon",
+    "atoms/skeleton"
   ],
   "markup": "<div class=\"icon-label\"><i class=\"icon icon-calendar\" data-size=\"sm\"></i><span>Next available Tue, Oct 13 · 2:30 PM</span></div>",
   "attributes": {
@@ -71,5 +72,5 @@
     }
   },
   "template": "<div class=\"icon-label\" data-emphasis=\"{{emphasis}}\" data-size=\"{{size}}\"><i class=\"icon icon-{{icon}}\" data-size=\"sm\"></i><span>{{text}}</span></div>",
-  "skeleton": "<div class=\"icon-label\" data-size=\"{{size}}\"><span class=\"skeleton-dot\"></span><span class=\"skeleton-line\" style=\"width:calc({{text.length}} * 1ch)\"></span></div>"
+  "skeleton": "<div class=\"icon-label\" data-size=\"{{size}}\"><span class=\"skeleton\" data-shape=\"dot\"></span><span class=\"skeleton\" data-shape=\"line\" style=\"width:calc({{text.length}} * 1ch)\"></span></div>"
 }

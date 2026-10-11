@@ -110,7 +110,6 @@
       const el = make1(markup);
       el.style.minHeight = `${height}px`;
       for (const sl of el.querySelectorAll('[data-slot="header"], [data-slot="content"]')) sl.style.alignSelf = 'stretch';   // so a line's % width has something to be a % of
-      const cta = el.querySelector('[data-slot="cta"]'); if (cta) cta.style.marginTop = 'auto';
       return el;
     };
     // Figma-style selection for composed organisms. Items are outlined in blue and slots in pink. A slot is a real element
