@@ -11,7 +11,8 @@
       "values": [
         "line",
         "dot",
-        "pill"
+        "pill",
+        "square"
       ],
       "default": "line"
     }
@@ -19,7 +20,7 @@
   "states": [],
   "variables": {},
   "styles": [],
-  "description": "A shimmering placeholder shown while content loads. A line stands in for text, a dot for an icon, a pill for a button. Always fully rounded, and always the same shimmer.",
+  "description": "A shimmering placeholder shown while content loads. A line stands in for text, a dot for an icon, a pill for a button, a square for an image. Always fully rounded, and always the same shimmer.",
   "props": {
     "shape": {
       "type": "enum",
@@ -27,7 +28,8 @@
       "values": [
         "line",
         "dot",
-        "pill"
+        "pill",
+        "square"
       ],
       "default": "line"
     }

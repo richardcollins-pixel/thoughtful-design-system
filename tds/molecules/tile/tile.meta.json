@@ -1,0 +1,57 @@
+{
+  "name": "Tile",
+  "tier": "molecules",
+  "category": "content",
+  "stateful": false,
+  "uses": [
+    "atoms/icon",
+    "atoms/icon-button",
+    "atoms/skeleton"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=1046-39066",
+  "markup": "<div class=\"tile\"><div class=\"tile__left\"><span class=\"tile__image\"><img class=\"tile__face\" data-face=\"calm-down\" src=\"../tds/assets/images/faces/calm-down.svg\" alt=\"\"></span><div class=\"tile__content\"><p class=\"tile__title\">Calm Down</p><span class=\"tile__label\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>5 mins</span></span></div></div><button class=\"icon-button\" data-elevation=\"20\" data-size=\"sm\" aria-label=\"Open\"><i class=\"icon icon-arrow-up\"></i></button></div>",
+  "attributes": {},
+  "states": [],
+  "variables": {
+    "--tile-image": "padding"
+  },
+  "styles": [],
+  "description": "A bite-size piece of support: a small face on an orange tile, a title, how long it takes, and a round button to open it. Used in columns on the home screen.",
+  "content": [
+    {
+      "label": "Title",
+      "selector": ".tile__title"
+    }
+  ],
+  "props": {
+    "face": {
+      "type": "enum",
+      "label": "Face",
+      "values": [
+        "calm-down",
+        "balance-the-thought",
+        "nourish-yourself",
+        "give-yourself-grace",
+        "settle-for-sleep",
+        "reflect-on-today",
+        "set-boundaries",
+        "get-motivated",
+        "build-connections",
+        "start-a-plan"
+      ],
+      "default": "calm-down"
+    },
+    "title": {
+      "type": "text",
+      "label": "Title",
+      "default": "Calm Down"
+    },
+    "duration": {
+      "type": "text",
+      "label": "Duration",
+      "default": "5 mins"
+    }
+  },
+  "template": "<div class=\"tile\"><div class=\"tile__left\"><span class=\"tile__image\"><img class=\"tile__face\" data-face=\"{{face}}\" src=\"../tds/assets/images/faces/{{face}}.svg\" alt=\"\"></span><div class=\"tile__content\"><p class=\"tile__title\">{{title}}</p><span class=\"tile__label\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>{{duration}}</span></span></div></div><button class=\"icon-button\" data-elevation=\"20\" data-size=\"sm\" aria-label=\"Open\"><i class=\"icon icon-arrow-up\"></i></button></div>",
+  "skeleton": "<div class=\"tile\"><div class=\"tile__left\"><span class=\"skeleton\" data-shape=\"square\" style=\"width:80px;height:80px\"></span><div class=\"tile__content\"><span class=\"skeleton-text\" data-lines=\"1\" style=\"font-size:16px;--skeleton-first-width:70%\"><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span></span><span class=\"skeleton-text\" data-lines=\"1\" style=\"font-size:16px;--skeleton-first-width:40%\"><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span></span></div></div><span class=\"icon-button\" data-state=\"loading\" data-elevation=\"20\" data-size=\"sm\"></span></div>"
+}

@@ -1,0 +1,238 @@
+{
+  "name": "Section",
+  "tier": "patterns",
+  "category": "sections",
+  "stateful": false,
+  "uses": [
+    "organisms/bit-size-columns",
+    "organisms/session-card",
+    "organisms/appointment-card"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4361-70379",
+  "states": [
+    {
+      "id": "bit-size",
+      "name": "Bite size support",
+      "template": "<section class=\"section\"><div class=\"section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"section__content\" data-slot=\"content\">{{item:columns}}</div></section>",
+      "overrides": {
+        "heading": {
+          "value": "Bite Size Support"
+        },
+        "copy": {
+          "value": "Quick, in the moment, help"
+        }
+      },
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "columns"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "topics",
+      "name": "Your topics",
+      "template": "<section class=\"section\"><div class=\"section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"section__content\" data-slot=\"content\">{{item:topicCard}}</div></section>",
+      "overrides": {
+        "heading": {
+          "value": "Your Topics"
+        },
+        "copy": {
+          "value": "Let's pick up where you left off"
+        }
+      },
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "topicCard"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "deep-dives",
+      "name": "Deep dives",
+      "template": "<section class=\"section\"><div class=\"section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"section__content\" data-slot=\"content\">{{item:deepCard}}</div></section>",
+      "overrides": {
+        "heading": {
+          "value": "Deep Dives"
+        },
+        "copy": {
+          "value": "Gain insights and make a plan"
+        }
+      },
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "deepCard"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "therapist",
+      "name": "Your therapist",
+      "template": "<section class=\"section\"><div class=\"section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"section__content\" data-slot=\"content\">{{item:cta}}</div></section>",
+      "overrides": {
+        "heading": {
+          "value": "Your Therapist"
+        },
+        "copy": {
+          "value": "Get support and accountability"
+        }
+      },
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "cta"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".section",
+  "description": "A home-screen section: a subhead and a line of copy, then one thing in its slot. The home screen stacks these: bite-size support (columns of tiles), your topics, deep dives and your therapist.",
+  "items": {
+    "heading": {
+      "type": "text",
+      "tag": "h2",
+      "class": "section__title",
+      "label": "Subhead",
+      "value": "Section title",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "copy": {
+      "type": "text",
+      "tag": "p",
+      "class": "section__copy",
+      "label": "Copy",
+      "value": "A line about this section",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "columns": {
+      "type": "component",
+      "component": "organisms/bit-size-columns",
+      "label": "Bit size columns",
+      "props": {},
+      "expose": []
+    },
+    "topicCard": {
+      "type": "component",
+      "component": "organisms/session-card",
+      "label": "Topic card",
+      "props": {
+        "state": "new-topic"
+      },
+      "expose": [
+        "headline",
+        "body"
+      ]
+    },
+    "deepCard": {
+      "type": "component",
+      "component": "organisms/session-card",
+      "label": "Deep dive card",
+      "props": {
+        "state": "lg",
+        "headline": "Get unstuck",
+        "body": "Dig deep into an area of your life causing you challenges, but you're not sure why. Unpack what's going on and build a plan to move forward.",
+        "duration.text": "30 min"
+      },
+      "expose": [
+        "headline",
+        "body",
+        "duration.text"
+      ]
+    },
+    "cta": {
+      "type": "component",
+      "component": "organisms/appointment-card",
+      "label": "Therapist card",
+      "props": {
+        "state": "provider-cta",
+        "headline": "Let's find your therapist",
+        "body": "I'll help you find the right therapist and keep you supported every step of the way.",
+        "button.label": "Find your match"
+      },
+      "expose": [
+        "headline",
+        "body",
+        "button.label"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [
+    {
+      "id": "gap",
+      "label": "Gap",
+      "type": "scale",
+      "scale": "spacing",
+      "vars": [
+        "--section-gap"
+      ],
+      "default": "var(--space-4)",
+      "edit": true
+    }
+  ],
+  "prompts": []
+}

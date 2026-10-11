@@ -1,0 +1,193 @@
+{
+  "name": "Bit size columns",
+  "tier": "organisms",
+  "category": "lists",
+  "stateful": false,
+  "uses": [
+    "molecules/tile"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=1046-39066",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<div class=\"bit-size-columns\" data-carousel><div class=\"bit-size-columns__column\" data-slot=\"column-1\">{{item:t1}}{{item:t2}}{{item:t3}}{{item:t4}}{{item:t5}}</div><div class=\"bit-size-columns__column\" data-slot=\"column-2\">{{item:t6}}{{item:t7}}{{item:t8}}{{item:t9}}{{item:t10}}</div></div>",
+      "slots": [
+        {
+          "id": "column-1",
+          "label": "Column 1",
+          "items": [
+            "t1",
+            "t2",
+            "t3",
+            "t4",
+            "t5"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "column-2",
+          "label": "Column 2",
+          "items": [
+            "t6",
+            "t7",
+            "t8",
+            "t9",
+            "t10"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".bit-size-columns",
+  "description": "Bite-size tiles in two columns of five. The columns run to the screen edge and lock onto one at a time: the column in view is fully opaque and the next one fades in as you swipe.",
+  "items": {
+    "t1": {
+      "type": "component",
+      "component": "molecules/tile",
+      "label": "Tile 1",
+      "props": {
+        "face": "calm-down",
+        "title": "Calm Down",
+        "duration": "5 mins"
+      },
+      "expose": [
+        "title",
+        "duration"
+      ]
+    },
+    "t2": {
+      "type": "component",
+      "component": "molecules/tile",
+      "label": "Tile 2",
+      "props": {
+        "face": "balance-the-thought",
+        "title": "Balance the Thought",
+        "duration": "5 mins"
+      },
+      "expose": [
+        "title",
+        "duration"
+      ]
+    },
+    "t3": {
+      "type": "component",
+      "component": "molecules/tile",
+      "label": "Tile 3",
+      "props": {
+        "face": "nourish-yourself",
+        "title": "Nourish Yourself",
+        "duration": "5 mins"
+      },
+      "expose": [
+        "title",
+        "duration"
+      ]
+    },
+    "t4": {
+      "type": "component",
+      "component": "molecules/tile",
+      "label": "Tile 4",
+      "props": {
+        "face": "give-yourself-grace",
+        "title": "Give Yourself Grace",
+        "duration": "5 mins"
+      },
+      "expose": [
+        "title",
+        "duration"
+      ]
+    },
+    "t5": {
+      "type": "component",
+      "component": "molecules/tile",
+      "label": "Tile 5",
+      "props": {
+        "face": "settle-for-sleep",
+        "title": "Settle for Sleep",
+        "duration": "5 mins"
+      },
+      "expose": [
+        "title",
+        "duration"
+      ]
+    },
+    "t6": {
+      "type": "component",
+      "component": "molecules/tile",
+      "label": "Tile 6",
+      "props": {
+        "face": "reflect-on-today",
+        "title": "Reflect on Today",
+        "duration": "5 mins"
+      },
+      "expose": [
+        "title",
+        "duration"
+      ]
+    },
+    "t7": {
+      "type": "component",
+      "component": "molecules/tile",
+      "label": "Tile 7",
+      "props": {
+        "face": "set-boundaries",
+        "title": "Set Boundaries",
+        "duration": "5 mins"
+      },
+      "expose": [
+        "title",
+        "duration"
+      ]
+    },
+    "t8": {
+      "type": "component",
+      "component": "molecules/tile",
+      "label": "Tile 8",
+      "props": {
+        "face": "get-motivated",
+        "title": "Get Motivated",
+        "duration": "5 mins"
+      },
+      "expose": [
+        "title",
+        "duration"
+      ]
+    },
+    "t9": {
+      "type": "component",
+      "component": "molecules/tile",
+      "label": "Tile 9",
+      "props": {
+        "face": "build-connections",
+        "title": "Build Connections",
+        "duration": "5 mins"
+      },
+      "expose": [
+        "title",
+        "duration"
+      ]
+    },
+    "t10": {
+      "type": "component",
+      "component": "molecules/tile",
+      "label": "Tile 10",
+      "props": {
+        "face": "start-a-plan",
+        "title": "Start a Plan",
+        "duration": "5 mins"
+      },
+      "expose": [
+        "title",
+        "duration"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}

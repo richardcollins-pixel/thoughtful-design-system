@@ -131,6 +131,10 @@ The Background property depends on the state: gradient states offer the gradient
 
 The appointment card also has an **Error** state (Couldn't load, with Retry) for when it fails to load; it is not a separate card.
 
+## The bite-size section (home screen)
+
+`molecules/tile` (a face on an orange tile, a title, a duration, a round button; the ten faces are SVGs in `assets/images/faces`), `organisms/bit-size-columns` (two columns of five tiles in the shared carousel, so the column in view is opaque and the other fades) and `patterns/section` (a subhead and a line of copy, then one thing: bite-size columns, your topics, deep dives or your therapist, as four states). A nested card exposes its own text, including the text of the components inside it (a button's label, a duration) as "item.prop".
+
 ## Sticker sheets
 
 Atoms and molecules are one page each in the editor: click `atoms` or `molecules` in the nav and every element of that level is listed on a single full-width sheet (`preview/sheet.html`), each with all of its variants. They sit on the page itself, not in a phone. The panel lists the elements; click one (or its title on the sheet) to open it on its own, with its properties and edit mode, and `‹ atoms` takes you back. Organisms and patterns still show one instance in a device frame.
