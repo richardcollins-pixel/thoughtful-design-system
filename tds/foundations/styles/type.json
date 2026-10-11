@@ -1,0 +1,136 @@
+{
+  "styles": [
+    {
+      "id": "headline-1",
+      "name": "Headline 1",
+      "family": "font-family-body",
+      "weight": "font-weight-light",
+      "size": "font-size-3xl",
+      "lineHeight": "line-height-tight",
+      "letterSpacing": "letter-spacing-tight",
+      "italic": false,
+      "usage": "The big line at the top of a screen"
+    },
+    {
+      "id": "headline-2",
+      "name": "Headline 2",
+      "family": "font-family-body",
+      "weight": "font-weight-regular",
+      "size": "font-size-2xl",
+      "lineHeight": "line-height-snug",
+      "letterSpacing": "letter-spacing-tighter",
+      "italic": false,
+      "usage": "A strong line inside a card"
+    },
+    {
+      "id": "subhead",
+      "name": "Subhead",
+      "family": "font-family-display",
+      "weight": "font-weight-regular",
+      "size": "font-size-xl",
+      "lineHeight": "line-height-tight",
+      "letterSpacing": "letter-spacing-tight",
+      "italic": false,
+      "usage": "A serif title for a section or card"
+    },
+    {
+      "id": "body-lg",
+      "name": "Body Large",
+      "family": "font-family-body",
+      "weight": "font-weight-body",
+      "size": "font-size-lg",
+      "lineHeight": "line-height-relaxed",
+      "letterSpacing": "letter-spacing-normal",
+      "italic": false,
+      "usage": "Larger running text"
+    },
+    {
+      "id": "body-lg-semibold",
+      "name": "Body Large Semibold",
+      "family": "font-family-body",
+      "weight": "font-weight-semibold",
+      "size": "font-size-lg",
+      "lineHeight": "line-height-relaxed",
+      "letterSpacing": "letter-spacing-normal",
+      "italic": false,
+      "usage": "A name or a title in running text"
+    },
+    {
+      "id": "body-md",
+      "name": "Body Medium",
+      "family": "font-family-body",
+      "weight": "font-weight-body",
+      "size": "font-size-md",
+      "lineHeight": "line-height-relaxed",
+      "letterSpacing": "letter-spacing-normal",
+      "italic": false,
+      "usage": "The default for copy"
+    },
+    {
+      "id": "body-md-semibold",
+      "name": "Body Medium Semibold",
+      "family": "font-family-body",
+      "weight": "font-weight-semibold",
+      "size": "font-size-md",
+      "lineHeight": "line-height-relaxed",
+      "letterSpacing": "letter-spacing-tight",
+      "italic": false,
+      "usage": "Buttons and bold labels"
+    },
+    {
+      "id": "body-md-italic",
+      "name": "Body Medium Italic",
+      "family": "font-family-body",
+      "weight": "font-weight-regular",
+      "size": "font-size-md",
+      "lineHeight": "line-height-relaxed",
+      "letterSpacing": "letter-spacing-normal",
+      "italic": true,
+      "usage": "A quote"
+    },
+    {
+      "id": "body-sm",
+      "name": "Body Small",
+      "family": "font-family-body",
+      "weight": "font-weight-body",
+      "size": "font-size-sm",
+      "lineHeight": "line-height-relaxed",
+      "letterSpacing": "letter-spacing-normal",
+      "italic": false,
+      "usage": "Supporting text and footnotes"
+    },
+    {
+      "id": "body-sm-semibold",
+      "name": "Body Small Semibold",
+      "family": "font-family-body",
+      "weight": "font-weight-semibold",
+      "size": "font-size-sm",
+      "lineHeight": "line-height-relaxed",
+      "letterSpacing": "letter-spacing-normal",
+      "italic": false,
+      "usage": "Small buttons and labels"
+    },
+    {
+      "id": "body-xs",
+      "name": "Body XS",
+      "family": "font-family-body",
+      "weight": "font-weight-body",
+      "size": "font-size-xs",
+      "lineHeight": "line-height-relaxed",
+      "letterSpacing": "letter-spacing-normal",
+      "italic": false,
+      "usage": "The smallest text, 12px"
+    },
+    {
+      "id": "body-xs-semibold",
+      "name": "Body XS Semibold",
+      "family": "font-family-body",
+      "weight": "font-weight-semibold",
+      "size": "font-size-xs",
+      "lineHeight": "line-height-relaxed",
+      "letterSpacing": "letter-spacing-normal",
+      "italic": false,
+      "usage": "The smallest bold text, 12px"
+    }
+  ]
+}

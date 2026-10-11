@@ -2,3 +2,7 @@
 :root {
   --gradient-border: linear-gradient(118.74deg, var(--white) 0%, color-mix(in srgb, var(--white) 10%, transparent) 49.9%, var(--white) 99.9%);
 }
+
+/* text colour helpers (type styles set the font; these set how strong the text is) */
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary  { color: var(--text-tertiary); }

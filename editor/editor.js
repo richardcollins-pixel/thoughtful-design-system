@@ -1,4 +1,5 @@
 import { buildCss, gradientCss } from '../tools/build-tokens.js';
+import { buildTypeCss } from '../tools/build-type.js';
 import { buildDefaultsCss } from '../tools/build-defaults.js';
 import * as gh from './github.js';
 
@@ -8,6 +9,7 @@ const getPath = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : a[k]), 
 const setPath = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); ks.reduce((a, k) => a[k], o)[last] = v; };
 
 let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
+let typeStyles = [], selectedStyle = null;   // styles > type: the text styles (Headline 1 … Body XS)
 let fidelity = 'styled';
 let libraries = [], library = null, asset = null;
 const freshPreview = () => ({ attrs: {}, state: '', vars: {}, example: 0, surface: 'normal' });
@@ -96,7 +98,7 @@ const TOKEN_LEAVES = [['primitives', 'primitive'], ['roles', 'role'], ['padding'
 const camel = (str) => str.replace(/-(\w)/g, (m, c) => c.toUpperCase());
 const levelLeaves = (level) => {
   if (level === 'tokens') return TOKEN_LEAVES.map(([label, k]) => ({ label, kind: k }));
-  if (level === 'styles') return [{ label: 'color', kind: 'gradient' }, { label: 'type' }, { label: 'elevation' }, { label: 'motion' }];
+  if (level === 'styles') return [{ label: 'color', kind: 'gradient' }, { label: 'type', kind: 'typestyles' }, { label: 'elevation' }, { label: 'motion' }];
   return components.filter((c) => c.tier === level).map((c) => ({ label: camel(c.path.split('/')[1]), component: c.path }));
 };
 let openLevel = 'tokens';   // one level open at a time
@@ -131,6 +133,7 @@ const DESC = {
   primitive: 'The raw values. Reference these only when defining tokens, not in components.',
   role: 'Semantic tokens mapped to roles: background, text, icon, border, status.',
   gradient: 'Named gradient styles for surfaces and chat UI.',
+  typestyles: 'Text styles. Each one bundles a font, weight, size, line height and letter spacing; components use the style, so changing it here changes it everywhere.',
 };
 
 function renderTable() {
@@ -138,6 +141,7 @@ function renderTable() {
   $('#sheet-desc').textContent = (!library && kind && DESC[kind]) || '';
   if (library) return renderLibrary();
   if (!kind) { body.innerHTML = '<p class="empty">Placeholder — coming in a later step.</p>'; return; }
+  if (kind === 'typestyles') return renderTypeStyles();
   const def = KINDS[kind];
   const list = tokens.filter((t) => t.kind === kind);
   if (!list.length) { body.innerHTML = `<p class="empty">No ${def.noun}s yet. Use “Add token”.</p>`; return; }
@@ -177,6 +181,7 @@ function renderPanel() {
   if (component) return renderComponentPanel();
   if (library) return renderLibraryPanel();
   const p = $('#panel-body');
+  if (kind === 'typestyles') return renderTypePanel(p);
   if (!selected) { p.innerHTML = '<h2>Variables and Properties</h2><p class="mute">Select a token to edit it.</p>'; return; }
   const def = KINDS[kind];
   p.innerHTML = `<h2>Variables and Properties</h2><div id="pv">${def.preview(selected)}</div>
@@ -235,12 +240,71 @@ $('#add').addEventListener('click', () => {
   const n = document.querySelector('[data-key="name"]'); n.focus(); n.select();
 });
 
+/* ---------- type styles ---------- */
+const TYPE_JSON = 'tds/foundations/styles/type.json', TYPE_CSS = 'tds/foundations/styles/type.css';
+const TYPE_FIELDS = [['family', 'Font', 'font-family'], ['weight', 'Weight', 'font-weight'], ['size', 'Size', 'font-size'], ['lineHeight', 'Line height', 'line-height'], ['letterSpacing', 'Letter spacing', 'letter-spacing']];
+const tok = (name) => tokens.find((t) => t.name === name) || {};
+// A style as plain CSS for a specimen (the tokens resolved to numbers, so the specimen needs no stylesheet).
+const specimenCss = (s) => `font-family:${family(tok(s.family).value).stack};font-weight:${tok(s.weight).value};font-size:${tok(s.size).px}px;line-height:${(tok(s.lineHeight).percent || 100) / 100};letter-spacing:${(tok(s.letterSpacing).percent || 0) / 100}em;font-style:${s.italic ? 'italic' : 'normal'}`;
+const tokenLabel = (kindName, t) => (kindName === 'font-size' ? `${t.name.replace('font-size-', '')} · ${t.px}px` : kindName === 'line-height' ? `${t.name.replace('line-height-', '')} · ${t.percent}%` : kindName === 'letter-spacing' ? `${t.name.replace('letter-spacing-', '')} · ${t.percent}%` : kindName === 'font-weight' ? `${t.name.replace('font-weight-', '')} · ${t.value}` : t.name.replace('font-family-', ''));
+
+function renderTypeStyles() {
+  const body = $('#body');
+  if (!typeStyles.length) { body.innerHTML = '<p class="empty">No type styles loaded.</p>'; return; }
+  const sel = (s, [key, , k]) => `<select data-ts="${s.id}" data-tf="${key}">${tokens.filter((t) => t.kind === k).map((t) => `<option value="${esc(t.name)}" ${t.name === s[key] ? 'selected' : ''}>${esc(tokenLabel(k, t))}</option>`).join('')}</select>`;
+  body.innerHTML = `<table class="typetable"><thead><tr><th>Style</th><th>Specimen</th>${TYPE_FIELDS.map(([, h]) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${typeStyles.map((s) => `
+    <tr class="item${s === selectedStyle ? ' sel' : ''}" data-style="${s.id}"><td class="name">${esc(s.name)}<div class="mute">.text-${esc(s.id)}</div></td>
+    <td><span class="specimen" data-spec="${s.id}" style="${esc(specimenCss(s))}">Thoughtful design</span></td>${TYPE_FIELDS.map((f) => `<td>${sel(s, f)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+function renderTypePanel(p) {
+  const s = selectedStyle;
+  if (!s) { p.innerHTML = '<h2>Variables and Properties</h2><p class="mute">Select a text style to see how it is used. Change its tokens right in the table.</p>'; return; }
+  p.innerHTML = `<h2>${esc(s.name)}</h2><div id="pv"><span class="specimen" data-spec="${s.id}" style="${esc(specimenCss(s))};font-size:min(${tok(s.size).px}px,40px)">Thoughtful design</span></div>
+    <div class="field"><label>Use it for</label><input data-ts-usage="${s.id}" value="${esc(s.usage || '')}"></div>
+    <div class="field"><label><input type="checkbox" data-ts-italic="${s.id}" ${s.italic ? 'checked' : ''}> Italic</label></div>
+    <div class="field"><label>In CSS</label><input readonly value="font: var(--text-${esc(s.id)}); letter-spacing: var(--text-${esc(s.id)}-ls);"></div>
+    <div class="field"><label>As a class</label><input readonly value="text-${esc(s.id)}"></div>`;
+}
+function typeChanged() {
+  applyTypeLive(); dirtyType = true;
+  document.querySelectorAll('[data-spec]').forEach((el) => { const s = typeStyles.find((x) => x.id === el.dataset.spec); if (s) { const keep = el.closest('#pv') ? ';font-size:min(' + tok(s.size).px + 'px,40px)' : ''; el.style.cssText = specimenCss(s) + keep; } });
+  if (mode === 'github') { setStatus('Unsaved changes'); return; }
+  setStatus('Saving…'); clearTimeout(saveTimer); saveTimer = setTimeout(async () => {
+    try {
+      const r = await fetch('../api/files', { method: 'PUT', body: JSON.stringify({ files: { [TYPE_JSON]: JSON.stringify({ styles: typeStyles }, null, 2) + '\n', [TYPE_CSS]: buildTypeCss(typeStyles) } }) });
+      const j = await r.json(); if (r.ok) dirtyType = false;
+      setStatus(r.ok ? 'Saved' : j.error, !r.ok);
+    } catch { setStatus('Save failed — is the server running?', true); }
+  }, 300);
+}
+// Push the current (possibly unsaved) type styles into the canvas, layer-scoped like the tokens.
+function applyTypeLive() {
+  const doc = screen.contentDocument; if (!doc || !doc.head || !typeStyles.length) return;
+  let st = doc.getElementById('live-type');
+  if (!st) { st = doc.createElement('style'); st.id = 'live-type'; doc.head.appendChild(st); }
+  st.textContent = `@layer styles {\n${buildTypeCss(typeStyles)}\n}`;
+}
+$('#body').addEventListener('change', (e) => {
+  const sel = e.target.closest('select[data-ts]'); if (!sel) return;
+  const s = typeStyles.find((x) => x.id === sel.dataset.ts); s[sel.dataset.tf] = sel.value; typeChanged();
+});
+$('#body').addEventListener('click', (e) => {
+  const tr = e.target.closest('tr[data-style]'); if (!tr || e.target.closest('select') || kind !== 'typestyles') return;
+  selectedStyle = typeStyles.find((x) => x.id === tr.dataset.style); renderTypeStyles(); renderPanel();
+});
+$('#panel').addEventListener('input', (e) => {
+  const u = e.target.dataset.tsUsage, it = e.target.dataset.tsItalic;
+  if (u) { typeStyles.find((x) => x.id === u).usage = e.target.value; typeChanged(); }
+  if (it) { typeStyles.find((x) => x.id === it).italic = e.target.checked; typeChanged(); }
+});
+let dirtyType = false;
+
 /* ---------- save / load ---------- */
 const TOKENS_JSON = 'tds/foundations/tokens/tokens.json', TOKENS_CSS = 'tds/foundations/tokens/tokens.css';
 let mode = 'local';                       // local: the python server; github: explicit commits
 let dirtyTokens = false;
 const dirtyComps = new Set();             // component paths whose defaults changed
-const isDirty = () => dirtyTokens || dirtyComps.size > 0;
+const isDirty = () => dirtyTokens || dirtyType || dirtyComps.size > 0;
 const baseName = (path) => path.split('/').pop();
 const compByPath = (path) => components.find((c) => c.path === path);
 const metaPath = (c) => `tds/${c.path}/${baseName(c.path)}.meta.json`;
@@ -264,6 +328,7 @@ function updateSavebar() {
 function changedFiles() {
   const f = {};
   if (dirtyTokens) { f[TOKENS_JSON] = JSON.stringify({ tokens }, null, 2) + '\n'; f[TOKENS_CSS] = buildCss(tokens, schema); }
+  if (dirtyType) { f[TYPE_JSON] = JSON.stringify({ styles: typeStyles }, null, 2) + '\n'; f[TYPE_CSS] = buildTypeCss(typeStyles); }
   if (dirtyComps.size) {
     for (const path of dirtyComps) { const c = compByPath(path); f[metaPath(c)] = JSON.stringify(c.meta, null, 2) + '\n'; }
     f['tds/defaults.css'] = buildDefaultsCss(components);
@@ -272,7 +337,7 @@ function changedFiles() {
 }
 function markSaved() {
   for (const path of dirtyComps) { const c = compByPath(path); c.saved = structuredClone(c.meta.defaults || {}); }
-  dirtyComps.clear(); dirtyTokens = false; updateSavebar();
+  dirtyComps.clear(); dirtyTokens = false; dirtyType = false; updateSavebar();
 }
 
 // Push the current (possibly unsaved) tokens into the canvas as a layer-scoped stylesheet.
@@ -316,7 +381,7 @@ $('#dlg').addEventListener('close', async () => {
 });
 $('#commit').addEventListener('click', async () => {
   if (!gh.getCfg().token) return $('#signin').click();
-  const what = [dirtyTokens && 'design tokens', dirtyComps.size && `component defaults (${[...dirtyComps].map(baseName).join(', ')})`].filter(Boolean).join(' and ');
+  const what = [dirtyTokens && 'design tokens', dirtyType && 'type styles', dirtyComps.size && `component defaults (${[...dirtyComps].map(baseName).join(', ')})`].filter(Boolean).join(' and ');
   setStatus('Committing…'); $('#commit').disabled = true;
   try {
     await gh.commit(changedFiles(), `Update ${what} via editor`);
@@ -334,6 +399,13 @@ window.addEventListener('beforeunload', (e) => { if (isDirty()) e.preventDefault
 
 const normalize = (list) => list.map((t) => (t.kind === 'role' && t.values.light ? { ...t, values: { base: t.values.dark, inverse: t.values.light } } : t));
 
+async function loadType() {
+  try {
+    if (mode === 'github' && gh.getCfg().token) { try { typeStyles = (await gh.load(TYPE_JSON)).styles; return; } catch { /* fall back to the published file */ } }
+    typeStyles = (await fetch('../' + TYPE_JSON, { cache: 'no-store' }).then((r) => r.json())).styles;
+  } catch { typeStyles = []; }
+}
+
 async function loadTokens() {
   const published = async () => normalize((await fetch(mode === 'local' ? '../api/tokens' : '../' + TOKENS_JSON, { cache: 'no-store' }).then((r) => r.json())).tokens);
   try {
@@ -341,12 +413,13 @@ async function loadTokens() {
       try { tokens = normalize((await gh.load(TOKENS_JSON)).tokens); }
       catch (e) { tokens = await published(); setStatus(`${e.message} — showing the published tokens`, true); }   // a bad or expired token must not empty the editor
     } else tokens = await published();
-    selected = null; renderAll(); applyLive();
+    await loadType();
+    selected = null; renderAll(); applyLive(); applyTypeLive();
     if (mode === 'github' && !gh.getCfg().token) setStatus('Read-only — sign in to commit changes');
   } catch (e) { setStatus(e.message, true); }
 }
 
-function renderAll() { renderNav(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind; updateSavebar(); }
+function renderAll() { renderNav(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind || kind === 'typestyles'; updateSavebar(); }
 
 /* ---------- assets ---------- */
 const LIB_BASE = '../tds/assets/';
@@ -764,7 +837,7 @@ function applyModes() {
   for (const d of docs) d.documentElement.setAttribute('data-fidelity', fidelity);
 }
 
-screen.addEventListener('load', () => { applyModes(); applyLive(); });
+screen.addEventListener('load', () => { applyModes(); applyLive(); applyTypeLive(); });
 
 /* ---------- ⌘\ hides the interface ---------- */
 function setUi(on) {

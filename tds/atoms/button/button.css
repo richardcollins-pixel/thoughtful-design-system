@@ -19,8 +19,7 @@
   box-sizing: border-box;
   display: inline-flex; align-items: center; justify-content: center; gap: var(--button-gap);
   height: var(--button-height); padding: 0 var(--button-padding-x);
-  font: var(--font-weight-semibold) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body);
-  letter-spacing: var(--letter-spacing-tight);
+  font: var(--text-body-md-semibold); letter-spacing: var(--text-body-md-semibold-ls);
   white-space: nowrap;
   color: var(--button-text);
   background: var(--button-fill);
@@ -35,7 +34,7 @@
 .button[data-size="lg"] { --button-height: var(--space-16); }
 .button[data-size="sm"] {
   --button-height: var(--space-6); --button-padding-x: var(--padding-md); --button-icon-size: var(--space-4);
-  font-size: var(--font-size-sm); letter-spacing: var(--letter-spacing-normal);
+  font: var(--text-body-sm-semibold); letter-spacing: var(--text-body-sm-semibold-ls);
 }
 .button[data-width="full"] { display: flex; width: 100%; }
 
@@ -49,8 +48,9 @@
 .button[data-variant="glass"] {
   --button-fill: var(--bg-elevation-20); --button-fill-hover: var(--bg-elevation-40); --button-fill-pressed: var(--bg-elevation-40);
   --button-text: var(--text-primary); --button-blur: 44px;
-  font-weight: var(--font-weight-body);
+  font: var(--text-body-md); letter-spacing: var(--text-body-md-ls);                              /* glass is regular weight: Body Medium, and Body Small when small */
 }
+.button[data-variant="glass"][data-size="sm"] { font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); }
 .button[data-variant="flat"] {
   --button-fill: transparent; --button-fill-hover: var(--bg-elevation-10); --button-fill-pressed: var(--bg-elevation-20);
   --button-text: var(--text-primary); --button-padding-x: var(--padding-sm);

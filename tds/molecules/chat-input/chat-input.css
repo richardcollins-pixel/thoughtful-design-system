@@ -11,7 +11,7 @@
   width: 100%; height: var(--chat-input-height); padding: 0 var(--chat-input-padding-x);
   color: var(--chat-input-text); background: var(--chat-input-fill);
   border: 1px solid var(--chat-input-border); border-radius: var(--radius-full);
-  font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body);
+  font: var(--text-body-md); letter-spacing: var(--text-body-md-ls);
 }
 .chat-input > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chat-input > .icon { --icon-color: var(--chat-input-text); flex: none; }

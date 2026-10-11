@@ -131,6 +131,10 @@ The Background property depends on the state: gradient states offer the gradient
 
 The appointment card also has an **Error** state (Couldn't load, with Retry) for when it fails to load; it is not a separate card.
 
+## Type styles
+
+`tds/foundations/styles/type.json` is the list of text styles (from the Figma text styles): Headline 1, Headline 2, Subhead, Body Large / Medium / Small / XS, with semibold variants and Body Medium Italic. Each one bundles five tokens (font, weight, size, line height, letter spacing). `type.css` is generated from it (`tools/build-type.js`, in the editor under styles > type) into `--text-<style>` and `--text-<style>-ls` custom properties plus a `.text-<style>` class. **Components never spell out their own font values**: they use `font: var(--text-body-md); letter-spacing: var(--text-body-md-ls);`, so editing a style in the editor changes it everywhere it is used. The only exceptions are device chrome (the status bar's time and the editor's selection labels).
+
 ## Loading states
 
 One shimmer serves the whole system: `tds/foundations/styles/skeleton.css`; the **skeleton atom** (`atoms/skeleton`: a line, dot or pill, always fully rounded) draws it, and the **skeleton-text molecule** (`molecules/skeleton-text`) is a multi-line placeholder whose lines take the height of the surrounding text and follow `--skeleton-align` (speed is the `duration-shimmer` token; it stops under reduced motion and follows the surface colour, so Charcoal needs nothing extra).

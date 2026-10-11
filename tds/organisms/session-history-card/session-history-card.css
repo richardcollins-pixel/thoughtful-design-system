@@ -6,6 +6,6 @@
 .session-history-card__title-row { display: flex; align-items: center; gap: var(--space-3); }
 .session-history-card__action { display: flex; justify-content: flex-end; }
 
-.session-history-card__overline { color: var(--text-tertiary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
-.session-history-card__headline { font: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-tight) var(--font-family-display); letter-spacing: var(--letter-spacing-tight); }
-.session-history-card__body { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
+.session-history-card__overline { color: var(--text-tertiary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
+.session-history-card__headline { font: var(--text-subhead); letter-spacing: var(--text-subhead-ls); }
+.session-history-card__body { color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }

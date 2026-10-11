@@ -20,10 +20,10 @@
 .header-card__titles { display: flex; flex-direction: column; align-items: center; width: 100%; }
 .header-card .avatar { --avatar-size: 72px; }
 
-.header-card__overline { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
-.header-card__headline { font: var(--font-weight-light) var(--font-size-3xl)/var(--line-height-tight) var(--font-family-body); letter-spacing: var(--letter-spacing-tight); }
-.header-card[data-variant="provider"] .header-card__headline { font: var(--font-weight-regular) var(--font-size-2xl)/1.4 var(--font-family-body); letter-spacing: var(--letter-spacing-tighter); }
-.header-card__body { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
+.header-card__overline { color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
+.header-card__headline { font: var(--text-headline-1); letter-spacing: var(--text-headline-1-ls); }
+.header-card[data-variant="provider"] .header-card__headline { font: var(--text-headline-2); letter-spacing: var(--text-headline-2-ls); }
+.header-card__body { color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
 
 /* the header sits on top of the card, over its padding (the card's own top padding leaves room for it) */
 .header-card { position: relative; }
