@@ -97,7 +97,19 @@
     const slot = document.getElementById('subject');
     const attrState = { ...((thumb && thumb.set) || {}) }; let stateName = '', surfaceState = 'normal', curExample = (thumb && thumb.example) || 0, subject;
     const vars = {};
-    const build = (markup) => make({ markup: spec ? compose.renderOrganism(meta, state, ctx) : markup, set: attrState, state: stateName || undefined, text: single ? undefined : meta.name });
+    const make1 = (markup) => make({ markup: spec ? compose.renderOrganism(meta, state, ctx) : markup, set: attrState, state: stateName || undefined, text: single ? undefined : meta.name });
+    const decorate = (el) => { for (const [k, v] of Object.entries(vars)) el.style.setProperty(k, v); if (surfaceState === 'inverse') el.dataset.surface = 'inverse'; return el; };
+    // A loading card must be exactly as tall as the loaded one so nothing shifts when content arrives: render the loaded
+    // card, measure each slot, and give the skeleton's slots those heights (its simpler content is centred in them).
+    const build = (markup) => {
+      if (!(spec && state.loading)) return make1(markup);
+      state.loading = false; const real = decorate(make1(markup)); state.loading = true;
+      slot.replaceChildren(real);
+      const heights = Object.fromEntries([...real.querySelectorAll('[data-slot]')].map((e) => [e.dataset.slot, e.getBoundingClientRect().height]));
+      const el = make1(markup);
+      for (const s of el.querySelectorAll('[data-slot]')) if (heights[s.dataset.slot]) Object.assign(s.style, { height: `${heights[s.dataset.slot]}px`, alignContent: 'center', justifyContent: 'center' });
+      return el;
+    };
     // Figma-style selection for composed organisms. Items are outlined in blue and slots in pink. A slot is a real element
     // (data-slot) that holds its items, so hovering or clicking anywhere in it that isn't an item gives the slot, and an
     // item's slot is one Option-click away.

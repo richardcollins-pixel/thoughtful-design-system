@@ -43,3 +43,5 @@
 .appointment-card[data-layout="centered"] .appointment-card__headline {
   flex: none; font: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-tight) var(--font-family-display); letter-spacing: var(--letter-spacing-tight);
 }
+
+.appointment-card__details:empty { display: none; }
