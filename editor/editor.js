@@ -11,7 +11,7 @@ let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
 let fidelity = 'styled';
 let libraries = [], library = null, asset = null;
 const freshPreview = () => ({ attrs: {}, state: '', vars: {}, example: 0, surface: 'normal' });
-let collapsed = { 'slot-header': true, 'slot-content': true, 'slot-cta': true };   // panel sections that are folded; slots start closed
+let collapsed = {};   // panel sections the user folded
 let components = [], component = null, editing = false, selection = null, cstate = freshPreview();   // selection: what is clicked on the canvas, { kind: 'item' | 'slot', id }
 let kind = 'primitive', navKey = 'tokens/primitives', selected = null, saveTimer;
 
@@ -462,7 +462,10 @@ function itemHtml(it, model) {
   if (it.type === 'text') return field(it.label, textControl(`data-cm-item="${it.id}"`, it.value, model, it.value.length > 40, it.prompt));
   return it.controls.map((c) => field(it.controls.length > 1 ? c.label : it.label, textControl(`data-cm-item="${it.id}" data-cm-prop="${c.key}"`, c.value, model, false, it.prompt))).join('');
 }
-const slotsHtml = (model) => model.slots.map((sl) => sec('slot-' + sl.id, sl.label, sl.items.map((it) => itemHtml(it, model)).join(''))).join('');
+// In the organism panel a slot is a row you drill into: it selects the slot on the canvas and the panel narrows to that slot.
+const CHEV_RIGHT = svg('<path d="m6 4 4 4-4 4"/>');
+const fieldCount = (sl) => sl.items.reduce((n, it) => n + (it.type === 'text' ? 1 : it.controls.length), 0);
+const slotsHtml = (model) => model.slots.map((sl) => `<button class="slot-row" data-el-slot="${sl.id}"><span>${esc(sl.label)}</span><span class="meta">${fieldCount(sl)} ${fieldCount(sl) === 1 ? 'field' : 'fields'}${CHEV_RIGHT}</span></button>`).join('');
 const personaRows = (model) => model.personas.map((pe) => prow(pe.label, dd(`data-cpersona="${pe.role}"`, pe.options, pe.value, 'person'))).join('');
 
 // ---- token-bound properties (background, corner radius, padding)
@@ -669,6 +672,12 @@ $('#panel').addEventListener('click', (e) => {
     cstate = freshPreview(); syncVars(); renderComponentPanel();
   }
 });
+const hoverTarget = (e) => {
+  const sl = e.target.closest && e.target.closest('[data-el-slot]'), it = e.target.closest && e.target.closest('[data-el-item]');
+  return sl ? { id: sl.dataset.elSlot, kind: 'slot' } : it ? { id: it.dataset.elItem, kind: 'item' } : null;
+};
+$('#panel').addEventListener('mouseover', (e) => { const t = hoverTarget(e), api = component && screen.contentWindow.tdsComponent; if (t && api && api.hover) api.hover(t.id, t.kind); });
+$('#panel').addEventListener('mouseout', (e) => { const api = component && screen.contentWindow.tdsComponent; if (hoverTarget(e) && !hoverTarget({ target: e.relatedTarget || document.body }) && api && api.hover) api.hover(null); });
 window.addEventListener('message', (e) => {
   if (e.origin !== location.origin || !e.data || !component) return;
   if (e.data.type === 'tds-ready') { selection = null; syncVars(); renderComponentPanel(); }

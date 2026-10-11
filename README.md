@@ -105,6 +105,9 @@ select its slot. The panel shows the path (`Appointment card › Header slot ›
 selected slot lists its content fields and the items inside it. The row layout is a CSS grid with the header slot as a
 sub-grid, which keeps the avatar-beside-text arrangement while the slots stay whole elements.
 
+In the organism's own panel each slot is a row (`Header slot · 3 fields ›`) that drills in: hovering it previews the slot on the
+canvas, clicking it selects the slot (same as clicking it on the canvas), and the panel narrows to just that slot.
+
 **Prompts.** The icon beside a text field connects it to a prompt. A prompt produces a *group* of fields together
 (a Recent Topic card's headline and body), so it lists `outputs` (item ids) and `inputs` (e.g. `provider`, `state`), and
 may be limited to some `states`. A prompt set on the organism is the design-system default; `tds/environments.json`
