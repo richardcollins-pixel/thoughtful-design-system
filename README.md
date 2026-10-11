@@ -125,9 +125,11 @@ The **header cards** (Figma "Header Cards"): `organisms/header-card` (Default an
 
 More cards from Figma: `session-history-card` (Default, With image), `cta-card`, `end-of-session-card` and `resource-card`. They follow the same shape as the other organisms (slots, skeletons, nested component rows).
 
-The provider set: `patterns/provider-carousel` (five provider bio cards in the shared carousel, each with its own provider, and progress dots under it that follow the card in focus: put a `[data-carousel-dots]` after a carousel and its `.dots` is kept in step) and `organisms/error-card` (Couldn't load, with Retry). Figma's Provider Card loading and Post-Appointment Skeleton are covered by the skeleton system rather than separate cards: every organism has a loading state that holds its loaded height.
+The provider set: `patterns/provider-carousel` (five provider bio cards in the shared carousel, each with its own provider, and progress dots under it that follow the card in focus: put a `[data-carousel-dots]` after a carousel and its `.dots` is kept in step). Figma's Provider Card loading and Post-Appointment Skeleton are covered by the skeleton system rather than separate cards: every organism has a loading state that holds its loaded height.
 
 Properties can be limited to some states (`"states": [...]` on a property): a flat card has no gradient to pick, so the Provider header and the resource card show no background control, while gradient cards get the gradients plus a **flat** swatch (the plain 20% fill).
+
+The appointment card also has an **Error** state (Couldn't load, with Retry) for when it fails to load; it is not a separate card.
 
 ## Loading states
 

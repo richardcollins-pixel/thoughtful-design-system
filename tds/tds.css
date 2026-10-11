@@ -43,7 +43,6 @@
 @import url("organisms/cta-card/cta-card.css") layer(organisms);
 @import url("organisms/end-of-session-card/end-of-session-card.css") layer(organisms);
 @import url("organisms/resource-card/resource-card.css") layer(organisms);
-@import url("organisms/error-card/error-card.css") layer(organisms);
 
 @import url("patterns/topics-section/topics-section.css") layer(patterns);
 @import url("patterns/provider-carousel/provider-carousel.css") layer(patterns);

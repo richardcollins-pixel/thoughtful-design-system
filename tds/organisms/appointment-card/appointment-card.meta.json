@@ -132,6 +132,44 @@
         }
       ],
       "personas": []
+    },
+    {
+      "id": "error",
+      "name": "Error",
+      "personas": [],
+      "template": "<article class=\"card appointment-card\" data-layout=\"error\"><div class=\"appointment-card__content\" data-slot=\"content\">{{item:headline}}{{item:body}}</div><div class=\"appointment-card__cta\" data-slot=\"cta\">{{item:button}}</div></article>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "headline",
+            "body"
+          ]
+        },
+        {
+          "id": "cta",
+          "label": "CTA slot",
+          "items": [
+            "button"
+          ]
+        }
+      ],
+      "overrides": {
+        "headline": {
+          "value": "Couldn't load your therapist info"
+        },
+        "body": {
+          "value": "Something went wrong. Tap to try again."
+        },
+        "button": {
+          "props": {
+            "label": "Retry",
+            "size": "md",
+            "width": "hug"
+          }
+        }
+      }
     }
   ],
   "variables": {
@@ -143,7 +181,7 @@
   },
   "styles": [],
   "selector": ".appointment-card",
-  "description": "The home-screen card about the user's care. Use Booked to show an upcoming appointment, No appointment to prompt booking, and Provider CTA to invite choosing a provider. One card shows at a time.",
+  "description": "The home-screen card about the user's care. Use Booked to show an upcoming appointment, No appointment to prompt booking, and Provider CTA to invite choosing a provider. Error replaces the card when it couldn't load, with a Retry button. One card shows at a time.",
   "items": {
     "avatar": {
       "type": "component",
@@ -263,7 +301,12 @@
       "label": "Background Color",
       "type": "gradients",
       "var": "--card-fill",
-      "default": "var(--gradient-purple-to-blue)"
+      "default": "var(--gradient-purple-to-blue)",
+      "states": [
+        "booked",
+        "no-appointment",
+        "provider-cta"
+      ]
     },
     {
       "id": "radius",
