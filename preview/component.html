@@ -40,6 +40,7 @@
   </style>
 </head>
 <body>
+<style>body:not([data-ready]) > * { visibility: hidden; }</style>
   <main class="stack" style="--stack-gap: var(--space-8)">
     <section><p class="label text-body-xs text-secondary" id="title">Loading…</p><div class="subject" id="subject"></div></section>
     <div id="gallery" class="stack" style="--stack-gap: var(--space-6)"></div>
@@ -215,6 +216,7 @@
       setContent(i, v) { const el = contentDefs()[i] && target(contentDefs()[i]); if (el) el.textContent = v; },
       reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; surfaceState = 'normal'; curExample = 0; if (spec) { clearTimeout(this._t); state = { state: meta.states[0].id, personas: {}, items: {} }; } place(build(examples[0] && examples[0].markup)); },
     };
+    document.body.dataset.ready = '';   // until now the page shows nothing, not its placeholder
     if (self !== top && !thumb) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
   </script>
 </body>
