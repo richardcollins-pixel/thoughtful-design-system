@@ -1,5 +1,6 @@
 import { buildCss, gradientCss } from '../tools/build-tokens.js';
 import { buildTypeCss } from '../tools/build-type.js';
+import { loadData } from '../tools/data.js';
 import { buildDefaultsCss } from '../tools/build-defaults.js';
 import * as gh from './github.js';
 
@@ -497,11 +498,8 @@ $('#panel').addEventListener('click', async (e) => {
 /* ---------- components (atoms, molecules, organisms, patterns) ---------- */
 async function loadComponents() {
   try {
-    const idx = await fetch('../tds/index.json', { cache: 'no-store' }).then((r) => r.json());
-    components = await Promise.all(idx.components.map(async (path) => ({
-      path, tier: path.split('/')[0],
-      meta: await fetch(`../tds/${path}/${path.split('/').pop()}.meta.json`, { cache: 'no-store' }).then((r) => r.json()),
-    })));
+    const data = await loadData(window.__V);   // one request on the published site (the bundle), the separate files locally
+    components = data.index.map((path) => ({ path, tier: path.split('/')[0], meta: data.metas[path] }));
     components.forEach((c) => { c.saved = structuredClone(c.meta.defaults || {}); });
   } catch { components = []; }
 }

@@ -52,7 +52,11 @@
     const path = new URLSearchParams(location.search).get('c');
     const embed = new URLSearchParams(location.search).has('embed');   // inside a sticker sheet: variants only, sized to fit, quiet
     const name = path.split('/').pop();
-    const meta = await fetch(`../tds/${path}/${name}.meta.json`, { cache: 'no-store' }).then((r) => r.json());
+    const ver = new URLSearchParams(location.search).get('v');
+    // data comes from the deploy's one-file bundle when there is one, else from the separate files (local, live editing)
+    const dataMod = await import('../tools/data.js' + (ver ? `?v=${ver}` : ''));
+    const bundle = await dataMod.loadBundle(ver);
+    const meta = bundle && bundle.metas[path] ? bundle.metas[path] : await fetch(`../tds/${path}/${name}.meta.json`, { cache: 'no-store' }).then((r) => r.json());
     const attrs = Object.entries(meta.attributes || {});
     const defaults = Object.fromEntries(attrs.map(([k, a]) => [k, a.default]));
     const examples = meta.examples || [];
@@ -61,19 +65,16 @@
     const thumbParam = new URLSearchParams(location.search).get('thumb');
     const thumb = thumbParam ? JSON.parse(thumbParam) : null;
     const spec = !!meta.items;   // composed organisms have items (atoms use "states" for hover, pressed, …)
-    const ver = new URLSearchParams(location.search).get('v');
     let compose, ctx, state;
     if (spec) {
       compose = await import('../tools/compose.js' + (ver ? `?v=${ver}` : ''));
-      const j = (u) => fetch(u, { cache: 'no-store' }).then((r) => r.json());
-      const idx = await j('../tds/index.json'), components = {};
-      await Promise.all(idx.components.map(async (cp) => { components[cp] = await j(`../tds/${cp}/${cp.split('/').pop()}.meta.json`); }));
+      const D = await dataMod.loadData(ver);
       ctx = {
-        components,
-        personas: await j('../tds/assets/personas.json'),
-        environments: await j('../tds/environments.json').catch(() => ({})),
-        glyphs: (await j('../tds/atoms/icon/glyphs.json')).items.map((g) => ({ value: g.name, label: g.name, file: g.file })),
-        data: (await j('../tds/sample-data.json')).variables,
+        components: D.metas,
+        personas: D.personas,
+        environments: D.environments,
+        glyphs: D.glyphs.items.map((g) => ({ value: g.name, label: g.name, file: g.file })),
+        data: D.sample.variables,
       };
       state = { state: (thumb && thumb.state) || meta.states[0].id, personas: {}, items: {} };
     }
@@ -167,7 +168,7 @@
       }
       // Some atoms carry a glyph library (the icon atom): show every glyph.
       if (meta.glyphs) {
-        const { items } = await fetch(`../tds/${path}/${meta.glyphs}`, { cache: 'no-store' }).then((r) => r.json());
+        const { items } = (bundle && path === 'atoms/icon') ? bundle.glyphs : await fetch(`../tds/${path}/${meta.glyphs}`, { cache: 'no-store' }).then((r) => r.json());
         const s = document.createElement('section');
         s.innerHTML = `<p class="label text-body-xs text-secondary">${items.length} glyphs</p><div class="glyphs">${items.map((i) => `<div class="glyph"><i class="icon icon-${i.name}"></i><span class="text-body-xs text-secondary">${i.name}</span></div>`).join('')}</div>`;
         g.append(s);
