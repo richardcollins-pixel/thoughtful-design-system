@@ -1,0 +1,85 @@
+{
+  "name": "Bite size support section",
+  "tier": "patterns",
+  "category": "sections",
+  "stateful": false,
+  "uses": [
+    "organisms/bite-size-columns"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4361-70379",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<section class=\"bite-size-support-section\"><div class=\"bite-size-support-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"bite-size-support-section__content\" data-slot=\"content\">{{item:columns}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "columns"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".bite-size-support-section",
+  "description": "The bite-size support section of the home screen: a subhead and a line of copy, then the bite-size columns that run to the screen edge.",
+  "items": {
+    "heading": {
+      "type": "text",
+      "tag": "h2",
+      "class": "bite-size-support-section__title",
+      "label": "Subhead",
+      "value": "Bite Size Support",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "copy": {
+      "type": "text",
+      "tag": "p",
+      "class": "bite-size-support-section__copy",
+      "label": "Copy",
+      "value": "Quick, in the moment, help",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "columns": {
+      "type": "component",
+      "component": "organisms/bite-size-columns",
+      "label": "Bite size columns",
+      "props": {},
+      "expose": []
+    }
+  },
+  "personas": [],
+  "properties": [
+    {
+      "id": "gap",
+      "label": "Gap",
+      "type": "scale",
+      "scale": "spacing",
+      "vars": [
+        "--section-gap"
+      ],
+      "default": "var(--space-4)",
+      "edit": true
+    }
+  ],
+  "prompts": []
+}

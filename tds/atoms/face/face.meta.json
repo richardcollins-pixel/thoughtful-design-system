@@ -1,0 +1,56 @@
+{
+  "name": "Face",
+  "tier": "atoms",
+  "category": "media",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=1046-39066",
+  "markup": "<span class=\"face\" data-face=\"calm-down\"><img src=\"../tds/assets/images/faces/calm-down.svg\" alt=\"\"></span>",
+  "attributes": {
+    "data-face": {
+      "type": "enum",
+      "values": [
+        "calm-down",
+        "balance-the-thought",
+        "nourish-yourself",
+        "give-yourself-grace",
+        "settle-for-sleep",
+        "reflect-on-today",
+        "set-boundaries",
+        "get-motivated",
+        "build-connections",
+        "start-a-plan"
+      ],
+      "default": "calm-down"
+    }
+  },
+  "states": [
+    "loading"
+  ],
+  "variables": {
+    "--face-size": "padding"
+  },
+  "styles": [],
+  "description": "A small face on an orange tile, one of ten feelings (Calm Down, Balance the Thought, Nourish Yourself and so on). It is the picture on a bite-size tile.",
+  "props": {
+    "face": {
+      "type": "enum",
+      "label": "Face",
+      "values": [
+        "calm-down",
+        "balance-the-thought",
+        "nourish-yourself",
+        "give-yourself-grace",
+        "settle-for-sleep",
+        "reflect-on-today",
+        "set-boundaries",
+        "get-motivated",
+        "build-connections",
+        "start-a-plan"
+      ],
+      "default": "calm-down"
+    }
+  },
+  "template": "<span class=\"face\" data-face=\"{{face}}\"><img src=\"../tds/assets/images/faces/{{face}}.svg\" alt=\"\"></span>",
+  "skeleton": "<span class=\"face\" data-state=\"loading\"></span>"
+}

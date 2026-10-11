@@ -1,5 +1,5 @@
 {
-  "name": "Bit size columns",
+  "name": "Bite size columns",
   "tier": "organisms",
   "category": "lists",
   "stateful": false,
@@ -11,7 +11,7 @@
     {
       "id": "default",
       "name": "Default",
-      "template": "<div class=\"bit-size-columns\" data-carousel><div class=\"bit-size-columns__column\" data-slot=\"column-1\">{{item:t1}}{{item:t2}}{{item:t3}}{{item:t4}}{{item:t5}}</div><div class=\"bit-size-columns__column\" data-slot=\"column-2\">{{item:t6}}{{item:t7}}{{item:t8}}{{item:t9}}{{item:t10}}</div></div>",
+      "template": "<div class=\"bite-size-columns\" data-carousel><div class=\"bite-size-columns__column\" data-slot=\"column-1\">{{item:t1}}{{item:t2}}{{item:t3}}{{item:t4}}{{item:t5}}</div><div class=\"bite-size-columns__column\" data-slot=\"column-2\">{{item:t6}}{{item:t7}}{{item:t8}}{{item:t9}}{{item:t10}}</div></div>",
       "slots": [
         {
           "id": "column-1",
@@ -41,9 +41,11 @@
       "personas": []
     }
   ],
-  "variables": {},
+  "variables": {
+    "--bite-size-peek": "padding"
+  },
   "styles": [],
-  "selector": ".bit-size-columns",
+  "selector": ".bite-size-columns",
   "description": "Bite-size tiles in two columns of five. The columns run to the screen edge and lock onto one at a time: the column in view is fully opaque and the next one fades in as you swipe.",
   "items": {
     "t1": {

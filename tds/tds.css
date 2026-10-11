@@ -21,6 +21,7 @@
 @import url("atoms/icon/icons.css")                     layer(atoms);   /* generated */
 @import url("atoms/icon/icon.css")                      layer(atoms);
 @import url("atoms/photo/photo.css")                    layer(atoms);
+@import url("atoms/face/face.css")                      layer(atoms);
 @import url("atoms/skeleton/skeleton.css")             layer(atoms);
 @import url("atoms/status-bar/status-bar.css")         layer(atoms);
 @import url("atoms/dots/dots.css")                     layer(atoms);
@@ -36,7 +37,7 @@
 @import url("molecules/tile/tile.css")                 layer(molecules);
 
 @import url("organisms/appointment-card/appointment-card.css") layer(organisms);
-@import url("organisms/bit-size-columns/bit-size-columns.css") layer(organisms);
+@import url("organisms/bite-size-columns/bite-size-columns.css") layer(organisms);
 @import url("organisms/provider-bio-card/provider-bio-card.css") layer(organisms);
 @import url("organisms/session-card/session-card.css") layer(organisms);
 @import url("organisms/header-card/header-card.css") layer(organisms);
@@ -47,7 +48,7 @@
 @import url("organisms/resource-card/resource-card.css") layer(organisms);
 
 @import url("patterns/topics-section/topics-section.css") layer(patterns);
-@import url("patterns/section/section.css") layer(patterns);
+@import url("patterns/bite-size-support-section/bite-size-support-section.css") layer(patterns);
 @import url("patterns/provider-carousel/provider-carousel.css") layer(patterns);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */

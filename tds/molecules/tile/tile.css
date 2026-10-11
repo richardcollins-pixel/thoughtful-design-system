@@ -1,21 +1,12 @@
-/* Molecule: tile. A bite-size piece of support: a small face on an orange tile, a title, how long it takes, and a round button.
-   Built from the icon and icon-button atoms. */
-.tile { --tile-image: 80px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); width: 100%; color: var(--text-primary); }
-.tile__left { flex: 1; min-width: 0; display: flex; align-items: center; gap: var(--space-4); padding-right: var(--space-4); }
-.tile__image { position: relative; flex: none; width: var(--tile-image); height: var(--tile-image); border-radius: var(--radius-sm); overflow: clip; background: var(--gradient-orange-to-light-rose); }
-.tile__face { position: absolute; display: block; }
+/* Molecule: tile. A bite-size piece of support: a face, a title, how long it takes, and a round arrow. The whole row is one button
+   (the arrow is only a picture of one), so it is easy to tap anywhere. Built from the face, icon and icon-button atoms. */
+.tile { display: flex; align-items: center; gap: var(--space-4); width: 100%; min-height: 80px; color: var(--text-primary); }
+button.tile { appearance: none; background: none; border: 0; padding: 0; margin: 0; font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .tile__content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); justify-content: center; }
 .tile__title { font: var(--text-body-md-semibold); letter-spacing: var(--text-body-md-semibold-ls); }
 .tile__label { display: flex; align-items: center; gap: var(--space-2); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
 .tile__label > .icon { --icon-color: currentColor; flex: none; }
-/* where each face sits inside the tile */
-.tile__face[data-face="calm-down"] { inset: 31.44% 18.28% 35.49% 18.75%; }
-.tile__face[data-face="balance-the-thought"] { inset: 34.18% 24.25% 28.48% 23.75%; }
-.tile__face[data-face="nourish-yourself"] { inset: 30.97% 18.74% 27.5% 17.5%; }
-.tile__face[data-face="give-yourself-grace"] { left: 26px; top: 35.28%; bottom: 38%; width: 28.423px; }
-.tile__face[data-face="settle-for-sleep"] { inset: 27.5% 20.04% 27.11% 20%; }
-.tile__face[data-face="reflect-on-today"] { inset: 31.04% 29% 31.62% 26.53%; }
-.tile__face[data-face="set-boundaries"] { left: calc(50% + 0.5px); top: 32.09%; bottom: 32.06%; width: 45px; transform: translateX(-50%); }
-.tile__face[data-face="get-motivated"] { left: calc(50% + 0.09px); top: 30.66%; bottom: 24.14%; width: 38.175px; transform: translateX(-50%); }
-.tile__face[data-face="build-connections"] { inset: 31.17% 29.25% 32% 28.75%; }
-.tile__face[data-face="start-a-plan"] { inset: 35.78% 31.97% 32% 32.5%; }
+/* the arrow lights up with the row */
+button.tile:hover .icon-button { background: var(--icon-button-fill-hover); }
+button.tile:active .icon-button { background: var(--icon-button-fill-pressed); transform: scale(var(--icon-button-scale-pressed)); }
+button.tile:focus-visible { outline: 2px solid var(--text-primary); outline-offset: 4px; border-radius: var(--radius-sm); }
