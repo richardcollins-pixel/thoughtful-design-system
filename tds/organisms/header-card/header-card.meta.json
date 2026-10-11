@@ -7,15 +7,23 @@
     "atoms/card",
     "atoms/avatar",
     "molecules/icon-label",
-    "molecules/skeleton-text"
+    "molecules/skeleton-text",
+    "molecules/header"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
   "states": [
     {
       "id": "default",
       "name": "Default",
-      "template": "<article class=\"card header-card\" data-variant=\"default\"><div class=\"header-card__content\" data-slot=\"content\"><div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div>{{item:body}}{{item:duration}}</div></article>",
+      "template": "<article class=\"card header-card\" data-variant=\"default\"><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\"><div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div>{{item:body}}{{item:duration}}</div></article>",
       "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
         {
           "id": "content",
           "label": "Content slot",
@@ -33,8 +41,15 @@
     {
       "id": "provider",
       "name": "Provider",
-      "template": "<article class=\"card header-card\" data-variant=\"provider\"><div class=\"header-card__content\" data-slot=\"content\">{{item:photo}}<div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div>{{item:body}}{{item:duration}}</div></article>",
+      "template": "<article class=\"card header-card\" data-variant=\"provider\"><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\">{{item:photo}}<div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div>{{item:body}}{{item:duration}}</div></article>",
       "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
         {
           "id": "content",
           "label": "Content slot",
@@ -66,7 +81,7 @@
   },
   "styles": [],
   "selector": ".header-card",
-  "description": "The card that opens a screen: it runs to the screen edges and its bottom corners are rounded. Default is the colourful one with an overline, headline, a line of copy and a duration. Provider is the quiet one with the provider's photo on top.",
+  "description": "The card that opens a screen, with the header (status bar and close button) on top: it runs to the screen edges and its bottom corners are rounded. Default is the colourful one with an overline, headline, a line of copy and a duration. Provider is the quiet one with the provider's photo on top.",
   "items": {
     "photo": {
       "type": "component",
@@ -125,6 +140,20 @@
       "expose": [
         "text",
         "icon"
+      ]
+    },
+    "header": {
+      "type": "component",
+      "component": "molecules/header",
+      "label": "Header",
+      "props": {
+        "variant": "close"
+      },
+      "expose": [
+        "variant",
+        "title",
+        "action",
+        "step"
       ]
     }
   },

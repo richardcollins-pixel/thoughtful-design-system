@@ -1,0 +1,47 @@
+{
+  "name": "Dots",
+  "tier": "atoms",
+  "category": "feedback",
+  "stateful": false,
+  "uses": [],
+  "markup": "<span class=\"dots\" data-current=\"1\" role=\"img\" aria-label=\"Step 1 of 6\"><i></i><i></i><i></i><i></i><i></i><i></i></span>",
+  "attributes": {
+    "data-current": {
+      "type": "enum",
+      "values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "default": "1"
+    }
+  },
+  "states": [],
+  "variables": {
+    "--dots-size": "padding",
+    "--dots-fill": "fill",
+    "--dots-current": "color"
+  },
+  "styles": [],
+  "description": "Six dots that show where you are in a short flow. The current step stretches into a pill. Use it in a header for onboarding and multi-step screens.",
+  "props": {
+    "current": {
+      "type": "enum",
+      "label": "Step",
+      "ui": "steps",
+      "values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "default": "1"
+    }
+  },
+  "template": "<span class=\"dots\" data-current=\"{{current}}\" role=\"img\" aria-label=\"Step {{current}} of 6\"><i></i><i></i><i></i><i></i><i></i><i></i></span>"
+}

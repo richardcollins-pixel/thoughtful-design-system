@@ -121,7 +121,7 @@ The **session cards** (Figma "Session Cards"): `organisms/session-card` has thre
 
 **Carousels** are one shared piece: mark a row `data-carousel` and it bleeds to the screen edges (cancelling `--page-gutter`), locks onto one item per swipe (scroll snap), and fades the items continuously as you scroll: the one in focus is fully opaque, the others `--carousel-min-opacity` (50%). The look is `foundations/styles/carousel.css`; `behaviors/carousel.js` (include once) sets each item's `--carousel-focus` and finds carousels added later.
 
-The **header cards** (Figma "Header Cards"): `organisms/header-card` (Default and Provider states) opens a screen: it runs to the screen edges, bottom corners rounded, content centred at the bottom. A component can set `"align": "top"` in its meta so the canvas pins it to the top of the frame instead of centring it. `organisms/header-inset-card` is the inset one (Figma's Profile and Secondary types are identical, so one card).
+The **header cards** (Figma "Header Cards"): `organisms/header-card` (Default and Provider states) opens a screen: it runs to the screen edges, bottom corners rounded, content centred at the bottom. A component can set `"align": "top"` in its meta so the canvas pins it to the top of the frame instead of centring it. The header card has the **header** molecule (`molecules/header`: status bar, back/close button, title, step dots, action; six variants) in a Top slot over its padding, built from the new **status bar** and **dots** atoms. `organisms/header-inset-card` is the inset one (Figma's Profile and Secondary types are identical, so one card).
 
 ## Loading states
 

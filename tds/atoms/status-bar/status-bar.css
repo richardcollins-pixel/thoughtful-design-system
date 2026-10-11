@@ -1,0 +1,6 @@
+/* Atom: status bar. The phone's status bar (time, signal, wifi, battery), drawn so a screen's top reads true on the canvas.
+   Device chrome, not product UI: it only ever sits at the very top of a screen. */
+.status-bar { display: flex; align-items: center; gap: 6px; height: 54px; box-sizing: border-box; padding: 4px 32px 0 52px; color: var(--text-primary);
+  font: var(--font-weight-semibold) 15px/1 var(--font-family-body); }
+.status-bar > span { margin-right: auto; }
+.status-bar > svg { flex: none; }
