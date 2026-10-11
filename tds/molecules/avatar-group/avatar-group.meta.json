@@ -41,5 +41,6 @@
       ],
       "default": "lg"
     }
-  }
+  },
+  "markup": "<div class=\"avatar-group\" data-size=\"lg\"><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-1.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><span class=\"avatar\"><img src=\"../tds/assets/images/therapists/Therapist-3.png\" alt=\"\"></span></div>"
 }
