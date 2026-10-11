@@ -11,7 +11,8 @@
   "states": [],
   "variables": {
     "--avatar-group-size": "padding",
-    "--avatar-group-overlap": "padding"
+    "--avatar-group-overlap": "padding",
+    "--avatar-group-ring": "padding"
   },
   "styles": [],
   "description": "Avatars overlapping in a row. Use it to suggest several people at once, such as available providers."

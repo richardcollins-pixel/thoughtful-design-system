@@ -169,11 +169,14 @@ dialog::backdrop { background:rgb(0 0 0 / .25); backdrop-filter:blur(2px); }
 .cp-top { display:flex; align-items:center; justify-content:space-between; gap:8px; }
 .cp-desc-edit { background:var(--chip); border:1px solid transparent; border-radius:10px; padding:8px 10px; width:100%; resize:none; font:inherit; line-height:1.5; field-sizing:content; min-height:3.2em; }
 .cp-desc-edit:focus { outline:none; border-color:var(--accent); background:#fff; }
-.cp-sec { border-top:1px solid var(--line); padding-top:10px; display:flex; flex-direction:column; gap:10px; }
-.cp-sec-head { display:flex; align-items:center; justify-content:space-between; background:none; border:0; padding:0; font-weight:600; font-size:12px; color:var(--ink); text-align:left; }
+.cp-sections { display:flex; flex-direction:column; }
+#cp-slots { display:contents; }
+.cp-sec { border-top:1px solid var(--line); padding:12px 0; }
+.cp-persona { border-top:1px solid var(--line); padding:12px 0; }
+.cp-sec-head { width:100%; display:flex; align-items:center; justify-content:space-between; background:none; border:0; padding:0; font-weight:600; font-size:12px; color:var(--ink); text-align:left; }
 .cp-sec-head svg { color:var(--mute); transition:transform .15s; }
 .cp-sec:not(.open) .cp-sec-head svg { transform:rotate(180deg); }
-.cp-sec-body { display:flex; flex-direction:column; gap:10px; padding-bottom:6px; }
+.cp-sec-body { display:flex; flex-direction:column; gap:10px; padding-top:12px; }
 .cp-sec-body[hidden] { display:none; }
 .prow { display:flex; align-items:center; justify-content:space-between; gap:10px; min-height:28px; }
 .plabel { color:var(--ink); }
