@@ -14,7 +14,7 @@
     .head { display: flex; align-items: baseline; gap: var(--space-3); margin-bottom: var(--space-4); }
     .head button { all: unset; cursor: pointer; }
     .head button:hover { text-decoration: underline; }
-    iframe { display: block; width: 100%; border: 0; height: 120px; background: transparent; color-scheme: dark; }
+    iframe { display: block; width: 100%; border: 0; height: 120px; background: transparent; color-scheme: dark; overflow: hidden; }
   </style>
 </head>
 <body>
@@ -29,7 +29,7 @@
     document.getElementById('sheet').innerHTML = `<div class="intro"><h1 class="text-headline-2">${esc(tier)}</h1><p class="text-body-md text-secondary">${esc(intro)}</p></div>` + paths.map((p, i) => `
       <section class="item" data-path="${p}">
         <div class="head"><button class="text-body-lg-semibold" data-open="${p}" title="Open ${esc(metas[i].name)}">${esc(metas[i].name)}</button><span class="text-body-sm text-tertiary">${esc(metas[i].description || '')}</span></div>
-        <iframe title="${esc(metas[i].name)}" src="component.html?c=${p}&embed=1${ver ? `&v=${ver}` : ''}"></iframe>
+        <iframe scrolling="no" title="${esc(metas[i].name)}" src="component.html?c=${p}&embed=1${ver ? `&v=${ver}` : ''}"></iframe>
       </section>`).join('');
     // Each element page tells us how tall it is; opening one asks the editor to show it on its own.
     addEventListener('message', (e) => {

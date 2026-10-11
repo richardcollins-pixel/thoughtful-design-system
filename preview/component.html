@@ -262,8 +262,11 @@
       document.body.classList.add('embed');
       // the default instance repeats the first variant, so a sheet only shows it when there are no variants to list
       if (document.getElementById('gallery').children.length) document.getElementById('subject').closest('section').hidden = true;
-      const report = () => parent.postMessage({ type: 'tds-height', h: document.documentElement.scrollHeight }, location.origin);
-      new ResizeObserver(report).observe(document.body); report();
+      // an embedded page never scrolls on its own (a wheel over it must scroll the sheet); it just tells the sheet how tall it is
+      document.documentElement.style.overflow = 'hidden'; document.body.style.overflow = 'hidden';
+      const report = () => parent.postMessage({ type: 'tds-height', h: Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) }, location.origin);
+      const ro = new ResizeObserver(report); ro.observe(document.body); ro.observe(document.documentElement); report();
+      addEventListener('load', report); if (document.fonts) document.fonts.ready.then(report);
       document.documentElement.dataset.fidelity = (parent.document.documentElement.dataset.fidelity || 'styled');
     }
     document.body.dataset.ready = '';   // until now the page shows nothing, not its placeholder
