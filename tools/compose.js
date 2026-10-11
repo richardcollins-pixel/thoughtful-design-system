@@ -125,12 +125,27 @@ export function getModel(meta, st, ctx, opts = {}) {
   };
 }
 
+// The slots of the current state, with the item ids each one holds (the canvas outlines a slot around its items).
+export const getSlots = (meta, st) => stateOf(meta, st).slots.map((sl) => ({ id: sl.id, label: sl.label, items: sl.items }));
+
+// A selected slot: its content fields (like the organism panel shows) plus a list of every item in it.
+export function getSlotModel(meta, st, ctx, id) {
+  const state = stateOf(meta, st), slot = state.slots.find((x) => x.id === id);
+  if (!slot) return null;
+  const content = (getModel(meta, st, ctx).slots.find((x) => x.id === id) || { items: [] }).items;
+  return {
+    id, label: slot.label, kind: 'Slot', content,
+    items: slot.items.map((iid) => { const it = effectiveItem(meta, st, iid); const comp = it.type === 'component' ? ctx.components[it.component] : null; return { id: iid, label: it.label || iid, kind: comp ? comp.name : 'Text' }; }),
+  };
+}
+
 // One selected item with every control it has (content and structure), for the panel that opens when it is clicked.
 export function getItemModel(meta, st, ctx, id) {
   if (!meta.items[id]) return null;
   const it = effectiveItem(meta, st, id), state = stateOf(meta, st);
-  if (it.type === 'text') return { id, type: 'text', kind: 'Text', label: it.label || id, value: it.value, prompt: promptFor(meta, state, id), controls: [] };
+  const holder = state.slots.find((sl) => sl.items.includes(id)), slot = holder ? { id: holder.id, label: holder.label } : null;
+  if (it.type === 'text') return { id, type: 'text', kind: 'Text', label: it.label || id, value: it.value, prompt: promptFor(meta, state, id), controls: [], slot };
   const comp = ctx.components[it.component];
-  return { id, type: 'component', kind: comp.name, label: it.label || comp.name, prompt: promptFor(meta, state, id),
+  return { id, type: 'component', kind: comp.name, label: it.label || comp.name, prompt: promptFor(meta, state, id), slot,
     controls: Object.keys(comp.props || {}).map((k) => controlFor(meta, st, ctx, comp, k, it)) };
 }

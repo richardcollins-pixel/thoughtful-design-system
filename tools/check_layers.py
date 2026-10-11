@@ -18,6 +18,8 @@ for path in index:
             print(f"{path}: item '{item_id}' places {comp}, which is not in uses"); bad += 1
     for state in (meta.get("states", []) if meta.get("items") else []):
         for slot in state.get("slots", []):
+            if f'data-slot="{slot["id"]}"' not in state.get("template", ""):
+                print(f"{path}: state '{state['id']}' lists slot '{slot['id']}' but its template has no data-slot=\"{slot['id']}\" element"); bad += 1
             for item_id in slot["items"]:
                 if item_id not in (meta.get("items") or {}):
                     print(f"{path}: state '{state['id']}' lists unknown item '{item_id}'"); bad += 1
