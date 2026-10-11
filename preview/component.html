@@ -180,8 +180,43 @@
       };
       document.addEventListener('mousemove', (e) => { const t = targetAt(e); if (!same(t, hov)) { hov = t; drawOverlay(); } });
       document.addEventListener('mouseleave', () => { hov = null; drawOverlay(); });
-      document.addEventListener('click', (e) => { e.preventDefault(); selectTarget(targetAt(e)); });   // the organism itself or the page = deselect
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') selectTarget(null); });
+      // Double-click text to edit it where it is. The field in the panel follows every keystroke (and the other way round, the
+      // canvas follows the panel). While editing the raw text, {{variables}} included, is shown; it resolves when you finish.
+      let editing = null;
+      const textField = (id) => {
+        const m = compose.getItemModel(meta, state, ctx, id); if (!m) return null;
+        if (m.type === 'text') return { prop: null, value: m.value };
+        const c = m.controls.find((x) => x.type === 'text'); return c ? { prop: c.key, value: String(c.value) } : null;
+      };
+      const textNodeOf = (root) => { const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.textContent.trim() ? 1 : 3) }); const n = w.nextNode(); return n ? n.parentElement : null; };
+      function startEdit(id) {
+        if (editing || state.loading) return;
+        const f = textField(id), root = elFor(id), node = root && textNodeOf(root); if (!f || !node) return;
+        const orig = state.items[id], origText = f.value;
+        node.textContent = f.value;
+        node.contentEditable = 'plaintext-only'; if (node.contentEditable !== 'plaintext-only') node.contentEditable = 'true';
+        Object.assign(node.style, { outline: 'none', cursor: 'text' });
+        node.focus(); const r = document.createRange(); r.selectNodeContents(node); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+        editing = { id, node };
+        const write = (v) => {
+          const cur = state.items[id] || {};
+          state.items[id] = f.prop ? { ...cur, props: { ...(cur.props || {}), [f.prop]: v } } : { ...cur, value: v, props: cur.props || {} };
+          if (self !== top) parent.postMessage({ type: 'tds-edit', id, prop: f.prop, value: v }, location.origin);
+          drawOverlay();
+        };
+        node.addEventListener('input', () => write(node.textContent));
+        node.addEventListener('keydown', (e) => {
+          e.stopPropagation();
+          if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); node.blur(); editing && editing.finish(); }
+          else if (e.key === 'Escape') { e.preventDefault(); if (orig) state.items[id] = orig; else delete state.items[id]; write(origText); node.blur(); editing && editing.finish(); }
+        });
+        const finish = () => { if (!editing) return; editing = null; node.removeEventListener('blur', finish); place(build()); };
+        node.addEventListener('blur', finish);
+        editing.finish = finish;
+      }
+      document.addEventListener('dblclick', (e) => { const id = itemAt(e); if (id) { e.preventDefault(); startEdit(id); } });
+      document.addEventListener('click', (e) => { e.preventDefault(); if (editing) { if (editing.node.contains(e.target)) return; editing.finish(); } selectTarget(targetAt(e)); });   // the organism itself or the page = deselect
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !editing) selectTarget(null); });
       addEventListener('resize', drawOverlay); addEventListener('scroll', drawOverlay, true);
     }
 

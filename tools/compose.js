@@ -120,6 +120,13 @@ function controlFor(meta, st, ctx, comp, key, item) {
   return c;
 }
 
+// The component items of a slot (avatar, button, date…): not shown as fields in the slot's section, but reachable from it.
+const nestedOf = (meta, ctx, slot) => slot.items.map((id) => {
+  const it = meta.items[id]; if (it.type !== 'component') return null;
+  const comp = ctx.components[it.component];
+  return comp && Object.keys(comp.props || {}).length ? { id, label: it.label || comp.name, kind: comp.name } : null;
+}).filter(Boolean);
+
 // What the panel needs. By default only content (text) is exposed; { edit: true } also exposes structure (icons, sizes…).
 export function getModel(meta, st, ctx, opts = {}) {
   const state = stateOf(meta, st), data = dataFor(meta, st, ctx);
@@ -134,7 +141,7 @@ export function getModel(meta, st, ctx, opts = {}) {
     environments: (ctx.environments || {}).environments || [],
     variables: Object.entries(data).map(([name, value]) => ({ name, value })),
     slots: state.slots.map((slot) => ({
-      id: slot.id, label: slot.label,
+      id: slot.id, label: slot.label, nested: nestedOf(meta, ctx, slot),
       items: slot.items.map((id) => {
         const it = effectiveItem(meta, st, id);
         if (it.type === 'text') return { id, type: 'text', label: it.label || id, value: it.value, prompt: promptFor(meta, state, id) };
@@ -143,7 +150,7 @@ export function getModel(meta, st, ctx, opts = {}) {
         if (!opts.edit) controls = controls.filter((c) => c.content);
         return { id, type: 'component', label: it.label || comp.name, controls, prompt: promptFor(meta, state, id) };
       }).filter((it) => it.type === 'text' || it.controls.length),
-    })).filter((slot) => slot.items.length),
+    })).filter((slot) => slot.items.length || slot.nested.length),
   };
 }
 
@@ -156,7 +163,7 @@ export function getSlotModel(meta, st, ctx, id) {
   if (!slot) return null;
   const content = (getModel(meta, st, ctx).slots.find((x) => x.id === id) || { items: [] }).items;
   return {
-    id, label: slot.label, kind: 'Slot', content,
+    id, label: slot.label, kind: 'Slot', content, nested: nestedOf(meta, ctx, slot),
     items: slot.items.map((iid) => { const it = effectiveItem(meta, st, iid); const comp = it.type === 'component' ? ctx.components[it.component] : null; return { id: iid, label: it.label || iid, kind: comp ? comp.name : 'Text' }; }),
   };
 }
