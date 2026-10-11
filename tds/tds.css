@@ -34,7 +34,7 @@
 @import url("organisms/provider-bio-card/provider-bio-card.css") layer(organisms);
 @import url("organisms/session-card/session-card.css") layer(organisms);
 
-@import url("patterns/session-card-carousel/session-card-carousel.css") layer(patterns);
+@import url("patterns/topics-section/topics-section.css") layer(patterns);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */
 
