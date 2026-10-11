@@ -1,0 +1,21 @@
+/* Organism: session card. Content on top, the input pill at the bottom, on the card atom's surface.
+   Medium (carousel) and Large (tall, content centred) are left-aligned; New topic is centred. Slots are real elements
+   ([data-slot]): content, input. */
+.session-card {
+  --card-fill: var(--gradient-dark-rose-to-orange);
+  --session-pad-top: var(--padding-xl); --session-pad-bottom: var(--padding-md);   /* roomy above, snug under the input */
+  padding-block: var(--session-pad-top) var(--session-pad-bottom); min-height: var(--session-card-min-height, 0);
+}
+.session-card[data-size="md"] { --session-card-min-height: 350px; }
+.session-card[data-size="lg"] { --session-card-min-height: 474px; --card-fill: var(--gradient-purple-to-blue); }
+.session-card[data-size="topic"] { --session-pad-top: var(--space-12); --card-gap: var(--space-8); text-align: center; }
+
+.session-card__content { flex: 1; display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.session-card[data-size="lg"] .session-card__content { justify-content: center; }
+.session-card[data-size="topic"] .session-card__content { flex: none; align-items: center; }
+
+.session-card__headline {
+  font: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-tight) var(--font-family-display); letter-spacing: var(--letter-spacing-tight);
+}
+.session-card__body { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
+.session-card[data-size="topic"] .session-card__content { --skeleton-align: center; }

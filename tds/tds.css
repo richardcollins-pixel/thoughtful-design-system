@@ -28,9 +28,13 @@
 @import url("molecules/icon-label/icon-label.css")      layer(molecules);
 @import url("molecules/avatar-group/avatar-group.css")  layer(molecules);
 @import url("molecules/skeleton-text/skeleton-text.css") layer(molecules);
+@import url("molecules/chat-input/chat-input.css")      layer(molecules);
 
 @import url("organisms/appointment-card/appointment-card.css") layer(organisms);
 @import url("organisms/provider-bio-card/provider-bio-card.css") layer(organisms);
+@import url("organisms/session-card/session-card.css") layer(organisms);
+
+@import url("patterns/session-card-carousel/session-card-carousel.css") layer(patterns);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */
 

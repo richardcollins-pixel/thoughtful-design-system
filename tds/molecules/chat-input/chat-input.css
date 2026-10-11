@@ -1,0 +1,17 @@
+/* Molecule: chat input. The pill at the bottom of a session card: a prompt on the left and an arrow to send on the right.
+   Glass over the card (elevation fill and border), dark text. Built from the icon atom. */
+.chat-input {
+  --chat-input-fill: var(--bg-elevation-70);
+  --chat-input-border: var(--bg-elevation-40);
+  --chat-input-text: var(--text-primary-inverse);
+  --chat-input-height: var(--space-12);
+  --chat-input-padding-x: var(--padding-md);
+
+  box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2);
+  width: 100%; height: var(--chat-input-height); padding: 0 var(--chat-input-padding-x);
+  color: var(--chat-input-text); background: var(--chat-input-fill);
+  border: 1px solid var(--chat-input-border); border-radius: var(--radius-full);
+  font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body);
+}
+.chat-input > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chat-input > .icon { --icon-color: var(--chat-input-text); flex: none; }

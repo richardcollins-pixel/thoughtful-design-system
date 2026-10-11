@@ -1,0 +1,4 @@
+/* Pattern: session card carousel. Medium session cards in a row that scrolls sideways and snaps to each card. */
+.session-carousel { --session-carousel-gap: var(--space-4); display: flex; gap: var(--session-carousel-gap); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.session-carousel::-webkit-scrollbar { display: none; }
+.session-carousel > .session-card { flex: 0 0 320px; width: 320px; scroll-snap-align: start; }
