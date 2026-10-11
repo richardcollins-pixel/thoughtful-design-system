@@ -1,0 +1,11 @@
+/* Molecule: skeleton text. A multi-line placeholder made of skeleton lines. Each line takes the height of a line of the
+   text it stands for (so it inherits the surrounding type), the bar is centred in it, widths are a little ragged and
+   the last line is shorter. Alignment follows --skeleton-align (start by default; centred layouts set it to center). */
+.skeleton-text { display: grid; grid-auto-rows: 1lh; align-items: center; justify-items: var(--skeleton-align, start); width: 100%; }
+.skeleton-text > .skeleton:nth-child(1) { width: 96%; }
+.skeleton-text > .skeleton:nth-child(2) { width: 100%; }
+.skeleton-text > .skeleton:nth-child(3) { width: 92%; }
+.skeleton-text > .skeleton:nth-child(4) { width: 96%; }
+.skeleton-text[data-lines="1"] > .skeleton:nth-child(1) { width: 90%; }
+.skeleton-text[data-lines="2"] > .skeleton:nth-child(2), .skeleton-text[data-lines="3"] > .skeleton:nth-child(3), .skeleton-text[data-lines="4"] > .skeleton:nth-child(4) { width: 80%; }
+.skeleton-text[data-lines="1"] > .skeleton:nth-child(n+2), .skeleton-text[data-lines="2"] > .skeleton:nth-child(n+3), .skeleton-text[data-lines="3"] > .skeleton:nth-child(4) { display: none; }

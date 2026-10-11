@@ -113,5 +113,5 @@
     }
   },
   "template": "<button class=\"button\" data-variant=\"{{variant}}\" data-size=\"{{size}}\" data-width=\"{{width}}\">{{label}}</button>",
-  "skeleton": "<span class=\"skeleton-pill\" data-size=\"{{size}}\" data-width=\"{{width}}\"></span>"
+  "skeleton": "<span class=\"skeleton\" data-shape=\"pill\" data-size=\"{{size}}\"></span>"
 }

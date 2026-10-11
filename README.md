@@ -115,7 +115,7 @@ may be limited to some `states`. A prompt set on the organism is the design-syst
 
 ## Loading states
 
-One shimmer serves the whole system: `tds/foundations/styles/skeleton.css` (speed is the `duration-shimmer` token; it stops under reduced motion and follows the surface colour, so Charcoal needs nothing extra).
+One shimmer serves the whole system: `tds/foundations/styles/skeleton.css`; the **skeleton atom** (`atoms/skeleton`: a line, dot or pill, always fully rounded) draws it, and the **skeleton-text molecule** (`molecules/skeleton-text`) is a multi-line placeholder whose lines take the height of the surrounding text and follow `--skeleton-align` (speed is the `duration-shimmer` token; it stops under reduced motion and follows the surface colour, so Charcoal needs nothing extra).
 
 - **Atoms** that can load have a `loading` state (`data-state="loading"`): avatar and icon button shimmer in place of their content.
 - **Components** declare a `skeleton` template in their meta (what they look like inside a loading slot).

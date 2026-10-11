@@ -10,7 +10,8 @@
     "atoms/icon-button",
     "atoms/icon",
     "molecules/icon-label",
-    "molecules/avatar-group"
+    "molecules/avatar-group",
+    "molecules/skeleton-text"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
   "states": [

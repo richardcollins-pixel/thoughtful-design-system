@@ -45,3 +45,11 @@
 }
 
 .appointment-card__details:empty { display: none; }
+
+/* loading: the card says [data-loading]. Skeleton content is centred on the avatar, headlines are one size in every layout,
+   and the CTA stays at the bottom, so the card holds the loaded card's height (the canvas sets its min-height). */
+.appointment-card[data-layout="centered"] { --skeleton-align: center; }
+.appointment-card[data-loading] .appointment-card__header { align-items: center; }
+.appointment-card[data-loading] .appointment-card__headline { font: var(--font-weight-semibold) var(--font-size-lg)/var(--line-height-relaxed) var(--font-family-body); letter-spacing: normal; }
+.appointment-card[data-loading] .appointment-card__cta { margin-top: auto; }
+.appointment-card[data-loading][data-layout="row"]:has([data-slot="cta"]) { grid-template-rows: auto 1fr auto; }
