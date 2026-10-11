@@ -36,6 +36,7 @@
       "type": "enum",
       "label": "Size",
       "values": [
+        "xs",
         "sm",
         "md",
         "lg"

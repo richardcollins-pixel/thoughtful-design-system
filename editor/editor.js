@@ -565,15 +565,20 @@ const refreshPanel = (api) => (selection ? showSelection() : refreshSlots(api));
 
 // ---- element panel: what opens when you click an item on the canvas
 // The path back up: Appointment card › Header slot (an item's slot is clickable, so you can step up one level).
-const selectionHead = (slot) => `<div class="cp-top"><div class="path"><button class="link back" id="el-back">‹ ${esc(component.meta.name)}</button>${slot ? `<span class="sep2">›</span><button class="link" data-el-slot="${slot.id}">${esc(slot.label)}</button>` : ''}</div>
-  <label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>`;
+const selectionHead = (model, slot, here) => {
+  const stateName = (model.states.find((x) => x.id === model.state) || {}).name || '';
+  const crumbs = [`<button class="link" id="el-back">${esc(stateName)}</button>`];
+  if (slot) crumbs.push(here ? `<button class="link" data-el-slot="${slot.id}">${esc(slot.label)}</button>` : `<span class="here">${esc(slot.label)}</span>`);
+  if (here && slot) crumbs.push(`<span class="here">${esc(here)}</span>`);
+  return `<div class="cp-top"><h2 class="cp-title">${esc(component.meta.name)}</h2><label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>
+  <nav class="crumb-path">${crumbs.join('<span class="sep2">/</span>')}</nav>`;
+};
 
 // ---- slot panel: the slot's content fields, then a list of the items inside it (click one to select it)
 function slotPanel(sm, model) {
   const content = sm.content.map((it) => itemHtml(it, model)).join('');
   const layers = `<div class="layers">${sm.items.map((i) => `<button class="layer" data-el-item="${i.id}"><span class="layer-kind">${esc(i.kind)}</span><span>${esc(i.label)}</span></button>`).join('')}</div>`;
-  return `${selectionHead(null)}
-    <div class="el-title"><span class="el-kind">Slot</span><h2 class="cp-title">${esc(sm.label)}</h2></div>
+  return `${selectionHead(model, { id: sm.id, label: sm.label })}
     <div class="cp-sections">${content ? sec('el-content', 'Content', content) : ''}${sec('el-items', 'Items', layers)}</div>`;
 }
 
@@ -590,8 +595,7 @@ function elementPanel(it, model) {
     else if (c.type === 'enum') props.push(prow(c.label, select(`${a} data-cm-select`, c.values.map((v) => [v, v]), c.value)));
   }
   const body = (content.length ? sec('el-content', 'Content', content.join('')) : '') + (props.length ? sec('el-props', 'Properties', props.join('')) : '');
-  return `${selectionHead(it.slot)}
-    <div class="el-title"><span class="el-kind">${esc(it.kind)}</span><h2 class="cp-title">${esc(it.label)}</h2></div>
+  return `${selectionHead(model, it.slot, it.label)}
     <div class="cp-sections">${body || '<p class="mute" style="padding:12px 0">Nothing to edit on this element yet.</p>'}</div>`;
 }
 function showSelection() {

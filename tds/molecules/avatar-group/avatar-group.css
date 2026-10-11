@@ -15,3 +15,8 @@
     #000 calc(var(--avatar-group-size) / 2 + var(--avatar-group-ring) + 0.5px));
   -webkit-mask-image: var(--cut); mask-image: var(--cut);
 }
+/* sizes match the avatar: 24 / 32 / 48 / 64 (the group's own size sets every avatar in it) */
+.avatar-group[data-size="xs"] { --avatar-group-size: var(--space-6); }
+.avatar-group[data-size="sm"] { --avatar-group-size: var(--space-8); }
+.avatar-group[data-size="md"] { --avatar-group-size: var(--space-12); }
+.avatar-group[data-size="lg"] { --avatar-group-size: var(--space-16); }

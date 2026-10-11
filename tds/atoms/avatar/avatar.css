@@ -1,4 +1,4 @@
-/* Atom: avatar. A round photo (or initials). Sizes follow the spacing scale: 32 / 48 / 64. */
+/* Atom: avatar. A round photo (or initials). Sizes follow the spacing scale: 24 / 32 / 48 / 64. */
 .avatar {
   --avatar-size: var(--space-12);
   --avatar-fill: var(--bg-elevation-20);
@@ -9,6 +9,7 @@
   border-radius: var(--avatar-radius); background: var(--avatar-fill); color: var(--text-primary);
   font: var(--font-weight-semibold) var(--font-size-sm)/1 var(--font-family-body);
 }
+.avatar[data-size="xs"] { --avatar-size: var(--space-6); font-size: var(--font-size-xs); }
 .avatar[data-size="sm"] { --avatar-size: var(--space-8); font-size: var(--font-size-xs); }
 .avatar[data-size="lg"] { --avatar-size: var(--space-16); font-size: var(--font-size-md); }
 .avatar > img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
