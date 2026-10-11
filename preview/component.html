@@ -13,6 +13,7 @@
     .panel { padding: var(--padding-md); border-radius: var(--radius-md); }
     /* organisms and beyond: one instance, centred, no labels */
     .single main { min-height: calc(100vh - 2 * var(--space-6)); display: flex; flex-direction: column; justify-content: center; }
+    .single[data-align="top"] main { justify-content: flex-start; }   /* a card that opens a screen sits at the top (meta "align": "top") */
     .single .label { display: none; }
     .single .subject { display: block; min-height: 0; padding: 0; background: none; border-radius: 0; }
     /* panel thumbnails: just the one variant, centered, not interactive */
@@ -77,6 +78,7 @@
     // panel switches variants, state and surface.
     const single = ['organisms', 'patterns'].includes(meta.tier);
     document.body.classList.toggle('single', single && !thumb);
+    if (meta.align) document.body.dataset.align = meta.align;
     document.body.classList.toggle('thumb', !!thumb);
 
     function make({ set = {}, state, text, markup } = {}) {

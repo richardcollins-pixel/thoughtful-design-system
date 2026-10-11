@@ -1,0 +1,25 @@
+/* Organism: header card. Opens a screen: runs to the screen edges (cancelling the page gutter) with rounded bottom corners,
+   content centred and sitting at the bottom. Default is gradient and light-weight; Provider is flat, with a photo on top.
+   The slot is a real element ([data-slot]): content. */
+.header-card {
+  --header-radius: calc(var(--radius-lg) * 2);
+  --header-safe-top: 90px;                              /* room for the status bar */
+  --card-fill: var(--gradient-dark-rose-to-orange);
+  --card-radius: 0 0 var(--header-radius) var(--header-radius);
+  --card-padding-x: var(--padding-xl);
+  --skeleton-align: center;
+
+  margin: calc(var(--page-gutter, var(--space-6)) * -1) calc(var(--page-gutter, var(--space-6)) * -1) 0; width: auto;
+  padding: var(--header-safe-top) var(--card-padding-x) var(--space-16);
+  min-height: 403px; justify-content: flex-end; text-align: center;
+}
+.header-card[data-variant="provider"] { --card-fill: var(--bg-elevation-20); }
+
+.header-card__content { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); width: 100%; }
+.header-card__titles { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.header-card .avatar { --avatar-size: 72px; }
+
+.header-card__overline { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
+.header-card__headline { font: var(--font-weight-light) var(--font-size-3xl)/var(--line-height-tight) var(--font-family-body); letter-spacing: var(--letter-spacing-tight); }
+.header-card[data-variant="provider"] .header-card__headline { font: var(--font-weight-regular) var(--font-size-2xl)/1.4 var(--font-family-body); letter-spacing: var(--letter-spacing-tighter); }
+.header-card__body { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }

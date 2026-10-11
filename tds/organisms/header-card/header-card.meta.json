@@ -1,0 +1,169 @@
+{
+  "name": "Header card",
+  "tier": "organisms",
+  "category": "cards",
+  "stateful": false,
+  "uses": [
+    "atoms/card",
+    "atoms/avatar",
+    "molecules/icon-label",
+    "molecules/skeleton-text"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<article class=\"card header-card\" data-variant=\"default\"><div class=\"header-card__content\" data-slot=\"content\"><div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div>{{item:body}}{{item:duration}}</div></article>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "overline",
+            "headline",
+            "body",
+            "duration"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "provider",
+      "name": "Provider",
+      "template": "<article class=\"card header-card\" data-variant=\"provider\"><div class=\"header-card__content\" data-slot=\"content\">{{item:photo}}<div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div>{{item:body}}{{item:duration}}</div></article>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "photo",
+            "overline",
+            "headline",
+            "body",
+            "duration"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "duration": {
+          "props": {
+            "text": "1 hr"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {
+    "--card-fill": "fill",
+    "--card-radius": "radius"
+  },
+  "styles": [],
+  "selector": ".header-card",
+  "description": "The card that opens a screen: it runs to the screen edges and its bottom corners are rounded. Default is the colourful one with an overline, headline, a line of copy and a duration. Provider is the quiet one with the provider's photo on top.",
+  "items": {
+    "photo": {
+      "type": "component",
+      "component": "atoms/avatar",
+      "label": "Photo",
+      "props": {
+        "size": "lg"
+      },
+      "bind": {
+        "person": "provider"
+      },
+      "expose": [
+        "person"
+      ]
+    },
+    "overline": {
+      "type": "text",
+      "tag": "p",
+      "class": "header-card__overline",
+      "label": "Overline",
+      "value": "Overline",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "headline": {
+      "type": "text",
+      "tag": "h2",
+      "class": "header-card__headline",
+      "label": "Headline",
+      "value": "Headline goes here",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "header-card__body",
+      "label": "Body Copy",
+      "value": "Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "skeleton": {
+        "lines": 2
+      }
+    },
+    "duration": {
+      "type": "component",
+      "component": "molecules/icon-label",
+      "label": "Duration",
+      "props": {
+        "icon": "clock",
+        "text": "5 min",
+        "emphasis": "primary",
+        "size": "md"
+      },
+      "expose": [
+        "text",
+        "icon"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [
+    {
+      "id": "background",
+      "label": "Background Color",
+      "type": "gradients",
+      "var": "--card-fill",
+      "default": "var(--gradient-dark-rose-to-orange)"
+    },
+    {
+      "id": "radius",
+      "label": "Corner Radius",
+      "type": "scale",
+      "scale": "radius",
+      "vars": [
+        "--header-radius"
+      ],
+      "default": "calc(var(--radius-lg) * 2)",
+      "edit": true
+    }
+  ],
+  "prompts": [
+    {
+      "id": "header-copy",
+      "label": "Header copy",
+      "instruction": "Write a short overline, a headline and one sentence of body copy that introduce this screen. Calm and warm.",
+      "inputs": [
+        "state"
+      ],
+      "outputs": [
+        "overline",
+        "headline",
+        "body"
+      ],
+      "note": "Placeholder prompt to show the structure; nothing runs it yet."
+    }
+  ],
+  "align": "top"
+}
