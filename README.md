@@ -113,6 +113,15 @@ canvas, clicking it selects the slot (same as clicking it on the canvas), and th
 may be limited to some `states`. A prompt set on the organism is the design-system default; `tds/environments.json`
 (`production`, `dev`, `sandbox`) holds per-environment overrides. Nothing runs prompts yet; this is the structure.
 
+## Loading states
+
+One shimmer serves the whole system: `tds/foundations/styles/skeleton.css` (speed is the `duration-shimmer` token; it stops under reduced motion and follows the surface colour, so Charcoal needs nothing extra).
+
+- **Atoms** that can load have a `loading` state (`data-state="loading"`): avatar and icon button shimmer in place of their content.
+- **Components** declare a `skeleton` template in their meta (what they look like inside a loading slot).
+- **Slots** opt in with `"skeleton": true`. While loading, each text item becomes shimmering lines (as many as its copy is expected to need) and each component item uses its skeleton, so the card keeps its size and nothing jumps when content arrives. Slots without it (e.g. the CTA) stay as they are.
+- The organism panel has a reload button that plays the loading state, then shows the content (`tdsComponent.setLoading(on)` / `.reload()` on the canvas page).
+
 ## Assets and icons
 
 - **Images, graphics, videos** live in `tds/assets/` (`images/<group>/`, `graphics/`, `videos/`); the editor's

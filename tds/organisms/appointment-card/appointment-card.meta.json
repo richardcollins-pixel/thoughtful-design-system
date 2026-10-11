@@ -28,7 +28,8 @@
             "edit",
             "date",
             "duration"
-          ]
+          ],
+          "skeleton": true
         },
         {
           "id": "content",
@@ -36,7 +37,8 @@
           "items": [
             "body",
             "footnote"
-          ]
+          ],
+          "skeleton": true
         }
       ],
       "personas": [
@@ -62,14 +64,16 @@
           "items": [
             "avatar",
             "headline"
-          ]
+          ],
+          "skeleton": true
         },
         {
           "id": "content",
           "label": "Content slot",
           "items": [
             "body"
-          ]
+          ],
+          "skeleton": true
         },
         {
           "id": "cta",
@@ -107,14 +111,16 @@
           "items": [
             "group",
             "headline"
-          ]
+          ],
+          "skeleton": true
         },
         {
           "id": "content",
           "label": "Content slot",
           "items": [
             "body"
-          ]
+          ],
+          "skeleton": true
         },
         {
           "id": "cta",

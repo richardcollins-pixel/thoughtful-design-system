@@ -435,7 +435,7 @@ const iconMask = (file) => `<i class="mask" style="-webkit-mask-image:url('${gly
 // ---- layout of the panel: collapsible sections, label-left / control-right rows, dashed "add" placeholders
 const sec = (id, title, body) => `<section class="cp-sec${collapsed[id] ? '' : ' open'}"><button class="cp-sec-head" data-csec="${id}"><span>${esc(title)}</span>${CHEV_UP}</button><div class="cp-sec-body" ${collapsed[id] ? 'hidden' : ''}>${body}</div></section>`;
 const prow = (label, control) => `<div class="prow"><span class="plabel">${esc(label)}</span><div class="pctl">${control}</div></div>`;
-const panelHead = (m, extra = '') => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>${extra}
+const panelHead = (m, extra = '') => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><span class="cp-tools">${m.items ? '<button class="reload" type="button" data-reload title="Reload: show the loading state" aria-label="Reload"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg></button>' : ''}<label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></span></div>${extra}
   <div class="field"><label>Description</label><textarea class="cp-desc-edit" rows="3" data-cdesc>${esc(m.description || '')}</textarea></div>`;
 
 // ---- controls
@@ -644,6 +644,8 @@ $('#panel').addEventListener('click', (e) => {
     if (root.dataset.cpersona) { api.setPersona(root.dataset.cpersona, opt.dataset.ddOpt); $('#cp-persona').innerHTML = personaRows(api.getModel()); return; }
     setItem(api, root.dataset.cmItem, root.dataset.cmProp, opt.dataset.ddOpt); refreshPanel(api); return;
   }
+  const rl = t.closest('[data-reload]');
+  if (rl && api && api.reload) { rl.classList.add('spin'); const ms = api.reload(); setTimeout(() => rl.classList.remove('spin'), ms); return; }
   if (ai) { const mn = ai.nextElementSibling; closeMenus(mn); mn.hidden = !mn.hidden; return; }
   const lay = t.closest('[data-cvariant]'), stp = t.closest('[data-step]'), prop = t.closest('[data-cprop]'), thumb = t.closest('[data-cthumb]');
   if (lay && api) {

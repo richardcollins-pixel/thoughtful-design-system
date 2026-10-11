@@ -235,8 +235,8 @@ dialog::backdrop { background:rgb(0 0 0 / .25); backdrop-filter:blur(2px); }
 
 /* slots in the organism panel are rows you drill into */
 .slot-row { width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px; background:none; border:0; border-top:1px solid var(--line); padding:18px 0; font-size:12px; font-weight:600; color:var(--ink); text-align:left; }
-.slot-row:hover { color:#d62f84; }
-.slot-row .meta { display:flex; align-items:center; gap:4px; color:var(--mute); font-weight:400; }
+.slot-row .meta { display:flex; align-items:center; gap:4px; color:var(--mute); font-weight:400; transition:color .12s; }
+.slot-row:hover .meta { color:var(--ink); }
 .panel-body > .link { padding:4px 0; }
 .btn.wide { margin-top:2px; }
 
@@ -246,3 +246,9 @@ dialog::backdrop { background:rgb(0 0 0 / .25); backdrop-filter:blur(2px); }
 .cp-top .path { flex:1; min-width:0; }
 .cp-top .path .link { overflow:hidden; text-overflow:ellipsis; }
 .cp-top .switch { flex:none; }
+
+.cp-tools { display:inline-flex; align-items:center; gap:12px; }
+.reload { display:inline-grid; place-items:center; width:22px; height:22px; border:0; border-radius:6px; background:none; color:var(--mute); cursor:pointer; }
+.reload:hover { background:rgb(0 0 0 / .06); color:var(--ink); }
+.reload.spin svg { animation:reload-spin 1s linear infinite; }
+@keyframes reload-spin { to { transform:rotate(360deg); } }

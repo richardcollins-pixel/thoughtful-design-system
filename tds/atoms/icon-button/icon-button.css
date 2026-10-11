@@ -35,3 +35,7 @@
   opacity: 0.6; cursor: not-allowed; pointer-events: none;
 }
 .icon-button[data-elevation="0"]:disabled, .icon-button[data-elevation="0"][data-state="disabled"] { --icon-button-fill: transparent; --icon-button-fill-hover: transparent; }
+
+/* loading: the shared shimmer, no icon, not clickable */
+.icon-button[data-state="loading"] { background: var(--skeleton-fill); background-size: 200% 100%; animation: var(--skeleton-animation); pointer-events: none; }
+.icon-button[data-state="loading"] > * { visibility: hidden; }
