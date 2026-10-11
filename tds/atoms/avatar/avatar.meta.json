@@ -16,7 +16,9 @@
       "default": "md"
     }
   },
-  "states": [],
+  "states": [
+    "loading"
+  ],
   "variables": {
     "--avatar-fill": "color",
     "--avatar-size": "padding",
@@ -41,5 +43,6 @@
       "default": "md"
     }
   },
-  "template": "<span class=\"avatar\" data-size=\"{{size}}\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span>"
+  "template": "<span class=\"avatar\" data-size=\"{{size}}\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span>",
+  "skeleton": "<span class=\"avatar\" data-state=\"loading\" data-size=\"{{size}}\"></span>"
 }

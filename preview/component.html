@@ -189,6 +189,9 @@
       hover(id, kind = 'slot') { hov = id ? { kind, id } : null; drawOverlay(); },   // the panel previews what you point at
       getSelected() { return sel; },
       setVariant(id) { state.state = id; place(build()); },
+      setLoading(on) { state.loading = !!on; place(build()); },
+      // play the loading state for a moment, then show the content (what the panel's reload button does)
+      reload(ms = 1800) { clearTimeout(this._t); state.loading = true; place(build()); this._t = setTimeout(() => { state.loading = false; place(build()); }, ms); return ms; },
       setPersona(role, id) { state.personas[role] = id; place(build()); },
       setItem(id, patch) {
         const cur = state.items[id] || {};
@@ -198,7 +201,7 @@
       setSurface(v) { surfaceState = v; if (v === 'inverse') subject.dataset.surface = 'inverse'; else delete subject.dataset.surface; },
       getContent() { return contentDefs().map((c, i) => { const el = target(c); return { i, label: c.label, value: el ? el.textContent.trim() : '' }; }); },
       setContent(i, v) { const el = contentDefs()[i] && target(contentDefs()[i]); if (el) el.textContent = v; },
-      reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; surfaceState = 'normal'; curExample = 0; if (spec) state = { state: meta.states[0].id, personas: {}, items: {} }; place(build(examples[0] && examples[0].markup)); },
+      reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; surfaceState = 'normal'; curExample = 0; if (spec) { clearTimeout(this._t); state = { state: meta.states[0].id, personas: {}, items: {} }; } place(build(examples[0] && examples[0].markup)); },
     };
     if (self !== top && !thumb) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
   </script>

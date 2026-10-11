@@ -1,0 +1,23 @@
+/* Skeleton: the one shimmer every loading state in the system uses. Components and slots opt in with these
+   shapes (or their own [data-state="loading"] rule that reuses --skeleton-fill and --skeleton-animation), so
+   a skeleton always looks and moves the same. It is drawn from currentColor, so it follows the surface (base
+   or inverse), and Charcoal mode needs nothing. The sweep takes --duration-shimmer (tokens > duration). */
+:root {
+  --skeleton-fill: linear-gradient(90deg,
+    color-mix(in srgb, currentColor 10%, transparent) 30%,
+    color-mix(in srgb, currentColor 22%, transparent) 50%,
+    color-mix(in srgb, currentColor 10%, transparent) 70%);
+  --skeleton-animation: tds-shimmer var(--duration-shimmer) linear infinite;
+}
+@media (prefers-reduced-motion: reduce) { :root { --skeleton-animation: none; } }
+@keyframes tds-shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+
+.skeleton, .skeleton-line, .skeleton-dot, .skeleton-pill { background-image: var(--skeleton-fill); background-size: 200% 100%; animation: var(--skeleton-animation); }
+
+/* shapes. A line is a full line-height box with the bar drawn inside it (padding, not margin, so lines never collapse together):
+   it occupies exactly the space of the text it stands for, so nothing jumps when content arrives. */
+.skeleton-line { display: block; box-sizing: border-box; height: 1lh; padding-block: calc((1lh - 0.8em) / 2); background-clip: content-box; border-radius: var(--radius-sm); }
+.skeleton-dot  { display: inline-block; flex: none; width: var(--space-4); height: var(--space-4); border-radius: var(--radius-full); }
+.skeleton-pill { display: block; width: 100%; height: var(--space-12); border-radius: var(--radius-full); }
+.skeleton-pill[data-size="lg"] { height: var(--space-16); }
+.skeleton-pill[data-size="sm"] { height: var(--space-6); }

@@ -33,7 +33,8 @@
     "hover",
     "pressed",
     "focus",
-    "disabled"
+    "disabled",
+    "loading"
   ],
   "variables": {
     "--icon-button-fill": "color",
@@ -79,5 +80,6 @@
       "default": "md"
     }
   },
-  "template": "<button class=\"icon-button\" data-elevation=\"{{elevation}}\" data-size=\"{{size}}\" aria-label=\"{{icon}}\"><i class=\"icon icon-{{icon}}\"></i></button>"
+  "template": "<button class=\"icon-button\" data-elevation=\"{{elevation}}\" data-size=\"{{size}}\" aria-label=\"{{icon}}\"><i class=\"icon icon-{{icon}}\"></i></button>",
+  "skeleton": "<span class=\"icon-button\" data-state=\"loading\" data-size=\"{{size}}\" data-elevation=\"{{elevation}}\"></span>"
 }

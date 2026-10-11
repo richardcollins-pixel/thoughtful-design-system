@@ -62,14 +62,29 @@ function propVars(compMeta, item, scope) {
       const role = (item.bind || {})[key], list = scope.ctx.personas[role || 'provider'] || [];
       const p = (role && personaFor(scope.st, scope.ctx, role)) || list.find((x) => x.id === v) || list[0] || { name: '', photo: '' };
       vars[`${key}.name`] = p.name; vars[`${key}.photo`] = p.photo; vars[key] = p.name;
-    } else if (def.type === 'text') vars[key] = String(v).replace(/\{\{\s*([\w.-]+)\s*\}\}/g, (m, k) => (k in scope.data ? scope.data[k] : m));
+    } else if (def.type === 'text') { vars[key] = String(v).replace(/\{\{\s*([\w.-]+)\s*\}\}/g, (m, k) => (k in scope.data ? scope.data[k] : m)); vars[`${key}.length`] = vars[key].length; }
     else vars[key] = v;
   }
   return vars;
 }
 
+// A text item's skeleton: shimmering lines in the same element (so the same type rhythm), as many as the copy is expected to
+// take (about 22 characters per line in a heading, 34 in body text), the last one shorter.
+function textSkeleton(it, data) {
+  const plain = String(it.value).replace(/\{\{\s*([\w.-]+)\s*\}\}/g, (m, k) => (k in data ? data[k] : m));
+  const perLine = (it.skeleton && it.skeleton.perLine) || (/^h[1-6]$/.test(it.tag || '') ? 22 : 34);
+  const lines = Math.max(1, Math.ceil(plain.length / perLine));
+  const bars = Array.from({ length: lines }, (_, i) => `<span class="skeleton-line" style="width:${lines === 1 ? 70 : i === lines - 1 ? 60 : 100}%"></span>`).join('');
+  return `<${it.tag || 'p'}${it.class ? ` class="${it.class}"` : ''}>${bars}</${it.tag || 'p'}>`;
+}
+
 function renderItem(scope, id) {
   const it = effectiveItem(scope.meta, scope.st, id);
+  if (scope.skeleton.has(id)) {   // inside a loading slot
+    if (it.type === 'text') return tagItem(textSkeleton(it, scope.data), id);
+    const comp = scope.ctx.components[it.component];
+    if (comp && comp.skeleton) return tagItem(fill(comp.skeleton, propVars(comp, it, scope)), id);
+  }
   if (it.type === 'text') return tagItem(`<${it.tag || 'p'}${it.class ? ` class="${it.class}"` : ''}>${text(it.value, scope.data)}</${it.tag || 'p'}>`, id);
   const comp = scope.ctx.components[it.component];
   if (!comp) return `<!-- unknown component ${esc(it.component)} -->`;
@@ -77,8 +92,11 @@ function renderItem(scope, id) {
 }
 
 export function renderOrganism(meta, st, ctx) {
-  const scope = { meta, st, ctx, data: dataFor(meta, st, ctx) };
-  return stateOf(meta, st).template.replace(/\{\{item:([\w-]+)\}\}/g, (m, id) => (meta.items[id] ? renderItem(scope, id) : ''));
+  const state = stateOf(meta, st);
+  // while loading, the items of every slot that declares a skeleton are drawn as skeletons
+  const skeleton = new Set(st.loading ? state.slots.filter((sl) => sl.skeleton).flatMap((sl) => sl.items) : []);
+  const scope = { meta, st, ctx, data: dataFor(meta, st, ctx), skeleton };
+  return state.template.replace(/\{\{item:([\w-]+)\}\}/g, (m, id) => (meta.items[id] ? renderItem(scope, id) : ''));
 }
 
 const promptFor = (meta, state, id) => {
