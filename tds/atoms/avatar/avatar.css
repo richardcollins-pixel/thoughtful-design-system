@@ -7,11 +7,11 @@
   box-sizing: border-box; display: inline-grid; place-items: center; flex: none; overflow: hidden;
   width: var(--avatar-size); height: var(--avatar-size);
   border-radius: var(--avatar-radius); background: var(--avatar-fill); color: var(--text-primary);
-  font: var(--font-weight-semibold) var(--font-size-sm)/1 var(--font-family-body);
+  font: var(--text-body-sm-semibold); letter-spacing: var(--text-body-sm-semibold-ls);
 }
-.avatar[data-size="xs"] { --avatar-size: var(--space-6); font-size: var(--font-size-xs); }
-.avatar[data-size="sm"] { --avatar-size: var(--space-8); font-size: var(--font-size-xs); }
-.avatar[data-size="lg"] { --avatar-size: var(--space-16); font-size: var(--font-size-md); }
+.avatar[data-size="xs"] { --avatar-size: var(--space-6); font: var(--text-body-xs-semibold); letter-spacing: var(--text-body-xs-semibold-ls); }
+.avatar[data-size="sm"] { --avatar-size: var(--space-8); font: var(--text-body-xs-semibold); letter-spacing: var(--text-body-xs-semibold-ls); }
+.avatar[data-size="lg"] { --avatar-size: var(--space-16); font: var(--text-body-md-semibold); letter-spacing: var(--text-body-md-semibold-ls); }
 .avatar > img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
 
 /* loading: the shared shimmer, no photo or initials */

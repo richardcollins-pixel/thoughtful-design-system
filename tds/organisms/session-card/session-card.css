@@ -15,7 +15,7 @@
 .session-card[data-size="topic"] .session-card__content { flex: none; align-items: center; }
 
 .session-card__headline {
-  font: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-tight) var(--font-family-display); letter-spacing: var(--letter-spacing-tight);
+  font: var(--text-subhead); letter-spacing: var(--text-subhead-ls);
 }
-.session-card__body { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
+.session-card__body { color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
 .session-card[data-size="topic"] .session-card__content { --skeleton-align: center; }

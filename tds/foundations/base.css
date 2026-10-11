@@ -1,9 +1,8 @@
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 body {
-  font-family: var(--font-family-body);
-  font-size: var(--font-size-md);
-  line-height: var(--line-height-normal);
+  font: var(--text-body-md);
+  letter-spacing: var(--text-body-md-ls);
   color: var(--text-primary);
   background: var(--bg-base);
   -webkit-font-smoothing: antialiased;

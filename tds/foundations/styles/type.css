@@ -1,15 +1,41 @@
-/* Type styles — from the Figma text styles. Each bundles type tokens; apply as a class. */
-.text-headline-1 { font: var(--font-weight-light)    var(--font-size-3xl)/var(--line-height-tight)   var(--font-family-body);    letter-spacing: var(--letter-spacing-tight); }
-.text-headline-2 { font: var(--font-weight-regular)  var(--font-size-2xl)/var(--line-height-snug)    var(--font-family-body);    letter-spacing: var(--letter-spacing-tighter); }
-.text-subhead    { font: var(--font-weight-regular)  var(--font-size-xl)/var(--line-height-tight)    var(--font-family-display); letter-spacing: var(--letter-spacing-tight); }
+/* GENERATED from type.json by tools/build-type.js — edit in the editor (styles > type), not here. */
 
-.text-body-lg          { font: var(--font-weight-body)     var(--font-size-lg)/var(--line-height-relaxed) var(--font-family-body); }
-.text-body-lg-semibold { font: var(--font-weight-semibold) var(--font-size-lg)/var(--line-height-relaxed) var(--font-family-body); }
-.text-body-md          { font: var(--font-weight-body)     var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
-.text-body-md-semibold { font: var(--font-weight-semibold) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); letter-spacing: var(--letter-spacing-tight); }
-.text-body-sm          { font: var(--font-weight-body)     var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body); }
-.text-body-sm-semibold { font: var(--font-weight-semibold) var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body); }
-.text-body-xs          { font: var(--font-weight-medium)   var(--font-size-xs)/var(--line-height-relaxed) var(--font-family-body); letter-spacing: var(--letter-spacing-wide); }
+:root {
+  --text-headline-1: var(--font-weight-light) var(--font-size-3xl)/var(--line-height-tight) var(--font-family-body);
+  --text-headline-1-ls: var(--letter-spacing-tight);
+  --text-headline-2: var(--font-weight-regular) var(--font-size-2xl)/var(--line-height-snug) var(--font-family-body);
+  --text-headline-2-ls: var(--letter-spacing-tighter);
+  --text-subhead: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-tight) var(--font-family-display);
+  --text-subhead-ls: var(--letter-spacing-tight);
+  --text-body-lg: var(--font-weight-body) var(--font-size-lg)/var(--line-height-relaxed) var(--font-family-body);
+  --text-body-lg-ls: var(--letter-spacing-normal);
+  --text-body-lg-semibold: var(--font-weight-semibold) var(--font-size-lg)/var(--line-height-relaxed) var(--font-family-body);
+  --text-body-lg-semibold-ls: var(--letter-spacing-normal);
+  --text-body-md: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body);
+  --text-body-md-ls: var(--letter-spacing-normal);
+  --text-body-md-semibold: var(--font-weight-semibold) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body);
+  --text-body-md-semibold-ls: var(--letter-spacing-tight);
+  --text-body-md-italic: italic var(--font-weight-regular) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body);
+  --text-body-md-italic-ls: var(--letter-spacing-normal);
+  --text-body-sm: var(--font-weight-body) var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body);
+  --text-body-sm-ls: var(--letter-spacing-normal);
+  --text-body-sm-semibold: var(--font-weight-semibold) var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body);
+  --text-body-sm-semibold-ls: var(--letter-spacing-normal);
+  --text-body-xs: var(--font-weight-body) var(--font-size-xs)/var(--line-height-relaxed) var(--font-family-body);
+  --text-body-xs-ls: var(--letter-spacing-normal);
+  --text-body-xs-semibold: var(--font-weight-semibold) var(--font-size-xs)/var(--line-height-relaxed) var(--font-family-body);
+  --text-body-xs-semibold-ls: var(--letter-spacing-normal);
+}
 
-.text-secondary { color: var(--text-secondary); }
-.text-tertiary  { color: var(--text-tertiary); }
+.text-headline-1 { font: var(--text-headline-1); letter-spacing: var(--text-headline-1-ls); }
+.text-headline-2 { font: var(--text-headline-2); letter-spacing: var(--text-headline-2-ls); }
+.text-subhead { font: var(--text-subhead); letter-spacing: var(--text-subhead-ls); }
+.text-body-lg { font: var(--text-body-lg); letter-spacing: var(--text-body-lg-ls); }
+.text-body-lg-semibold { font: var(--text-body-lg-semibold); letter-spacing: var(--text-body-lg-semibold-ls); }
+.text-body-md { font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
+.text-body-md-semibold { font: var(--text-body-md-semibold); letter-spacing: var(--text-body-md-semibold-ls); }
+.text-body-md-italic { font: var(--text-body-md-italic); letter-spacing: var(--text-body-md-italic-ls); }
+.text-body-sm { font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); }
+.text-body-sm-semibold { font: var(--text-body-sm-semibold); letter-spacing: var(--text-body-sm-semibold-ls); }
+.text-body-xs { font: var(--text-body-xs); letter-spacing: var(--text-body-xs-ls); }
+.text-body-xs-semibold { font: var(--text-body-xs-semibold); letter-spacing: var(--text-body-xs-semibold-ls); }
