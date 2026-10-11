@@ -1,0 +1,225 @@
+{
+  "name": "Session card",
+  "tier": "organisms",
+  "category": "cards",
+  "stateful": false,
+  "uses": [
+    "atoms/card",
+    "molecules/icon-label",
+    "molecules/chat-input",
+    "molecules/skeleton-text"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
+  "states": [
+    {
+      "id": "md",
+      "name": "Medium",
+      "template": "<article class=\"card session-card\" data-size=\"md\"><div class=\"session-card__content\" data-slot=\"content\">{{item:headline}}{{item:body}}{{item:duration}}</div><div class=\"session-card__input\" data-slot=\"input\">{{item:input}}</div></article>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "headline",
+            "body",
+            "duration"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "input",
+          "label": "Input slot",
+          "items": [
+            "input"
+          ]
+        }
+      ],
+      "overrides": {
+        "duration": {
+          "props": {
+            "text": "10 min"
+          }
+        }
+      },
+      "personas": []
+    },
+    {
+      "id": "lg",
+      "name": "Large",
+      "template": "<article class=\"card session-card\" data-size=\"lg\"><div class=\"session-card__content\" data-slot=\"content\">{{item:headline}}{{item:body}}{{item:duration}}</div><div class=\"session-card__input\" data-slot=\"input\">{{item:input}}</div></article>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "headline",
+            "body",
+            "duration"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "input",
+          "label": "Input slot",
+          "items": [
+            "input"
+          ]
+        }
+      ],
+      "overrides": {
+        "duration": {
+          "props": {
+            "text": "30 min"
+          }
+        }
+      },
+      "personas": []
+    },
+    {
+      "id": "new-topic",
+      "name": "New topic",
+      "template": "<article class=\"card session-card\" data-size=\"topic\"><div class=\"session-card__content\" data-slot=\"content\">{{item:headline}}{{item:body}}{{item:duration}}</div><div class=\"session-card__input\" data-slot=\"input\">{{item:input}}</div></article>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "headline",
+            "body",
+            "duration"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "input",
+          "label": "Input slot",
+          "items": [
+            "input"
+          ]
+        }
+      ],
+      "overrides": {
+        "headline": {
+          "value": "Start a new topic"
+        },
+        "body": {
+          "value": "Tell me what’s new in your life or something that you’ve been thinking about."
+        },
+        "duration": {
+          "props": {
+            "text": "10 min"
+          }
+        },
+        "input": {
+          "props": {
+            "text": "What’s on your mind?"
+          }
+        }
+      },
+      "personas": []
+    }
+  ],
+  "variables": {
+    "--card-fill": "fill",
+    "--card-padding-x": "padding",
+    "--card-padding-y": "padding",
+    "--card-radius": "radius",
+    "--card-gap": "padding"
+  },
+  "styles": [],
+  "selector": ".session-card",
+  "description": "A card that invites the user into a session. Medium is the carousel size, Large is the tall one for the top of a screen, and New topic is the centered card that starts a conversation. Each ends in the input pill.",
+  "items": {
+    "headline": {
+      "type": "text",
+      "tag": "h3",
+      "class": "session-card__headline",
+      "label": "Headline",
+      "value": "Headline goes here",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "session-card__body",
+      "label": "Body Copy",
+      "value": "Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    "duration": {
+      "type": "component",
+      "component": "molecules/icon-label",
+      "label": "Duration",
+      "props": {
+        "icon": "clock",
+        "text": "10 min",
+        "emphasis": "primary",
+        "size": "md"
+      },
+      "expose": [
+        "text",
+        "icon"
+      ]
+    },
+    "input": {
+      "type": "component",
+      "component": "molecules/chat-input",
+      "label": "Input",
+      "props": {
+        "text": "Start session"
+      },
+      "expose": [
+        "text"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [
+    {
+      "id": "background",
+      "label": "Background Color",
+      "type": "gradients",
+      "var": "--card-fill",
+      "default": "var(--gradient-dark-rose-to-orange)"
+    },
+    {
+      "id": "radius",
+      "label": "Corner Radius",
+      "type": "scale",
+      "scale": "radius",
+      "vars": [
+        "--card-radius"
+      ],
+      "default": "var(--radius-md)",
+      "edit": true
+    },
+    {
+      "id": "padding",
+      "label": "Padding",
+      "type": "scale",
+      "scale": "padding",
+      "vars": [
+        "--card-padding-x",
+        "--session-pad-top",
+        "--session-pad-bottom"
+      ],
+      "edit": true
+    }
+  ],
+  "prompts": [
+    {
+      "id": "session-copy",
+      "label": "Session copy",
+      "instruction": "Write a short, inviting headline and one sentence of body copy for a session on this topic. Calm and warm.",
+      "inputs": [
+        "state"
+      ],
+      "outputs": [
+        "headline",
+        "body"
+      ],
+      "note": "Placeholder prompt to show the structure; nothing runs it yet."
+    }
+  ]
+}

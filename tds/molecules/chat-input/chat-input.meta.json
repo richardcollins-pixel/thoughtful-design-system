@@ -1,0 +1,35 @@
+{
+  "name": "Chat input",
+  "tier": "molecules",
+  "category": "actions",
+  "stateful": false,
+  "uses": [
+    "atoms/icon"
+  ],
+  "markup": "<div class=\"chat-input\"><span>Start session</span><i class=\"icon icon-arrow-up\" data-size=\"md\"></i></div>",
+  "attributes": {},
+  "states": [],
+  "variables": {
+    "--chat-input-fill": "fill",
+    "--chat-input-border": "color",
+    "--chat-input-text": "color",
+    "--chat-input-height": "padding",
+    "--chat-input-padding-x": "padding"
+  },
+  "styles": [],
+  "description": "The pill at the bottom of a session card: a prompt and an arrow to send. Use it to start a session or a new topic from a card.",
+  "content": [
+    {
+      "label": "Prompt",
+      "selector": ":scope > span"
+    }
+  ],
+  "props": {
+    "text": {
+      "type": "text",
+      "label": "Prompt",
+      "default": "Start session"
+    }
+  },
+  "template": "<div class=\"chat-input\"><span>{{text}}</span><i class=\"icon icon-arrow-up\" data-size=\"md\"></i></div>"
+}
