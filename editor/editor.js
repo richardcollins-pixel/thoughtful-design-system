@@ -102,24 +102,29 @@ const levelLeaves = (level) => {
   return components.filter((c) => c.tier === level).map((c) => ({ label: camel(c.path.split('/')[1]), component: c.path }));
 };
 let openLevel = 'tokens';   // one level open at a time
+// Atoms and molecules are one page each: a sticker sheet of every element (in the nav they have no list under them).
+const SHEET_TIERS = ['atoms', 'molecules'];
+let sheetTier = null;       // 'atoms' | 'molecules' while that sheet is showing
 
 function renderNav() {
   $('#nav').innerHTML = `<h1>tds</h1><ul>${LEVELS.map((lv) => {
     const open = openLevel === lv;
-    const leaves = open ? `<ul>${levelLeaves(lv).map((n) => {
+    const sheetLv = SHEET_TIERS.includes(lv);
+    const leaves = open && !sheetLv ? `<ul>${levelLeaves(lv).map((n) => {
       const key = `${lv}/${n.label}`;
       const cls = `row leaf${key === navKey ? ' active' : ''}${n.kind || n.component ? '' : ' ph'}`;
       return `<li><button class="${cls}" data-nav="${key}" data-kind="${n.kind || ''}" data-component="${n.component || ''}">/${n.label}</button></li>`;
     }).join('') || '<li class="none">nothing yet</li>'}</ul>` : '';
-    return `<li><button class="row level${open ? ' open' : ''}" data-level="${lv}">${lv}</button>${leaves}</li>`;
+    return `<li><button class="row level${open ? ' open' : ''}${sheetLv && navKey === lv ? ' active' : ''}" data-level="${lv}">${lv}</button>${leaves}</li>`;
   }).join('')}</ul>`;
 }
 
 $('#nav').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.level && SHEET_TIERS.includes(b.dataset.level)) { openSheet(b.dataset.level); return; }
   if (b.dataset.level) { openLevel = openLevel === b.dataset.level ? null : b.dataset.level; renderNav(); return; }
   if (b.dataset.nav) {
-    navKey = b.dataset.nav; kind = b.dataset.kind || null; selected = null;
+    sheetTier = null; navKey = b.dataset.nav; kind = b.dataset.kind || null; selected = null;
     component = components.find((c) => c.path === b.dataset.component) || null;
     library = null; asset = null;
     cstate = freshPreview(); editing = false; selection = null;
@@ -127,6 +132,18 @@ $('#nav').addEventListener('click', (e) => {
   }
   renderAll();
 });
+
+function openSheet(tier) {
+  openLevel = tier; navKey = tier; sheetTier = tier; kind = null; selected = null; component = null; library = null; asset = null;
+  editing = false; selection = null; cstate = freshPreview(); setCanvasSrc(); renderAll();
+}
+// One element on its own (from the sheet): the old per-element page with its variants, properties and edit mode.
+function openComponent(path) {
+  const c = components.find((x) => x.path === path); if (!c) return;
+  sheetTier = null; kind = null; selected = null; library = null; asset = null; component = c;
+  navKey = SHEET_TIERS.includes(c.tier) ? c.tier : `${c.tier}/${camel(path.split('/')[1])}`; openLevel = c.tier;
+  cstate = freshPreview(); editing = false; selection = null; setCanvasSrc(); renderAll();
+}
 
 /* ---------- table ---------- */
 const DESC = {
@@ -179,7 +196,18 @@ function fieldHtml(f, t) {
   }
 }
 
+const TIER_NOTE = { atoms: 'The smallest pieces. Everything else is built from these.', molecules: 'Small groups of atoms that do one job together.' };
+function renderSheetPanel(p) {
+  const list = components.filter((c) => c.tier === sheetTier);
+  p.innerHTML = `<div class="cp-top"><h2 class="cp-title" style="text-transform:capitalize">${esc(sheetTier)}</h2><label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div><p class="mute">${esc(TIER_NOTE[sheetTier] || '')} Open one to edit its defaults.</p>
+    <div class="nested">${list.map((c) => `<button class="nested-row" type="button" data-open="${c.path}"><span>${esc(c.meta.name)}</span><span class="meta">${CHEV_RIGHT}</span></button>`).join('')}</div>`;
+}
+$('#panel').addEventListener('click', (e) => {
+  const op = e.target.closest('[data-open]'); if (op) { openComponent(op.dataset.open); return; }
+  const bk = e.target.closest('[data-sheet-back]'); if (bk) openSheet(bk.dataset.sheetBack);
+});
 function renderPanel() {
+  if (sheetTier) return renderSheetPanel($('#panel-body'));
   if (component) return renderComponentPanel();
   if (library) return renderLibraryPanel();
   const p = $('#panel-body');
@@ -479,8 +507,9 @@ async function loadComponents() {
 }
 
 function setCanvasSrc() {
-  if (!component) return;
-  const want = `../preview/component.html?c=${component.path}${window.__V ? `&v=${window.__V}` : ''}`;
+  if (!component && !sheetTier) return;
+  const v = window.__V ? `&v=${window.__V}` : '';
+  const want = sheetTier ? `../preview/sheet.html?tier=${sheetTier}${v}` : `../preview/component.html?c=${component.path}${v}`;
   if (screen.getAttribute('src') !== want) screen.setAttribute('src', want);
 }
 
@@ -606,7 +635,7 @@ function renderComponentPanel() {
       .map(([k, a]) => field(k, select(`data-cattr="${esc(k)}"`, a.values.map((v) => [v, v]), cstate.attrs[k] || a.default))).join('');
     const states = (m.states || []).length ? field('state (forced)', select('id="cstate"', [['', 'none'], ...m.states.map((x) => [x, x])], cstate.state)) : '';
     const options = attrs || states ? sec('options', 'Options', attrs + states) : '';
-    p.innerHTML = panelHead(m) + `<div class="cp-sections">${thumbs}${props}${content}${options}</div>` + footer;
+    p.innerHTML = `<button class="link back-sheet" data-sheet-back="${esc(m.tier)}">‹ ${esc(m.tier)}</button>` + panelHead(m) + `<div class="cp-sections">${thumbs}${props}${content}${options}</div>` + footer;
   }
   scaleThumbs();
 }
@@ -774,7 +803,9 @@ $('#panel').addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key
 $('#panel').addEventListener('mouseover', (e) => { const t = hoverTarget(e), api = component && screen.contentWindow.tdsComponent; if (t && api && api.hover) api.hover(t.id, t.kind); });
 $('#panel').addEventListener('mouseout', (e) => { const api = component && screen.contentWindow.tdsComponent; if (hoverTarget(e) && !hoverTarget({ target: e.relatedTarget || document.body }) && api && api.hover) api.hover(null); });
 window.addEventListener('message', (e) => {
-  if (e.origin !== location.origin || !e.data || !component) return;
+  if (e.origin !== location.origin || !e.data) return;
+  if (e.data.type === 'tds-open') { openComponent(e.data.path); return; }
+  if (!component) return;
   if (e.data.type === 'tds-edit') {   // text being typed on the canvas: the panel's field follows
     document.querySelectorAll(`#panel [data-cm-item="${e.data.id}"]`).forEach((f) => { if ((f.dataset.cmProp || null) === (e.data.prop || null) && 'value' in f) f.value = e.data.value; });
     return;
@@ -802,8 +833,8 @@ const screen = $('#screen');
 
 // The content decides the view: components open on the canvas; tokens, assets and everything else are tables.
 function renderView() {
-  const canvas = !!component;
-  $('#sheet').hidden = canvas; $('#stage').hidden = !canvas; $('#toolbar').hidden = !canvas;
+  const canvas = !!component || !!sheetTier;
+  $('#sheet').hidden = canvas; $('#stage').hidden = !canvas; $('#toolbar').hidden = !(component && isSingle(component));
   $('#add').hidden = !kind; $('#sheethead').hidden = !kind;
   if (canvas) fit();
 }
@@ -811,7 +842,15 @@ function renderView() {
 // The canvas is full-screen. While the interface is showing, keep the frame clear of the panels.
 const UI_AREA = { l: 208, r: 288, t: 40, b: 0 };   // nav, properties panel, top bar
 function fit() {
-  const on = $('#app').dataset.ui !== 'off', a = on ? UI_AREA : { l: 0, r: 0, t: 0, b: 0 };
+  const on = $('#app').dataset.ui !== 'off';
+  // the sticker sheets and the atom/molecule pages fill the whole area (no device); organisms and patterns sit in a device frame
+  if (sheetTier || (component && !isSingle(component))) {
+    const a = on ? { ...UI_AREA, t: 0 } : { l: 0, r: 0, t: 0, b: 0 }, w = innerWidth - a.l - a.r, h = innerHeight - a.t - a.b;
+    $('#wrap').style.cssText = `width:${w}px;height:${h}px;left:${a.l}px;top:${a.t}px`;
+    $('#frame').className = 'fill'; $('#frame').style.cssText = `width:${w}px;height:${h}px`;
+    screen.style.cssText = `width:${w}px;height:${h}px`; return;
+  }
+  const a = on ? UI_AREA : { l: 0, r: 0, t: 0, b: 0 };
   const W = dims.w, H = dims.h, pad = 24;
   const aw = innerWidth - a.l - a.r, ah = innerHeight - a.t - a.b;
   const s = Math.max(0.1, Math.min(1, (aw - 2 * pad) / W, (ah - 2 * pad) / H));
@@ -835,7 +874,8 @@ for (const id of ['dw', 'dh']) $('#' + id).addEventListener('change', (e) => {
 });
 
 function applyModes() {
-  const docs = [screen, ...document.querySelectorAll('.thumb-frame iframe')].map((f) => f.contentDocument).filter(Boolean);   // the canvas and the panel thumbnails
+  const sheetDocs = sheetTier && screen.contentDocument ? [...screen.contentDocument.querySelectorAll('iframe')] : [];   // the sticker sheet's pages
+  const docs = [screen, ...sheetDocs, ...document.querySelectorAll('.thumb-frame iframe')].map((f) => f.contentDocument).filter(Boolean);   // the canvas and the panel thumbnails
   for (const d of docs) d.documentElement.setAttribute('data-fidelity', fidelity);
 }
 
@@ -852,7 +892,7 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && component && selection) { const api = screen.contentWindow.tdsComponent; if (api) api.select(null); }
   if ((e.metaKey || e.ctrlKey) && e.code === 'Backslash') { e.preventDefault(); setUi($('#app').dataset.ui === 'off'); }
 });
-window.addEventListener('resize', () => { if (component) fit(); });
+window.addEventListener('resize', () => { if (component || sheetTier) fit(); });
 setUi(localStorage.tdsUi !== 'off');
 
 (async () => {

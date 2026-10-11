@@ -131,6 +131,10 @@ The Background property depends on the state: gradient states offer the gradient
 
 The appointment card also has an **Error** state (Couldn't load, with Retry) for when it fails to load; it is not a separate card.
 
+## Sticker sheets
+
+Atoms and molecules are one page each in the editor: click `atoms` or `molecules` in the nav and every element of that level is listed on a single full-width sheet (`preview/sheet.html`), each with all of its variants. They sit on the page itself, not in a phone. The panel lists the elements; click one (or its title on the sheet) to open it on its own, with its properties and edit mode, and `‹ atoms` takes you back. Organisms and patterns still show one instance in a device frame.
+
 ## Type styles
 
 `tds/foundations/styles/type.json` is the list of text styles (from the Figma text styles): Headline 1, Headline 2, Subhead, Body Large / Medium / Small / XS, with semibold variants and Body Medium Italic. Each one bundles five tokens (font, weight, size, line height, letter spacing). `type.css` is generated from it (`tools/build-type.js`, in the editor under styles > type) into `--text-<style>` and `--text-<style>-ls` custom properties plus a `.text-<style>` class. **Components never spell out their own font values**: they use `font: var(--text-body-md); letter-spacing: var(--text-body-md-ls);`, so editing a style in the editor changes it everywhere it is used. The only exceptions are device chrome (the status bar's time and the editor's selection labels).

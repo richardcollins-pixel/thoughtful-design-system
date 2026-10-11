@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" data-fidelity="styled">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TDS sticker sheet</title>
+  <link rel="stylesheet" href="../tds/tds.css">
+  <style>
+    /* canvas chrome only: a sticker sheet lists every element of a level, each with all of its variants */
+    body { padding: var(--space-8) var(--space-8) var(--space-16); }
+    body:not([data-ready]) > * { visibility: hidden; }
+    .intro { margin-bottom: var(--space-8); }
+    .item { padding-block: var(--space-6); border-top: 1px solid var(--border-secondary); }
+    .item:first-of-type { border-top: 0; padding-top: 0; }
+    .head { display: flex; align-items: baseline; gap: var(--space-3); margin-bottom: var(--space-4); }
+    .head button { all: unset; cursor: pointer; }
+    .head button:hover { text-decoration: underline; }
+    iframe { display: block; width: 100%; border: 0; height: 120px; background: transparent; color-scheme: dark; }
+  </style>
+</head>
+<body>
+  <main id="sheet"></main>
+  <script type="module">
+    const q = new URLSearchParams(location.search), tier = q.get('tier'), ver = q.get('v');
+    const j = (u) => fetch(u, { cache: 'no-store' }).then((r) => r.json());
+    const paths = (await j('../tds/index.json')).components.filter((c) => c.startsWith(tier + '/'));
+    const metas = await Promise.all(paths.map((p) => j(`../tds/${p}/${p.split('/').pop()}.meta.json`)));
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const intro = { atoms: 'The smallest pieces. Everything else is built from these.', molecules: 'Small groups of atoms that do one job together.' }[tier] || '';
+    document.getElementById('sheet').innerHTML = `<div class="intro"><h1 class="text-headline-2">${esc(tier)}</h1><p class="text-body-md text-secondary">${esc(intro)}</p></div>` + paths.map((p, i) => `
+      <section class="item" data-path="${p}">
+        <div class="head"><button class="text-body-lg-semibold" data-open="${p}" title="Open ${esc(metas[i].name)}">${esc(metas[i].name)}</button><span class="text-body-sm text-tertiary">${esc(metas[i].description || '')}</span></div>
+        <iframe title="${esc(metas[i].name)}" src="component.html?c=${p}&embed=1${ver ? `&v=${ver}` : ''}"></iframe>
+      </section>`).join('');
+    // Each element page tells us how tall it is; opening one asks the editor to show it on its own.
+    addEventListener('message', (e) => {
+      if (e.origin !== location.origin || !e.data) return;
+      if (e.data.type === 'tds-height') { const f = [...document.querySelectorAll('iframe')].find((x) => x.contentWindow === e.source); if (f) f.style.height = `${Math.ceil(e.data.h)}px`; }
+    });
+    document.addEventListener('click', (e) => { const b = e.target.closest('[data-open]'); if (b && self !== top) parent.postMessage({ type: 'tds-open', path: b.dataset.open }, location.origin); });
+    document.body.dataset.ready = '';
+  </script>
+</body>
+</html>
