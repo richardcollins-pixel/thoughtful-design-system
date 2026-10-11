@@ -1,0 +1,11 @@
+/* Organism: session history card. The text block sits centred in the card and the arrow button at the bottom right. Slots are
+   real elements ([data-slot]): content, action. */
+.session-history-card { --card-fill: var(--gradient-purple-to-blue); --card-gap: 0; padding-block: var(--padding-xl) var(--padding-md); min-height: 390px; }
+.session-history-card__content { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: var(--space-4); min-width: 0; }
+.session-history-card__titles { display: flex; flex-direction: column; gap: var(--space-1); }
+.session-history-card__title-row { display: flex; align-items: center; gap: var(--space-3); }
+.session-history-card__action { display: flex; justify-content: flex-end; }
+
+.session-history-card__overline { color: var(--text-tertiary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
+.session-history-card__headline { font: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-tight) var(--font-family-display); letter-spacing: var(--letter-spacing-tight); }
+.session-history-card__body { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }

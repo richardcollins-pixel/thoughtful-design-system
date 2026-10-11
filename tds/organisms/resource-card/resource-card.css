@@ -1,0 +1,8 @@
+/* Organism: resource card. A faint fill, small padding, text on top and two equal outline buttons. Slots: content, actions. */
+.resource-card { --card-fill: var(--bg-elevation-10); --card-padding-y: var(--padding-md); --card-gap: var(--space-4); }
+.resource-card__content { display: flex; flex-direction: column; gap: var(--space-4); }
+.resource-card__actions { display: flex; gap: var(--space-2); }
+.resource-card__actions > * { flex: 1 1 0; min-width: 0; }
+.resource-card__headline { font: var(--font-weight-semibold) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); letter-spacing: var(--letter-spacing-tight); }
+.resource-card__link { color: var(--text-secondary); text-decoration: underline; font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); text-decoration-line: underline; }
+.resource-card__body { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }

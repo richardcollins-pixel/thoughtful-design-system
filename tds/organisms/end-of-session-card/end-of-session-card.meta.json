@@ -1,0 +1,118 @@
+{
+  "name": "End of session card",
+  "tier": "organisms",
+  "category": "cards",
+  "stateful": false,
+  "uses": [
+    "atoms/card",
+    "atoms/button",
+    "molecules/skeleton-text"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<article class=\"card end-of-session-card\"><div class=\"end-of-session-card__content\" data-slot=\"content\">{{item:overline}}{{item:headline}}</div><div class=\"end-of-session-card__actions\" data-slot=\"actions\">{{item:primary}}{{item:secondary}}</div></article>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "overline",
+            "headline"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "actions",
+          "label": "Actions slot",
+          "items": [
+            "primary",
+            "secondary"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {
+    "--card-fill": "fill",
+    "--card-radius": "radius"
+  },
+  "styles": [],
+  "selector": ".end-of-session-card",
+  "description": "Closes a session: an overline and a large headline, a filled button for the main next step and a quiet flat button underneath.",
+  "items": {
+    "overline": {
+      "type": "text",
+      "tag": "p",
+      "class": "end-of-session-card__overline",
+      "label": "Overline",
+      "value": "Overline",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "headline": {
+      "type": "text",
+      "tag": "h3",
+      "class": "end-of-session-card__headline",
+      "label": "Headline",
+      "value": "Headline goes here",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "primary": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Button",
+      "props": {
+        "label": "Button",
+        "variant": "filled",
+        "size": "md",
+        "width": "full"
+      },
+      "expose": [
+        "label"
+      ]
+    },
+    "secondary": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Flat button",
+      "props": {
+        "label": "Flat Button",
+        "variant": "flat",
+        "size": "sm",
+        "width": "hug"
+      },
+      "expose": [
+        "label"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [
+    {
+      "id": "background",
+      "label": "Background Color",
+      "type": "gradients",
+      "var": "--card-fill",
+      "default": "var(--gradient-dark-rose-to-orange)"
+    },
+    {
+      "id": "radius",
+      "label": "Corner Radius",
+      "type": "scale",
+      "scale": "radius",
+      "vars": [
+        "--card-radius"
+      ],
+      "default": "var(--radius-md)",
+      "edit": true
+    }
+  ],
+  "prompts": []
+}
