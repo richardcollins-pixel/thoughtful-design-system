@@ -13,6 +13,7 @@
 @import url("foundations/styles/elevation.css")        layer(styles);
 @import url("foundations/styles/motion.css")           layer(styles);
 @import url("foundations/styles/skeleton.css")         layer(styles);
+@import url("foundations/styles/carousel.css")         layer(styles);
 
 @import url("foundations/layout/layout.css")           layer(layout);
 

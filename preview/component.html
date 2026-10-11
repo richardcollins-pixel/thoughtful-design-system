@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="../tds/tds.css">
   <style>
     /* canvas chrome only */
-    body { padding: var(--space-6); }
+    body { padding: var(--page-gutter, var(--space-6)); }
     .label { margin-bottom: var(--space-2); }
     .subject { display: flex; align-items: center; justify-content: center; min-height: 8rem; padding: var(--padding-lg); border-radius: var(--radius-md); background: var(--bg-elevation-5); }
     .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
@@ -255,5 +255,6 @@
     document.body.dataset.ready = '';   // until now the page shows nothing, not its placeholder
     if (self !== top && !thumb) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
   </script>
+  <script type="module" src="../tds/behaviors/carousel.js"></script>
 </body>
 </html>

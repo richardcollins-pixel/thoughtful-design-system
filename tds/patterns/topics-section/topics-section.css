@@ -1,13 +1,12 @@
 /* Pattern: topics section. A subhead and a line of copy, then cards (and an action under them). One card fills the width;
-   several scroll sideways and snap. Slots are real elements ([data-slot]): header, cards, actions. */
+   several form a carousel. Slots are real elements ([data-slot]): header, cards, actions. */
 .topics-section { --topics-section-gap: var(--space-4); display: flex; flex-direction: column; gap: var(--topics-section-gap); width: 100%; }
 
 .topics-section__header { display: flex; flex-direction: column; }
 .topics-section__title { font: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-tight) var(--font-family-display); letter-spacing: var(--letter-spacing-tight); }
 .topics-section__copy  { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
 
-.topics-section__cards { display: flex; gap: var(--topics-section-gap); }
+.topics-section__cards { display: flex; gap: var(--topics-section-gap); --carousel-gap: var(--topics-section-gap); }
 .topics-section__cards > .session-card { flex: 1 1 0; min-width: 0; }
-.topics-section[data-layout="carousel"] .topics-section__cards { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-.topics-section[data-layout="carousel"] .topics-section__cards::-webkit-scrollbar { display: none; }
-.topics-section[data-layout="carousel"] .topics-section__cards > .session-card { flex: 0 0 320px; scroll-snap-align: start; }
+/* several cards: the shared carousel (styles > carousel) does the bleed, the snapping and the fade; here only each card's width */
+.topics-section[data-layout="carousel"] .topics-section__cards > .session-card { flex: 0 0 320px; }

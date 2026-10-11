@@ -119,6 +119,8 @@ The **provider bio card** (`organisms/provider-bio-card`, from the Figma Provide
 
 The **session cards** (Figma "Session Cards"): `organisms/session-card` has three states (Medium, Large, New topic) and ends in the **chat input** molecule (the "Start session" pill); `patterns/topics-section` is the first pattern: the homepage section (subhead, copy, then cards) with states Start, 1 recent topic and 2+ recent topics. Patterns are composed like organisms, and can place whole organisms as items (an organism item exposes its state and its text).
 
+**Carousels** are one shared piece: mark a row `data-carousel` and it bleeds to the screen edges (cancelling `--page-gutter`), locks onto one item per swipe (scroll snap), and fades the items continuously as you scroll: the one in focus is fully opaque, the others `--carousel-min-opacity` (50%). The look is `foundations/styles/carousel.css`; `behaviors/carousel.js` (include once) sets each item's `--carousel-focus` and finds carousels added later.
+
 ## Loading states
 
 One shimmer serves the whole system: `tds/foundations/styles/skeleton.css`; the **skeleton atom** (`atoms/skeleton`: a line, dot or pill, always fully rounded) draws it, and the **skeleton-text molecule** (`molecules/skeleton-text`) is a multi-line placeholder whose lines take the height of the surrounding text and follow `--skeleton-align` (speed is the `duration-shimmer` token; it stops under reduced motion and follows the surface colour, so Charcoal needs nothing extra).
