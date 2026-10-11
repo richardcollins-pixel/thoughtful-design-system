@@ -34,6 +34,8 @@
 @import url("organisms/appointment-card/appointment-card.css") layer(organisms);
 @import url("organisms/provider-bio-card/provider-bio-card.css") layer(organisms);
 @import url("organisms/session-card/session-card.css") layer(organisms);
+@import url("organisms/header-card/header-card.css") layer(organisms);
+@import url("organisms/header-inset-card/header-inset-card.css") layer(organisms);
 
 @import url("patterns/topics-section/topics-section.css") layer(patterns);
 

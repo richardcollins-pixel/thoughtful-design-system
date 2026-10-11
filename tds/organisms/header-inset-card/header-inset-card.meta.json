@@ -1,0 +1,91 @@
+{
+  "name": "Header inset card",
+  "tier": "organisms",
+  "category": "cards",
+  "stateful": false,
+  "uses": [
+    "atoms/card",
+    "molecules/skeleton-text"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<article class=\"card header-inset-card\"><div class=\"header-inset-card__content\" data-slot=\"content\">{{item:headline}}{{item:body}}</div></article>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "headline",
+            "body"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {
+    "--card-fill": "fill",
+    "--card-padding-x": "padding",
+    "--card-padding-y": "padding",
+    "--card-radius": "radius"
+  },
+  "styles": [],
+  "selector": ".header-inset-card",
+  "description": "A card that sits inset on a screen, under its header: a serif headline and a few lines of copy on the purple-to-blue gradient. Figma's Profile and Secondary types look identical, so they are one card here.",
+  "items": {
+    "headline": {
+      "type": "text",
+      "tag": "h3",
+      "class": "header-inset-card__headline",
+      "label": "Headline",
+      "value": "Headline goes here",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "header-inset-card__body",
+      "label": "Body Copy",
+      "value": "Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }
+  },
+  "personas": [],
+  "properties": [
+    {
+      "id": "background",
+      "label": "Background Color",
+      "type": "gradients",
+      "var": "--card-fill",
+      "default": "var(--gradient-purple-to-blue)"
+    },
+    {
+      "id": "radius",
+      "label": "Corner Radius",
+      "type": "scale",
+      "scale": "radius",
+      "vars": [
+        "--card-radius"
+      ],
+      "default": "var(--radius-md)",
+      "edit": true
+    },
+    {
+      "id": "padding",
+      "label": "Padding",
+      "type": "scale",
+      "scale": "padding",
+      "vars": [
+        "--card-padding-x",
+        "--card-padding-y"
+      ],
+      "edit": true
+    }
+  ],
+  "prompts": []
+}
