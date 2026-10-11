@@ -1,0 +1,90 @@
+{
+  "name": "Header",
+  "tier": "molecules",
+  "category": "navigation",
+  "stateful": false,
+  "uses": [
+    "atoms/status-bar",
+    "atoms/icon-button",
+    "atoms/icon",
+    "atoms/button",
+    "atoms/dots"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=198-30050",
+  "markup": "<header class=\"header\" data-variant=\"back-button\"><div class=\"header__status\"><div class=\"status-bar\"><span>9:41</span><svg viewBox=\"0 0 18 12\" width=\"18\" height=\"12\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"0\" y=\"8\" width=\"3\" height=\"4\" rx=\"1\"/><rect x=\"5\" y=\"5.5\" width=\"3\" height=\"6.5\" rx=\"1\"/><rect x=\"10\" y=\"3\" width=\"3\" height=\"9\" rx=\"1\"/><rect x=\"15\" y=\"0\" width=\"3\" height=\"12\" rx=\"1\"/></svg><svg viewBox=\"0 0 17 12\" width=\"17\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M1.2 4.2a10.4 10.4 0 0 1 14.6 0\"/><path d=\"M3.9 7a6.5 6.5 0 0 1 9.2 0\"/><circle cx=\"8.5\" cy=\"10.2\" r=\"1\" fill=\"currentColor\" stroke=\"none\"/></svg><svg viewBox=\"0 0 27 13\" width=\"27\" height=\"13\" fill=\"none\" aria-hidden=\"true\"><rect x=\"0.5\" y=\"0.5\" width=\"22\" height=\"12\" rx=\"3.8\" stroke=\"currentColor\" opacity=\"0.4\"/><rect x=\"2\" y=\"2\" width=\"19\" height=\"9\" rx=\"2.5\" fill=\"currentColor\"/><path d=\"M24.5 4.5v4c.9-.3 1.5-1.2 1.5-2s-.6-1.7-1.5-2Z\" fill=\"currentColor\" opacity=\"0.5\"/></svg></div></div><div class=\"header__bar\"><button class=\"icon-button header__back\" data-elevation=\"20\" data-size=\"sm\" aria-label=\"Back\"><i class=\"icon icon-chevron-left\"></i></button><span class=\"header__title\">Title</span><span class=\"dots\" data-current=\"1\"><i></i><i></i><i></i><i></i><i></i><i></i></span><button class=\"button header__action\" data-variant=\"glass\" data-size=\"sm\">Support</button><button class=\"icon-button header__close\" data-elevation=\"20\" data-size=\"sm\" aria-label=\"Close\"><i class=\"icon icon-x\"></i></button></div></header>",
+  "attributes": {
+    "data-variant": {
+      "type": "enum",
+      "values": [
+        "close",
+        "steps-close",
+        "sub-section",
+        "back-button",
+        "back-progress",
+        "section-root"
+      ],
+      "default": "close"
+    }
+  },
+  "states": [],
+  "variables": {
+    "--header-padding-x": "padding"
+  },
+  "styles": [],
+  "description": "The top of a screen: the status bar, then a back or close button with a title, step dots or an action. Close and Steps and close are for modal flows, Back and button and Back and progress for steps, Sub-section for a page under another, and Section root for a top-level screen.",
+  "content": [
+    {
+      "label": "Title",
+      "selector": ".header__title"
+    },
+    {
+      "label": "Action",
+      "selector": ".header__action"
+    }
+  ],
+  "props": {
+    "variant": {
+      "type": "enum",
+      "label": "Variant",
+      "values": [
+        "close",
+        "steps-close",
+        "sub-section",
+        "back-button",
+        "back-progress",
+        "section-root"
+      ],
+      "default": "close"
+    },
+    "title": {
+      "type": "text",
+      "label": "Title",
+      "default": "Title"
+    },
+    "action": {
+      "type": "text",
+      "label": "Action",
+      "default": "Support"
+    },
+    "step": {
+      "type": "enum",
+      "label": "Step",
+      "ui": "steps",
+      "values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "default": "1"
+    },
+    "time": {
+      "type": "text",
+      "label": "Time",
+      "default": "9:41"
+    }
+  },
+  "template": "<header class=\"header\" data-variant=\"{{variant}}\"><div class=\"header__status\"><div class=\"status-bar\"><span>{{time}}</span><svg viewBox=\"0 0 18 12\" width=\"18\" height=\"12\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"0\" y=\"8\" width=\"3\" height=\"4\" rx=\"1\"/><rect x=\"5\" y=\"5.5\" width=\"3\" height=\"6.5\" rx=\"1\"/><rect x=\"10\" y=\"3\" width=\"3\" height=\"9\" rx=\"1\"/><rect x=\"15\" y=\"0\" width=\"3\" height=\"12\" rx=\"1\"/></svg><svg viewBox=\"0 0 17 12\" width=\"17\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M1.2 4.2a10.4 10.4 0 0 1 14.6 0\"/><path d=\"M3.9 7a6.5 6.5 0 0 1 9.2 0\"/><circle cx=\"8.5\" cy=\"10.2\" r=\"1\" fill=\"currentColor\" stroke=\"none\"/></svg><svg viewBox=\"0 0 27 13\" width=\"27\" height=\"13\" fill=\"none\" aria-hidden=\"true\"><rect x=\"0.5\" y=\"0.5\" width=\"22\" height=\"12\" rx=\"3.8\" stroke=\"currentColor\" opacity=\"0.4\"/><rect x=\"2\" y=\"2\" width=\"19\" height=\"9\" rx=\"2.5\" fill=\"currentColor\"/><path d=\"M24.5 4.5v4c.9-.3 1.5-1.2 1.5-2s-.6-1.7-1.5-2Z\" fill=\"currentColor\" opacity=\"0.5\"/></svg></div></div><div class=\"header__bar\"><button class=\"icon-button header__back\" data-elevation=\"20\" data-size=\"sm\" aria-label=\"Back\"><i class=\"icon icon-chevron-left\"></i></button><span class=\"header__title\">{{title}}</span><span class=\"dots\" data-current=\"{{step}}\"><i></i><i></i><i></i><i></i><i></i><i></i></span><button class=\"button header__action\" data-variant=\"glass\" data-size=\"sm\">{{action}}</button><button class=\"icon-button header__close\" data-elevation=\"20\" data-size=\"sm\" aria-label=\"Close\"><i class=\"icon icon-x\"></i></button></div></header>"
+}

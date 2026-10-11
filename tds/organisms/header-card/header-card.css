@@ -23,3 +23,7 @@
 .header-card__headline { font: var(--font-weight-light) var(--font-size-3xl)/var(--line-height-tight) var(--font-family-body); letter-spacing: var(--letter-spacing-tight); }
 .header-card[data-variant="provider"] .header-card__headline { font: var(--font-weight-regular) var(--font-size-2xl)/1.4 var(--font-family-body); letter-spacing: var(--letter-spacing-tighter); }
 .header-card__body { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
+
+/* the header sits on top of the card, over its padding (the card's own top padding leaves room for it) */
+.header-card { position: relative; }
+.header-card__top { position: absolute; inset: 0 0 auto 0; }

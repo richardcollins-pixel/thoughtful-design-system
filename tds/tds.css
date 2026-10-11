@@ -22,6 +22,8 @@
 @import url("atoms/icon/icon.css")                      layer(atoms);
 @import url("atoms/photo/photo.css")                    layer(atoms);
 @import url("atoms/skeleton/skeleton.css")             layer(atoms);
+@import url("atoms/status-bar/status-bar.css")         layer(atoms);
+@import url("atoms/dots/dots.css")                     layer(atoms);
 @import url("atoms/icon-button/icon-button.css")        layer(atoms);
 @import url("atoms/avatar/avatar.css")                  layer(atoms);
 @import url("atoms/card/card.css")                      layer(atoms);
@@ -30,6 +32,7 @@
 @import url("molecules/avatar-group/avatar-group.css")  layer(molecules);
 @import url("molecules/skeleton-text/skeleton-text.css") layer(molecules);
 @import url("molecules/chat-input/chat-input.css")      layer(molecules);
+@import url("molecules/header/header.css")             layer(molecules);
 
 @import url("organisms/appointment-card/appointment-card.css") layer(organisms);
 @import url("organisms/provider-bio-card/provider-bio-card.css") layer(organisms);

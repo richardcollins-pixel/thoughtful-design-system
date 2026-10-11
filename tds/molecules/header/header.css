@@ -1,0 +1,20 @@
+/* Molecule: header. The top of a screen: the status bar, then a row with a back or close button, a title or step dots, and an
+   optional action. Six variants decide which of those show. Built from the status bar, icon button, dots and button atoms. */
+.header { --header-padding-x: var(--padding-md); display: flex; flex-direction: column; box-sizing: border-box; width: 100%; color: var(--text-primary); }
+.header__bar { display: flex; align-items: center; gap: var(--space-2); box-sizing: border-box; height: 72px; padding: var(--space-2) var(--header-padding-x) var(--padding-md); }
+.header__title { font: var(--font-weight-semibold) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); letter-spacing: var(--letter-spacing-tight); }
+.header__action { margin-left: auto; }
+.header__close { margin-left: auto; }
+
+/* which parts each variant shows */
+.header > .header__bar > * { display: none; }
+.header[data-variant="close"] .header__close,
+.header[data-variant="steps-close"] .header__close,
+.header[data-variant="steps-close"] .dots,
+.header[data-variant="sub-section"] .header__back, .header[data-variant="sub-section"] .header__title,
+.header[data-variant="back-button"] .header__back, .header[data-variant="back-button"] .header__title, .header[data-variant="back-button"] .header__action,
+.header[data-variant="back-progress"] .header__back, .header[data-variant="back-progress"] .dots, .header[data-variant="back-progress"] .header__action,
+.header[data-variant="section-root"] .header__title { display: revert-layer; }   /* back to the atom's own display */
+.header[data-variant="section-root"] .header__bar { justify-content: center; }
+.header[data-variant="steps-close"] .dots { margin-right: auto; }
+.header[data-variant="back-progress"] .dots { margin-left: var(--space-2); }
