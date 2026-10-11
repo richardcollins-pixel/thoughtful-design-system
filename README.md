@@ -117,7 +117,7 @@ Double-click text on the canvas to edit it in place; the panel's field follows a
 
 The **provider bio card** (`organisms/provider-bio-card`, from the Figma Provider Card) is the second composed organism: photo, name, quote and bio, in Focused and Unfocused (dimmed) states for a carousel. Providers now carry a `quote` and `bio` (`assets/personas.json`), available as `{{provider-quote}}` and `{{provider-bio}}`. It uses the new **photo** atom (rectangular, crops to a height; the avatar is the round one).
 
-The **session cards** (Figma "Session Cards"): `organisms/session-card` has three states (Medium, Large, New topic) and ends in the **chat input** molecule (the "Start session" pill); `patterns/session-card-carousel` is the first pattern, a sideways-scrolling row of Medium cards (static markup for now).
+The **session cards** (Figma "Session Cards"): `organisms/session-card` has three states (Medium, Large, New topic) and ends in the **chat input** molecule (the "Start session" pill); `patterns/topics-section` is the first pattern: the homepage section (subhead, copy, then cards) with states Start, 1 recent topic and 2+ recent topics. Patterns are composed like organisms, and can place whole organisms as items (an organism item exposes its state and its text).
 
 ## Loading states
 

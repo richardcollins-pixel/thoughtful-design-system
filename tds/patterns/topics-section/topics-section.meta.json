@@ -1,0 +1,206 @@
+{
+  "name": "Topics section",
+  "tier": "patterns",
+  "category": "sections",
+  "stateful": false,
+  "uses": [
+    "organisms/session-card",
+    "atoms/button"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
+  "states": [
+    {
+      "id": "start",
+      "name": "Start",
+      "template": "<section class=\"topics-section\" data-layout=\"single\"><div class=\"topics-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"topics-section__cards\" data-slot=\"cards\">{{item:card1}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "cards",
+          "label": "Cards slot",
+          "items": [
+            "card1"
+          ],
+          "skeleton": true
+        }
+      ],
+      "overrides": {
+        "card1": {
+          "props": {
+            "state": "new-topic"
+          }
+        }
+      },
+      "personas": []
+    },
+    {
+      "id": "recent-1",
+      "name": "1 recent topic",
+      "template": "<section class=\"topics-section\" data-layout=\"single\"><div class=\"topics-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"topics-section__cards\" data-slot=\"cards\">{{item:card1}}</div><div class=\"topics-section__actions\" data-slot=\"actions\">{{item:newTopic}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "cards",
+          "label": "Cards slot",
+          "items": [
+            "card1"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "actions",
+          "label": "Actions slot",
+          "items": [
+            "newTopic"
+          ]
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "recent-many",
+      "name": "2+ recent topics",
+      "template": "<section class=\"topics-section\" data-layout=\"carousel\"><div class=\"topics-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"topics-section__cards\" data-slot=\"cards\">{{item:card1}}{{item:card2}}{{item:card3}}</div><div class=\"topics-section__actions\" data-slot=\"actions\">{{item:newTopic}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "cards",
+          "label": "Cards slot",
+          "items": [
+            "card1",
+            "card2",
+            "card3"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "actions",
+          "label": "Actions slot",
+          "items": [
+            "newTopic"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".topics-section",
+  "description": "A homepage section: a subhead and a line of copy, then cards. Start shows the New topic card alone. With one recent topic it shows that card with a New Topic button under it, and with two or more the cards scroll sideways. Other sections (Deep Dives) follow the same shape.",
+  "items": {
+    "heading": {
+      "type": "text",
+      "tag": "h2",
+      "class": "topics-section__title",
+      "label": "Subhead",
+      "value": "Your Topics",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "copy": {
+      "type": "text",
+      "tag": "p",
+      "class": "topics-section__copy",
+      "label": "Copy",
+      "value": "Let's pick up where you left off",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "card1": {
+      "type": "component",
+      "component": "organisms/session-card",
+      "label": "Topic card 1",
+      "props": {
+        "state": "md"
+      },
+      "expose": [
+        "state",
+        "headline",
+        "body"
+      ]
+    },
+    "card2": {
+      "type": "component",
+      "component": "organisms/session-card",
+      "label": "Topic card 2",
+      "props": {
+        "state": "md"
+      },
+      "expose": [
+        "state",
+        "headline",
+        "body"
+      ]
+    },
+    "card3": {
+      "type": "component",
+      "component": "organisms/session-card",
+      "label": "Topic card 3",
+      "props": {
+        "state": "md"
+      },
+      "expose": [
+        "state",
+        "headline",
+        "body"
+      ]
+    },
+    "newTopic": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "New Topic button",
+      "props": {
+        "label": "New Topic",
+        "variant": "outline",
+        "size": "lg",
+        "width": "full",
+        "icon": "plus"
+      },
+      "expose": [
+        "label"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [
+    {
+      "id": "gap",
+      "label": "Gap",
+      "type": "scale",
+      "scale": "spacing",
+      "vars": [
+        "--topics-section-gap"
+      ],
+      "default": "var(--space-4)",
+      "edit": true
+    }
+  ],
+  "prompts": []
+}

@@ -13,7 +13,8 @@ const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;
 export const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ESC[c]);
 
 // Fill {{key}} placeholders in an HTML template. Values are escaped; unknown keys are left as written.
-export const fill = (tpl, vars) => tpl.replace(/\{\{\s*([\w.-]+)\s*\}\}/g, (m, k) => (k in vars ? esc(vars[k]) : m));
+// {{?key}}…{{/key}} is shown only when key has a value (and isn't "none"), e.g. a button's optional icon.
+export const fill = (tpl, vars) => tpl.replace(/\{\{\?([\w.-]+)\}\}([\s\S]*?)\{\{\/\1\}\}/g, (m, k, body) => (vars[k] && vars[k] !== 'none' ? body : '')).replace(/\{\{\s*([\w.-]+)\s*\}\}/g, (m, k) => (k in vars ? esc(vars[k]) : m));
 
 // Plain text that may contain {{variables}}. Everything is escaped.
 export function text(str, data) {
@@ -53,10 +54,24 @@ export function effectiveItem(meta, st, id) {
   return { id, ...base, ...over, ...edit, props: { ...(base.props || {}), ...(over.props || {}), ...(edit.props || {}) } };
 }
 
+// A component's editable props. An organism placed inside a pattern exposes its state and its text items.
+const compProps = (comp) => comp.items ? {
+  state: { type: 'enum', label: 'State', values: comp.states.map((s) => s.id), default: comp.states[0].id },
+  ...Object.fromEntries(Object.entries(comp.items).filter(([, i]) => i.type === 'text').map(([k, i]) => [k, { type: 'text', label: i.label || k, default: i.value }])),
+} : (comp.props || {});
+
+// An organism inside a pattern renders itself (in its chosen state, with any text edits). Its parts aren't selectable
+// from out here, so their data-item / data-slot markers are dropped; the whole card is the item.
+function renderNested(comp, it, scope) {
+  const inner = { state: it.props.state || comp.states[0].id, personas: scope.st.personas || {}, items: {}, loading: scope.st.loading };
+  for (const [k, v] of Object.entries(it.props)) if (k !== 'state' && comp.items[k] && comp.items[k].type === 'text') inner.items[k] = { value: v, props: {} };
+  return renderOrganism(comp, inner, scope.ctx).replace(/ data-(?:item|slot)="[^"]*"/g, '');
+}
+
 // Flatten a component's props into placeholder values; a prop can be bound to a persona role.
 function propVars(compMeta, item, scope) {
   const vars = {};
-  for (const [key, def] of Object.entries(compMeta.props || {})) {
+  for (const [key, def] of Object.entries(compProps(compMeta))) {
     let v = item.props[key] ?? def.default;
     if (def.type === 'person') {
       const role = (item.bind || {})[key], list = scope.ctx.personas[role || 'provider'] || [];
@@ -90,6 +105,7 @@ function renderItem(scope, id) {
   if (it.type === 'text') return tagItem(`<${it.tag || 'p'}${it.class ? ` class="${it.class}"` : ''}>${text(it.value, scope.data)}</${it.tag || 'p'}>`, id);
   const comp = scope.ctx.components[it.component];
   if (!comp) return `<!-- unknown component ${esc(it.component)} -->`;
+  if (comp.items) return tagItem(renderNested(comp, it, scope), id);
   return tagItem(comp.template ? fill(comp.template, propVars(comp, it, scope)) : comp.markup, id);
 }
 
@@ -108,7 +124,9 @@ const promptFor = (meta, state, id) => {
   return p ? { id: p.id, label: p.label, instruction: p.instruction, inputs: p.inputs || [], outputs: p.outputs.map((o) => meta.items[o].label || o), level: 'design system' } : null;
 };
 function controlFor(meta, st, ctx, comp, key, item) {
-  const def = comp.props[key], value = item.props[key] ?? def.default;
+  const def = compProps(comp)[key];
+  // an organism's text shows what it currently says (its state's wording unless edited)
+  const value = item.props[key] ?? (comp.items && def.type === 'text' ? effectiveItem(comp, { state: item.props.state || comp.states[0].id }, key).value : def.default);
   const c = { key, label: def.label || key, type: def.type, value, ui: def.ui, content: def.type === 'text' };
   if (def.type === 'enum') c.values = def.values;
   if (def.type === 'person') {
@@ -116,7 +134,7 @@ function controlFor(meta, st, ctx, comp, key, item) {
     const role = (item.bind || {})[key];
     if (role) { const p = personaFor(st, ctx, role); c.bound = { role, label: cap(role), value: p ? p.name : '' }; }
   }
-  if (def.type === 'icon') c.options = ctx.glyphs;
+  if (def.type === 'icon') c.options = [{ value: 'none', label: 'none' }, ...ctx.glyphs];
   return c;
 }
 
@@ -124,7 +142,7 @@ function controlFor(meta, st, ctx, comp, key, item) {
 const nestedOf = (meta, ctx, slot) => slot.items.map((id) => {
   const it = meta.items[id]; if (it.type !== 'component') return null;
   const comp = ctx.components[it.component];
-  return comp && Object.keys(comp.props || {}).length ? { id, label: it.label || comp.name, kind: comp.name } : null;
+  return comp && Object.keys(compProps(comp)).length ? { id, label: it.label || comp.name, kind: comp.name } : null;
 }).filter(Boolean);
 
 // What the panel needs. By default only content (text) is exposed; { edit: true } also exposes structure (icons, sizes…).
@@ -146,7 +164,7 @@ export function getModel(meta, st, ctx, opts = {}) {
         const it = effectiveItem(meta, st, id);
         if (it.type === 'text') return { id, type: 'text', label: it.label || id, value: it.value, prompt: promptFor(meta, state, id) };
         const comp = ctx.components[it.component];
-        let controls = (it.expose || []).filter((k) => comp.props && comp.props[k]).map((k) => controlFor(meta, st, ctx, comp, k, it));
+        let controls = (it.expose || []).filter((k) => compProps(comp)[k]).map((k) => controlFor(meta, st, ctx, comp, k, it));
         if (!opts.edit) controls = controls.filter((c) => c.content);
         return { id, type: 'component', label: it.label || comp.name, controls, prompt: promptFor(meta, state, id) };
       }).filter((it) => it.type === 'text' || it.controls.length),
@@ -176,5 +194,5 @@ export function getItemModel(meta, st, ctx, id) {
   if (it.type === 'text') return { id, type: 'text', kind: 'Text', label: it.label || id, value: it.value, prompt: promptFor(meta, state, id), controls: [], slot };
   const comp = ctx.components[it.component];
   return { id, type: 'component', kind: comp.name, label: it.label || comp.name, prompt: promptFor(meta, state, id), slot,
-    controls: Object.keys(comp.props || {}).map((k) => controlFor(meta, st, ctx, comp, k, it)) };
+    controls: Object.keys(compProps(comp)).map((k) => controlFor(meta, st, ctx, comp, k, it)) };
 }
