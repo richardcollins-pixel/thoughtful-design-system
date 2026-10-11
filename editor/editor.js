@@ -157,6 +157,7 @@ function renderTable() {
 }
 
 $('#body').addEventListener('click', (e) => {
+  if (kind === 'typestyles' || e.target.closest('select, input, textarea')) return;   // the type page has its own row handling, and a click on a control must not redraw it
   const tr = e.target.closest('tr.item'); if (!tr) return;
   selected = tokens[+tr.dataset.i]; renderTable(); renderPanel();
 });
