@@ -186,6 +186,7 @@
       getItemModel(id) { return spec ? compose.getItemModel(meta, state, ctx, id) : null; },
       getSlotModel(id) { return spec ? compose.getSlotModel(meta, state, ctx, id) : null; },
       select(id, kind = 'item') { selectTarget(id ? { kind, id } : null); },
+      hover(id, kind = 'slot') { hov = id ? { kind, id } : null; drawOverlay(); },   // the panel previews what you point at
       getSelected() { return sel; },
       setVariant(id) { state.state = id; place(build()); },
       setPersona(role, id) { state.personas[role] = id; place(build()); },
