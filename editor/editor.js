@@ -50,9 +50,9 @@ const KINDS = {
     cols: [['Base', (t) => refChip(t.values.base)], ['Inverse', (t) => refChip(t.values.inverse)]],
     preview: (t) => `<div class="pair" style="grid-template-columns:1fr 1fr">${sw(primHex(t.values.base.ref), t.values.base.opacity, true)}${sw(primHex(t.values.inverse.ref), t.values.inverse.opacity, true)}</div>`,
   },
-  gradient: simple(['styles', 'color'], 'gradient', () => ({ base: '#3f0786', topRight: '#3f0786', topLeft: '#5a1f9b', bottomRight: '#62c2e5' }),
-    [{ key: 'base', label: 'Base fill', type: 'hex' }, { key: 'topRight', label: 'Glow — top right', type: 'hex' }, { key: 'topLeft', label: 'Glow — top left', type: 'hex' }, { key: 'bottomRight', label: 'Glow — bottom right', type: 'hex' }],
-    [['Gradient', (t) => `<i class="gradsw" style="background:${gradientCss(t)}"></i>`], ['Colors', (t) => `<span class="mute">${[t.base, t.topRight, t.topLeft, t.bottomRight].join(' · ')}</span>`]],
+  gradient: simple(['styles', 'color'], 'gradient', () => ({ base: '#3f0786', topRight: '#3f0786', topLeft: '#5a1f9b', bottomRight: '#62c2e5', foreground: 'light' }),
+    [{ key: 'foreground', label: 'Text on it', type: 'select', options: () => [['light', 'Light text'], ['dark', 'Dark text']] }, { key: 'base', label: 'Base fill', type: 'hex' }, { key: 'topRight', label: 'Glow — top right', type: 'hex' }, { key: 'topLeft', label: 'Glow — top left', type: 'hex' }, { key: 'bottomRight', label: 'Glow — bottom right', type: 'hex' }],
+    [['Gradient', (t) => `<i class="gradsw" style="background:${gradientCss(t)}"></i>`], ['Text', (t) => `<b class="aa" style="background:${gradientCss(t)};color:${t.foreground === 'dark' ? '#111' : '#fff'}">Aa</b>`], ['Colors', (t) => `<span class="mute">${[t.base, t.topRight, t.topLeft, t.bottomRight].join(' · ')}</span>`]],
     (t) => `<i class="gradsw lg" style="background:${gradientCss(t)}"></i>`),
   padding: simple(['tokens', 'layout', 'padding'], 'padding', () => ({ px: 16 }), [px()],
     [['px', (t) => `${t.px}px`], ['', (t) => `<div class="bar" style="width:${Math.min(t.px, 200)}px"></div>`]],
@@ -590,7 +590,7 @@ function propsBody(m, viewOnly = false, stateId = null) {
       // Gradient states offer the gradients. A state that is flat in the real UI (`flatStates`) shows just its flat fill, selected,
       // so you can see what it is without being offered gradients it doesn't use.
       if ((pr.flatStates || []).includes(stateId)) return prow(pr.label, `<div class="chips"><button class="chip-bg sel" type="button" data-cprop="${pr.id}" data-cvalue="${pr.default}" title="flat" style="background:#6b5a8a"></button></div>`);
-      return prow(pr.label, `<div class="chips">${tokens.filter((t) => t.kind === 'gradient').map((t) => `<button class="chip-bg${`var(--${t.name})` === cur ? ' sel' : ''}" type="button" data-cprop="${pr.id}" data-cvalue="var(--${t.name})" title="${esc(t.name)}" style="background:${gradientCss(t)}"></button>`).join('')}</div>`);
+      return prow(pr.label, `<div class="chips">${tokens.filter((t) => t.kind === 'gradient').map((t) => `<button class="chip-bg${`var(--${t.name})` === cur ? ' sel' : ''}" type="button" data-cprop="${pr.id}" data-cvalue="var(--${t.name})" title="${esc(t.name)} · ${t.foreground === 'dark' ? 'dark' : 'light'} text" style="background:${gradientCss(t)}"><span class="chip-aa" style="color:${t.foreground === 'dark' ? '#111' : '#fff'}">Aa</span></button>`).join('')}</div>`);
     }
     const toks = tokens.filter((t) => t.kind === pr.scale), vars = propVars(pr);
     const cur = vars.map((v) => propCur(m, v, vars.length === 1 ? pr.default : undefined));
@@ -658,7 +658,14 @@ function scaleThumbs() {
 function syncVars() {
   const api = component && screen.contentWindow && screen.contentWindow.tdsComponent; if (!api) return;
   api.clearVars();
-  for (const [k, v] of Object.entries({ ...(component.meta.defaults || {}), ...cstate.vars })) if (v) api.setVar(k, v);
+  let fg = 'light';
+  for (const [k, v] of Object.entries({ ...(component.meta.defaults || {}), ...cstate.vars })) {
+    if (!v) continue;
+    api.setVar(k, v);
+    const g = /^var\(--(gradient-[\w-]+)\)$/.exec(v);   // a gradient fill brings its own compliant text colour
+    if (g) { const t = tokens.find((x) => x.name === g[1]); if (t && t.foreground === 'dark') fg = 'dark'; }
+  }
+  if (api.setAttr && component.meta.items) api.setAttr('data-foreground', fg);
 }
 
 function editDefault(k, v) {
