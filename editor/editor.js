@@ -478,11 +478,15 @@ const personaRows = (model) => model.personas.map((pe) => prow(pe.label, dd(`dat
 // ---- token-bound properties (background, corner radius, padding)
 const propCur = (m, v, dflt) => cstate.vars[v] ?? (m.defaults || {})[v] ?? dflt;
 const propVars = (pr) => pr.vars || [pr.var];
-function propsBody(m, viewOnly = false) {
-  return (m.properties || []).filter((pr) => !(viewOnly && pr.edit)).map((pr) => {
+// Properties can be limited to some states ("states": [...]): a flat card has no gradient to pick. `stateId` is the state on show.
+// The Properties section; it stays in the page (hidden when empty) so changing state can bring properties in and out.
+const propsSec = (m, stateId) => { const body = propsBody(m, true, stateId); return sec('props', 'Properties', body).replace('<section class="cp-sec', `<section ${body ? '' : 'hidden '}data-props-sec class="cp-sec`); };
+function propsBody(m, viewOnly = false, stateId = null) {
+  return (m.properties || []).filter((pr) => !(viewOnly && pr.edit) && (!pr.states || !stateId || pr.states.includes(stateId))).map((pr) => {
     if (pr.type === 'gradients') {
       const cur = propCur(m, propVars(pr)[0], pr.default);
-      return prow(pr.label, `<div class="chips">${tokens.filter((t) => t.kind === 'gradient').map((t) => `<button class="chip-bg${`var(--${t.name})` === cur ? ' sel' : ''}" type="button" data-cprop="${pr.id}" data-cvalue="var(--${t.name})" title="${esc(t.name)}" style="background:${gradientCss(t)}"></button>`).join('')}</div>`);
+      const FLAT = 'var(--bg-elevation-20)';   // the flat option: the card's plain fill, no gradient
+      return prow(pr.label, `<div class="chips"><button class="chip-bg${FLAT === cur ? ' sel' : ''}" type="button" data-cprop="${pr.id}" data-cvalue="${FLAT}" title="flat" style="background:#6b5a8a"></button>${tokens.filter((t) => t.kind === 'gradient').map((t) => `<button class="chip-bg${`var(--${t.name})` === cur ? ' sel' : ''}" type="button" data-cprop="${pr.id}" data-cvalue="var(--${t.name})" title="${esc(t.name)}" style="background:${gradientCss(t)}"></button>`).join('')}</div>`);
     }
     const toks = tokens.filter((t) => t.kind === pr.scale), vars = propVars(pr);
     const cur = vars.map((v) => propCur(m, v, vars.length === 1 ? pr.default : undefined));
@@ -509,7 +513,7 @@ function renderComponentPanel() {
   if (m.items) {   // a composed organism: provider, state, background, then its slots' content
     const model = api && api.getModel();
     p.innerHTML = (model
-      ? `<div id="cp-main">${panelHead(m)}<div class="cp-sections">${sec('state', 'State', stateThumbs(model), RELOAD)}${propsBody(m, true) ? sec('props', 'Properties', propsBody(m, true)) : ''}<div class="cp-persona" id="cp-persona">${personaRows(model)}</div><div id="cp-slots">${slotsHtml(model)}</div>${m.surface ? sec('options', 'Options', surfaceField()) : ''}</div></div><div id="cp-el" hidden></div>`
+      ? `<div id="cp-main">${panelHead(m)}<div class="cp-sections">${sec('state', 'State', stateThumbs(model), RELOAD)}${propsSec(m, model.state)}<div class="cp-persona" id="cp-persona">${personaRows(model)}</div><div id="cp-slots">${slotsHtml(model)}</div>${m.surface ? sec('options', 'Options', surfaceField()) : ''}</div></div><div id="cp-el" hidden></div>`
       : panelHead(m)) + footer;
     showSelection();
   } else {            // an atom or molecule: variants, properties, content, options
@@ -564,7 +568,8 @@ function editDefault(k, v) {
 const setItem = (api, item, prop, value) => api.setItem(item, prop ? { props: { [prop]: value } } : { value });
 // The slots and the Provider row follow the current state (a state without a provider has no picker).
 const refreshSlots = (api) => {
-  const model = api.getModel(), box = $('#cp-slots'), pr = $('#cp-persona');
+  const model = api.getModel(), box = $('#cp-slots'), pr = $('#cp-persona'), ps = $('#cp-main [data-props-sec]');
+  if (ps && component.meta.items) { const inner = ps.querySelector('.cp-sec-inner'), body = propsBody(component.meta, true, model.state); inner.innerHTML = body; ps.hidden = !body; }
   if (box) box.innerHTML = slotsHtml(model);
   if (pr) pr.innerHTML = personaRows(model);
 };
@@ -669,7 +674,7 @@ $('#panel').addEventListener('click', (e) => {
       const base = (component.meta.defaults || {})[v] ?? (vars.length === 1 ? pr.default : undefined);
       if (prop.dataset.cvalue === base) delete cstate.vars[v]; else cstate.vars[v] = prop.dataset.cvalue;
     }
-    syncVars(); document.querySelectorAll('.cp-sec-body').forEach((bd) => { if (bd.querySelector('[data-cprop]')) bd.innerHTML = propsBody(component.meta, !!component.meta.items); }); return;
+    syncVars(); document.querySelectorAll('.cp-sec-inner').forEach((bd) => { if (bd.querySelector('[data-cprop]')) bd.innerHTML = propsBody(component.meta, !!component.meta.items, api && component.meta.items ? api.getModel().state : null); }); return;
   }
   if (stp && stp.closest('[data-cm-item]') && api) { const root = stp.closest('[data-cm-item]'); setItem(api, root.dataset.cmItem, root.dataset.cmProp, stp.dataset.step); refreshPanel(api); return; }
   if (thumb && api) { variantThumbs(component.meta).items[+thumb.dataset.cthumb].apply(api); syncVars(); renderComponentPanel(); return; }

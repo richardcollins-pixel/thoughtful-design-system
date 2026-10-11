@@ -104,13 +104,6 @@
   "personas": [],
   "properties": [
     {
-      "id": "background",
-      "label": "Background Color",
-      "type": "gradients",
-      "var": "--card-fill",
-      "default": "var(--bg-elevation-10)"
-    },
-    {
       "id": "radius",
       "label": "Corner Radius",
       "type": "scale",

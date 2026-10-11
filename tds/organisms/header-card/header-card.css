@@ -13,7 +13,8 @@
   padding: var(--header-safe-top) var(--card-padding-x) var(--space-16);
   min-height: 403px; justify-content: flex-end; text-align: center;
 }
-.header-card[data-variant="provider"] { --card-fill: var(--bg-elevation-20); }
+/* flat by design: it takes the fill directly, so a background picked for Default doesn't leak into it */
+.header-card[data-variant="provider"] { background: var(--bg-elevation-20); }
 
 .header-card__content { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); width: 100%; }
 .header-card__titles { display: flex; flex-direction: column; align-items: center; width: 100%; }
