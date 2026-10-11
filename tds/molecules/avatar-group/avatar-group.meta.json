@@ -6,7 +6,18 @@
   "uses": [
     "atoms/avatar"
   ],
-  "attributes": {},
+  "attributes": {
+    "data-size": {
+      "type": "enum",
+      "values": [
+        "xs",
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "lg"
+    }
+  },
   "states": [],
   "variables": {
     "--avatar-group-size": "padding",

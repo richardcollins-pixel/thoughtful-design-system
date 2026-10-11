@@ -8,6 +8,8 @@
     /* canvas chrome only */
     body { padding: var(--page-gutter, var(--space-6)); }
     .label { margin-bottom: var(--space-2); }
+    .embed { padding: 0; }
+    .embed #title, .embed .label.embed-hide { display: none; }
     .subject { display: flex; align-items: center; justify-content: center; min-height: 8rem; padding: var(--padding-lg); border-radius: var(--radius-md); background: var(--bg-elevation-5); }
     .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
     .panel { padding: var(--padding-md); border-radius: var(--radius-md); }
@@ -48,6 +50,7 @@
   </main>
   <script type="module">
     const path = new URLSearchParams(location.search).get('c');
+    const embed = new URLSearchParams(location.search).has('embed');   // inside a sticker sheet: variants only, sized to fit, quiet
     const name = path.split('/').pop();
     const meta = await fetch(`../tds/${path}/${name}.meta.json`, { cache: 'no-store' }).then((r) => r.json());
     const attrs = Object.entries(meta.attributes || {});
@@ -255,8 +258,16 @@
       reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; surfaceState = 'normal'; curExample = 0; if (spec) { clearTimeout(this._t); state = { state: meta.states[0].id, personas: {}, items: {} }; } place(build(examples[0] && examples[0].markup)); },
     };
     import('../tds/behaviors/carousel.js' + (ver ? `?v=${ver}` : ''));   // versioned like everything else, so a deploy never mixes old and new
+    if (embed) {
+      document.body.classList.add('embed');
+      // the default instance repeats the first variant, so a sheet only shows it when there are no variants to list
+      if (document.getElementById('gallery').children.length) document.getElementById('subject').closest('section').hidden = true;
+      const report = () => parent.postMessage({ type: 'tds-height', h: document.documentElement.scrollHeight }, location.origin);
+      new ResizeObserver(report).observe(document.body); report();
+      document.documentElement.dataset.fidelity = (parent.document.documentElement.dataset.fidelity || 'styled');
+    }
     document.body.dataset.ready = '';   // until now the page shows nothing, not its placeholder
-    if (self !== top && !thumb) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
+    if (self !== top && !thumb && !embed) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
   </script>
 </body>
 </html>
