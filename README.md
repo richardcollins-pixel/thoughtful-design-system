@@ -113,6 +113,8 @@ canvas, clicking it selects the slot (same as clicking it on the canvas), and th
 may be limited to some `states`. A prompt set on the organism is the design-system default; `tds/environments.json`
 (`production`, `dev`, `sandbox`) holds per-environment overrides. Nothing runs prompts yet; this is the structure.
 
+Double-click text on the canvas to edit it in place; the panel's field follows as you type (and the canvas follows the panel). While editing, `{{variables}}` are shown raw; Enter or clicking away finishes, Escape cancels. Each slot's section in the panel lists its components (avatar, button, date…) as rows that open their own variables.
+
 ## Loading states
 
 One shimmer serves the whole system: `tds/foundations/styles/skeleton.css`; the **skeleton atom** (`atoms/skeleton`: a line, dot or pill, always fully rounded) draws it, and the **skeleton-text molecule** (`molecules/skeleton-text`) is a multi-line placeholder whose lines take the height of the surrounding text and follow `--skeleton-align` (speed is the `duration-shimmer` token; it stops under reduced motion and follows the surface colour, so Charcoal needs nothing extra).

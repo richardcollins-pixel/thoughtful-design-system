@@ -467,9 +467,11 @@ function itemHtml(it, model) {
 const CHEV_RIGHT = svg('<path d="m6 4 4 4-4 4"/>');
 // In the organism panel each slot is a section that folds open to its content fields (closed to start with). Hovering its header
 // previews the slot on the canvas; getting to a slot's own page is done by clicking it on the canvas.
+// The components inside a slot (avatar, button, date…): a row each, opening that component's own variables.
+const nestedHtml = (list) => (list && list.length ? `<div class="nested"><span class="nested-label">Components</span>${list.map((n) => `<button class="nested-row" type="button" data-el-item="${n.id}"><span>${esc(n.label)}</span><span class="meta">${n.kind === n.label ? '' : esc(n.kind)}${CHEV_RIGHT}</span></button>`).join('')}</div>` : '');
 const slotsHtml = (model) => model.slots.map((sl) => {
   const id = `slot-${sl.id}`; if (!(id in collapsed)) collapsed[id] = true;
-  return sec(id, sl.label, sl.items.map((it) => itemHtml(it, model)).join(''), '', `data-hover-slot="${sl.id}"`);
+  return sec(id, sl.label, sl.items.map((it) => itemHtml(it, model)).join('') + nestedHtml(sl.nested), '', `data-hover-slot="${sl.id}"`);
 }).join('');
 const personaRows = (model) => model.personas.map((pe) => prow(pe.label, dd(`data-cpersona="${pe.role}"`, pe.options, pe.value, 'person'))).join('');
 
@@ -583,7 +585,7 @@ const selectionHead = (model, slot, here) => {
 function slotPanel(sm, model) {
   const content = sm.content.map((it) => itemHtml(it, model)).join('');
   return `${selectionHead(model, { id: sm.id, label: sm.label })}
-    <div class="cp-sections">${content ? sec('el-content', 'Content', content) : '<p class="mute" style="padding:12px 0">Nothing to edit in this slot yet.</p>'}</div>`;
+    <div class="cp-sections">${content || (sm.nested || []).length ? sec('el-content', 'Content', content + nestedHtml(sm.nested)) : '<p class="mute" style="padding:12px 0">Nothing to edit in this slot yet.</p>'}</div>`;
 }
 
 function elementPanel(it, model) {
@@ -672,8 +674,9 @@ $('#panel').addEventListener('click', (e) => {
   if (stp && stp.closest('[data-cm-item]') && api) { const root = stp.closest('[data-cm-item]'); setItem(api, root.dataset.cmItem, root.dataset.cmProp, stp.dataset.step); refreshPanel(api); return; }
   if (thumb && api) { variantThumbs(component.meta).items[+thumb.dataset.cthumb].apply(api); syncVars(); renderComponentPanel(); return; }
   if (t.id === 'el-back' && api) { api.select(null); return; }
-  const upSlot = t.closest('[data-el-slot]');   // breadcrumbs only go up; going down is done on the canvas
+  const upSlot = t.closest('[data-el-slot]'), downItem = t.closest('[data-el-item]');   // breadcrumbs go up; a slot's component rows go down (so does the canvas)
   if (upSlot && api) { api.select(upSlot.dataset.elSlot, 'slot'); return; }
+  if (downItem && api) { api.select(downItem.dataset.elItem, 'item'); return; }
   if (t.id === 'edit-comp') { editing = true; renderComponentPanel(); updateSavebar(); }
   else if (t.id === 'edit-back') { editing = false; renderComponentPanel(); updateSavebar(); }
   else if (t.id === 'creset') {
@@ -682,14 +685,18 @@ $('#panel').addEventListener('click', (e) => {
   }
 });
 const hoverTarget = (e) => {
-  const sl = e.target.closest && e.target.closest('[data-hover-slot]');
-  return sl ? { id: sl.dataset.hoverSlot, kind: 'slot' } : null;
+  const sl = e.target.closest && e.target.closest('[data-hover-slot]'), it = e.target.closest && e.target.closest('[data-el-item]');
+  return it ? { id: it.dataset.elItem, kind: 'item' } : sl ? { id: sl.dataset.hoverSlot, kind: 'slot' } : null;
 };
 $('#panel').addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-csec]')) { e.preventDefault(); e.target.click(); } });
 $('#panel').addEventListener('mouseover', (e) => { const t = hoverTarget(e), api = component && screen.contentWindow.tdsComponent; if (t && api && api.hover) api.hover(t.id, t.kind); });
 $('#panel').addEventListener('mouseout', (e) => { const api = component && screen.contentWindow.tdsComponent; if (hoverTarget(e) && !hoverTarget({ target: e.relatedTarget || document.body }) && api && api.hover) api.hover(null); });
 window.addEventListener('message', (e) => {
   if (e.origin !== location.origin || !e.data || !component) return;
+  if (e.data.type === 'tds-edit') {   // text being typed on the canvas: the panel's field follows
+    document.querySelectorAll(`#panel [data-cm-item="${e.data.id}"]`).forEach((f) => { if ((f.dataset.cmProp || null) === (e.data.prop || null) && 'value' in f) f.value = e.data.value; });
+    return;
+  }
   if (e.data.type === 'tds-ready') { selection = null; syncVars(); renderComponentPanel(); }
   else if (e.data.type === 'tds-select') { selection = e.data.id ? { kind: e.data.kind || 'item', id: e.data.id } : null; showSelection(); }
 });
