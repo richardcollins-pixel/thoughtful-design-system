@@ -75,8 +75,10 @@ function textSkeleton(it, data) {
   const plain = String(it.value).replace(/\{\{\s*([\w.-]+)\s*\}\}/g, (m, k) => (k in data ? data[k] : m));
   const perLine = /^h[1-6]$/.test(it.tag || '') ? 22 : 34;
   const lines = (it.skeleton && it.skeleton.lines) || Math.max(1, Math.ceil(plain.length / perLine));
-  const bars = Array.from({ length: lines }, (_, i) => `<span class="skeleton-line" style="width:${lines === 1 ? 70 : i === lines - 1 ? 60 : 100}%"></span>`).join('');
-  return `<${it.tag || 'p'}${it.class ? ` class="${it.class}"` : ''}>${bars}</${it.tag || 'p'}>`;
+  // line widths vary a little, like ragged text; the last line is shorter
+  const width = (i) => (lines === 1 ? 90 : i === lines - 1 ? 80 : [96, 100, 92][i % 3]);
+  const bars = Array.from({ length: lines }, (_, i) => `<span class="skeleton-line" style="width:${width(i)}%"></span>`).join('');
+  return `<${it.tag || 'p'}${it.class ? ` class="${it.class}"` : ''} style="width:100%">${bars}</${it.tag || 'p'}>`;
 }
 
 function renderItem(scope, id) {

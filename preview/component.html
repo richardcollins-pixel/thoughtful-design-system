@@ -101,14 +101,16 @@
     const make1 = (markup) => make({ markup: spec ? compose.renderOrganism(meta, state, ctx) : markup, set: attrState, state: stateName || undefined, text: single ? undefined : meta.name });
     const decorate = (el) => { for (const [k, v] of Object.entries(vars)) el.style.setProperty(k, v); if (surfaceState === 'inverse') el.dataset.surface = 'inverse'; return el; };
     // A loading card must be exactly as tall as the loaded one so nothing shifts when content arrives: render the loaded
-    // card, measure each slot, and give the skeleton's slots those heights (its simpler content is centred in them).
+    // card, measure it, and hold the skeleton card at that height (its content flows from the top, the CTA stays at the bottom).
     const build = (markup) => {
       if (!(spec && state.loading)) return make1(markup);
       state.loading = false; const real = decorate(make1(markup)); state.loading = true;
       slot.replaceChildren(real);
-      const heights = Object.fromEntries([...real.querySelectorAll('[data-slot]')].map((e) => [e.dataset.slot, e.getBoundingClientRect().height]));
+      const height = real.getBoundingClientRect().height;
       const el = make1(markup);
-      for (const s of el.querySelectorAll('[data-slot]')) if (heights[s.dataset.slot]) Object.assign(s.style, { height: `${heights[s.dataset.slot]}px`, alignContent: 'center', justifyContent: 'center' });
+      el.style.minHeight = `${height}px`;
+      for (const sl of el.querySelectorAll('[data-slot="header"], [data-slot="content"]')) sl.style.alignSelf = 'stretch';   // so a line's % width has something to be a % of
+      const cta = el.querySelector('[data-slot="cta"]'); if (cta) cta.style.marginTop = 'auto';
       return el;
     };
     // Figma-style selection for composed organisms. Items are outlined in blue and slots in pink. A slot is a real element

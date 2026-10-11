@@ -231,10 +231,7 @@
       "tag": "p",
       "class": "appointment-card__body",
       "label": "Body Copy",
-      "value": "Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "skeleton": {
-        "lines": 2
-      }
+      "value": "Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     },
     "footnote": {
       "type": "text",
