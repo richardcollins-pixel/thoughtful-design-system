@@ -41,7 +41,7 @@ export function dataFor(meta, st, ctx) {
   const data = { ...ctx.data };
   for (const role of meta.personas || []) {
     const p = personaFor(st, ctx, role);
-    if (p) { data[`${role}-name`] = p.name; data[`${role}-specialty`] = p.specialty || ''; }
+    if (p) { data[`${role}-name`] = p.name; data[`${role}-specialty`] = p.specialty || ''; data[`${role}-quote`] = p.quote || ''; data[`${role}-bio`] = p.bio || ''; }
   }
   return data;
 }

@@ -509,7 +509,7 @@ function renderComponentPanel() {
   if (m.items) {   // a composed organism: provider, state, background, then its slots' content
     const model = api && api.getModel();
     p.innerHTML = (model
-      ? `<div id="cp-main">${panelHead(m)}<div class="cp-sections">${sec('state', 'State', stateThumbs(model), RELOAD)}${sec('props', 'Properties', propsBody(m, true))}<div class="cp-persona" id="cp-persona">${personaRows(model)}</div><div id="cp-slots">${slotsHtml(model)}</div>${m.surface ? sec('options', 'Options', surfaceField()) : ''}</div></div><div id="cp-el" hidden></div>`
+      ? `<div id="cp-main">${panelHead(m)}<div class="cp-sections">${sec('state', 'State', stateThumbs(model), RELOAD)}${propsBody(m, true) ? sec('props', 'Properties', propsBody(m, true)) : ''}<div class="cp-persona" id="cp-persona">${personaRows(model)}</div><div id="cp-slots">${slotsHtml(model)}</div>${m.surface ? sec('options', 'Options', surfaceField()) : ''}</div></div><div id="cp-el" hidden></div>`
       : panelHead(m)) + footer;
     showSelection();
   } else {            // an atom or molecule: variants, properties, content, options

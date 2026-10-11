@@ -1,0 +1,9 @@
+/* Atom: photo. A rectangular photo that fills its width and crops to a set height (a person's photo, top of a card).
+   Use the avatar for the round one. Loading shimmers like the avatar does (the shared shimmer). */
+.photo {
+  --photo-height: 252px;
+  --photo-fill: var(--bg-elevation-20);
+  display: block; box-sizing: border-box; width: 100%; height: var(--photo-height);
+  background: var(--photo-fill); object-fit: cover; object-position: 50% 25%;
+}
+.photo[data-state="loading"] { background-image: var(--skeleton-fill); background-size: 200% 100%; animation: var(--skeleton-animation); }

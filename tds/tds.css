@@ -19,6 +19,7 @@
 @import url("atoms/button/button.css")                  layer(atoms);
 @import url("atoms/icon/icons.css")                     layer(atoms);   /* generated */
 @import url("atoms/icon/icon.css")                      layer(atoms);
+@import url("atoms/photo/photo.css")                    layer(atoms);
 @import url("atoms/skeleton/skeleton.css")             layer(atoms);
 @import url("atoms/icon-button/icon-button.css")        layer(atoms);
 @import url("atoms/avatar/avatar.css")                  layer(atoms);
@@ -29,6 +30,7 @@
 @import url("molecules/skeleton-text/skeleton-text.css") layer(molecules);
 
 @import url("organisms/appointment-card/appointment-card.css") layer(organisms);
+@import url("organisms/provider-bio-card/provider-bio-card.css") layer(organisms);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */
 

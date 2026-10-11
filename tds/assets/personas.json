@@ -4,43 +4,57 @@
       "id": "kristina",
       "name": "Kristina",
       "specialty": "Licensed clinical social worker",
-      "photo": "images/therapists/Therapist-7.png"
+      "photo": "images/therapists/Therapist-7.png",
+      "quote": "Small steps add up.",
+      "bio": "Kristina is a licensed clinical social worker with 11 years specializing in anxiety and CBT. They take a practical approach to help you understand what's going on and build real tools to manage it."
     },
     {
       "id": "marco",
       "name": "Marco",
       "specialty": "Licensed professional counselor",
-      "photo": "images/therapists/Therapist-1.png"
+      "photo": "images/therapists/Therapist-1.png",
+      "quote": "You don't have to figure it out alone.",
+      "bio": "Marco is a licensed professional counselor with 11 years specializing in anxiety and CBT. They take a practical approach to help you understand what's going on and build real tools to manage it."
     },
     {
       "id": "elena",
       "name": "Elena",
       "specialty": "Marriage and family therapist",
-      "photo": "images/therapists/Therapist-2.png"
+      "photo": "images/therapists/Therapist-2.png",
+      "quote": "Let's find what works for you.",
+      "bio": "Elena is a marriage and family therapist with 11 years specializing in anxiety and CBT. They take a practical approach to help you understand what's going on and build real tools to manage it."
     },
     {
       "id": "priya",
       "name": "Priya",
       "specialty": "Clinical psychologist",
-      "photo": "images/therapists/Therapist-3.png"
+      "photo": "images/therapists/Therapist-3.png",
+      "quote": "Progress, not perfection.",
+      "bio": "Priya is a clinical psychologist with 11 years specializing in anxiety and CBT. They take a practical approach to help you understand what's going on and build real tools to manage it."
     },
     {
       "id": "daniel",
       "name": "Daniel",
       "specialty": "Licensed clinical social worker",
-      "photo": "images/therapists/Therapist-4.png"
+      "photo": "images/therapists/Therapist-4.png",
+      "quote": "Start where you are.",
+      "bio": "Daniel is a licensed clinical social worker with 11 years specializing in anxiety and CBT. They take a practical approach to help you understand what's going on and build real tools to manage it."
     },
     {
       "id": "grace",
       "name": "Grace",
       "specialty": "Licensed professional counselor",
-      "photo": "images/therapists/Therapist-5.png"
+      "photo": "images/therapists/Therapist-5.png",
+      "quote": "Every story matters here.",
+      "bio": "Grace is a licensed professional counselor with 11 years specializing in anxiety and CBT. They take a practical approach to help you understand what's going on and build real tools to manage it."
     },
     {
       "id": "naomi",
       "name": "Naomi",
       "specialty": "Clinical psychologist",
-      "photo": "images/therapists/Therapist-6.png"
+      "photo": "images/therapists/Therapist-6.png",
+      "quote": "One conversation at a time.",
+      "bio": "Naomi is a clinical psychologist with 11 years specializing in anxiety and CBT. They take a practical approach to help you understand what's going on and build real tools to manage it."
     }
   ]
 }

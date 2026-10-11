@@ -1,0 +1,12 @@
+/* Organism: provider bio card. A photo over a block of text, on the card atom's flat fill. Focused and Unfocused (dimmed) are for a
+   carousel. Slots are real elements ([data-slot]): image, content. */
+.provider-bio-card { --card-padding-x: 0; --card-padding-y: 0; --card-gap: 0; --card-radius: var(--radius-sm); }
+.provider-bio-card[data-focus="unfocused"] { opacity: 0.5; }
+
+.provider-bio-card__image { display: block; }
+.provider-bio-card__content { display: flex; flex-direction: column; gap: var(--space-4); padding: var(--padding-md); }
+.provider-bio-card__titles { display: flex; flex-direction: column; }
+
+.provider-bio-card__name  { font: var(--font-weight-semibold) var(--font-size-lg)/var(--line-height-relaxed) var(--font-family-body); }
+.provider-bio-card__quote { color: var(--text-secondary); font: italic var(--font-weight-regular) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
+.provider-bio-card__bio   { font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
