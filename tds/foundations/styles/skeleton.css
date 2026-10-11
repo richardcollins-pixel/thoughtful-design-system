@@ -16,7 +16,7 @@
 
 /* shapes. A line is a full line-height box with the bar drawn inside it (padding, not margin, so lines never collapse together):
    it occupies exactly the space of the text it stands for, so nothing jumps when content arrives. */
-.skeleton-line { display: block; box-sizing: border-box; height: 1lh; padding-block: calc((1lh - 0.8em) / 2); background-clip: content-box; border-radius: var(--radius-full); }
+.skeleton-line { display: block; box-sizing: border-box; height: 1lh; padding-block: calc((1lh - 0.9em) / 2); background-clip: content-box; border-radius: var(--radius-full); }
 .skeleton-dot  { display: inline-block; flex: none; width: var(--space-4); height: var(--space-4); border-radius: var(--radius-full); }
 .skeleton-pill { display: block; width: 100%; height: var(--space-12); border-radius: var(--radius-full); }
 .skeleton-pill[data-size="lg"] { height: var(--space-16); }
