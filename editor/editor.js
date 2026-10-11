@@ -12,7 +12,7 @@ let fidelity = 'styled';
 let libraries = [], library = null, asset = null;
 const freshPreview = () => ({ attrs: {}, state: '', vars: {}, example: 0, surface: 'normal' });
 let collapsed = { 'slot-header': true, 'slot-content': true, 'slot-cta': true };   // panel sections that are folded; slots start closed
-let components = [], component = null, editing = false, selectedItem = null, cstate = freshPreview();   // selectedItem: the element clicked on the canvas
+let components = [], component = null, editing = false, selection = null, cstate = freshPreview();   // selection: what is clicked on the canvas, { kind: 'item' | 'slot', id }
 let kind = 'primitive', navKey = 'tokens/primitives', selected = null, saveTimer;
 
 /* ---------- color helpers ---------- */
@@ -120,7 +120,7 @@ $('#nav').addEventListener('click', (e) => {
     navKey = b.dataset.nav; kind = b.dataset.kind || null; selected = null;
     component = components.find((c) => c.path === b.dataset.component) || null;
     library = null; asset = null;
-    cstate = freshPreview(); editing = false; selectedItem = null;
+    cstate = freshPreview(); editing = false; selection = null;
     setCanvasSrc();
   }
   renderAll();
@@ -558,9 +558,22 @@ const refreshSlots = (api) => {
   if (box) box.innerHTML = slotsHtml(model);
   if (pr) pr.innerHTML = personaRows(model);
 };
-const refreshPanel = (api) => (selectedItem ? showSelection() : refreshSlots(api));
+const refreshPanel = (api) => (selection ? showSelection() : refreshSlots(api));
 
 // ---- element panel: what opens when you click an item on the canvas
+// The path back up: Appointment card › Header slot (an item's slot is clickable, so you can step up one level).
+const selectionHead = (slot) => `<div class="cp-top"><div class="path"><button class="link back" id="el-back">‹ ${esc(component.meta.name)}</button>${slot ? `<span class="sep2">›</span><button class="link" data-el-slot="${slot.id}">${esc(slot.label)}</button>` : ''}</div>
+  <label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>`;
+
+// ---- slot panel: the slot's content fields, then a list of the items inside it (click one to select it)
+function slotPanel(sm, model) {
+  const content = sm.content.map((it) => itemHtml(it, model)).join('');
+  const layers = `<div class="layers">${sm.items.map((i) => `<button class="layer" data-el-item="${i.id}"><span class="layer-kind">${esc(i.kind)}</span><span>${esc(i.label)}</span></button>`).join('')}</div>`;
+  return `${selectionHead(null)}
+    <div class="el-title"><span class="el-kind">Slot</span><h2 class="cp-title">${esc(sm.label)}</h2></div>
+    <div class="cp-sections">${content ? sec('el-content', 'Content', content) : ''}${sec('el-items', 'Items', layers)}</div>`;
+}
+
 function elementPanel(it, model) {
   const content = [], props = [];
   if (it.type === 'text') content.push(field('Text', textControl(`data-cm-item="${it.id}"`, it.value, model, it.value.length > 40, it.prompt)));
@@ -574,17 +587,20 @@ function elementPanel(it, model) {
     else if (c.type === 'enum') props.push(prow(c.label, select(`${a} data-cm-select`, c.values.map((v) => [v, v]), c.value)));
   }
   const body = (content.length ? sec('el-content', 'Content', content.join('')) : '') + (props.length ? sec('el-props', 'Properties', props.join('')) : '');
-  return `<div class="cp-top"><button class="link back" id="el-back">‹ ${esc(component.meta.name)}</button>
-      <label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>
+  return `${selectionHead(it.slot)}
     <div class="el-title"><span class="el-kind">${esc(it.kind)}</span><h2 class="cp-title">${esc(it.label)}</h2></div>
     <div class="cp-sections">${body || '<p class="mute" style="padding:12px 0">Nothing to edit on this element yet.</p>'}</div>`;
 }
 function showSelection() {
   const main = $('#cp-main'), box = $('#cp-el'); if (!main || !box) return;
   const api = screen.contentWindow && screen.contentWindow.tdsComponent;
-  const it = selectedItem && api ? api.getItemModel(selectedItem) : null;
-  if (!it) { selectedItem = null; box.hidden = true; box.innerHTML = ''; main.hidden = false; if (api) refreshSlots(api); return; }
-  box.innerHTML = elementPanel(it, api.getModel()); main.hidden = true; box.hidden = false;
+  let html = null;
+  if (selection && api) {
+    if (selection.kind === 'slot') { const sm = api.getSlotModel(selection.id); if (sm) html = slotPanel(sm, api.getModel()); }
+    else { const it = api.getItemModel(selection.id); if (it) html = elementPanel(it, api.getModel()); }
+  }
+  if (!html) { selection = null; box.hidden = true; box.innerHTML = ''; main.hidden = false; if (api) refreshSlots(api); return; }
+  box.innerHTML = html; main.hidden = true; box.hidden = false;
 }
 const closeMenus = (except) => document.querySelectorAll('.dd-menu, .aimenu').forEach((mn) => { if (mn !== except) mn.hidden = true; });
 document.addEventListener('click', (e) => { if (!e.target.closest('.dd, .inwrap')) closeMenus(); });
@@ -643,6 +659,9 @@ $('#panel').addEventListener('click', (e) => {
   if (stp && stp.closest('[data-cm-item]') && api) { const root = stp.closest('[data-cm-item]'); setItem(api, root.dataset.cmItem, root.dataset.cmProp, stp.dataset.step); refreshPanel(api); return; }
   if (thumb && api) { variantThumbs(component.meta).items[+thumb.dataset.cthumb].apply(api); syncVars(); renderComponentPanel(); return; }
   if (t.id === 'el-back' && api) { api.select(null); return; }
+  const upSlot = t.closest('[data-el-slot]'), downItem = t.closest('[data-el-item]');
+  if (upSlot && api) { api.select(upSlot.dataset.elSlot, 'slot'); return; }
+  if (downItem && api) { api.select(downItem.dataset.elItem, 'item'); return; }
   if (t.id === 'edit-comp') { editing = true; renderComponentPanel(); updateSavebar(); }
   else if (t.id === 'edit-back') { editing = false; renderComponentPanel(); updateSavebar(); }
   else if (t.id === 'creset') {
@@ -652,12 +671,12 @@ $('#panel').addEventListener('click', (e) => {
 });
 window.addEventListener('message', (e) => {
   if (e.origin !== location.origin || !e.data || !component) return;
-  if (e.data.type === 'tds-ready') { selectedItem = null; syncVars(); renderComponentPanel(); }
-  else if (e.data.type === 'tds-select') { selectedItem = e.data.id || null; showSelection(); }
+  if (e.data.type === 'tds-ready') { selection = null; syncVars(); renderComponentPanel(); }
+  else if (e.data.type === 'tds-select') { selection = e.data.id ? { kind: e.data.kind || 'item', id: e.data.id } : null; showSelection(); }
 });
 // Clicking the empty canvas (outside the device) or pressing Escape lets go of the selection, like Figma.
 $('#stage').addEventListener('click', (e) => {
-  if (!component || !selectedItem || e.target.closest('#frame')) return;
+  if (!component || !selection || e.target.closest('#frame')) return;
   const api = screen.contentWindow.tdsComponent; if (api) api.select(null);
 });
 
@@ -722,7 +741,7 @@ function setUi(on) {
   if (component) fit();
 }
 window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && component && selectedItem) { const api = screen.contentWindow.tdsComponent; if (api) api.select(null); }
+  if (e.key === 'Escape' && component && selection) { const api = screen.contentWindow.tdsComponent; if (api) api.select(null); }
   if ((e.metaKey || e.ctrlKey) && e.code === 'Backslash') { e.preventDefault(); setUi($('#app').dataset.ui === 'off'); }
 });
 window.addEventListener('resize', () => { if (component) fit(); });

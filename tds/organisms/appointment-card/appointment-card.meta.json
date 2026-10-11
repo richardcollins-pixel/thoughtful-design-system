@@ -17,7 +17,7 @@
     {
       "id": "booked",
       "name": "Booked",
-      "template": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\">{{item:avatar}}<div class=\"appointment-card__main\"><div class=\"appointment-card__titles\"><div class=\"appointment-card__title-row\">{{item:headline}}{{item:edit}}</div><div class=\"appointment-card__details\">{{item:date}}{{item:duration}}</div></div>{{item:body}}{{item:footnote}}</div></div></article>",
+      "template": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__header\" data-slot=\"header\">{{item:avatar}}<div class=\"appointment-card__titles\"><div class=\"appointment-card__title-row\">{{item:headline}}{{item:edit}}</div><div class=\"appointment-card__details\">{{item:date}}{{item:duration}}</div></div></div><div class=\"appointment-card__content\" data-slot=\"content\">{{item:body}}{{item:footnote}}</div></article>",
       "slots": [
         {
           "id": "header",
@@ -37,11 +37,6 @@
             "body",
             "footnote"
           ]
-        },
-        {
-          "id": "cta",
-          "label": "CTA slot",
-          "items": []
         }
       ],
       "personas": [
@@ -51,7 +46,7 @@
     {
       "id": "no-appointment",
       "name": "No appointment",
-      "template": "<article class=\"card appointment-card\" data-layout=\"row\"><div class=\"appointment-card__row\">{{item:avatar}}<div class=\"appointment-card__main appointment-card__main--tight\">{{item:headline}}{{item:body}}</div></div>{{item:button}}</article>",
+      "template": "<article class=\"card appointment-card appointment-card--tight\" data-layout=\"row\"><div class=\"appointment-card__header\" data-slot=\"header\">{{item:avatar}}{{item:headline}}</div><div class=\"appointment-card__content\" data-slot=\"content\">{{item:body}}</div><div class=\"appointment-card__cta\" data-slot=\"cta\">{{item:button}}</div></article>",
       "overrides": {
         "headline": {
           "value": "Ready to book your next session?"
@@ -91,7 +86,7 @@
     {
       "id": "provider-cta",
       "name": "Provider CTA",
-      "template": "<article class=\"card appointment-card\" data-layout=\"centered\">{{item:group}}<div class=\"appointment-card__main\">{{item:headline}}{{item:body}}</div>{{item:button}}</article>",
+      "template": "<article class=\"card appointment-card\" data-layout=\"centered\"><div class=\"appointment-card__header\" data-slot=\"header\">{{item:group}}{{item:headline}}</div><div class=\"appointment-card__content\" data-slot=\"content\">{{item:body}}</div><div class=\"appointment-card__cta\" data-slot=\"cta\">{{item:button}}</div></article>",
       "overrides": {
         "headline": {
           "value": "Find your match"

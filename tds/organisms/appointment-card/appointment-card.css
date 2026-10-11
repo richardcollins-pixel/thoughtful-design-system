@@ -1,31 +1,45 @@
-/* Organism: appointment card — the home-screen card in its three states (booked, no appointment,
-   provider CTA). One surface (the card atom) with two layouts: row and centered. The states are
-   content, so they are examples in the meta, not separate components. */
-.appointment-card { --card-gap: var(--space-6); }
+/* Organism: appointment card — the home-screen card in its states (booked, no appointment, provider CTA).
+   One surface (the card atom) with two layouts, row and centered. Every slot is a real element
+   ([data-slot]: header, content, cta), so a slot can be selected, spaced and aligned on its own. */
+.appointment-card { --card-gap: var(--space-6); --appointment-content-gap: var(--space-4); gap: 0; }
 
-.appointment-card__row { display: flex; align-items: flex-start; gap: var(--space-4); }
-.appointment-card__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-4); }
-.appointment-card__titles { display: flex; flex-direction: column; gap: var(--space-2); }
+/* slots: header → content (indented under the text in the row layout) → CTA */
+.appointment-card__header { min-width: 0; }
+.appointment-card__content { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--appointment-content-gap); min-width: 0; }
+.appointment-card__cta { margin-top: var(--card-gap); }
+.appointment-card--tight { --appointment-content-gap: 0; }
+
+/* inside the header slot */
+.appointment-card__titles { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
 .appointment-card__title-row { display: flex; align-items: center; gap: var(--space-2); }
 .appointment-card__headline {
   flex: 1; min-width: 0;
   font: var(--font-weight-semibold) var(--font-size-lg)/var(--line-height-relaxed) var(--font-family-body);
 }
+.appointment-card__details { display: flex; flex-direction: column; }
+
+/* inside the content slot */
 .appointment-card__body {
   color: var(--text-secondary);
   font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body);
 }
-.appointment-card__main--tight { gap: 0; }
-.appointment-card__details { display: flex; flex-direction: column; }
 .appointment-card__footnote {
   color: var(--text-primary);
   font: var(--font-weight-body) var(--font-size-sm)/var(--line-height-relaxed) var(--font-family-body);
 }
 
-/* centered layout: avatar group, serif headline, body, button */
+/* row layout: a grid of [avatar | text]. The header slot spans both columns (a sub-grid), the content slot sits in the
+   text column, the CTA slot spans the full width. */
+.appointment-card[data-layout="row"] { display: grid; grid-template-columns: auto 1fr; column-gap: var(--space-4); align-content: start; }
+.appointment-card[data-layout="row"] .appointment-card__header { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: start; }
+.appointment-card[data-layout="row"] .appointment-card__content { grid-column: 2; }
+.appointment-card[data-layout="row"] .appointment-card__cta { grid-column: 1 / -1; }
+
+/* centered layout: avatar group and serif headline, body, button */
 .appointment-card[data-layout="centered"] { --card-padding-y: var(--padding-xl); align-items: center; text-align: center; }
-.appointment-card[data-layout="centered"] .appointment-card__main { align-items: center; }
+.appointment-card[data-layout="centered"] .appointment-card__header { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); }
+.appointment-card[data-layout="centered"] .appointment-card__content { align-items: center; }
+.appointment-card[data-layout="centered"] .appointment-card__cta { align-self: stretch; }
 .appointment-card[data-layout="centered"] .appointment-card__headline {
   flex: none; font: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-tight) var(--font-family-display); letter-spacing: var(--letter-spacing-tight);
 }
-.appointment-card[data-layout="centered"] > .button { align-self: stretch; }

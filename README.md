@@ -96,8 +96,14 @@ can opt into a Surface (normal/inverse) option with `"surface": true`; cards don
 outline on hover, handles, a name tag and a size pill on select. Selecting opens that element's own controls (its
 content and every prop) in the right panel. Clicking the card itself, the page, the empty canvas, the "back" link or
 pressing Escape returns to the organism's panel. A state can list the persona roles it uses (`states[].personas`);
-a state with none (the provider CTA, where no provider is chosen yet) hides that picker. Rendered items carry
-`data-item="<id>"`, which is what the canvas selects.
+a state with none (the provider CTA, where no provider is chosen yet) hides that picker.
+
+Slots are real elements: a state's `template` wraps each slot's items in `data-slot="<slot id>"` (the validator checks every
+listed slot has one), and rendered items carry `data-item="<id>"`. The canvas outlines items in blue and slots in pink.
+Click an item to select it, click anywhere else inside a slot (the gaps) to select the slot, or Option-click an item to
+select its slot. The panel shows the path (`Appointment card › Header slot › Headline`) so you can step back up; a
+selected slot lists its content fields and the items inside it. The row layout is a CSS grid with the header slot as a
+sub-grid, which keeps the avatar-beside-text arrangement while the slots stay whole elements.
 
 **Prompts.** The icon beside a text field connects it to a prompt. A prompt produces a *group* of fields together
 (a Recent Topic card's headline and body), so it lists `outputs` (item ids) and `inputs` (e.g. `provider`, `state`), and

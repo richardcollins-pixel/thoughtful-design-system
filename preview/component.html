@@ -24,6 +24,10 @@
     #sel-layer { position: fixed; inset: 0; pointer-events: none; z-index: 2147483000; font: 500 10px/1 Inter, system-ui, sans-serif; }
     #sel-layer .box { position: fixed; box-sizing: border-box; border: 1px solid #0d99ff; }
     #sel-layer .box.sel { border-width: 1.5px; }
+    #sel-layer .box.slot { border-color: #f0479b; }
+    #sel-layer .slot .tag, #sel-layer .slot .dim { background: #f0479b; }
+    #sel-layer .slot .h { border-color: #f0479b; }
+    #sel-layer .hover.slot .tag { background: none; color: #f0479b; }
     #sel-layer .box[hidden] { display: none; }
     #sel-layer .tag { position: absolute; left: -1px; bottom: 100%; margin-bottom: 3px; padding: 3px 5px; border-radius: 3px; background: #0d99ff; color: #fff; white-space: nowrap; }
     #sel-layer .hover .tag { background: none; color: #0d99ff; padding-left: 0; }
@@ -94,33 +98,40 @@
     const attrState = { ...((thumb && thumb.set) || {}) }; let stateName = '', surfaceState = 'normal', curExample = (thumb && thumb.example) || 0, subject;
     const vars = {};
     const build = (markup) => make({ markup: spec ? compose.renderOrganism(meta, state, ctx) : markup, set: attrState, state: stateName || undefined, text: single ? undefined : meta.name });
-    // Figma-style selection for composed organisms: hover and select the items inside, click anywhere else to let go.
+    // Figma-style selection for composed organisms. Items are outlined in blue and slots in pink. A slot is a real element
+    // (data-slot) that holds its items, so hovering or clicking anywhere in it that isn't an item gives the slot, and an
+    // item's slot is one Option-click away.
     const interactive = spec && single && !thumb;
-    let selectedId = null, hoverId = null, layer = null;
+    let sel = null, hov = null, layer = null;   // { kind: 'item' | 'slot', id }
     if (interactive) {
       layer = document.createElement('div'); layer.id = 'sel-layer'; layer.setAttribute('aria-hidden', 'true');
       layer.innerHTML = '<div class="box hover" hidden><span class="tag"></span></div><div class="box sel" hidden><span class="tag"></span><i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i><span class="dim"></span></div>';
       document.body.append(layer);
     }
     const elFor = (id) => (id && subject ? subject.querySelector(`[data-item="${id}"]`) : null);
-    function drawBox(box, id) {
-      const el = elFor(id); if (!el) { box.hidden = true; return; }
-      const r = el.getBoundingClientRect();
+    const slotEl = (id) => (id && subject ? subject.querySelector(`[data-slot="${id}"]`) : null);
+    const slotLabels = () => (spec ? compose.getSlots(meta, state) : []);
+    const rectOf = (t) => { const el = !t ? null : t.kind === 'slot' ? slotEl(t.id) : elFor(t.id); return el ? el.getBoundingClientRect() : null; };
+    const nameOf = (t) => (t.kind === 'slot' ? ((slotLabels().find((x) => x.id === t.id) || {}).label || t.id) : ((meta.items[t.id] && meta.items[t.id].label) || t.id));
+    const same = (a, b) => !!a && !!b && a.kind === b.kind && a.id === b.id;
+    function drawBox(box, t) {
+      const r = rectOf(t); if (!r) { box.hidden = true; return; }
       Object.assign(box.style, { left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` });
-      box.querySelector('.tag').textContent = (meta.items[id] && meta.items[id].label) || id;
+      box.classList.toggle('slot', t.kind === 'slot');
+      box.querySelector('.tag').textContent = nameOf(t);
       const dim = box.querySelector('.dim'); if (dim) dim.textContent = `${Math.round(r.width)} × ${Math.round(r.height)}`;
       box.hidden = false;
     }
-    function drawOverlay() { if (!layer) return; drawBox(layer.querySelector('.hover'), hoverId !== selectedId ? hoverId : null); drawBox(layer.querySelector('.sel'), selectedId); }
-    function select(id) {
-      selectedId = elFor(id) ? id : null; drawOverlay();
-      if (self !== top && !thumb) parent.postMessage({ type: 'tds-select', id: selectedId }, location.origin);
+    function drawOverlay() { if (!layer) return; drawBox(layer.querySelector('.hover'), same(hov, sel) ? null : hov); drawBox(layer.querySelector('.sel'), sel); }
+    function selectTarget(t) {
+      sel = t && rectOf(t) ? { kind: t.kind, id: t.id } : null; drawOverlay();
+      if (self !== top && !thumb) parent.postMessage({ type: 'tds-select', kind: sel ? sel.kind : null, id: sel ? sel.id : null }, location.origin);
     }
     function place(el) {
       subject = el; slot.replaceChildren(el);
       for (const [k, v] of Object.entries(vars)) el.style.setProperty(k, v);
       if (surfaceState === 'inverse') el.dataset.surface = 'inverse';   // inverse applies to the component, not the page
-      if (layer) { if (selectedId && !elFor(selectedId)) select(null); else drawOverlay(); }
+      if (layer) { if (sel && !rectOf(sel)) selectTarget(null); else drawOverlay(); }
     }
     document.getElementById('title').textContent = `${meta.name} — ${meta.tier}`;
     place(build(examples[curExample] && examples[curExample].markup));
@@ -145,11 +156,18 @@
     }
 
     if (interactive) {
-      const itemAt = (e) => { const el = e.target.closest && e.target.closest('[data-item]'); return el && subject.contains(el) ? el.dataset.item : null; };
-      document.addEventListener('mousemove', (e) => { const id = itemAt(e); if (id !== hoverId) { hoverId = id; drawOverlay(); } });
-      document.addEventListener('mouseleave', () => { hoverId = null; drawOverlay(); });
-      document.addEventListener('click', (e) => { e.preventDefault(); select(itemAt(e)); });   // the organism itself or the page = deselect
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') select(null); });
+      const inSubject = (el) => el && subject.contains(el);
+      const itemAt = (e) => { const el = e.target.closest && e.target.closest('[data-item]'); return inSubject(el) ? el.dataset.item : null; };
+      const slotAt = (e) => { const el = e.target.closest && e.target.closest('[data-slot]'); return inSubject(el) ? el.dataset.slot : null; };
+      const targetAt = (e) => {
+        const id = itemAt(e);
+        if (id) { const own = elFor(id).closest('[data-slot]'); return e.altKey && own ? { kind: 'slot', id: own.dataset.slot } : { kind: 'item', id }; }
+        const sid = slotAt(e); return sid ? { kind: 'slot', id: sid } : null;
+      };
+      document.addEventListener('mousemove', (e) => { const t = targetAt(e); if (!same(t, hov)) { hov = t; drawOverlay(); } });
+      document.addEventListener('mouseleave', () => { hov = null; drawOverlay(); });
+      document.addEventListener('click', (e) => { e.preventDefault(); selectTarget(targetAt(e)); });   // the organism itself or the page = deselect
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') selectTarget(null); });
       addEventListener('resize', drawOverlay); addEventListener('scroll', drawOverlay, true);
     }
 
@@ -166,8 +184,9 @@
       // composed organisms
       getModel(opts) { return spec ? compose.getModel(meta, state, ctx, opts) : null; },
       getItemModel(id) { return spec ? compose.getItemModel(meta, state, ctx, id) : null; },
-      select(id) { select(id); },
-      getSelected() { return selectedId; },
+      getSlotModel(id) { return spec ? compose.getSlotModel(meta, state, ctx, id) : null; },
+      select(id, kind = 'item') { selectTarget(id ? { kind, id } : null); },
+      getSelected() { return sel; },
       setVariant(id) { state.state = id; place(build()); },
       setPersona(role, id) { state.personas[role] = id; place(build()); },
       setItem(id, patch) {
