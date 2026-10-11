@@ -1,0 +1,5 @@
+/* Organism: CTA card. Centred headline and copy, then a full-width button. Slots: content, action. */
+.cta-card { --card-fill: var(--gradient-purple-to-blue); --card-gap: var(--space-6); --skeleton-align: center; padding-block: var(--padding-xl); text-align: center; }
+.cta-card__content { display: flex; flex-direction: column; gap: var(--space-4); }
+.cta-card__headline { font: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-tight) var(--font-family-display); letter-spacing: var(--letter-spacing-tight); }
+.cta-card__body { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }

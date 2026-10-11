@@ -1,0 +1,6 @@
+/* Organism: end of session card. Centred overline and headline, then the main button and a quiet flat one. Slots: content, actions. */
+.end-of-session-card { --card-fill: var(--gradient-dark-rose-to-orange); --card-padding-x: var(--padding-xl); --card-gap: calc(var(--space-8) + var(--space-2));   /* 40 */ --skeleton-align: center; padding-block: var(--space-12) var(--padding-xl); align-items: stretch; text-align: center; }
+.end-of-session-card__content { display: flex; flex-direction: column; align-items: center; }
+.end-of-session-card__actions { display: flex; flex-direction: column; align-items: center; gap: calc(var(--space-4) + var(--space-1)); }   /* 20 */
+.end-of-session-card__overline { color: var(--text-secondary); font: var(--font-weight-body) var(--font-size-md)/var(--line-height-relaxed) var(--font-family-body); }
+.end-of-session-card__headline { font: var(--font-weight-regular) var(--font-size-2xl)/1.4 var(--font-family-body); letter-spacing: var(--letter-spacing-tighter); }

@@ -1,0 +1,126 @@
+{
+  "name": "Resource card",
+  "tier": "organisms",
+  "category": "cards",
+  "stateful": false,
+  "uses": [
+    "atoms/card",
+    "atoms/button",
+    "molecules/skeleton-text"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<article class=\"card resource-card\"><div class=\"resource-card__content\" data-slot=\"content\"><div class=\"resource-card__titles\">{{item:headline}}{{item:link}}</div>{{item:body}}</div><div class=\"resource-card__actions\" data-slot=\"actions\">{{item:button1}}{{item:button2}}</div></article>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "headline",
+            "link",
+            "body"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "actions",
+          "label": "Actions slot",
+          "items": [
+            "button1",
+            "button2"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {
+    "--card-fill": "fill",
+    "--card-radius": "radius"
+  },
+  "styles": [],
+  "selector": ".resource-card",
+  "description": "A link to something outside the app: a bold title, the address, a line of description and two outline buttons side by side. Quiet, on a faint fill.",
+  "items": {
+    "headline": {
+      "type": "text",
+      "tag": "p",
+      "class": "resource-card__headline",
+      "label": "Headline",
+      "value": "This is the headline",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "link": {
+      "type": "text",
+      "tag": "p",
+      "class": "resource-card__link",
+      "label": "Link",
+      "value": "example.com",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "resource-card__body",
+      "label": "Body Copy",
+      "value": "Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    "button1": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Button 1",
+      "props": {
+        "label": "Button",
+        "variant": "outline",
+        "size": "md",
+        "width": "hug"
+      },
+      "expose": [
+        "label"
+      ]
+    },
+    "button2": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Button 2",
+      "props": {
+        "label": "Button",
+        "variant": "outline",
+        "size": "md",
+        "width": "hug"
+      },
+      "expose": [
+        "label"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [
+    {
+      "id": "background",
+      "label": "Background Color",
+      "type": "gradients",
+      "var": "--card-fill",
+      "default": "var(--bg-elevation-10)"
+    },
+    {
+      "id": "radius",
+      "label": "Corner Radius",
+      "type": "scale",
+      "scale": "radius",
+      "vars": [
+        "--card-radius"
+      ],
+      "default": "var(--radius-md)",
+      "edit": true
+    }
+  ],
+  "prompts": []
+}

@@ -123,6 +123,8 @@ The **session cards** (Figma "Session Cards"): `organisms/session-card` has thre
 
 The **header cards** (Figma "Header Cards"): `organisms/header-card` (Default and Provider states) opens a screen: it runs to the screen edges, bottom corners rounded, content centred at the bottom. A component can set `"align": "top"` in its meta so the canvas pins it to the top of the frame instead of centring it. The header card has the **header** molecule (`molecules/header`: status bar, back/close button, title, step dots, action; six variants) in a Top slot over its padding, built from the new **status bar** and **dots** atoms. `organisms/header-inset-card` is the inset one (Figma's Profile and Secondary types are identical, so one card).
 
+More cards from Figma: `session-history-card` (Default, With image), `cta-card`, `end-of-session-card` and `resource-card`. They follow the same shape as the other organisms (slots, skeletons, nested component rows).
+
 ## Loading states
 
 One shimmer serves the whole system: `tds/foundations/styles/skeleton.css`; the **skeleton atom** (`atoms/skeleton`: a line, dot or pill, always fully rounded) draws it, and the **skeleton-text molecule** (`molecules/skeleton-text`) is a multi-line placeholder whose lines take the height of the surrounding text and follow `--skeleton-align` (speed is the `duration-shimmer` token; it stops under reduced motion and follows the surface colour, so Charcoal needs nothing extra).
