@@ -43,6 +43,9 @@
           "label": "CTA slot",
           "items": []
         }
+      ],
+      "personas": [
+        "provider"
       ]
     },
     {
@@ -80,6 +83,9 @@
             "button"
           ]
         }
+      ],
+      "personas": [
+        "provider"
       ]
     },
     {
@@ -122,7 +128,8 @@
             "button"
           ]
         }
-      ]
+      ],
+      "personas": []
     }
   ],
   "variables": {

@@ -25,6 +25,10 @@ export function text(str, data) {
 
 const stateOf = (meta, st) => meta.states.find((s) => s.id === st.state) || meta.states[0];
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+// Which persona roles a state uses; a state with none (e.g. the provider CTA, where no provider is chosen yet) hides the picker.
+const statePersonas = (meta, state) => state.personas ?? meta.personas ?? [];
+// Mark the root element of rendered markup with the item it came from, so the canvas can select it.
+const tagItem = (html, id) => html.replace(/^(\s*<[\w-]+)/, `$1 data-item="${id}"`);
 
 // The persona (e.g. the provider) currently chosen for a role; the first one until the user picks.
 export function personaFor(st, ctx, role) {
@@ -66,10 +70,10 @@ function propVars(compMeta, item, scope) {
 
 function renderItem(scope, id) {
   const it = effectiveItem(scope.meta, scope.st, id);
-  if (it.type === 'text') return `<${it.tag || 'p'}${it.class ? ` class="${it.class}"` : ''}>${text(it.value, scope.data)}</${it.tag || 'p'}>`;
+  if (it.type === 'text') return tagItem(`<${it.tag || 'p'}${it.class ? ` class="${it.class}"` : ''}>${text(it.value, scope.data)}</${it.tag || 'p'}>`, id);
   const comp = scope.ctx.components[it.component];
   if (!comp) return `<!-- unknown component ${esc(it.component)} -->`;
-  return comp.template ? fill(comp.template, propVars(comp, it, scope)) : comp.markup;
+  return tagItem(comp.template ? fill(comp.template, propVars(comp, it, scope)) : comp.markup, id);
 }
 
 export function renderOrganism(meta, st, ctx) {
@@ -77,26 +81,31 @@ export function renderOrganism(meta, st, ctx) {
   return stateOf(meta, st).template.replace(/\{\{item:([\w-]+)\}\}/g, (m, id) => (meta.items[id] ? renderItem(scope, id) : ''));
 }
 
+const promptFor = (meta, state, id) => {
+  const p = (meta.prompts || []).find((x) => x.outputs.includes(id) && (!x.states || x.states.includes(state.id)));
+  return p ? { id: p.id, label: p.label, instruction: p.instruction, inputs: p.inputs || [], outputs: p.outputs.map((o) => meta.items[o].label || o), level: 'design system' } : null;
+};
+function controlFor(meta, st, ctx, comp, key, item) {
+  const def = comp.props[key], value = item.props[key] ?? def.default;
+  const c = { key, label: def.label || key, type: def.type, value, ui: def.ui, content: def.type === 'text' };
+  if (def.type === 'enum') c.values = def.values;
+  if (def.type === 'person') {
+    c.options = (ctx.personas.provider || []).map((x) => ({ value: x.id, label: x.name, photo: x.photo }));
+    const role = (item.bind || {})[key];
+    if (role) { const p = personaFor(st, ctx, role); c.bound = { role, label: cap(role), value: p ? p.name : '' }; }
+  }
+  if (def.type === 'icon') c.options = ctx.glyphs;
+  return c;
+}
+
 // What the panel needs. By default only content (text) is exposed; { edit: true } also exposes structure (icons, sizes…).
 export function getModel(meta, st, ctx, opts = {}) {
   const state = stateOf(meta, st), data = dataFor(meta, st, ctx);
-  const labelOf = (id) => meta.items[id].label || id;
-  const promptFor = (id) => {
-    const p = (meta.prompts || []).find((x) => x.outputs.includes(id) && (!x.states || x.states.includes(state.id)));
-    return p ? { id: p.id, label: p.label, instruction: p.instruction, inputs: p.inputs || [], outputs: p.outputs.map(labelOf), level: 'design system' } : null;
-  };
-  const controlFor = (comp, key, props) => {
-    const def = comp.props[key], value = props[key] ?? def.default;
-    const c = { key, label: def.label || key, type: def.type, value, ui: def.ui, content: def.type === 'text' };
-    if (def.type === 'enum') c.values = def.values;
-    if (def.type === 'person') c.options = (ctx.personas.provider || []).map((x) => ({ value: x.id, label: x.name, photo: x.photo }));
-    if (def.type === 'icon') c.options = ctx.glyphs;
-    return c;
-  };
+  const roles = statePersonas(meta, state);
   return {
     states: meta.states.map((s) => ({ id: s.id, name: s.name })),
     state: state.id,
-    personas: (meta.personas || []).map((role) => {
+    personas: roles.map((role) => {
       const p = personaFor(st, ctx, role);
       return { role, label: cap(role), value: p ? p.id : '', options: (ctx.personas[role] || []).map((x) => ({ value: x.id, label: x.name, photo: x.photo })) };
     }),
@@ -106,12 +115,22 @@ export function getModel(meta, st, ctx, opts = {}) {
       id: slot.id, label: slot.label,
       items: slot.items.map((id) => {
         const it = effectiveItem(meta, st, id);
-        if (it.type === 'text') return { id, type: 'text', label: it.label || id, value: it.value, prompt: promptFor(id) };
+        if (it.type === 'text') return { id, type: 'text', label: it.label || id, value: it.value, prompt: promptFor(meta, state, id) };
         const comp = ctx.components[it.component];
-        let controls = (it.expose || []).filter((k) => comp.props && comp.props[k]).map((k) => controlFor(comp, k, it.props));
+        let controls = (it.expose || []).filter((k) => comp.props && comp.props[k]).map((k) => controlFor(meta, st, ctx, comp, k, it));
         if (!opts.edit) controls = controls.filter((c) => c.content);
-        return { id, type: 'component', label: it.label || comp.name, controls, prompt: promptFor(id) };
+        return { id, type: 'component', label: it.label || comp.name, controls, prompt: promptFor(meta, state, id) };
       }).filter((it) => it.type === 'text' || it.controls.length),
     })).filter((slot) => slot.items.length),
   };
+}
+
+// One selected item with every control it has (content and structure), for the panel that opens when it is clicked.
+export function getItemModel(meta, st, ctx, id) {
+  if (!meta.items[id]) return null;
+  const it = effectiveItem(meta, st, id), state = stateOf(meta, st);
+  if (it.type === 'text') return { id, type: 'text', kind: 'Text', label: it.label || id, value: it.value, prompt: promptFor(meta, state, id), controls: [] };
+  const comp = ctx.components[it.component];
+  return { id, type: 'component', kind: comp.name, label: it.label || comp.name, prompt: promptFor(meta, state, id),
+    controls: Object.keys(comp.props || {}).map((k) => controlFor(meta, st, ctx, comp, k, it)) };
 }

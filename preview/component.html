@@ -20,6 +20,16 @@
     .thumb main { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--space-4); }
     .thumb .label { display: none; }
     .thumb .subject { display: flex; justify-content: center; width: 100%; min-height: 0; padding: 0; background: none; border-radius: 0; }
+    /* selection overlay (Figma-style): blue hover and selected outlines, corner handles, name tag, size pill */
+    #sel-layer { position: fixed; inset: 0; pointer-events: none; z-index: 2147483000; font: 500 10px/1 Inter, system-ui, sans-serif; }
+    #sel-layer .box { position: fixed; box-sizing: border-box; border: 1px solid #0d99ff; }
+    #sel-layer .box.sel { border-width: 1.5px; }
+    #sel-layer .box[hidden] { display: none; }
+    #sel-layer .tag { position: absolute; left: -1px; bottom: 100%; margin-bottom: 3px; padding: 3px 5px; border-radius: 3px; background: #0d99ff; color: #fff; white-space: nowrap; }
+    #sel-layer .hover .tag { background: none; color: #0d99ff; padding-left: 0; }
+    #sel-layer .h { position: absolute; width: 7px; height: 7px; box-sizing: border-box; background: #fff; border: 1px solid #0d99ff; }
+    #sel-layer .tl { left: -4px; top: -4px; } #sel-layer .tr { right: -4px; top: -4px; } #sel-layer .bl { left: -4px; bottom: -4px; } #sel-layer .br { right: -4px; bottom: -4px; }
+    #sel-layer .dim { position: absolute; left: 50%; top: 100%; transform: translateX(-50%); margin-top: 7px; padding: 3px 5px; border-radius: 3px; background: #0d99ff; color: #fff; white-space: nowrap; }
     .glyphs { display: grid; grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr)); gap: var(--space-2); }
     .glyph { display: flex; flex-direction: column; align-items: center; gap: var(--space-1); padding: var(--padding-sm); border-radius: var(--radius-sm); background: var(--bg-elevation-5); text-align: center; overflow: hidden; }
     .glyph span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -84,10 +94,33 @@
     const attrState = { ...((thumb && thumb.set) || {}) }; let stateName = '', surfaceState = 'normal', curExample = (thumb && thumb.example) || 0, subject;
     const vars = {};
     const build = (markup) => make({ markup: spec ? compose.renderOrganism(meta, state, ctx) : markup, set: attrState, state: stateName || undefined, text: single ? undefined : meta.name });
+    // Figma-style selection for composed organisms: hover and select the items inside, click anywhere else to let go.
+    const interactive = spec && single && !thumb;
+    let selectedId = null, hoverId = null, layer = null;
+    if (interactive) {
+      layer = document.createElement('div'); layer.id = 'sel-layer'; layer.setAttribute('aria-hidden', 'true');
+      layer.innerHTML = '<div class="box hover" hidden><span class="tag"></span></div><div class="box sel" hidden><span class="tag"></span><i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i><span class="dim"></span></div>';
+      document.body.append(layer);
+    }
+    const elFor = (id) => (id && subject ? subject.querySelector(`[data-item="${id}"]`) : null);
+    function drawBox(box, id) {
+      const el = elFor(id); if (!el) { box.hidden = true; return; }
+      const r = el.getBoundingClientRect();
+      Object.assign(box.style, { left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` });
+      box.querySelector('.tag').textContent = (meta.items[id] && meta.items[id].label) || id;
+      const dim = box.querySelector('.dim'); if (dim) dim.textContent = `${Math.round(r.width)} × ${Math.round(r.height)}`;
+      box.hidden = false;
+    }
+    function drawOverlay() { if (!layer) return; drawBox(layer.querySelector('.hover'), hoverId !== selectedId ? hoverId : null); drawBox(layer.querySelector('.sel'), selectedId); }
+    function select(id) {
+      selectedId = elFor(id) ? id : null; drawOverlay();
+      if (self !== top && !thumb) parent.postMessage({ type: 'tds-select', id: selectedId }, location.origin);
+    }
     function place(el) {
       subject = el; slot.replaceChildren(el);
       for (const [k, v] of Object.entries(vars)) el.style.setProperty(k, v);
       if (surfaceState === 'inverse') el.dataset.surface = 'inverse';   // inverse applies to the component, not the page
+      if (layer) { if (selectedId && !elFor(selectedId)) select(null); else drawOverlay(); }
     }
     document.getElementById('title').textContent = `${meta.name} — ${meta.tier}`;
     place(build(examples[curExample] && examples[curExample].markup));
@@ -111,6 +144,15 @@
       }
     }
 
+    if (interactive) {
+      const itemAt = (e) => { const el = e.target.closest && e.target.closest('[data-item]'); return el && subject.contains(el) ? el.dataset.item : null; };
+      document.addEventListener('mousemove', (e) => { const id = itemAt(e); if (id !== hoverId) { hoverId = id; drawOverlay(); } });
+      document.addEventListener('mouseleave', () => { hoverId = null; drawOverlay(); });
+      document.addEventListener('click', (e) => { e.preventDefault(); select(itemAt(e)); });   // the organism itself or the page = deselect
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') select(null); });
+      addEventListener('resize', drawOverlay); addEventListener('scroll', drawOverlay, true);
+    }
+
     // Driven by the editor (same origin). Nothing here is saved; the editor saves defaults to the repo.
     const all = () => document.querySelectorAll('[data-tds-instance]');
     const contentDefs = () => (examples[curExample] && examples[curExample].content) || meta.content || [];
@@ -123,6 +165,9 @@
       setExample(i) { if (examples[i]) { curExample = i; place(build(examples[i].markup)); } },
       // composed organisms
       getModel(opts) { return spec ? compose.getModel(meta, state, ctx, opts) : null; },
+      getItemModel(id) { return spec ? compose.getItemModel(meta, state, ctx, id) : null; },
+      select(id) { select(id); },
+      getSelected() { return selectedId; },
       setVariant(id) { state.state = id; place(build()); },
       setPersona(role, id) { state.personas[role] = id; place(build()); },
       setItem(id, patch) {
