@@ -120,6 +120,7 @@ One shimmer serves the whole system: `tds/foundations/styles/skeleton.css` (spee
 - **Atoms** that can load have a `loading` state (`data-state="loading"`): avatar and icon button shimmer in place of their content.
 - **Components** declare a `skeleton` template in their meta (what they look like inside a loading slot).
 - **Slots** opt in with `"skeleton": true`. While loading, each text item becomes shimmering lines (as many as its copy is expected to need) and each component item uses its skeleton, so the card keeps its size and nothing jumps when content arrives. Slots without it (e.g. the CTA) stay as they are.
+- Skeleton lines are pills. An item can say `"skeleton": { "lines": n }` or `"skeleton": false` (left out while loading), so a skeleton stays simple: in the appointment card an avatar, a one-line headline and two lines of copy. The canvas measures the loaded card and gives each skeleton slot the same height (content centred in it), so nothing shifts when it loads.
 - The organism panel has a reload button that plays the loading state, then shows the content (`tdsComponent.setLoading(on)` / `.reload()` on the canvas page).
 
 ## Assets and icons

@@ -68,12 +68,13 @@ function propVars(compMeta, item, scope) {
   return vars;
 }
 
-// A text item's skeleton: shimmering lines in the same element (so the same type rhythm), as many as the copy is expected to
-// take (about 22 characters per line in a heading, 34 in body text), the last one shorter.
+// A text item's skeleton: shimmering pill lines in the same element (so the same type rhythm). The item says how many
+// (`skeleton: { lines }`), otherwise as many as the copy is expected to take (about 22 characters per line in a heading,
+// 34 in body text). The last line is shorter. `skeleton: false` leaves the item out.
 function textSkeleton(it, data) {
   const plain = String(it.value).replace(/\{\{\s*([\w.-]+)\s*\}\}/g, (m, k) => (k in data ? data[k] : m));
-  const perLine = (it.skeleton && it.skeleton.perLine) || (/^h[1-6]$/.test(it.tag || '') ? 22 : 34);
-  const lines = Math.max(1, Math.ceil(plain.length / perLine));
+  const perLine = /^h[1-6]$/.test(it.tag || '') ? 22 : 34;
+  const lines = (it.skeleton && it.skeleton.lines) || Math.max(1, Math.ceil(plain.length / perLine));
   const bars = Array.from({ length: lines }, (_, i) => `<span class="skeleton-line" style="width:${lines === 1 ? 70 : i === lines - 1 ? 60 : 100}%"></span>`).join('');
   return `<${it.tag || 'p'}${it.class ? ` class="${it.class}"` : ''}>${bars}</${it.tag || 'p'}>`;
 }
@@ -81,6 +82,7 @@ function textSkeleton(it, data) {
 function renderItem(scope, id) {
   const it = effectiveItem(scope.meta, scope.st, id);
   if (scope.skeleton.has(id)) {   // inside a loading slot
+    if (it.skeleton === false) return '';   // not shown while loading (the skeleton stays simple)
     if (it.type === 'text') return tagItem(textSkeleton(it, scope.data), id);
     const comp = scope.ctx.components[it.component];
     if (comp && comp.skeleton) return tagItem(fill(comp.skeleton, propVars(comp, it, scope)), id);

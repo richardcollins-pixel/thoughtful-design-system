@@ -174,7 +174,10 @@
       "tag": "h3",
       "class": "appointment-card__headline",
       "label": "Headline",
-      "value": "Appointment with {{provider-name}}"
+      "value": "Appointment with {{provider-name}}",
+      "skeleton": {
+        "lines": 1
+      }
     },
     "edit": {
       "type": "component",
@@ -188,7 +191,8 @@
       "expose": [
         "elevation",
         "icon"
-      ]
+      ],
+      "skeleton": false
     },
     "date": {
       "type": "component",
@@ -203,7 +207,8 @@
       "expose": [
         "text",
         "icon"
-      ]
+      ],
+      "skeleton": false
     },
     "duration": {
       "type": "component",
@@ -218,21 +223,26 @@
       "expose": [
         "text",
         "icon"
-      ]
+      ],
+      "skeleton": false
     },
     "body": {
       "type": "text",
       "tag": "p",
       "class": "appointment-card__body",
       "label": "Body Copy",
-      "value": "Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      "value": "Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "skeleton": {
+        "lines": 2
+      }
     },
     "footnote": {
       "type": "text",
       "tag": "p",
       "class": "appointment-card__footnote",
       "label": "Footnote",
-      "value": "Footnote goes here"
+      "value": "Footnote goes here",
+      "skeleton": false
     },
     "button": {
       "type": "component",
