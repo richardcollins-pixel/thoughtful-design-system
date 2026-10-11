@@ -254,9 +254,9 @@
       setContent(i, v) { const el = contentDefs()[i] && target(contentDefs()[i]); if (el) el.textContent = v; },
       reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; surfaceState = 'normal'; curExample = 0; if (spec) { clearTimeout(this._t); state = { state: meta.states[0].id, personas: {}, items: {} }; } place(build(examples[0] && examples[0].markup)); },
     };
+    import('../tds/behaviors/carousel.js' + (ver ? `?v=${ver}` : ''));   // versioned like everything else, so a deploy never mixes old and new
     document.body.dataset.ready = '';   // until now the page shows nothing, not its placeholder
     if (self !== top && !thumb) parent.postMessage({ type: 'tds-ready', meta }, location.origin);
   </script>
-  <script type="module" src="../tds/behaviors/carousel.js"></script>
 </body>
 </html>
