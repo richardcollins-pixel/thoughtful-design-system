@@ -138,7 +138,8 @@ const DESC = {
 
 function renderTable() {
   const body = $('#body');
-  $('#sheet-desc').textContent = (!library && kind && DESC[kind]) || '';
+  $('#sheet-desc').textContent = (!library && kind && kind !== 'typestyles' && DESC[kind]) || '';
+  $('#add').textContent = kind === 'typestyles' ? '+ Add type style' : '+ Add token';
   if (library) return renderLibrary();
   if (!kind) { body.innerHTML = '<p class="empty">Placeholder — coming in a later step.</p>'; return; }
   if (kind === 'typestyles') return renderTypeStyles();
@@ -229,7 +230,7 @@ $('#panel').addEventListener('click', (e) => {
 });
 
 $('#add').addEventListener('click', () => {
-  if (!kind) return;
+  if (!kind || kind === 'typestyles') return;   // adding a type style comes later
   const def = KINDS[kind];
   let base = `new-${def.noun.replace(' ', '-')}`, name = base, i = 2;
   while (tokens.some((t) => t.name === name)) name = `${base}-${i++}`;
@@ -246,13 +247,13 @@ const TYPE_FIELDS = [['family', 'Font', 'font-family'], ['weight', 'Weight', 'fo
 const tok = (name) => tokens.find((t) => t.name === name) || {};
 // A style as plain CSS for a specimen (the tokens resolved to numbers, so the specimen needs no stylesheet).
 const specimenCss = (s) => `font-family:${family(tok(s.family).value).stack};font-weight:${tok(s.weight).value};font-size:${tok(s.size).px}px;line-height:${(tok(s.lineHeight).percent || 100) / 100};letter-spacing:${(tok(s.letterSpacing).percent || 0) / 100}em;font-style:${s.italic ? 'italic' : 'normal'}`;
-const tokenLabel = (kindName, t) => (kindName === 'font-size' ? `${t.name.replace('font-size-', '')} · ${t.px}px` : kindName === 'line-height' ? `${t.name.replace('line-height-', '')} · ${t.percent}%` : kindName === 'letter-spacing' ? `${t.name.replace('letter-spacing-', '')} · ${t.percent}%` : kindName === 'font-weight' ? `${t.name.replace('font-weight-', '')} · ${t.value}` : t.name.replace('font-family-', ''));
+const tokenLabel = (kindName, t) => (kindName === 'font-size' ? `${t.name.replace('font-size-', '')} · ${t.px}px` : kindName === 'line-height' ? `${t.name.replace('line-height-', '')} · ${t.percent}%` : kindName === 'letter-spacing' ? `${t.name.replace('letter-spacing-', '')} · ${t.percent}%` : kindName === 'font-weight' ? `${t.name.replace('font-weight-', '')} · ${t.value}` : `${family(t.value).label} · ${t.name.replace('font-family-', '')}`);
 
 function renderTypeStyles() {
   const body = $('#body');
   if (!typeStyles.length) { body.innerHTML = '<p class="empty">No type styles loaded.</p>'; return; }
   const sel = (s, [key, , k]) => `<select data-ts="${s.id}" data-tf="${key}">${tokens.filter((t) => t.kind === k).map((t) => `<option value="${esc(t.name)}" ${t.name === s[key] ? 'selected' : ''}>${esc(tokenLabel(k, t))}</option>`).join('')}</select>`;
-  body.innerHTML = `<table class="typetable"><thead><tr><th>Style</th><th>Specimen</th>${TYPE_FIELDS.map(([, h]) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${typeStyles.map((s) => `
+  body.innerHTML = `<table class="typetable"><colgroup><col style="width:15%"><col style="width:26%">${TYPE_FIELDS.map(() => '<col>').join('')}</colgroup><thead><tr><th>Style</th><th>Specimen</th>${TYPE_FIELDS.map(([, h]) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${typeStyles.map((s) => `
     <tr class="item${s === selectedStyle ? ' sel' : ''}" data-style="${s.id}"><td class="name">${esc(s.name)}<div class="mute">.text-${esc(s.id)}</div></td>
     <td><span class="specimen" data-spec="${s.id}" style="${esc(specimenCss(s))}">Thoughtful design</span></td>${TYPE_FIELDS.map((f) => `<td>${sel(s, f)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
 }
@@ -419,7 +420,7 @@ async function loadTokens() {
   } catch (e) { setStatus(e.message, true); }
 }
 
-function renderAll() { renderNav(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind || kind === 'typestyles'; updateSavebar(); }
+function renderAll() { renderNav(); renderTable(); renderPanel(); renderView(); $('#add').disabled = !kind; updateSavebar(); }
 
 /* ---------- assets ---------- */
 const LIB_BASE = '../tds/assets/';
