@@ -164,7 +164,10 @@
       "label": "Background Color",
       "type": "gradients",
       "var": "--card-fill",
-      "default": "var(--gradient-dark-rose-to-orange)"
+      "default": "var(--gradient-dark-rose-to-orange)",
+      "states": [
+        "default"
+      ]
     },
     {
       "id": "radius",

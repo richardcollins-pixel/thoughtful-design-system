@@ -127,6 +127,8 @@ More cards from Figma: `session-history-card` (Default, With image), `cta-card`,
 
 The provider set: `patterns/provider-carousel` (five provider bio cards in the shared carousel, each with its own provider, and progress dots under it that follow the card in focus: put a `[data-carousel-dots]` after a carousel and its `.dots` is kept in step) and `organisms/error-card` (Couldn't load, with Retry). Figma's Provider Card loading and Post-Appointment Skeleton are covered by the skeleton system rather than separate cards: every organism has a loading state that holds its loaded height.
 
+Properties can be limited to some states (`"states": [...]` on a property): a flat card has no gradient to pick, so the Provider header and the resource card show no background control, while gradient cards get the gradients plus a **flat** swatch (the plain 20% fill).
+
 ## Loading states
 
 One shimmer serves the whole system: `tds/foundations/styles/skeleton.css`; the **skeleton atom** (`atoms/skeleton`: a line, dot or pill, always fully rounded) draws it, and the **skeleton-text molecule** (`molecules/skeleton-text`) is a multi-line placeholder whose lines take the height of the surrounding text and follow `--skeleton-align` (speed is the `duration-shimmer` token; it stops under reduced motion and follows the surface colour, so Charcoal needs nothing extra).
