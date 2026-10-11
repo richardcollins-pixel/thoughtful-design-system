@@ -122,6 +122,17 @@
   ],
   "properties": [
     {
+      "id": "background",
+      "label": "Background Color",
+      "type": "gradients",
+      "var": "--card-fill",
+      "default": "var(--bg-elevation-20)",
+      "flatStates": [
+        "focused",
+        "unfocused"
+      ]
+    },
+    {
       "id": "radius",
       "label": "Corner Radius",
       "type": "scale",
