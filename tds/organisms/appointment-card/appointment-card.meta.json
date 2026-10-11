@@ -162,8 +162,12 @@
       "type": "component",
       "component": "molecules/avatar-group",
       "label": "Avatar group",
-      "props": {},
-      "expose": []
+      "props": {
+        "size": "lg"
+      },
+      "expose": [
+        "size"
+      ]
     },
     "headline": {
       "type": "text",
