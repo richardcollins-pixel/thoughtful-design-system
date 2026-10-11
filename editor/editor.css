@@ -176,8 +176,16 @@ dialog::backdrop { background:rgb(0 0 0 / .25); backdrop-filter:blur(2px); }
 .cp-sec-head { width:100%; display:flex; align-items:center; justify-content:space-between; background:none; border:0; padding:0; font-weight:600; font-size:12px; color:var(--ink); text-align:left; }
 .cp-sec-head svg { color:var(--mute); transition:transform .15s; }
 .cp-sec:not(.open) .cp-sec-head svg { transform:rotate(180deg); }
-.cp-sec-body { display:flex; flex-direction:column; gap:14px; padding-top:16px; }
-.cp-sec-body[hidden] { display:none; }
+.cp-sec-head { cursor:pointer; user-select:none; }
+.cp-sec-head:hover svg { color:var(--ink); }
+.cp-sec-tools { display:inline-flex; align-items:center; gap:10px; }
+/* a section folds like a blind: the body's row animates between 0fr and 1fr; it clips only while moving (menus must not be cut off at rest) */
+.cp-sec-body { display:grid; grid-template-rows:1fr; transition:grid-template-rows .22s ease; }
+.cp-sec-inner { min-height:0; display:flex; flex-direction:column; gap:14px; padding-top:16px; transition:padding-top .22s ease, opacity .18s ease, visibility 0s; }
+.cp-sec.anim .cp-sec-inner, .cp-sec:not(.open) .cp-sec-inner { overflow:hidden; }
+.cp-sec:not(.open) .cp-sec-body { grid-template-rows:0fr; }
+.cp-sec:not(.open) .cp-sec-inner { padding-top:0; opacity:0; visibility:hidden; transition:padding-top .22s ease, opacity .18s ease, visibility 0s .22s; }
+@media (prefers-reduced-motion: reduce) { .cp-sec-body, .cp-sec-inner, .cp-sec-head svg { transition:none !important; } }
 .prow { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:32px; }
 .plabel { color:var(--ink); }
 .pctl { display:flex; justify-content:flex-end; min-width:0; }
@@ -228,15 +236,8 @@ dialog::backdrop { background:rgb(0 0 0 / .25); backdrop-filter:blur(2px); }
 
 .path { display:flex; align-items:center; gap:8px; min-width:0; }
 .path .link { white-space:nowrap; } .sep2 { color:var(--mute); }
-.layers { display:flex; flex-direction:column; margin:0 -6px; }
-.layer { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 6px; border:0; border-radius:7px; background:none; text-align:left; }
-.layer:hover { background:var(--chip); }
-.layer-kind { order:2; color:var(--mute); font-size:11px; }
 
 /* slots in the organism panel are rows you drill into */
-.slot-row { width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px; background:none; border:0; border-top:1px solid var(--line); padding:18px 0; font-size:12px; font-weight:600; color:var(--ink); text-align:left; }
-.slot-row .meta { display:flex; align-items:center; gap:4px; color:var(--mute); font-weight:400; transition:color .12s; }
-.slot-row:hover .meta { color:var(--ink); }
 .panel-body > .link { padding:4px 0; }
 .btn.wide { margin-top:2px; }
 

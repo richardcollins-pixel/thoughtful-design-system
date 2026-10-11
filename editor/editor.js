@@ -433,9 +433,11 @@ const glyphUrl = (file) => `../tds/atoms/icon/${encPath(file)}`;
 const iconMask = (file) => `<i class="mask" style="-webkit-mask-image:url('${glyphUrl(file)}');mask-image:url('${glyphUrl(file)}')"></i>`;
 
 // ---- layout of the panel: collapsible sections, label-left / control-right rows, dashed "add" placeholders
-const sec = (id, title, body) => `<section class="cp-sec${collapsed[id] ? '' : ' open'}"><button class="cp-sec-head" data-csec="${id}"><span>${esc(title)}</span>${CHEV_UP}</button><div class="cp-sec-body" ${collapsed[id] ? 'hidden' : ''}>${body}</div></section>`;
+// A section folds like a blind (the body animates open and shut). `tools` sit left of the chevron; `attrs` go on the header.
+const sec = (id, title, body, tools = '', attrs = '') => `<section class="cp-sec${collapsed[id] ? '' : ' open'}"><div class="cp-sec-head" role="button" tabindex="0" data-csec="${id}" ${attrs}><span>${esc(title)}</span><span class="cp-sec-tools">${tools}${CHEV_UP}</span></div><div class="cp-sec-body"><div class="cp-sec-inner">${body}</div></div></section>`;
 const prow = (label, control) => `<div class="prow"><span class="plabel">${esc(label)}</span><div class="pctl">${control}</div></div>`;
-const panelHead = (m, extra = '') => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><span class="cp-tools">${m.items ? '<button class="reload" type="button" data-reload title="Reload: show the loading state" aria-label="Reload"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg></button>' : ''}<label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></span></div>${extra}
+const RELOAD = '<button class="reload" type="button" data-reload title="Reload: show the loading state" aria-label="Reload"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg></button>';
+const panelHead = (m, extra = '') => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><span class="cp-tools"><label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></span></div>${extra}
   <div class="field"><label>Description</label><textarea class="cp-desc-edit" rows="3" data-cdesc>${esc(m.description || '')}</textarea></div>`;
 
 // ---- controls
@@ -462,10 +464,13 @@ function itemHtml(it, model) {
   if (it.type === 'text') return field(it.label, textControl(`data-cm-item="${it.id}"`, it.value, model, it.value.length > 40, it.prompt));
   return it.controls.map((c) => field(it.controls.length > 1 ? c.label : it.label, textControl(`data-cm-item="${it.id}" data-cm-prop="${c.key}"`, c.value, model, false, it.prompt))).join('');
 }
-// In the organism panel a slot is a row you drill into: it selects the slot on the canvas and the panel narrows to that slot.
 const CHEV_RIGHT = svg('<path d="m6 4 4 4-4 4"/>');
-const fieldCount = (sl) => sl.items.reduce((n, it) => n + (it.type === 'text' ? 1 : it.controls.length), 0);
-const slotsHtml = (model) => model.slots.map((sl) => `<button class="slot-row" data-el-slot="${sl.id}"><span>${esc(sl.label)}</span><span class="meta">${fieldCount(sl)} ${fieldCount(sl) === 1 ? 'field' : 'fields'}${CHEV_RIGHT}</span></button>`).join('');
+// In the organism panel each slot is a section that folds open to its content fields (closed to start with). Hovering its header
+// previews the slot on the canvas; getting to a slot's own page is done by clicking it on the canvas.
+const slotsHtml = (model) => model.slots.map((sl) => {
+  const id = `slot-${sl.id}`; if (!(id in collapsed)) collapsed[id] = true;
+  return sec(id, sl.label, sl.items.map((it) => itemHtml(it, model)).join(''), '', `data-hover-slot="${sl.id}"`);
+}).join('');
 const personaRows = (model) => model.personas.map((pe) => prow(pe.label, dd(`data-cpersona="${pe.role}"`, pe.options, pe.value, 'person'))).join('');
 
 // ---- token-bound properties (background, corner radius, padding)
@@ -502,7 +507,7 @@ function renderComponentPanel() {
   if (m.items) {   // a composed organism: provider, state, background, then its slots' content
     const model = api && api.getModel();
     p.innerHTML = (model
-      ? `<div id="cp-main">${panelHead(m)}<div class="cp-sections">${sec('state', 'State', stateThumbs(model))}${sec('props', 'Properties', propsBody(m, true))}<div class="cp-persona" id="cp-persona">${personaRows(model)}</div><div id="cp-slots">${slotsHtml(model)}</div>${m.surface ? sec('options', 'Options', surfaceField()) : ''}</div></div><div id="cp-el" hidden></div>`
+      ? `<div id="cp-main">${panelHead(m)}<div class="cp-sections">${sec('state', 'State', stateThumbs(model), RELOAD)}${sec('props', 'Properties', propsBody(m, true))}<div class="cp-persona" id="cp-persona">${personaRows(model)}</div><div id="cp-slots">${slotsHtml(model)}</div>${m.surface ? sec('options', 'Options', surfaceField()) : ''}</div></div><div id="cp-el" hidden></div>`
       : panelHead(m)) + footer;
     showSelection();
   } else {            // an atom or molecule: variants, properties, content, options
@@ -577,9 +582,8 @@ const selectionHead = (model, slot, here) => {
 // ---- slot panel: the slot's content fields, then a list of the items inside it (click one to select it)
 function slotPanel(sm, model) {
   const content = sm.content.map((it) => itemHtml(it, model)).join('');
-  const layers = `<div class="layers">${sm.items.map((i) => `<button class="layer" data-el-item="${i.id}"><span class="layer-kind">${esc(i.kind)}</span><span>${esc(i.label)}</span></button>`).join('')}</div>`;
   return `${selectionHead(model, { id: sm.id, label: sm.label })}
-    <div class="cp-sections">${content ? sec('el-content', 'Content', content) : ''}${sec('el-items', 'Items', layers)}</div>`;
+    <div class="cp-sections">${content ? sec('el-content', 'Content', content) : '<p class="mute" style="padding:12px 0">Nothing to edit in this slot yet.</p>'}</div>`;
 }
 
 function elementPanel(it, model) {
@@ -636,10 +640,12 @@ $('#panel').addEventListener('change', (e) => {
 $('#panel').addEventListener('click', (e) => {
   if (!component) return;
   const t = e.target, api = screen.contentWindow.tdsComponent;
+  const rl = t.closest('[data-reload]');
+  if (rl) { if (api && api.reload) { rl.classList.add('spin'); const ms = api.reload(); setTimeout(() => rl.classList.remove('spin'), ms); } return; }
   const head = t.closest('[data-csec]');
-  if (head) {   // fold / unfold a section in place
+  if (head) {   // fold / unfold a section in place (animated; it clips its content only while moving)
     const section = head.parentElement, open = section.classList.toggle('open');
-    section.querySelector('.cp-sec-body').hidden = !open; collapsed[head.dataset.csec] = !open; return;
+    collapsed[head.dataset.csec] = !open; section.classList.add('anim'); clearTimeout(section._t); section._t = setTimeout(() => section.classList.remove('anim'), 260); return;
   }
   const ddBtn = t.closest('[data-dd]'), opt = t.closest('[data-dd-opt]'), ai = t.closest('[data-ai]');
   if (ddBtn) { const mn = ddBtn.nextElementSibling; closeMenus(mn); mn.hidden = !mn.hidden; return; }
@@ -648,8 +654,6 @@ $('#panel').addEventListener('click', (e) => {
     if (root.dataset.cpersona) { api.setPersona(root.dataset.cpersona, opt.dataset.ddOpt); $('#cp-persona').innerHTML = personaRows(api.getModel()); return; }
     setItem(api, root.dataset.cmItem, root.dataset.cmProp, opt.dataset.ddOpt); refreshPanel(api); return;
   }
-  const rl = t.closest('[data-reload]');
-  if (rl && api && api.reload) { rl.classList.add('spin'); const ms = api.reload(); setTimeout(() => rl.classList.remove('spin'), ms); return; }
   if (ai) { const mn = ai.nextElementSibling; closeMenus(mn); mn.hidden = !mn.hidden; return; }
   const lay = t.closest('[data-cvariant]'), stp = t.closest('[data-step]'), prop = t.closest('[data-cprop]'), thumb = t.closest('[data-cthumb]');
   if (lay && api) {
@@ -668,9 +672,8 @@ $('#panel').addEventListener('click', (e) => {
   if (stp && stp.closest('[data-cm-item]') && api) { const root = stp.closest('[data-cm-item]'); setItem(api, root.dataset.cmItem, root.dataset.cmProp, stp.dataset.step); refreshPanel(api); return; }
   if (thumb && api) { variantThumbs(component.meta).items[+thumb.dataset.cthumb].apply(api); syncVars(); renderComponentPanel(); return; }
   if (t.id === 'el-back' && api) { api.select(null); return; }
-  const upSlot = t.closest('[data-el-slot]'), downItem = t.closest('[data-el-item]');
+  const upSlot = t.closest('[data-el-slot]');   // breadcrumbs only go up; going down is done on the canvas
   if (upSlot && api) { api.select(upSlot.dataset.elSlot, 'slot'); return; }
-  if (downItem && api) { api.select(downItem.dataset.elItem, 'item'); return; }
   if (t.id === 'edit-comp') { editing = true; renderComponentPanel(); updateSavebar(); }
   else if (t.id === 'edit-back') { editing = false; renderComponentPanel(); updateSavebar(); }
   else if (t.id === 'creset') {
@@ -679,9 +682,10 @@ $('#panel').addEventListener('click', (e) => {
   }
 });
 const hoverTarget = (e) => {
-  const sl = e.target.closest && e.target.closest('[data-el-slot]'), it = e.target.closest && e.target.closest('[data-el-item]');
-  return sl ? { id: sl.dataset.elSlot, kind: 'slot' } : it ? { id: it.dataset.elItem, kind: 'item' } : null;
+  const sl = e.target.closest && e.target.closest('[data-hover-slot]');
+  return sl ? { id: sl.dataset.hoverSlot, kind: 'slot' } : null;
 };
+$('#panel').addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-csec]')) { e.preventDefault(); e.target.click(); } });
 $('#panel').addEventListener('mouseover', (e) => { const t = hoverTarget(e), api = component && screen.contentWindow.tdsComponent; if (t && api && api.hover) api.hover(t.id, t.kind); });
 $('#panel').addEventListener('mouseout', (e) => { const api = component && screen.contentWindow.tdsComponent; if (hoverTarget(e) && !hoverTarget({ target: e.relatedTarget || document.body }) && api && api.hover) api.hover(null); });
 window.addEventListener('message', (e) => {
