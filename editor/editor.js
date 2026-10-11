@@ -12,7 +12,7 @@ let fidelity = 'styled';
 let libraries = [], library = null, asset = null;
 const freshPreview = () => ({ attrs: {}, state: '', vars: {}, example: 0, surface: 'normal' });
 let collapsed = { 'slot-header': true, 'slot-content': true, 'slot-cta': true };   // panel sections that are folded; slots start closed
-let components = [], component = null, editing = false, cstate = freshPreview();
+let components = [], component = null, editing = false, selectedItem = null, cstate = freshPreview();   // selectedItem: the element clicked on the canvas
 let kind = 'primitive', navKey = 'tokens/primitives', selected = null, saveTimer;
 
 /* ---------- color helpers ---------- */
@@ -120,7 +120,7 @@ $('#nav').addEventListener('click', (e) => {
     navKey = b.dataset.nav; kind = b.dataset.kind || null; selected = null;
     component = components.find((c) => c.path === b.dataset.component) || null;
     library = null; asset = null;
-    cstate = freshPreview(); editing = false;
+    cstate = freshPreview(); editing = false; selectedItem = null;
     setCanvasSrc();
   }
   renderAll();
@@ -435,7 +435,7 @@ const iconMask = (file) => `<i class="mask" style="-webkit-mask-image:url('${gly
 // ---- layout of the panel: collapsible sections, label-left / control-right rows, dashed "add" placeholders
 const sec = (id, title, body) => `<section class="cp-sec${collapsed[id] ? '' : ' open'}"><button class="cp-sec-head" data-csec="${id}"><span>${esc(title)}</span>${CHEV_UP}</button><div class="cp-sec-body" ${collapsed[id] ? 'hidden' : ''}>${body}</div></section>`;
 const prow = (label, control) => `<div class="prow"><span class="plabel">${esc(label)}</span><div class="pctl">${control}</div></div>`;
-const panelHead = (m, extra = '') => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><label class="switch"><span>Charcoal</span><input type="checkbox" id="t-wire" role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>${extra}
+const panelHead = (m, extra = '') => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>${extra}
   <div class="field"><label>Description</label><textarea class="cp-desc-edit" rows="3" data-cdesc>${esc(m.description || '')}</textarea></div>`;
 
 // ---- controls
@@ -498,9 +498,10 @@ function renderComponentPanel() {
   const footer = `<div class="spacer"></div><button class="link" id="creset">Reset preview</button><button class="btn dark wide" id="edit-comp">Edit Component</button>`;
   if (m.items) {   // a composed organism: provider, state, background, then its slots' content
     const model = api && api.getModel();
-    p.innerHTML = panelHead(m) + (model
-      ? `<div class="cp-sections">${sec('state', 'State', stateThumbs(model))}${sec('props', 'Properties', propsBody(m, true))}<div class="cp-persona" id="cp-persona">${personaRows(model)}</div><div id="cp-slots">${slotsHtml(model)}</div>${m.surface ? sec('options', 'Options', surfaceField()) : ''}</div>`
-      : '') + footer;
+    p.innerHTML = (model
+      ? `<div id="cp-main">${panelHead(m)}<div class="cp-sections">${sec('state', 'State', stateThumbs(model))}${sec('props', 'Properties', propsBody(m, true))}<div class="cp-persona" id="cp-persona">${personaRows(model)}</div><div id="cp-slots">${slotsHtml(model)}</div>${m.surface ? sec('options', 'Options', surfaceField()) : ''}</div></div><div id="cp-el" hidden></div>`
+      : panelHead(m)) + footer;
+    showSelection();
   } else {            // an atom or molecule: variants, properties, content, options
     const vs = variantThumbs(m);
     const thumbs = vs.items.length > 1 ? sec('variants', 'Variants', `<div class="thumbs">${vs.items.map((it, i) => `
@@ -551,7 +552,40 @@ function editDefault(k, v) {
 }
 
 const setItem = (api, item, prop, value) => api.setItem(item, prop ? { props: { [prop]: value } } : { value });
-const refreshSlots = (api) => { const model = api.getModel(), box = $('#cp-slots'); if (box) box.innerHTML = slotsHtml(model); };
+// The slots and the Provider row follow the current state (a state without a provider has no picker).
+const refreshSlots = (api) => {
+  const model = api.getModel(), box = $('#cp-slots'), pr = $('#cp-persona');
+  if (box) box.innerHTML = slotsHtml(model);
+  if (pr) pr.innerHTML = personaRows(model);
+};
+const refreshPanel = (api) => (selectedItem ? showSelection() : refreshSlots(api));
+
+// ---- element panel: what opens when you click an item on the canvas
+function elementPanel(it, model) {
+  const content = [], props = [];
+  if (it.type === 'text') content.push(field('Text', textControl(`data-cm-item="${it.id}"`, it.value, model, it.value.length > 40, it.prompt)));
+  for (const c of it.controls) {
+    const a = `data-cm-item="${it.id}" data-cm-prop="${c.key}"`;
+    if (c.type === 'text') content.push(field(c.label, textControl(a, c.value, model, false, it.prompt)));
+    else if (c.bound) props.push(prow(c.label, `<span class="bound">${esc(c.bound.label)} · ${esc(c.bound.value)}</span>`));
+    else if (c.type === 'person') props.push(prow(c.label, dd(a, c.options, c.value, 'person')));
+    else if (c.type === 'icon') props.push(prow(c.label, dd(a, c.options, c.value, 'icon')));
+    else if (c.type === 'enum' && c.ui === 'steps') props.push(prow(c.label, steps(c.values.map((v) => ({ value: v, label: v })), c.value, a)));
+    else if (c.type === 'enum') props.push(prow(c.label, select(`${a} data-cm-select`, c.values.map((v) => [v, v]), c.value)));
+  }
+  const body = (content.length ? sec('el-content', 'Content', content.join('')) : '') + (props.length ? sec('el-props', 'Properties', props.join('')) : '');
+  return `<div class="cp-top"><button class="link back" id="el-back">‹ ${esc(component.meta.name)}</button>
+      <label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>
+    <div class="el-title"><span class="el-kind">${esc(it.kind)}</span><h2 class="cp-title">${esc(it.label)}</h2></div>
+    <div class="cp-sections">${body || '<p class="mute" style="padding:12px 0">Nothing to edit on this element yet.</p>'}</div>`;
+}
+function showSelection() {
+  const main = $('#cp-main'), box = $('#cp-el'); if (!main || !box) return;
+  const api = screen.contentWindow && screen.contentWindow.tdsComponent;
+  const it = selectedItem && api ? api.getItemModel(selectedItem) : null;
+  if (!it) { selectedItem = null; box.hidden = true; box.innerHTML = ''; main.hidden = false; if (api) refreshSlots(api); return; }
+  box.innerHTML = elementPanel(it, api.getModel()); main.hidden = true; box.hidden = false;
+}
 const closeMenus = (except) => document.querySelectorAll('.dd-menu, .aimenu').forEach((mn) => { if (mn !== except) mn.hidden = true; });
 document.addEventListener('click', (e) => { if (!e.target.closest('.dd, .inwrap')) closeMenus(); });
 
@@ -572,8 +606,9 @@ $('#panel').addEventListener('input', (e) => {
   }
 });
 $('#panel').addEventListener('change', (e) => {
-  if (e.target.id !== 't-wire') return;
+  if (!('charcoal' in e.target.dataset)) return;
   fidelity = e.target.checked ? 'wireframe' : 'styled'; applyModes();   // "Charcoal"
+  document.querySelectorAll('[data-charcoal]').forEach((c) => { c.checked = e.target.checked; });
 });
 $('#panel').addEventListener('click', (e) => {
   if (!component) return;
@@ -588,7 +623,7 @@ $('#panel').addEventListener('click', (e) => {
   if (opt && api) {
     const root = opt.closest('.dd');
     if (root.dataset.cpersona) { api.setPersona(root.dataset.cpersona, opt.dataset.ddOpt); $('#cp-persona').innerHTML = personaRows(api.getModel()); return; }
-    setItem(api, root.dataset.cmItem, root.dataset.cmProp, opt.dataset.ddOpt); refreshSlots(api); return;
+    setItem(api, root.dataset.cmItem, root.dataset.cmProp, opt.dataset.ddOpt); refreshPanel(api); return;
   }
   if (ai) { const mn = ai.nextElementSibling; closeMenus(mn); mn.hidden = !mn.hidden; return; }
   const lay = t.closest('[data-cvariant]'), stp = t.closest('[data-step]'), prop = t.closest('[data-cprop]'), thumb = t.closest('[data-cthumb]');
@@ -605,8 +640,9 @@ $('#panel').addEventListener('click', (e) => {
     }
     syncVars(); document.querySelectorAll('.cp-sec-body').forEach((bd) => { if (bd.querySelector('[data-cprop]')) bd.innerHTML = propsBody(component.meta, !!component.meta.items); }); return;
   }
-  if (stp && stp.closest('[data-cm-item]') && api) { const root = stp.closest('[data-cm-item]'); setItem(api, root.dataset.cmItem, root.dataset.cmProp, stp.dataset.step); refreshSlots(api); return; }
+  if (stp && stp.closest('[data-cm-item]') && api) { const root = stp.closest('[data-cm-item]'); setItem(api, root.dataset.cmItem, root.dataset.cmProp, stp.dataset.step); refreshPanel(api); return; }
   if (thumb && api) { variantThumbs(component.meta).items[+thumb.dataset.cthumb].apply(api); syncVars(); renderComponentPanel(); return; }
+  if (t.id === 'el-back' && api) { api.select(null); return; }
   if (t.id === 'edit-comp') { editing = true; renderComponentPanel(); updateSavebar(); }
   else if (t.id === 'edit-back') { editing = false; renderComponentPanel(); updateSavebar(); }
   else if (t.id === 'creset') {
@@ -615,7 +651,14 @@ $('#panel').addEventListener('click', (e) => {
   }
 });
 window.addEventListener('message', (e) => {
-  if (e.origin === location.origin && e.data && e.data.type === 'tds-ready' && component) { syncVars(); renderComponentPanel(); }
+  if (e.origin !== location.origin || !e.data || !component) return;
+  if (e.data.type === 'tds-ready') { selectedItem = null; syncVars(); renderComponentPanel(); }
+  else if (e.data.type === 'tds-select') { selectedItem = e.data.id || null; showSelection(); }
+});
+// Clicking the empty canvas (outside the device) or pressing Escape lets go of the selection, like Figma.
+$('#stage').addEventListener('click', (e) => {
+  if (!component || !selectedItem || e.target.closest('#frame')) return;
+  const api = screen.contentWindow.tdsComponent; if (api) api.select(null);
 });
 
 /* ---------- canvas ---------- */
@@ -679,6 +722,7 @@ function setUi(on) {
   if (component) fit();
 }
 window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && component && selectedItem) { const api = screen.contentWindow.tdsComponent; if (api) api.select(null); }
   if ((e.metaKey || e.ctrlKey) && e.code === 'Backslash') { e.preventDefault(); setUi($('#app').dataset.ui === 'off'); }
 });
 window.addEventListener('resize', () => { if (component) fit(); });

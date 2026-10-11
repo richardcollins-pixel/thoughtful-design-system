@@ -92,6 +92,13 @@ An atom or molecule opts in by declaring `props` (type `text`, `enum`, `person` 
 Structure (icons, elevation, sizes, radius, padding, adding components or slots) is reserved for edit mode. A component
 can opt into a Surface (normal/inverse) option with `"surface": true`; cards don't, coachmarks will.
 
+**Selecting elements.** On the canvas, every item inside an organism can be hovered and selected, Figma-style: a blue
+outline on hover, handles, a name tag and a size pill on select. Selecting opens that element's own controls (its
+content and every prop) in the right panel. Clicking the card itself, the page, the empty canvas, the "back" link or
+pressing Escape returns to the organism's panel. A state can list the persona roles it uses (`states[].personas`);
+a state with none (the provider CTA, where no provider is chosen yet) hides that picker. Rendered items carry
+`data-item="<id>"`, which is what the canvas selects.
+
 **Prompts.** The icon beside a text field connects it to a prompt. A prompt produces a *group* of fields together
 (a Recent Topic card's headline and body), so it lists `outputs` (item ids) and `inputs` (e.g. `provider`, `state`), and
 may be limited to some `states`. A prompt set on the organism is the design-system default; `tds/environments.json`

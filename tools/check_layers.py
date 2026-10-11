@@ -22,6 +22,11 @@ for path in index:
                 if item_id not in (meta.get("items") or {}):
                     print(f"{path}: state '{state['id']}' lists unknown item '{item_id}'"); bad += 1
     state_ids = {st["id"] for st in (meta.get("states", []) if meta.get("items") else [])}
+    personas_all = json.load(open(os.path.join(ROOT, "tds/assets/personas.json")))
+    for st in (meta.get("states", []) if meta.get("items") else []):
+        for role in st.get("personas", []):
+            if role not in personas_all:
+                print(f"{path}: state '{st['id']}' uses persona role '{role}' with no entry in personas.json"); bad += 1
     for prompt in meta.get("prompts", []):
         for item_id in prompt["outputs"]:
             if item_id not in (meta.get("items") or {}):
