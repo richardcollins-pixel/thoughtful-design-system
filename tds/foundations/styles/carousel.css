@@ -1,0 +1,19 @@
+/* Carousel: a row that bleeds to the screen edges, scrolls sideways and locks onto one item at a time. The item in focus is
+   fully opaque and the others fade to --carousel-min-opacity, continuously as you scroll (behaviors/carousel.js sets each
+   item's --carousel-focus from 1 down to 0). Mark any row with data-carousel; its children are the items. */
+[data-carousel] {
+  --carousel-gap: var(--space-4);
+  --carousel-min-opacity: 0.5;
+  display: flex; gap: var(--carousel-gap);
+  margin-inline: calc(var(--page-gutter, var(--space-6)) * -1);          /* bleed: out to both edges of the screen… */
+  padding-inline: var(--page-gutter, var(--space-6));                     /* …but the first item still lines up with the content */
+  scroll-padding-inline: var(--page-gutter, var(--space-6));
+  overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+  scroll-snap-type: x mandatory; scroll-behavior: smooth;
+}
+[data-carousel]::-webkit-scrollbar { display: none; }
+[data-carousel] > * {
+  flex: none; scroll-snap-align: start; scroll-snap-stop: always;         /* one item per swipe */
+  opacity: calc(var(--carousel-min-opacity) + (1 - var(--carousel-min-opacity)) * var(--carousel-focus, 1));
+}
+@media (prefers-reduced-motion: reduce) { [data-carousel] { scroll-behavior: auto; } }

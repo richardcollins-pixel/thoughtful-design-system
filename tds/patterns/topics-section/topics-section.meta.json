@@ -76,7 +76,7 @@
     {
       "id": "recent-many",
       "name": "2+ recent topics",
-      "template": "<section class=\"topics-section\" data-layout=\"carousel\"><div class=\"topics-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"topics-section__cards\" data-slot=\"cards\">{{item:card1}}{{item:card2}}{{item:card3}}</div><div class=\"topics-section__actions\" data-slot=\"actions\">{{item:newTopic}}</div></section>",
+      "template": "<section class=\"topics-section\" data-layout=\"carousel\"><div class=\"topics-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"topics-section__cards\" data-slot=\"cards\" data-carousel>{{item:card1}}{{item:card2}}{{item:card3}}</div><div class=\"topics-section__actions\" data-slot=\"actions\">{{item:newTopic}}</div></section>",
       "slots": [
         {
           "id": "header",
