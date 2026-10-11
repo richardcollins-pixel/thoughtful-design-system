@@ -1,0 +1,27 @@
+{
+  "name": "Photo",
+  "tier": "atoms",
+  "category": "media",
+  "stateful": false,
+  "uses": [],
+  "markup": "<img class=\"photo\" src=\"../tds/assets/images/therapists/Therapist-7.png\" alt=\"\" style=\"max-width:20em\">",
+  "attributes": {},
+  "states": [
+    "loading"
+  ],
+  "variables": {
+    "--photo-height": "padding",
+    "--photo-fill": "color"
+  },
+  "styles": [],
+  "description": "A rectangular photo that fills its width and crops to a set height. Use it at the top of a card; use the avatar for a round one.",
+  "props": {
+    "person": {
+      "type": "person",
+      "label": "Name",
+      "default": "kristina"
+    }
+  },
+  "template": "<img class=\"photo\" src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\">",
+  "skeleton": "<span class=\"photo\" data-state=\"loading\"></span>"
+}

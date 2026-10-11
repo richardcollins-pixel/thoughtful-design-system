@@ -1,0 +1,149 @@
+{
+  "name": "Provider bio card",
+  "tier": "organisms",
+  "category": "cards",
+  "stateful": false,
+  "uses": [
+    "atoms/card",
+    "atoms/photo",
+    "molecules/skeleton-text"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3729-19097",
+  "states": [
+    {
+      "id": "focused",
+      "name": "Focused",
+      "template": "<article class=\"card provider-bio-card\" data-fill=\"flat\" data-focus=\"focused\"><div class=\"provider-bio-card__image\" data-slot=\"image\">{{item:photo}}</div><div class=\"provider-bio-card__content\" data-slot=\"content\"><div class=\"provider-bio-card__titles\">{{item:name}}{{item:quote}}</div>{{item:bio}}</div></article>",
+      "slots": [
+        {
+          "id": "image",
+          "label": "Image slot",
+          "items": [
+            "photo"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "name",
+            "quote",
+            "bio"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": [
+        "provider"
+      ]
+    },
+    {
+      "id": "unfocused",
+      "name": "Unfocused",
+      "template": "<article class=\"card provider-bio-card\" data-fill=\"flat\" data-focus=\"unfocused\"><div class=\"provider-bio-card__image\" data-slot=\"image\">{{item:photo}}</div><div class=\"provider-bio-card__content\" data-slot=\"content\"><div class=\"provider-bio-card__titles\">{{item:name}}{{item:quote}}</div>{{item:bio}}</div></article>",
+      "slots": [
+        {
+          "id": "image",
+          "label": "Image slot",
+          "items": [
+            "photo"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "name",
+            "quote",
+            "bio"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": [
+        "provider"
+      ]
+    }
+  ],
+  "variables": {
+    "--card-fill": "fill",
+    "--card-radius": "radius"
+  },
+  "styles": [],
+  "selector": ".provider-bio-card",
+  "description": "A provider's bio as a card: photo, name, a short quote and a few lines about them. Shown in a carousel, where the card in view is Focused and the others are Unfocused (dimmed).",
+  "items": {
+    "photo": {
+      "type": "component",
+      "component": "atoms/photo",
+      "label": "Photo",
+      "props": {},
+      "bind": {
+        "person": "provider"
+      },
+      "expose": [
+        "person"
+      ]
+    },
+    "name": {
+      "type": "text",
+      "tag": "h3",
+      "class": "provider-bio-card__name",
+      "label": "Name",
+      "value": "{{provider-name}}",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "quote": {
+      "type": "text",
+      "tag": "p",
+      "class": "provider-bio-card__quote",
+      "label": "Quote",
+      "value": "\"{{provider-quote}}\"",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "bio": {
+      "type": "text",
+      "tag": "p",
+      "class": "provider-bio-card__bio",
+      "label": "Bio",
+      "value": "{{provider-bio}}"
+    }
+  },
+  "personas": [
+    "provider"
+  ],
+  "properties": [
+    {
+      "id": "radius",
+      "label": "Corner Radius",
+      "type": "scale",
+      "scale": "radius",
+      "vars": [
+        "--card-radius"
+      ],
+      "default": "var(--radius-sm)",
+      "edit": true
+    }
+  ],
+  "prompts": [
+    {
+      "id": "bio-copy",
+      "label": "Quote and bio",
+      "instruction": "Write a one-line quote in the provider's voice and a short bio of what they specialize in and how they work. Warm and practical.",
+      "inputs": [
+        "provider"
+      ],
+      "outputs": [
+        "quote",
+        "bio"
+      ],
+      "note": "Placeholder prompt to show the structure; nothing runs it yet."
+    }
+  ]
+}
