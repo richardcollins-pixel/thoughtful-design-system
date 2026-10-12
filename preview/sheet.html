@@ -6,14 +6,14 @@
   <link rel="stylesheet" href="../tds/tds.css">
   <style>
     /* canvas chrome only: a sticker sheet lists every element of a level, each with all of its variants */
-    body { padding: var(--space-8) var(--space-8) var(--space-16); }
+    body { padding: var(--space-5, 20px) var(--space-8) var(--space-16); }
     body:not([data-ready]) > * { visibility: hidden; }
-    .intro { margin-bottom: var(--space-8); }
-    .item { padding-block: var(--space-6); border-top: 1px solid var(--border-secondary); }
-    .item:first-of-type { border-top: 0; padding-top: 0; }
-    .head { display: flex; align-items: baseline; gap: var(--space-3); margin-bottom: var(--space-4); }
-    .head button { all: unset; cursor: pointer; }
+    main { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 50px; }
+    .item { display: flex; flex-direction: column; gap: 20px; }
+    .head { display: flex; flex-direction: column; gap: 10px; }
+    .head button { all: unset; cursor: pointer; font-weight: 300; font-size: 26px; line-height: 1.2; }
     .head button:hover { text-decoration: underline; }
+    .head p { opacity: .5; }
     iframe { display: block; width: 100%; border: 0; height: 120px; background: transparent; color-scheme: dark; overflow: hidden; }
   </style>
 </head>
@@ -26,10 +26,9 @@
     const paths = data.index.filter((c) => c.startsWith(tier + '/'));
     const metas = paths.map((p) => data.metas[p]);
     const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-    const intro = { atoms: 'The smallest pieces. Everything else is built from these.', molecules: 'Small groups of atoms that do one job together.' }[tier] || '';
-    document.getElementById('sheet').innerHTML = `<div class="intro"><h1 class="text-headline-2">${esc(tier)}</h1><p class="text-body-md text-secondary">${esc(intro)}</p></div>` + paths.map((p, i) => `
+    document.getElementById('sheet').innerHTML = paths.map((p, i) => `
       <section class="item" data-path="${p}">
-        <div class="head"><button class="text-body-lg-semibold" data-open="${p}" title="Open ${esc(metas[i].name)}">${esc(metas[i].name)}</button><span class="text-body-sm text-tertiary">${esc(metas[i].description || '')}</span></div>
+        <div class="head"><button data-open="${p}" title="Open ${esc(metas[i].name)}">/${esc(p.split('/').pop())}</button><p class="text-body-md">${esc(metas[i].description || '')}</p></div>
         <iframe scrolling="no" title="${esc(metas[i].name)}" src="component.html?c=${p}&embed=1${ver ? `&v=${ver}` : ''}"></iframe>
       </section>`).join('');
     // Each element page tells us how tall it is; opening one asks the editor to show it on its own.

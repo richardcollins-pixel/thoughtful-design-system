@@ -1,5 +1,5 @@
 /* Organism: session card. Content on top, the input pill at the bottom, on the card atom's surface.
-   Medium (carousel) and Large (tall, content centred) are left-aligned; New topic is centred. Slots are real elements
+   Medium (carousel) and Large (tall, content centered) are left-aligned; New topic is centered. Slots are real elements
    ([data-slot]): content, input. */
 .session-card {
   --card-fill: var(--gradient-dark-rose-to-orange);

@@ -662,7 +662,7 @@ function syncVars() {
   for (const [k, v] of Object.entries({ ...(component.meta.defaults || {}), ...cstate.vars })) {
     if (!v) continue;
     api.setVar(k, v);
-    const g = /^var\(--(gradient-[\w-]+)\)$/.exec(v);   // a gradient fill brings its own compliant text colour
+    const g = /^var\(--(gradient-[\w-]+)\)$/.exec(v);   // a gradient fill brings its own compliant text color
     if (g) { const t = tokens.find((x) => x.name === g[1]); if (t && t.foreground === 'dark') fg = 'dark'; }
   }
   if (api.setAttr && component.meta.items) api.setAttr('data-foreground', fg);
