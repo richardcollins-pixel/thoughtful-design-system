@@ -881,7 +881,7 @@ function createPolarEngine() {
     separateBloblets();          /* then de-overlap, angularly */
 
     /* ---- breathing bounce (unchanged) ---- */
-    var bounceY = Math.sin(ts * 0.0008) * 6;
+    var bounceY = Math.sin(ts * 0.0008) * 6 * Math.min(1, canvas.offsetWidth / 1.74 / 124);   // a small blob bounces less
     canvas.style.transform = 'translateY(' + bounceY.toFixed(2) + 'px)';
     /* the glow only gets a custom property — its layout stays in CSS */
     if (glowHost) glowHost.style.setProperty('--bounce', (bounceY * 1.8).toFixed(2) + 'px');
@@ -1142,7 +1142,7 @@ function draw(ts){
   var orb=A+Bo*im;
   if(fadeT<1)fadeT=Math.min(1,fadeT+dt/fadeDur);
   var pr=fadeT>=1?toP:lerpPreset(fromP,toP,fadeT);if(fadeT>=1)fromP=toP;
-  var pulse=1-0.02*Math.sin(ts*0.0011),bounce=Math.sin(ts*0.0008)*6*(1-0.6*m);
+  var pulse=1-0.02*Math.sin(ts*0.0011),bounce=Math.sin(ts*0.0008)*6*Math.min(1,cv.offsetWidth/1.74/124)*(1-0.6*m);
   cv.style.transform='translateY('+bounce.toFixed(2)+'px)';
   /* body: circle -> envelope, travelling outline; the top (where the notch forms) lags */
   var L=0.35,pts=new Array(N),i;
@@ -1196,9 +1196,10 @@ const reduceMotion = typeof matchMedia === 'function' && matchMedia('(prefers-re
    hold in the shape, morph back, repeat. The loading screen's pencil and chat bubble shed a bloblet as they form; the intro's envelope and
    chat detach a flap and a dot. (Loading: 600 + 500 at home, 850 morph, 3000 hold, with the colors crossfading over 1.4x the morph.
    Intro: a 1700 morph out and a 1300 morph back, in rose.) */
+/* (every loop shares one timing and the rose theme, so the examples stay in step and predictable) */
 const LOOPS = {
-  pencil:   { home: 1100, to: 850,  hold: 3000, back: 850,  fadeMul: 1.4, homeTheme: EMBER, shapeTheme: BLOOM },
-  bubble:   { home: 1100, to: 850,  hold: 3000, back: 850,  fadeMul: 1.4, homeTheme: EMBER, shapeTheme: BLOOM },
+  pencil:   { home: 1100, to: 1700, hold: 3000, back: 1300, fadeMul: 1.0, homeTheme: ROSE,  shapeTheme: ROSE },
+  bubble:   { home: 1100, to: 1700, hold: 3000, back: 1300, fadeMul: 1.0, homeTheme: ROSE,  shapeTheme: ROSE },
   envelope: { home: 1100, to: 1700, hold: 3000, back: 1300, fadeMul: 1.0, homeTheme: ROSE,  shapeTheme: ROSE },
   chat:     { home: 1100, to: 1700, hold: 3000, back: 1300, fadeMul: 1.0, homeTheme: ROSE,  shapeTheme: ROSE },
 };
