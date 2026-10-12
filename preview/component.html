@@ -162,7 +162,7 @@
       if ((meta.states || []).length) g.append(section('states', ...meta.states.map((s) => make({ state: s, text: s }))));
       for (const ex of examples) g.append(section(ex.name, make({ markup: ex.markup })));
       const first = attrs.find(([, a]) => a.type === 'enum');
-      if (first) {
+      if (first && meta.inverse) {   // only components that really sit on an inverse surface (e.g. icon button, coachmarks) opt in
         const inv = section('on inverse surface', ...first[1].values.map((v) => make({ set: { [first[0]]: v }, text: v })));
         inv.className = 'panel'; inv.dataset.surface = 'inverse'; g.append(inv);
       }

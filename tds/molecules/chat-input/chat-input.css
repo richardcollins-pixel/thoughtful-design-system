@@ -1,9 +1,11 @@
 /* Molecule: chat input. The pill at the bottom of a session card: a prompt on the left and an arrow to send on the right.
-   Glass over the card (elevation fill and border), dark text. Built from the icon atom. */
+   Glass over the card (a white fill and border), dark text. Built from the icon atom. */
 .chat-input {
-  --chat-input-fill: var(--bg-elevation-70);
-  --chat-input-border: var(--bg-elevation-40);
-  --chat-input-text: var(--text-primary-inverse);
+  /* Always a light glass with dark text, whatever is behind it. These use the primitives, not the roles, so they do not flip when
+     the card's text colour does (a light gradient) or on an inverse surface. */
+  --chat-input-fill: color-mix(in srgb, var(--white) 70%, transparent);
+  --chat-input-border: color-mix(in srgb, var(--white) 40%, transparent);
+  --chat-input-text: var(--black);
   --chat-input-height: var(--space-12);
   --chat-input-padding-x: var(--padding-md);
 

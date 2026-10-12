@@ -8,6 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 [data-surface] { color: var(--text-primary); background: var(--bg-base); }
+:root:not([data-fidelity="wireframe"]) [data-foreground="dark"] { color: var(--text-primary); }   /* text on a light gradient: see the tokens */
 a { color: var(--text-primary); }
 img, svg { display: block; max-width: 100%; }
 button, input { font: inherit; color: inherit; }
