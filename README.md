@@ -193,3 +193,5 @@ reads `version.json` (fetched with a unique URL) and loads the editor's files wi
 
 
 Sticker sheets follow the Figma "Mockups" layout: each component is a `/name` heading with its description, then rounded tiles (a subheading above each group, a caption under each tile). A component with `"gallery": "examples"` designs its own tiles in its meta (`.st-tile`, `.st-tiles`, `.st-hero`, `.st-phones`, `.st-cap` (prefixed so they never collide with components such as the tile molecule); `data-controls` marks where its controls go, and a control can name its own `target` and `col`umn). Spelling is American throughout (color, center, behavior).
+
+The **home header** (Figma "home header"): `organisms/home-header` is the top of the home screen: the header molecule's new Home variant (status bar and a Feedback action), T with a rose glow behind it, a headline and copy, and the chat input's new Large variant (the tall "Say anything..." box). It runs to the screen edges and opens at the top of the canvas.

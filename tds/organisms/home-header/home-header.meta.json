@@ -1,0 +1,114 @@
+{
+  "name": "Home header",
+  "tier": "organisms",
+  "category": "headers",
+  "stateful": false,
+  "uses": [
+    "molecules/header",
+    "atoms/blob",
+    "atoms/glow",
+    "molecules/chat-input",
+    "molecules/skeleton-text"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4140-107377",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<section class=\"home-header\"><div class=\"glow home-header__glow\" data-theme=\"rose\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"home-header__top\" data-slot=\"top\">{{item:header}}</div><div class=\"home-header__content\" data-slot=\"content\">{{item:blob}}<div class=\"home-header__titles\">{{item:headline}}{{item:body}}</div></div><div class=\"home-header__input\" data-slot=\"input\">{{item:input}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "blob",
+            "headline",
+            "body"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "input",
+          "label": "Input slot",
+          "items": [
+            "input"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".home-header",
+  "description": "The top of the home screen: the status bar and a Feedback button, T (the blob) with a soft glow behind it, a headline and a line of copy, and the large chat input to say anything. It runs to the screen edges.",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "molecules/header",
+      "label": "Header",
+      "props": {
+        "variant": "home",
+        "action": "Feedback"
+      },
+      "expose": [
+        "action"
+      ]
+    },
+    "blob": {
+      "type": "component",
+      "component": "atoms/blob",
+      "label": "T",
+      "props": {
+        "theme": "rose"
+      },
+      "expose": [
+        "shape",
+        "theme"
+      ]
+    },
+    "headline": {
+      "type": "text",
+      "tag": "h1",
+      "class": "home-header__headline",
+      "label": "Headline",
+      "value": "Leave it here",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "home-header__body",
+      "label": "Body Copy",
+      "value": "Share what’s on your mind. We can dig in or you can leave it with me—you decide.",
+      "skeleton": {
+        "lines": 2
+      }
+    },
+    "input": {
+      "type": "component",
+      "component": "molecules/chat-input",
+      "label": "Input",
+      "props": {
+        "variant": "large",
+        "text": "Say anything..."
+      },
+      "expose": [
+        "text"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": [],
+  "align": "top"
+}
