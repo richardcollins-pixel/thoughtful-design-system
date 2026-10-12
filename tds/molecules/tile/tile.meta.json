@@ -10,7 +10,7 @@
     "atoms/skeleton"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=1046-39066",
-  "markup": "<button class=\"tile\" type=\"button\"><span class=\"face\" data-face=\"calm-down\"><img src=\"../tds/assets/images/faces/calm-down.svg\" alt=\"\"></span><span class=\"tile__content\"><span class=\"tile__title\">Calm Down</span><span class=\"tile__label\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>5 mins</span></span></span><span class=\"icon-button\" data-elevation=\"20\" data-size=\"sm\" aria-hidden=\"true\"><i class=\"icon icon-arrow-up\"></i></span></button>",
+  "markup": "<button class=\"tile\" type=\"button\"><span class=\"face\" data-face=\"calm-down\"><i></i></span><span class=\"tile__content\"><span class=\"tile__title\">Calm Down</span><span class=\"tile__label\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>5 mins</span></span></span><span class=\"icon-button\" data-elevation=\"20\" data-size=\"sm\" aria-hidden=\"true\"><i class=\"icon icon-arrow-up\"></i></span></button>",
   "attributes": {},
   "states": [],
   "variables": {},
@@ -51,6 +51,6 @@
       "default": "5 mins"
     }
   },
-  "template": "<button class=\"tile\" type=\"button\"><span class=\"face\" data-face=\"{{face}}\"><img src=\"../tds/assets/images/faces/{{face}}.svg\" alt=\"\"></span><span class=\"tile__content\"><span class=\"tile__title\">{{title}}</span><span class=\"tile__label\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>{{duration}}</span></span></span><span class=\"icon-button\" data-elevation=\"20\" data-size=\"sm\" aria-hidden=\"true\"><i class=\"icon icon-arrow-up\"></i></span></button>",
+  "template": "<button class=\"tile\" type=\"button\"><span class=\"face\" data-face=\"{{face}}\"><i></i></span><span class=\"tile__content\"><span class=\"tile__title\">{{title}}</span><span class=\"tile__label\"><i class=\"icon icon-clock\" data-size=\"sm\"></i><span>{{duration}}</span></span></span><span class=\"icon-button\" data-elevation=\"20\" data-size=\"sm\" aria-hidden=\"true\"><i class=\"icon icon-arrow-up\"></i></span></button>",
   "skeleton": "<div class=\"tile\"><span class=\"face\" data-state=\"loading\"></span><span class=\"tile__content\"><span class=\"skeleton-text\" data-lines=\"1\" style=\"--skeleton-first-width:70%\"><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span></span><span class=\"skeleton-text\" data-lines=\"1\" style=\"--skeleton-first-width:40%\"><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span></span></span><span class=\"icon-button\" data-state=\"loading\" data-elevation=\"20\" data-size=\"sm\"></span></div>"
 }

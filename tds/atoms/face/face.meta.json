@@ -5,7 +5,7 @@
   "stateful": false,
   "uses": [],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=1046-39066",
-  "markup": "<span class=\"face\" data-face=\"calm-down\"><img src=\"../tds/assets/images/faces/calm-down.svg\" alt=\"\"></span>",
+  "markup": "<span class=\"face\" data-face=\"calm-down\"><i></i></span>",
   "attributes": {
     "data-face": {
       "type": "enum",
@@ -51,6 +51,6 @@
       "default": "calm-down"
     }
   },
-  "template": "<span class=\"face\" data-face=\"{{face}}\"><img src=\"../tds/assets/images/faces/{{face}}.svg\" alt=\"\"></span>",
+  "template": "<span class=\"face\" data-face=\"{{face}}\"><i></i></span>",
   "skeleton": "<span class=\"face\" data-state=\"loading\"></span>"
 }
