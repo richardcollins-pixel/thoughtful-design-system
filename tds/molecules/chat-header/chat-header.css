@@ -11,3 +11,4 @@
 .chat-header__right { display: flex; align-items: center; gap: var(--space-2); opacity: .5; }
 .chat-header[data-timer="on"] .chat-header__right { opacity: 1; }
 .chat-header[data-recap="off"] .chat-header__recap { display: none; }
+.chat-header[data-bar="off"] .chat-header__bar { display: none; }
