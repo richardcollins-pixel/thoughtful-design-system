@@ -849,6 +849,9 @@ function renderView() {
 const UI_AREA = { l: 208, r: 288, t: 40, b: 0 };   // nav, properties panel, top bar
 function fit() {
   const on = $('#app').dataset.ui !== 'off';
+  // the mode switches line up with the right edge of the sticker sheet's column (780 wide, centered); elsewhere a plain inset
+  const topW = $('#topbar').getBoundingClientRect().width;
+  $('#modes').style.right = sheetTier ? `${Math.max(32, (topW - 780) / 2)}px` : '24px';
   // the sticker sheets and the atom/molecule pages fill the whole area (no device); organisms and patterns sit in a device frame
   if (sheetTier || (component && !isSingle(component))) {
     const a = on ? { ...UI_AREA, t: 0 } : { l: 0, r: 0, t: 0, b: 0 }, w = innerWidth - a.l - a.r, h = innerHeight - a.t - a.b;
@@ -868,7 +871,7 @@ function fit() {
   screen.style.cssText = `width:${dims.w}px;height:${dims.h}px`;
   $('#dw').value = dims.w; $('#dh').value = dims.h;
 }
-new ResizeObserver(() => { if (component) fit(); }).observe($('#stage'));
+new ResizeObserver(() => { if (component || sheetTier) fit(); }).observe($('#stage'));
 
 $('#device').innerHTML = DEVICES.map((d, i) => `<option value="${i}">${d.name} ▾</option>`).join('');
 $('#device').addEventListener('change', (e) => {

@@ -291,3 +291,4 @@ dialog::backdrop { background:rgb(0 0 0 / .25); backdrop-filter:blur(2px); }
 .app[data-dark="on"] .modes { color:#fff; }
 .app[data-dark="on"] .modes .switch i { background:rgb(255 255 255 / .28); }
 .app[data-dark="on"] .modes .switch input:checked + i { background:rgb(255 255 255 / .6); }
+.top { justify-content:flex-start; padding-left:24px; }   /* the device selector sits at the left of the canvas */
