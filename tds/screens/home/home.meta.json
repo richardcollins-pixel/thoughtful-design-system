@@ -5,17 +5,19 @@
   "stateful": false,
   "uses": [
     "organisms/home-header",
-    "patterns/topics-section",
     "patterns/bite-size-support-section",
-    "patterns/provider-carousel"
+    "patterns/topics-section",
+    "patterns/therapist-section",
+    "organisms/cta-card",
+    "molecules/bottom-nav"
   ],
-  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4140-107377",
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-48499",
   "align": "top",
   "states": [
     {
-      "id": "start",
+      "id": "new",
       "name": "New",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:topics}}{{item:bite}}{{item:providers}}</div></main>",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -28,56 +30,40 @@
           "id": "sections",
           "label": "Sections slot",
           "items": [
-            "topics",
             "bite",
-            "providers"
+            "topics",
+            "deep",
+            "therapist"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
           ]
         }
       ],
-      "personas": [],
+      "personas": [
+        "provider"
+      ],
       "overrides": {
         "topics": {
           "props": {
             "state": "start"
           }
-        }
-      }
-    },
-    {
-      "id": "recent-1",
-      "name": "One recent topic",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:topics}}{{item:bite}}{{item:providers}}</div></main>",
-      "slots": [
-        {
-          "id": "header",
-          "label": "Header slot",
-          "items": [
-            "header"
-          ]
         },
-        {
-          "id": "sections",
-          "label": "Sections slot",
-          "items": [
-            "topics",
-            "bite",
-            "providers"
-          ]
-        }
-      ],
-      "personas": [],
-      "overrides": {
-        "topics": {
+        "therapist": {
           "props": {
-            "state": "recent-1"
+            "state": "find"
           }
         }
       }
     },
     {
-      "id": "recent-many",
-      "name": "Returning",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:topics}}{{item:bite}}{{item:providers}}</div></main>",
+      "id": "one-topic",
+      "name": "One topic",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -90,20 +76,253 @@
           "id": "sections",
           "label": "Sections slot",
           "items": [
-            "topics",
             "bite",
-            "providers"
+            "topics",
+            "deep",
+            "therapist"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
           ]
         }
       ],
-      "personas": [],
-      "overrides": {}
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "topics": {
+          "props": {
+            "state": "recent-1"
+          }
+        },
+        "therapist": {
+          "props": {
+            "state": "find"
+          }
+        }
+      }
+    },
+    {
+      "id": "several-topics",
+      "name": "Several topics",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "bite",
+            "topics",
+            "deep",
+            "therapist"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "topics": {
+          "props": {
+            "state": "recent-many"
+          }
+        },
+        "therapist": {
+          "props": {
+            "state": "find"
+          }
+        }
+      }
+    },
+    {
+      "id": "booked",
+      "name": "Session booked",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "bite",
+            "topics",
+            "deep",
+            "therapist"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "therapist": {
+          "props": {
+            "state": "booked"
+          }
+        }
+      }
+    },
+    {
+      "id": "no-appointment",
+      "name": "No appointment",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "bite",
+            "topics",
+            "deep",
+            "therapist"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "therapist": {
+          "props": {
+            "state": "book-next"
+          }
+        }
+      }
+    },
+    {
+      "id": "reminders",
+      "name": "With reminders",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "bite",
+            "topics",
+            "deep",
+            "therapist",
+            "reminders"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "therapist": {
+          "props": {
+            "state": "book-next"
+          }
+        }
+      }
+    },
+    {
+      "id": "join",
+      "name": "Session today",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:therapist}}{{item:bite}}{{item:topics}}{{item:deep}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "therapist",
+            "bite",
+            "topics",
+            "deep",
+            "reminders"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "therapist": {
+          "props": {
+            "state": "join"
+          }
+        }
+      }
     }
   ],
   "variables": {},
   "styles": [],
   "selector": ".home",
-  "description": "The home screen: the home header (say anything to start), then your topics, bite size support and your providers, one under the other. New shows the New topic card alone; One recent topic and Returning show the topics you have started.",
+  "description": "The home screen: the home header, then sections one under the other, and the bottom nav stuck to the bottom. The states follow your care: New, One topic, Several topics, Session booked, No appointment, With reminders (the reminders card at the end) and Session today (your therapist first, with Join session).",
   "items": {
     "header": {
       "type": "component",
@@ -116,6 +335,18 @@
         "headline",
         "body",
         "input.text"
+      ]
+    },
+    "bite": {
+      "type": "component",
+      "component": "patterns/bite-size-support-section",
+      "label": "Bite size support",
+      "props": {
+        "state": "default"
+      },
+      "expose": [
+        "heading",
+        "copy"
       ]
     },
     "topics": {
@@ -131,29 +362,61 @@
         "copy"
       ]
     },
-    "bite": {
+    "deep": {
       "type": "component",
-      "component": "patterns/bite-size-support-section",
-      "label": "Bite size support",
+      "component": "patterns/topics-section",
+      "label": "Deep dives",
       "props": {
-        "state": "default"
+        "state": "deep-dive"
       },
       "expose": [
         "heading",
         "copy"
       ]
     },
-    "providers": {
+    "therapist": {
       "type": "component",
-      "component": "patterns/provider-carousel",
-      "label": "Providers",
+      "component": "patterns/therapist-section",
+      "label": "Your therapist",
       "props": {
-        "state": "default"
+        "state": "find"
       },
-      "expose": []
+      "expose": [
+        "state",
+        "heading",
+        "copy"
+      ]
+    },
+    "reminders": {
+      "type": "component",
+      "component": "organisms/cta-card",
+      "label": "Reminders card",
+      "props": {
+        "headline": "Want reminders to stay on track?",
+        "body": "I can help you build a check-in rhythm based on your sessions.",
+        "button.label": "Turn on reminders"
+      },
+      "expose": [
+        "headline",
+        "body",
+        "button.label"
+      ]
+    },
+    "nav": {
+      "type": "component",
+      "component": "molecules/bottom-nav",
+      "label": "Bottom nav",
+      "props": {
+        "current": "home"
+      },
+      "expose": [
+        "current"
+      ]
     }
   },
-  "personas": [],
+  "personas": [
+    "provider"
+  ],
   "properties": [],
   "prompts": []
 }

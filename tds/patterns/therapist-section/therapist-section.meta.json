@@ -1,0 +1,198 @@
+{
+  "name": "Therapist section",
+  "tier": "patterns",
+  "category": "sections",
+  "stateful": false,
+  "uses": [
+    "organisms/appointment-card"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-48499",
+  "states": [
+    {
+      "id": "find",
+      "name": "Find a therapist",
+      "template": "<section class=\"therapist-section\"><div class=\"therapist-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"therapist-section__card\" data-slot=\"card\">{{item:card}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "card",
+          "label": "Card slot",
+          "items": [
+            "card"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "card": {
+          "props": {
+            "state": "provider-cta"
+          }
+        }
+      }
+    },
+    {
+      "id": "booked",
+      "name": "Session booked",
+      "template": "<section class=\"therapist-section\"><div class=\"therapist-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"therapist-section__card\" data-slot=\"card\">{{item:card}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "card",
+          "label": "Card slot",
+          "items": [
+            "card"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "card": {
+          "props": {
+            "state": "booked"
+          }
+        }
+      }
+    },
+    {
+      "id": "book-next",
+      "name": "Book next session",
+      "template": "<section class=\"therapist-section\"><div class=\"therapist-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"therapist-section__card\" data-slot=\"card\">{{item:card}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "card",
+          "label": "Card slot",
+          "items": [
+            "card"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "card": {
+          "props": {
+            "state": "no-appointment",
+            "headline": "{{provider-name}}",
+            "body": "Ready to book your next session?",
+            "button.label": "Book next session"
+          }
+        }
+      }
+    },
+    {
+      "id": "join",
+      "name": "Join session",
+      "template": "<section class=\"therapist-section\"><div class=\"therapist-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"therapist-section__card\" data-slot=\"card\">{{item:card}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "card",
+          "label": "Card slot",
+          "items": [
+            "card"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "card": {
+          "props": {
+            "state": "no-appointment",
+            "headline": "{{provider-name}}",
+            "body": "Ready for your session?",
+            "button.label": "Join session"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".therapist-section",
+  "description": "A homepage section about your care: Your Therapist, a line of copy, then one card. Find a therapist invites you to choose one, Session booked shows the next session, Book next session asks for a time, and Join session is for when it is time to start.",
+  "items": {
+    "heading": {
+      "type": "text",
+      "tag": "h2",
+      "class": "therapist-section__title",
+      "label": "Subhead",
+      "value": "Your Therapist",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "copy": {
+      "type": "text",
+      "tag": "p",
+      "class": "therapist-section__copy",
+      "label": "Copy",
+      "value": "Get support and accountability",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "card": {
+      "type": "component",
+      "component": "organisms/appointment-card",
+      "label": "Therapist card",
+      "props": {
+        "state": "provider-cta"
+      },
+      "expose": [
+        "state",
+        "headline",
+        "body"
+      ]
+    }
+  },
+  "personas": [
+    "provider"
+  ],
+  "properties": [],
+  "prompts": []
+}

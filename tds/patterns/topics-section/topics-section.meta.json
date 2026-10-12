@@ -106,6 +106,44 @@
         }
       ],
       "personas": []
+    },
+    {
+      "id": "deep-dive",
+      "name": "Deep dive",
+      "template": "<section class=\"topics-section\" data-layout=\"single\"><div class=\"topics-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"topics-section__cards\" data-slot=\"cards\">{{item:card1}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "cards",
+          "label": "Cards slot",
+          "items": [
+            "card1"
+          ],
+          "skeleton": true
+        }
+      ],
+      "overrides": {
+        "heading": {
+          "value": "Deep Dives"
+        },
+        "copy": {
+          "value": "Gain insights and make a plan"
+        },
+        "card1": {
+          "props": {
+            "state": "lg"
+          }
+        }
+      },
+      "personas": []
     }
   ],
   "variables": {},

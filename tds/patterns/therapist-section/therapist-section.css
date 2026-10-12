@@ -1,0 +1,5 @@
+/* Pattern: therapist section. A subhead and a line of copy, then one card about your care. Slots: header, card. */
+.therapist-section { display: flex; flex-direction: column; gap: var(--space-4); width: 100%; }
+.therapist-section__header { display: flex; flex-direction: column; }
+.therapist-section__title { font: var(--text-subhead); letter-spacing: var(--text-subhead-ls); }
+.therapist-section__copy { color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
