@@ -1,4 +1,4 @@
-/* Organism: chat. A whole chat screen on a dark purple page with a rose glow rising from the bottom. The header on top, the conversation
+/* Pattern: chat. A whole chat screen on a dark purple page with a rose glow rising from the bottom. The header on top, the conversation
    scrolling beneath it (it sits at the bottom, newest last), then either the recommendations (two options, OR, Save for later) or the
    input and keyboard. It runs to the screen edges. Slots are real elements ([data-slot]): top, messages, rationale, options, action,
    input, keyboard. */
@@ -25,3 +25,4 @@
 .chat__keyboard { flex: none; }
 /* with the keyboard up the light rises above it, to about the input, so it can be seen */
 .chat:has(.chat__keyboard) .chat__glow { bottom: calc(340px - var(--glow-size) / 2); }
+.chat__end { flex: none; padding: 0 var(--padding-md) 64px; }
