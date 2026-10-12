@@ -1,0 +1,66 @@
+{
+  "name": "Fork option card",
+  "tier": "molecules",
+  "category": "cards",
+  "stateful": false,
+  "uses": [
+    "atoms/face"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
+  "attributes": {
+    "data-tone": {
+      "type": "enum",
+      "values": [
+        "orange",
+        "rose"
+      ],
+      "default": "orange"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A choice in a chat: a colored square with how long it takes (5 min, 10 min), a title and a line on why it is suggested. The whole card is one button.",
+  "content": [
+    {
+      "label": "Minutes",
+      "selector": ".fork-option__time b"
+    },
+    {
+      "label": "Title",
+      "selector": ".fork-option__title"
+    },
+    {
+      "label": "Description",
+      "selector": ".fork-option__description"
+    }
+  ],
+  "props": {
+    "minutes": {
+      "type": "text",
+      "label": "Minutes",
+      "default": "5"
+    },
+    "tone": {
+      "type": "enum",
+      "label": "Color",
+      "values": [
+        "orange",
+        "rose"
+      ],
+      "default": "orange"
+    },
+    "title": {
+      "type": "text",
+      "label": "Title",
+      "default": "Session name"
+    },
+    "description": {
+      "type": "text",
+      "label": "Description",
+      "default": "Why we are showing this"
+    }
+  },
+  "template": "<button class=\"fork-option\" data-tone=\"{{tone}}\"><span class=\"fork-option__time\"><b>{{minutes}}</b><span>min</span></span><span class=\"fork-option__text\"><span class=\"fork-option__title\">{{title}}</span><span class=\"fork-option__description\">{{description}}</span></span></button>",
+  "markup": "<button class=\"fork-option\" data-tone=\"orange\"><span class=\"fork-option__time\"><b>5</b><span>min</span></span><span class=\"fork-option__text\"><span class=\"fork-option__title\">Session name</span><span class=\"fork-option__description\">Why we are showing this</span></span></button>"
+}

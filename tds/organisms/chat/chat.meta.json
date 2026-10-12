@@ -1,0 +1,287 @@
+{
+  "name": "Chat",
+  "tier": "organisms",
+  "category": "chat",
+  "stateful": false,
+  "uses": [
+    "molecules/chat-header",
+    "molecules/chat-message",
+    "molecules/fork-option",
+    "molecules/chat-input",
+    "molecules/keyboard",
+    "atoms/button",
+    "atoms/glow"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
+  "align": "top",
+  "states": [
+    {
+      "id": "recommendations",
+      "name": "Recommendations",
+      "template": "<section class=\"chat\" data-state=\"recommendations\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__scroll\"><div class=\"chat__flow\"><div class=\"chat__messages\" data-slot=\"messages\">{{item:bot1}}{{item:user1}}{{item:bot2}}{{item:user2}}{{item:bot3}}{{item:user3}}</div><div class=\"chat__recs\"><div data-slot=\"rationale\">{{item:rationale}}</div><div class=\"chat__cards\" data-slot=\"options\">{{item:fork1}}{{item:fork2}}</div><div class=\"chat__or\">{{item:or}}</div><div data-slot=\"action\">{{item:save}}</div></div></div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "messages",
+          "label": "Messages slot",
+          "items": [
+            "bot1",
+            "user1",
+            "bot2",
+            "user2",
+            "bot3",
+            "user3"
+          ]
+        },
+        {
+          "id": "rationale",
+          "label": "Rationale slot",
+          "items": [
+            "rationale"
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Options slot",
+          "items": [
+            "fork1",
+            "fork2"
+          ]
+        },
+        {
+          "id": "action",
+          "label": "Action slot",
+          "items": [
+            "save"
+          ]
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "typing",
+      "name": "Typing",
+      "template": "<section class=\"chat\" data-state=\"typing\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__scroll\"><div class=\"chat__flow\"><div class=\"chat__messages\" data-slot=\"messages\">{{item:bot1}}{{item:user1}}{{item:bot2}}</div></div></div><div class=\"chat__input\" data-slot=\"input\">{{item:input}}</div><div class=\"chat__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "messages",
+          "label": "Messages slot",
+          "items": [
+            "bot1",
+            "user1",
+            "bot2"
+          ]
+        },
+        {
+          "id": "input",
+          "label": "Input slot",
+          "items": [
+            "input"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "keyboard"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".chat",
+  "description": "A whole chat screen. Recommendations ends the conversation with two sessions to choose from (5 or 10 minutes) or Save for later; Typing is the conversation with the input and the keyboard up. The header can show a timer and the icon for when your therapist can see a recap.",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "molecules/chat-header",
+      "label": "Header",
+      "props": {
+        "title": "Leave it here"
+      },
+      "expose": [
+        "title",
+        "timer",
+        "clock",
+        "recap"
+      ]
+    },
+    "bot1": {
+      "type": "component",
+      "component": "molecules/chat-message",
+      "label": "T message 1",
+      "props": {
+        "from": "bot",
+        "text": "Hi Rich, What’s on your mind?"
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "user1": {
+      "type": "component",
+      "component": "molecules/chat-message",
+      "label": "Your message 1",
+      "props": {
+        "from": "user",
+        "text": "I don't even know where to start. I've been running on empty for weeks. I keep telling myself I just need to get through this sprint, but there's always another one. I'm tired but I can't stop."
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "bot2": {
+      "type": "component",
+      "component": "molecules/chat-message",
+      "label": "T message 2",
+      "props": {
+        "from": "bot",
+        "text": "That sounds exhausting — not just the work, but the part where stopping doesn't even feel like an option. What does \"running on empty\" feel like for you right now — more in your body, your head, or somewhere else?"
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "user2": {
+      "type": "component",
+      "component": "molecules/chat-message",
+      "label": "Your message 2",
+      "props": {
+        "from": "user",
+        "text": "Mostly my head. I can't turn it off. Even at night I'm just mentally rewriting my to-do list."
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "bot3": {
+      "type": "component",
+      "component": "molecules/chat-message",
+      "label": "T message 3",
+      "props": {
+        "from": "bot",
+        "text": "[Summary of what the user shared], [one insight they maybe haven't named themselves]. Does that feel right?"
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "user3": {
+      "type": "component",
+      "component": "molecules/chat-message",
+      "label": "Your message 3",
+      "props": {
+        "from": "user",
+        "text": "yes"
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "rationale": {
+      "type": "component",
+      "component": "molecules/chat-message",
+      "label": "Rationale",
+      "props": {
+        "from": "bot",
+        "text": "[Rationale for the recommendations]"
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "fork1": {
+      "type": "component",
+      "component": "molecules/fork-option",
+      "label": "Option 1",
+      "props": {
+        "minutes": "5",
+        "tone": "orange",
+        "title": "[Bite Size Session Name]",
+        "description": "[Rationale for showing this]"
+      },
+      "expose": [
+        "minutes",
+        "tone",
+        "title",
+        "description"
+      ]
+    },
+    "fork2": {
+      "type": "component",
+      "component": "molecules/fork-option",
+      "label": "Option 2",
+      "props": {
+        "minutes": "10",
+        "tone": "rose",
+        "title": "[10 min session name]",
+        "description": "[Rationale for showing this]"
+      },
+      "expose": [
+        "minutes",
+        "tone",
+        "title",
+        "description"
+      ]
+    },
+    "or": {
+      "type": "text",
+      "tag": "span",
+      "class": "chat__or-label",
+      "label": "Divider",
+      "value": "OR"
+    },
+    "save": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Save button",
+      "props": {
+        "label": "Save for later",
+        "variant": "filled",
+        "size": "lg",
+        "width": "full",
+        "icon": "bookmark"
+      },
+      "expose": [
+        "label"
+      ]
+    },
+    "input": {
+      "type": "component",
+      "component": "molecules/chat-input",
+      "label": "Input",
+      "props": {
+        "variant": "empty",
+        "text": "Start typing..."
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "keyboard": {
+      "type": "component",
+      "component": "molecules/keyboard",
+      "label": "Keyboard",
+      "props": {}
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}

@@ -12,6 +12,7 @@
       "type": "enum",
       "values": [
         "pill",
+        "empty",
         "large"
       ],
       "default": "pill"
@@ -26,7 +27,7 @@
     "--chat-input-padding-x": "padding"
   },
   "styles": [],
-  "description": "The pill at the bottom of a session card: a prompt and an arrow to send. Use it to start a session or a new topic from a card. Large is the tall box on the home screen, with the prompt at the top and the arrow at the bottom right.",
+  "description": "The pill at the bottom of a session card: a prompt and an arrow to send. Use it to start a session or a new topic from a card. Empty is the pill before anything is typed (the prompt at half strength). Large is the tall box on the home screen, with the prompt at the top and the arrow at the bottom right.",
   "content": [
     {
       "label": "Prompt",
@@ -44,6 +45,7 @@
       "label": "Variant",
       "values": [
         "pill",
+        "empty",
         "large"
       ],
       "default": "pill"

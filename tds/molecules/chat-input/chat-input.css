@@ -27,3 +27,5 @@
 }
 .chat-input[data-variant="large"] > span { white-space: normal; }
 .chat-input[data-variant="large"] > .icon { align-self: flex-end; }
+/* Empty: the pill before anything is typed, its prompt at half strength */
+.chat-input[data-variant="empty"] > span { color: color-mix(in srgb, var(--chat-input-text) 50%, transparent); }

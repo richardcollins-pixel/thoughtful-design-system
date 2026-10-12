@@ -1,0 +1,17 @@
+{
+  "name": "Keyboard",
+  "tier": "molecules",
+  "category": "inputs",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "The dark phone keyboard, for the chat when someone is typing. A picture of one: the keys do nothing.",
+  "content": [],
+  "props": {},
+  "template": "<div class=\"keyboard\"><div class=\"keyboard__row\"><i>q</i><i>w</i><i>e</i><i>r</i><i>t</i><i>y</i><i>u</i><i>i</i><i>o</i><i>p</i></div><div class=\"keyboard__row\" data-inset><i>a</i><i>s</i><i>d</i><i>f</i><i>g</i><i>h</i><i>j</i><i>k</i><i>l</i></div><div class=\"keyboard__row\"><i data-wide aria-label=\"Shift\">⇧</i><span class=\"keyboard__letters\"><i>z</i><i>x</i><i>c</i><i>v</i><i>b</i><i>n</i><i>m</i></span><i data-wide aria-label=\"Delete\">⌫</i></div><div class=\"keyboard__row keyboard__bottom\"><i data-wide data-label>123</i><i data-space></i><i data-wide data-dim aria-label=\"Return\">↵</i></div></div>",
+  "markup": "<div class=\"keyboard\"><div class=\"keyboard__row\"><i>q</i><i>w</i><i>e</i><i>r</i><i>t</i><i>y</i><i>u</i><i>i</i><i>o</i><i>p</i></div><div class=\"keyboard__row\" data-inset><i>a</i><i>s</i><i>d</i><i>f</i><i>g</i><i>h</i><i>j</i><i>k</i><i>l</i></div><div class=\"keyboard__row\"><i data-wide aria-label=\"Shift\">⇧</i><span class=\"keyboard__letters\"><i>z</i><i>x</i><i>c</i><i>v</i><i>b</i><i>n</i><i>m</i></span><i data-wide aria-label=\"Delete\">⌫</i></div><div class=\"keyboard__row keyboard__bottom\"><i data-wide data-label>123</i><i data-space></i><i data-wide data-dim aria-label=\"Return\">↵</i></div></div>"
+}

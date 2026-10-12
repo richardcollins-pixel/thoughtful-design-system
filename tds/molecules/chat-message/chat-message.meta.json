@@ -1,0 +1,46 @@
+{
+  "name": "Chat message",
+  "tier": "molecules",
+  "category": "content",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
+  "attributes": {
+    "data-from": {
+      "type": "enum",
+      "values": [
+        "bot",
+        "user"
+      ],
+      "default": "bot"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "One line of a chat. T speaks in plain text; the person speaks in a soft bubble on the right.",
+  "content": [
+    {
+      "label": "Text",
+      "selector": "p"
+    }
+  ],
+  "props": {
+    "from": {
+      "type": "enum",
+      "label": "From",
+      "values": [
+        "bot",
+        "user"
+      ],
+      "default": "bot"
+    },
+    "text": {
+      "type": "text",
+      "label": "Text",
+      "default": "Hi, what is on your mind?"
+    }
+  },
+  "template": "<div class=\"chat-message\" data-from=\"{{from}}\"><p>{{text}}</p></div>",
+  "markup": "<div class=\"chat-message\" data-from=\"bot\"><p>Hi, what is on your mind?</p></div>"
+}
