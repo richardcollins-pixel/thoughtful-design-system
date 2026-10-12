@@ -134,7 +134,7 @@
   "examples": [
     {
       "name": "",
-      "markup": "<div class=\"tile hero\" data-clip data-glow=\"center\"><div class=\"glow\" data-for=\"hero-blob\" data-placement=\"behind\" style=\"--glow-size:430px\"><canvas aria-hidden=\"true\"></canvas></div><div class=\"glow\" data-theme=\"cool\" data-placement=\"bottom\" style=\"--glow-size:430px\"><canvas aria-hidden=\"true\"></canvas></div><div class=\"blob\" id=\"hero-blob\" data-size=\"180\" data-theme=\"cool\" data-cycle=\"on\"><canvas aria-hidden=\"true\"></canvas></div><div data-controls style=\"position:relative;z-index:1\"></div></div>",
+      "markup": "<div class=\"st-tile st-hero\" data-clip data-glow=\"center\"><div class=\"glow\" data-for=\"hero-blob\" data-placement=\"behind\" style=\"--glow-size:430px\"><canvas aria-hidden=\"true\"></canvas></div><div class=\"glow\" data-theme=\"cool\" data-placement=\"bottom\" style=\"--glow-size:430px\"><canvas aria-hidden=\"true\"></canvas></div><div class=\"blob\" id=\"hero-blob\" data-size=\"180\" data-theme=\"cool\" data-cycle=\"on\"><canvas aria-hidden=\"true\"></canvas></div><div data-controls style=\"position:relative;z-index:1\"></div></div>",
       "target": ".blob",
       "controls": [
         {
@@ -158,7 +158,7 @@
           "type": "radio",
           "label": "Glow",
           "attr": "data-glow",
-          "target": ".hero",
+          "target": ".st-hero",
           "col": 2,
           "values": [
             {
@@ -179,11 +179,11 @@
     },
     {
       "name": "sizes",
-      "markup": "<div class=\"tiles\"><div class=\"tile\" data-clip><div class=\"stage\"><div class=\"blob\" data-size=\"24\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"cap\">24px</p></div><div class=\"tile\" data-clip><div class=\"stage\"><div class=\"blob\" data-size=\"32\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"cap\">32px</p></div><div class=\"tile\" data-clip><div class=\"stage\"><div class=\"blob\" data-size=\"48\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"cap\">48px</p></div><div class=\"tile\" data-clip><div class=\"stage\"><div class=\"blob\" data-size=\"80\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"cap\">80px</p></div><div class=\"tile\" data-clip><div class=\"stage\"><div class=\"blob\" data-size=\"124\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"cap\">124px</p></div><div class=\"tile\" data-clip><div class=\"stage\"><div class=\"blob\" data-size=\"180\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"cap\">180px</p></div></div>"
+      "markup": "<div class=\"st-tiles\"><div class=\"st-tile\" data-clip><div class=\"st-stage\"><div class=\"blob\" data-size=\"24\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"st-cap\">24px</p></div><div class=\"st-tile\" data-clip><div class=\"st-stage\"><div class=\"blob\" data-size=\"32\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"st-cap\">32px</p></div><div class=\"st-tile\" data-clip><div class=\"st-stage\"><div class=\"blob\" data-size=\"48\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"st-cap\">48px</p></div><div class=\"st-tile\" data-clip><div class=\"st-stage\"><div class=\"blob\" data-size=\"80\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"st-cap\">80px</p></div><div class=\"st-tile\" data-clip><div class=\"st-stage\"><div class=\"blob\" data-size=\"124\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"st-cap\">124px</p></div><div class=\"st-tile\" data-clip><div class=\"st-stage\"><div class=\"blob\" data-size=\"180\" data-theme=\"warm\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"st-cap\">180px</p></div></div>"
     },
     {
       "name": "morph",
-      "markup": "<div class=\"tiles\"><div class=\"tile\" data-clip><div class=\"stage\"><div class=\"blob\" data-size=\"124\" data-loop=\"pencil\" data-loop-delay=\"0\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"cap\">Pencil</p></div><div class=\"tile\" data-clip><div class=\"stage\"><div class=\"blob\" data-size=\"124\" data-loop=\"envelope\" data-loop-delay=\"2500\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"cap\">Email</p></div><div class=\"tile\" data-clip><div class=\"stage\"><div class=\"blob\" data-size=\"124\" data-loop=\"chat\" data-loop-delay=\"5000\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"cap\">Chat bubble</p></div></div>"
+      "markup": "<div class=\"st-tiles\"><div class=\"st-tile\" data-clip><div class=\"st-stage\"><div class=\"blob\" data-size=\"124\" data-loop=\"pencil\" data-loop-delay=\"0\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"st-cap\">Pencil</p></div><div class=\"st-tile\" data-clip><div class=\"st-stage\"><div class=\"blob\" data-size=\"124\" data-loop=\"envelope\" data-loop-delay=\"2500\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"st-cap\">Email</p></div><div class=\"st-tile\" data-clip><div class=\"st-stage\"><div class=\"blob\" data-size=\"124\" data-loop=\"chat\" data-loop-delay=\"5000\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"st-cap\">Chat bubble</p></div></div>"
     }
   ]
 }
