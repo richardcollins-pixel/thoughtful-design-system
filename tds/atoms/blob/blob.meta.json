@@ -1,0 +1,89 @@
+{
+  "name": "Blob",
+  "tier": "atoms",
+  "category": "media",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4361-70379",
+  "markup": "<div class=\"blob\" data-shape=\"blob\" data-theme=\"auto\"><canvas aria-hidden=\"true\"></canvas></div>",
+  "attributes": {
+    "data-shape": {
+      "type": "enum",
+      "values": [
+        "blob",
+        "pencil",
+        "bubble",
+        "envelope",
+        "chat"
+      ],
+      "default": "blob"
+    },
+    "data-theme": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "cool",
+        "warm",
+        "rose",
+        "ember",
+        "bloom"
+      ],
+      "default": "auto"
+    },
+    "data-size": {
+      "type": "enum",
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md"
+    }
+  },
+  "states": [],
+  "variables": {
+    "--blob-size": "padding"
+  },
+  "styles": [],
+  "description": "The animated shape that is T. It bounces slowly, its outline morphs slowly, and its colours travel round the edge while the theme shifts every few seconds. In special cases it becomes another shape (a pencil, a chat bubble, an envelope, a chat) to stand for what T is doing; the plain blob is its default. Themes: auto cycles cool, warm and rose; or pin one.",
+  "props": {
+    "shape": {
+      "type": "enum",
+      "label": "Shape",
+      "values": [
+        "blob",
+        "pencil",
+        "bubble",
+        "envelope",
+        "chat"
+      ],
+      "default": "blob"
+    },
+    "theme": {
+      "type": "enum",
+      "label": "Theme",
+      "values": [
+        "auto",
+        "cool",
+        "warm",
+        "rose",
+        "ember",
+        "bloom"
+      ],
+      "default": "auto"
+    },
+    "size": {
+      "type": "enum",
+      "label": "Size",
+      "ui": "steps",
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md"
+    }
+  },
+  "template": "<div class=\"blob\" data-shape=\"{{shape}}\" data-theme=\"{{theme}}\" data-size=\"{{size}}\"><canvas aria-hidden=\"true\"></canvas></div>",
+  "skeleton": "<span class=\"skeleton\" data-shape=\"dot\" data-size=\"{{size}}\" style=\"width:116px;height:116px\"></span>"
+}
