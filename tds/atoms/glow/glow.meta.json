@@ -1,0 +1,47 @@
+{
+  "name": "Glow",
+  "tier": "atoms",
+  "category": "media",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4361-70379",
+  "markup": "<div class=\"glow\" data-theme=\"auto\" style=\"--glow-size:220px;--glow-blur:36px\"><canvas aria-hidden=\"true\"></canvas></div>",
+  "attributes": {
+    "data-theme": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "cool",
+        "warm",
+        "rose",
+        "ember",
+        "bloom"
+      ],
+      "default": "auto"
+    }
+  },
+  "states": [],
+  "variables": {
+    "--glow-size": "padding",
+    "--glow-blur": "padding",
+    "--glow-opacity": "fill"
+  },
+  "styles": [],
+  "description": "A blurred copy of the blob, used as light in the background. Usually it sits alone near the bottom of a screen, on its own colour cycle; it can also sit right behind a blob and be that blob's own blurred copy. Placement: bottom, behind, or in the flow.",
+  "props": {
+    "theme": {
+      "type": "enum",
+      "label": "Theme",
+      "values": [
+        "auto",
+        "cool",
+        "warm",
+        "rose",
+        "ember",
+        "bloom"
+      ],
+      "default": "auto"
+    }
+  },
+  "template": "<div class=\"glow\" data-theme=\"{{theme}}\" style=\"--glow-size:220px;--glow-blur:36px\"><canvas aria-hidden=\"true\"></canvas></div>"
+}
