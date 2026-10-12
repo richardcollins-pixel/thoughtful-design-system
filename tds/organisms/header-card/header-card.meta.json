@@ -81,7 +81,7 @@
   },
   "styles": [],
   "selector": ".header-card",
-  "description": "The card that opens a screen, with the header (status bar and close button) on top: it runs to the screen edges and its bottom corners are rounded. Default is the colourful one with an overline, headline, a line of copy and a duration. Provider is the quiet one with the provider's photo on top.",
+  "description": "The card that opens a screen, with the header (status bar and close button) on top: it runs to the screen edges and its bottom corners are rounded. Default is the colorful one with an overline, headline, a line of copy and a duration. Provider is the quiet one with the provider's photo on top.",
   "items": {
     "photo": {
       "type": "component",

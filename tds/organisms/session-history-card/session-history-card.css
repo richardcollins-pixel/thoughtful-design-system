@@ -1,4 +1,4 @@
-/* Organism: session history card. The text block sits centred in the card and the arrow button at the bottom right. Slots are
+/* Organism: session history card. The text block sits centered in the card and the arrow button at the bottom right. Slots are
    real elements ([data-slot]): content, action. */
 .session-history-card { --card-fill: var(--gradient-purple-to-blue); --card-gap: 0; padding-block: var(--padding-xl) var(--padding-md); min-height: 390px; }
 .session-history-card__content { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: var(--space-4); min-width: 0; }

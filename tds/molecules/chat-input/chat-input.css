@@ -2,7 +2,7 @@
    Glass over the card (a white fill and border), dark text. Built from the icon atom. */
 .chat-input {
   /* Always a light glass with dark text, whatever is behind it. These use the primitives, not the roles, so they do not flip when
-     the card's text colour does (a light gradient) or on an inverse surface. */
+     the card's text color does (a light gradient) or on an inverse surface. */
   --chat-input-fill: color-mix(in srgb, var(--white) 70%, transparent);
   --chat-input-border: color-mix(in srgb, var(--white) 40%, transparent);
   --chat-input-text: var(--black);

@@ -9,14 +9,37 @@
     body { padding: var(--page-gutter, var(--space-6)); }
     .label { margin-bottom: var(--space-2); }
     .embed { padding: 0; }
-    .controls { display: flex; flex-direction: column; gap: var(--space-4); align-self: center; margin-left: var(--space-8); }
+    .controls { display: flex; gap: 40px; align-self: center; }
+    .control-col { display: flex; flex-direction: column; gap: var(--space-4); }
     .control { display: flex; flex-direction: column; gap: var(--space-2); }
     .control label { display: flex; align-items: center; gap: var(--space-2); cursor: pointer; }
+    /* designed sticker sheets (Figma "Mockups"): rounded tiles on the page, each with a caption */
+    .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; width: 100%; }
+    .tile { position: relative; display: flex; flex-direction: column; align-items: center; min-height: 230px; border-radius: var(--radius-md, 16px); background: var(--bg-elevation-5); overflow: hidden; }
+    .tile .stage { flex: 1; padding: 28px 0 8px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; width: 100%; }
+    .tile .cap, .cap { padding-bottom: 14px; font: var(--text-body-sm); opacity: .7; }
+    .hero { flex-direction: row; justify-content: center; gap: 40px; height: 358px; min-height: 0; width: 100%; }
+    .hero[data-glow="center"] .glow[data-placement="bottom"], .hero[data-glow="bottom"] .glow[data-placement="behind"], .hero[data-glow="none"] .glow { display: none; }
+    .phones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; width: 100%; }
+    .phones figure { margin: 0; display: flex; flex-direction: column; gap: 14px; }
+    .phones .tile { height: 504px; min-height: 0; justify-content: center; }
+    .phones .cap { padding: 0; }
+    .phone-top { position: relative; z-index: 1; align-self: stretch; display: flex; align-items: center; justify-content: space-between; padding: 40px 12px 0; font: 500 8px/1.6 Inter, system-ui, sans-serif; color: #fff; }
+    .phone-top span { display: flex; align-items: center; gap: 5px; }
+    .phone-top b { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,.14); display: grid; place-items: center; font-size: 12px; font-weight: 400; }
+    .kb { position: relative; z-index: 1; margin-top: auto; align-self: stretch; padding: 8px 4px 40px; border-radius: 16px 16px 0 0; background: rgba(28,28,28,.86); backdrop-filter: blur(3px); display: flex; flex-direction: column; gap: 6px; }
+    .kb div { display: flex; gap: 4px; justify-content: center; }
+    .kb i { flex: 1; height: 28px; border-radius: 7px; background: rgba(255,255,255,.27); display: grid; place-items: center; font: normal 400 14px/1 system-ui, sans-serif; color: #fff; }
+    .kb i.w { flex: 0 0 56px; font-size: 10px; border-radius: 5px; }
+    .kb i.s { flex: 0 0 26px; border-radius: 5px; }
+    .kb .pad { padding: 0 10px; }
+    .embed .label { font: var(--text-body-lg-semibold); letter-spacing: var(--text-body-lg-semibold-ls); opacity: 1; color: inherit; margin-bottom: var(--space-4); }
+    .embed .row { padding: var(--space-5, 20px); border-radius: var(--radius-md, 16px); background: var(--bg-elevation-5); }
     .embed #title, .embed .label.embed-hide { display: none; }
     .subject { display: flex; align-items: center; justify-content: center; min-height: 8rem; padding: var(--padding-lg); border-radius: var(--radius-md); background: var(--bg-elevation-5); }
     .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
     .panel { padding: var(--padding-md); border-radius: var(--radius-md); }
-    /* organisms and beyond: one instance, centred, no labels */
+    /* organisms and beyond: one instance, centered, no labels */
     .single main { min-height: calc(100vh - 2 * var(--space-6)); display: flex; flex-direction: column; justify-content: center; }
     .single[data-align="top"] main { justify-content: flex-start; }   /* a card that opens a screen sits at the top (meta "align": "top") */
     .single .label { display: none; }
@@ -157,7 +180,7 @@
       if (layer) { if (sel && !rectOf(sel)) selectTarget(null); else drawOverlay(); }
     }
     document.getElementById('title').textContent = `${meta.name} — ${meta.tier}`;
-    place(build(examples[curExample] && examples[curExample].markup));
+    if (!(embed && meta.gallery === 'examples')) place(build(examples[curExample] && examples[curExample].markup));   // a designed sheet is only its examples (ids would clash with a hidden copy)
 
     if (!single && !thumb) {
       const g = document.getElementById('gallery');
@@ -168,23 +191,32 @@
       let ctlId = 0;
       const exampleEl = (ex) => { const t = document.createElement('template'); t.innerHTML = ex.markup.trim(); const el = t.content.firstElementChild; el.setAttribute('data-tds-instance', ''); return el; };
       const controlsFor = (ex, el) => {
-        const target = ex.target ? (el.matches(ex.target) ? el : el.querySelector(ex.target)) : el, box = document.createElement('div'); box.className = 'controls';
+        const find = (sel) => (!sel ? null : el.matches(sel) ? el : el.querySelector(sel));
+        const box = document.createElement('div'), cols = {}; box.className = 'controls';
         for (const c of ex.controls) {
-          const id = 'ctl' + (++ctlId), row = document.createElement('div'); row.className = 'control';
+          const target = find(c.target || ex.target) || el, id = 'ctl' + (++ctlId), row = document.createElement('div'); row.className = 'control';
           if (c.type === 'switch') {
             row.innerHTML = `<label class="text-body-sm"><input type="checkbox" ${(target.getAttribute(c.attr) || c.on) === c.on ? 'checked' : ''}> ${c.label}</label>`;
             row.querySelector('input').addEventListener('change', (e) => target.setAttribute(c.attr, e.target.checked ? c.on : c.off));
           } else if (c.type === 'radio') {
-            row.innerHTML = `<p class="text-body-xs text-secondary">${c.label}</p>` + c.values.map((v) => `<label class="text-body-sm"><input type="radio" name="${id}" value="${v}" ${target.getAttribute(c.attr) === v ? 'checked' : ''}> ${v}</label>`).join('');
+            const vs = c.values.map((v) => (typeof v === 'string' ? { value: v, label: v } : v));
+            row.innerHTML = `<p class="text-body-xs text-secondary">${c.label}</p>` + vs.map((v) => `<label class="text-body-sm"><input type="radio" name="${id}" value="${v.value}" ${target.getAttribute(c.attr) === v.value ? 'checked' : ''}> ${v.label}</label>`).join('');
             row.addEventListener('change', (e) => { if (e.target.name === id) target.setAttribute(c.attr, e.target.value); });
           }
-          box.append(row);
+          const k = c.col || 1;
+          if (!cols[k]) { cols[k] = document.createElement('div'); cols[k].className = 'control-col'; box.append(cols[k]); }
+          cols[k].append(row);
         }
         return box;
       };
       for (const ex of examples) {
         if (!examplesOnly) { g.append(section(ex.name, make({ markup: ex.markup }))); continue; }
-        const el = exampleEl(ex); g.append(section(ex.name, el, ...(ex.controls ? [controlsFor(ex, el)] : [])));
+        // a designed example is its own layout (tiles, captions); it may leave a [data-controls] spot for its controls
+        const el = exampleEl(ex), sec = document.createElement('section');
+        if (ex.name) sec.innerHTML = `<p class="label">${ex.name}</p>`;
+        sec.append(el);
+        if (ex.controls) (el.querySelector('[data-controls]') || sec).append(controlsFor(ex, el));
+        g.append(sec);
       }
       const first = attrs.find(([, a]) => a.type === 'enum');
       if (first && meta.inverse) {   // only components that really sit on an inverse surface (e.g. icon button, coachmarks) opt in
@@ -300,6 +332,7 @@
       const report = () => {
         let top = 0, left = 0, bottom = 0;
         for (const el of document.body.querySelectorAll('*')) {
+          if (el.parentElement && el.parentElement.closest('[data-clip]')) continue;   // a clipped tile hides what pokes out of it
           const r = el.getBoundingClientRect(); if (!r.width && !r.height) continue;
           top = Math.min(top, r.top - shift.y); left = Math.min(left, r.left - shift.x); bottom = Math.max(bottom, r.bottom);
         }

@@ -1,4 +1,4 @@
-// Carousel behaviour: as a [data-carousel] row scrolls, each item's --carousel-focus goes from 1 (locked in place) to 0 (a whole
+// Carousel behavior: as a [data-carousel] row scrolls, each item's --carousel-focus goes from 1 (locked in place) to 0 (a whole
 // item away), so the fade happens in step with the scroll. Include this once; it finds carousels on the page now and later.
 const rows = new WeakSet();
 

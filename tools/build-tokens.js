@@ -32,7 +32,7 @@ export function buildCss(tokens, schema) {
   const roles = of('role');
   block(':root, [data-surface="normal"]', roles.flatMap((t) => [`--${t.name}: ${roleValue(t, 'base')};`, `--${t.name}-inverse: ${roleValue(t, 'inverse')};`]));
   block('[data-surface="inverse"]', roles.flatMap((t) => [`--${t.name}: ${roleValue(t, 'inverse')};`, `--${t.name}-inverse: ${roleValue(t, 'base')};`]));
-  // Text over a light gradient (a gradient token with foreground "dark") must be dark to be readable. Only the colours of text, icons
+  // Text over a light gradient (a gradient token with foreground "dark") must be dark to be readable. Only the colors of text, icons
   // and borders flip: fills (like the white of a filled button) and the "-inverse" companions stay as they are, so buttons and
   // other pieces designed to stay put don't change. Charcoal flattens every gradient to a dark fill, so it keeps light text.
   block(':root:not([data-fidelity="wireframe"]) [data-foreground="dark"]', roles.filter((t) => ['text', 'icon', 'border'].includes(t.group)).map((t) => `--${t.name}: ${roleValue(t, 'inverse')};`));

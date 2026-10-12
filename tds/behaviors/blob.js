@@ -1,14 +1,14 @@
 // Blob and glow. The animated gradient shape (atoms/blob) and its blurred copy (atoms/glow).
 //
-// The blob bounces slowly up and down, its outline morphs slowly, and its colours travel round the outside of the shape while the
-// colour theme shifts every few seconds. In special cases it morphs into another shape (pencil, chat bubble, envelope, chat) to
+// The blob bounces slowly up and down, its outline morphs slowly, and its colors travel round the outside of the shape while the
+// color theme shifts every few seconds. In special cases it morphs into another shape (pencil, chat bubble, envelope, chat) to
 // stand for something; its default is always the plain blob. The glow is a blurred copy of it: right behind a blob (it then follows
-// that blob's shape and colours) or, more usually, on its own near the bottom of a screen.
+// that blob's shape and colors) or, more usually, on its own near the bottom of a screen.
 //
 // You do not call this: put the markup on the page and set attributes, and this file finds it (now and later) and keeps it in sync.
 //   <div class="blob" data-shape="blob" data-theme="cool"></div>            data-shape: blob | pencil | bubble | envelope | chat
 //   <div class="glow" data-theme="cool" data-placement="bottom"></div>      data-theme: cool | warm | rose | ember | bloom (where it starts)
-//                                                                          data-cycle="off" stops the colour shifting; data-loop="pencil" (or
+//                                                                          data-cycle="off" stops the color shifting; data-loop="pencil" (or
 //                                                                          envelope, bubble, chat) morphs to the shape and back, on repeat
 //   <div class="blob" id="t"></div> <div class="glow" data-for="t"></div>   a glow tied to the blob with that id (placement "behind")
 // Changing data-shape / data-theme morphs it. In code: TBlob.create(canvas, opts) returns { setShape, setTheme, destroy }.
@@ -18,7 +18,7 @@
 // hands over through the plain blob, so any shape can follow any other. Every instance is independent (the prototypes were
 // singletons), and one animation loop drives them all, pausing the ones that are off screen.
 
-/* ------------------------------------------------------------------ presets (colour themes) */
+/* ------------------------------------------------------------------ presets (color themes) */
 const COOL  = { name: 'Cool',  base: '#3F0786', spots: [{ angle: Math.PI*0.75, r: 1.8, color: '#2CC5E9', opacity: 1.0 }, { angle: Math.PI*0.60, r: 1.4, color: '#591E9A', opacity: 0.70 }] };
 const WARM  = { name: 'Warm',  base: '#3F0786', spots: [{ angle: Math.PI*0.75, r: 1.8, color: '#F57F70', opacity: 1.0 }, { angle: Math.PI*0.60, r: 1.4, color: '#852A9C', opacity: 0.85 }] };
 const ROSE  = { name: 'Rose',  base: '#591E9A', spots: [{ angle: Math.PI*0.75, r: 1.8, color: '#F57F70', opacity: 1.0 }, { angle: Math.PI*0.60, r: 1.4, color: '#683A94', opacity: 0.85 }] };
@@ -37,7 +37,7 @@ function createPolarEngine() {
 
   var TAU = Math.PI * 2;
 
-  /* ---------- colour helpers (unchanged) ---------- */
+  /* ---------- color helpers (unchanged) ---------- */
   function hexRgb(h) {
     return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
   }
@@ -130,7 +130,7 @@ function createPolarEngine() {
      Ray-casts the polygon once at load into a radius table, normalised so
      the furthest point is 1.0, and returns an interpolating profile(a) that
      drops straight into SHAPES alongside the analytic ones. The polygon must
-     be star-shaped about its bounding-box centre (any ray from the centre
+     be star-shaped about its bounding-box center (any ray from the center
      crosses the outline exactly once) — true of every shape here. */
   var PROFILE_TABLE_N = 512;
   function polygonProfile(poly, rot) {
@@ -227,7 +227,7 @@ function createPolarEngine() {
      Smootherstep (Perlin's) is a single monotonic motion — it never passes
      its target, never reverses, and has zero first AND second derivative at
      both ends, so it starts and stops without any jerk to mark a boundary.
-     One velocity peak, dead centre. */
+     One velocity peak, dead center. */
   function smootherstep(p) {
     return p * p * p * (p * (p * 6 - 15) + 10);
   }
@@ -267,7 +267,7 @@ function createPolarEngine() {
 
      They're appended as extra subpaths on the SAME Path2D as the parent and
      filled in the same single gradient pass, so a bloblet is exactly the
-     same material as the blob it came from — no second paint, no colour
+     same material as the blob it came from — no second paint, no color
      mismatch, and it costs one clip instead of one per bloblet.
 
      LIFECYCLE — water on glass, not water in the air.
@@ -350,7 +350,7 @@ function createPolarEngine() {
      fixed pixel distance happens to put it. The corners of the box are the
      natural place for it: empty for a diagonal pencil or a wide bubble, so
      the bloblet can be clear of the outline and inside the box at once. */
-  /* Distance from the centre out to the box boundary along one direction.
+  /* Distance from the center out to the box boundary along one direction.
      The box is enforced through this — by capping where the bloblet is
      ever ASKED to go — rather than by clamping its position afterwards.
      A post-hoc clamp had to rewrite the angle when it engaged, which
@@ -513,7 +513,7 @@ function createPolarEngine() {
          the incoming shape's radius against it. That decision was fragile
          (it read the bare profile, ignoring the ~15% the wobble adds, and
          mis-routed about half) and the travel-in branch is what carried the
-         fade. stepBloblets now covers both behaviours continuously: hold
+         fade. stepBloblets now covers both behaviors continuously: hold
          still while the blob can reach, close the remainder when it can't. */
       b.mode = 'engulf';
       b.engulfT = 0;
@@ -659,7 +659,7 @@ function createPolarEngine() {
            ends up pinned against whichever clamp the blob's breathing
            happens to press it into — measured, it sat at exactly gapMin for
            almost the entire dwell. This is deliberately far slower than the
-           clamps (~900ms) so it recentres over the dwell without fighting
+           clamps (~900ms) so it recenters over the dwell without fighting
            the wobble frame to frame. */
         /* Every target and limit here is capped by the box as well, so the
            bloblet is never asked to sit outside it and never has to be
@@ -830,7 +830,7 @@ function createPolarEngine() {
     var dt = Math.min(ts - lastTs, 50);
     lastTs = ts;
 
-    /* ---- gradient drift + colour crossfade ----
+    /* ---- gradient drift + color crossfade ----
        `orbit` drives two things at once: the gradient spots travelling
        around the inside of the silhouette, and the phase of the wobble.
        ~10s per revolution — fast enough to read as continuous motion
@@ -1192,9 +1192,9 @@ return{
 /* ================================================================== the host: one blob (or glow), both engines, one loop */
 const reduceMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* The special-case morphs, with the timings and colours of the prototypes they came from. Each runs: at home as the blob, morph out,
+/* The special-case morphs, with the timings and colors of the prototypes they came from. Each runs: at home as the blob, morph out,
    hold in the shape, morph back, repeat. The loading screen's pencil and chat bubble shed a bloblet as they form; the intro's envelope and
-   chat detach a flap and a dot. (Loading: 600 + 500 at home, 850 morph, 3000 hold, with the colours crossfading over 1.4x the morph.
+   chat detach a flap and a dot. (Loading: 600 + 500 at home, 850 morph, 3000 hold, with the colors crossfading over 1.4x the morph.
    Intro: a 1700 morph out and a 1300 morph back, in rose.) */
 const LOOPS = {
   pencil:   { home: 1100, to: 850,  hold: 3000, back: 850,  fadeMul: 1.4, homeTheme: EMBER, shapeTheme: BLOOM },
@@ -1204,7 +1204,7 @@ const LOOPS = {
 };
 
 export function create(canvas, opts = {}) {
-  const o = { shape: 'blob', theme: 'cool', cycle: true, loop: null, glow: null, glowHost: null, asGlow: false, bloblets: true, ...opts };
+  const o = { shape: 'blob', theme: 'cool', cycle: true, loop: null, loopDelay: 0, glow: null, glowHost: null, asGlow: false, bloblets: true, ...opts };
   if (o.theme === 'auto') { o.theme = 'cool'; o.cycle = true; }          // the old spelling: cycle, from cool
   const P = createPolarEngine();
   let T = null, active = 'P';
@@ -1240,7 +1240,7 @@ export function create(canvas, opts = {}) {
     if (reduceMotion || o.asGlow) shape = null;
     if (shape && LOOPS[shape]) {
       if (!loop) { savedCycle = cycleOn; cycleOn = false; }
-      loop = { shape, cfg: LOOPS[shape], phase: 'home', t0: null };
+      loop = { shape, cfg: LOOPS[shape], phase: 'home', t0: null, first: true };
       engine().setPreset(loop.cfg.homeTheme, 600);
     } else if (loop) {
       loop = null; setShape('blob', 900);
@@ -1251,8 +1251,8 @@ export function create(canvas, opts = {}) {
     if (!loop) return;
     if (loop.t0 === null) loop.t0 = ts;
     const c = loop.cfg, el = ts - loop.t0;
-    if (loop.phase === 'home' && el >= c.home) {
-      loop.phase = 'to'; loop.t0 = ts; setShape(loop.shape, c.to); engine().setPreset(c.shapeTheme, c.to * c.fadeMul);
+    if (loop.phase === 'home' && el >= c.home + (loop.first ? o.loopDelay : 0)) {
+      loop.first = false; loop.phase = 'to'; loop.t0 = ts; setShape(loop.shape, c.to); engine().setPreset(c.shapeTheme, c.to * c.fadeMul);
     } else if (loop.phase === 'to' && el >= c.to + c.hold) {
       loop.phase = 'back'; loop.t0 = ts; setShape('blob', c.back); engine().setPreset(c.homeTheme, c.back * c.fadeMul);
     } else if (loop.phase === 'back' && el >= c.back) {
@@ -1260,7 +1260,7 @@ export function create(canvas, opts = {}) {
     }
   }
 
-  // hand the canvas from one engine to the other, keeping the colours and the phase of the drift
+  // hand the canvas from one engine to the other, keeping the colors and the phase of the drift
   function toTraced() {
     T = T || createTracedEngine();
     T.mount(canvas, mountOpts()); T.seed(P.getOrbit(), P.getPreset());
@@ -1321,8 +1321,8 @@ function tick(ts) {
 }
 const ensureLoop = () => { if (!raf && !reduceMotion) raf = requestAnimationFrame(tick); };
 
-const attrs = (el) => ({ shape: el.dataset.shape || 'blob', theme: el.dataset.theme || 'cool', cycle: el.dataset.cycle !== 'off', loop: el.dataset.loop && el.dataset.loop !== 'off' ? el.dataset.loop : '' });
-const keyOf = (a) => [a.shape, a.theme, a.cycle, a.loop].join('|');
+const attrs = (el) => ({ shape: el.dataset.shape || 'blob', theme: el.dataset.theme || 'cool', cycle: el.dataset.cycle !== 'off', loop: el.dataset.loop && el.dataset.loop !== 'off' ? el.dataset.loop : '', loopDelay: Number(el.dataset.loopDelay) || 0 });
+const keyOf = (a) => [a.shape, a.theme, a.cycle, a.loop, a.loopDelay].join('|');
 
 function mount(el) {
   if (live.has(el) || el.__blobPending) return;
@@ -1347,7 +1347,7 @@ function mount(el) {
   if (!isGlow && el.id) glowEl = document.querySelector(`.glow[data-for="${CSS.escape(el.id)}"]`);
   let glowCanvas = null;
   if (glowEl) { glowCanvas = glowEl.querySelector(':scope > canvas'); if (!glowCanvas) { glowCanvas = document.createElement('canvas'); glowCanvas.setAttribute('aria-hidden', 'true'); glowEl.append(glowCanvas); } glowEl.__linked = true; }
-  const ctrl = create(canvas, { shape: a.shape, theme: a.theme, cycle: a.cycle, loop: a.loop, glow: glowCanvas, glowHost: glowEl, asGlow: isGlow });
+  const ctrl = create(canvas, { shape: a.shape, theme: a.theme, cycle: a.cycle, loop: a.loop, loopDelay: a.loopDelay, glow: glowCanvas, glowHost: glowEl, asGlow: isGlow });
   const rec = { ctrl, visible: true, last: a };
   live.set(el, rec);
   if (io) { rec.visible = false; io.observe(el); }

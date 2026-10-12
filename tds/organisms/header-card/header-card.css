@@ -1,5 +1,5 @@
 /* Organism: header card. Opens a screen: runs to the screen edges (cancelling the page gutter) with rounded bottom corners,
-   content centred and sitting at the bottom. Default is gradient and light-weight; Provider is flat, with a photo on top.
+   content centered and sitting at the bottom. Default is gradient and light-weight; Provider is flat, with a photo on top.
    The slot is a real element ([data-slot]): content. */
 .header-card {
   --header-radius: calc(var(--radius-lg) * 2);

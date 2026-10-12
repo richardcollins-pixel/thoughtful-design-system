@@ -46,7 +46,7 @@
 
 .appointment-card__details:empty { display: none; }
 
-/* loading: the card says [data-loading]. Skeleton content is centred on the avatar, headlines are one size in every layout,
+/* loading: the card says [data-loading]. Skeleton content is centered on the avatar, headlines are one size in every layout,
    and the CTA stays at the bottom, so the card holds the loaded card's height (the canvas sets its min-height). */
 .appointment-card[data-layout="centered"] { --skeleton-align: center; }
 .appointment-card[data-loading] .appointment-card__header { align-items: center; }
@@ -55,7 +55,7 @@
 .appointment-card[data-loading][data-layout="row"]:has([data-slot="cta"]) { grid-template-rows: auto 1fr auto; }
 
 /* error: the card that stands in when it couldn't load. Flat (it takes the fill directly, so a background picked for the other
-   states doesn't leak in), centred, with a plain sans headline and a Retry button. */
+   states doesn't leak in), centered, with a plain sans headline and a Retry button. */
 .appointment-card[data-layout="error"] { background: var(--bg-elevation-20); --card-padding-y: var(--padding-xl); align-items: center; text-align: center; }
 .appointment-card[data-layout="error"] .appointment-card__content { margin-top: 0; align-items: center; }
 .appointment-card[data-layout="error"] .appointment-card__headline { font: var(--text-body-lg-semibold); letter-spacing: var(--text-body-lg-semibold-ls); }

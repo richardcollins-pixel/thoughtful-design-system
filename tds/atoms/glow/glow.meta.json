@@ -34,7 +34,7 @@
     "--glow-opacity": "fill"
   },
   "styles": [],
-  "description": "A blurred copy of the blob, used as light in the background. Usually it sits alone near the bottom of a screen, on its own colour cycle; it can also sit right behind a blob and be that blob's own blurred copy. Placement: bottom, behind, or in the flow.",
+  "description": "A blurred copy of the blob, used as light in the background. Usually it sits alone near the bottom of a screen, on its own color cycle; it can also sit right behind a blob and be that blob's own blurred copy. Placement: bottom, behind, or in the flow.",
   "props": {
     "theme": {
       "type": "enum",
@@ -59,5 +59,12 @@
       "default": "on"
     }
   },
-  "template": "<div class=\"glow\" data-theme=\"{{theme}}\" data-cycle=\"{{cycle}}\" style=\"--glow-size:220px;--glow-blur:36px\"><canvas aria-hidden=\"true\"></canvas></div>"
+  "template": "<div class=\"glow\" data-theme=\"{{theme}}\" data-cycle=\"{{cycle}}\" style=\"--glow-size:220px;--glow-blur:36px\"><canvas aria-hidden=\"true\"></canvas></div>",
+  "gallery": "examples",
+  "examples": [
+    {
+      "name": "",
+      "markup": "<div class=\"phones\"><figure><div class=\"tile\" data-clip style=\"padding-bottom:160px\"><div class=\"blob\" id=\"g-blob\" style=\"--blob-size:144px\"><canvas aria-hidden=\"true\"></canvas></div><div class=\"glow\" data-for=\"g-blob\" data-placement=\"behind\" style=\"--glow-size:430px\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"cap\">Centered glow</p></figure><figure><div class=\"tile\" data-clip style=\"justify-content:space-between\"><div class=\"glow\" data-theme=\"cool\" data-placement=\"bottom\" style=\"--glow-size:430px\"><canvas aria-hidden=\"true\"></canvas></div><div class=\"phone-top\"><span><div class=\"blob\" style=\"--blob-size:13px\"><canvas aria-hidden=\"true\"></canvas></div>Session Name</span><b>×</b></div><div class=\"kb\"><div><i>q</i><i>w</i><i>e</i><i>r</i><i>t</i><i>y</i><i>u</i><i>i</i><i>o</i><i>p</i></div><div class=pad><i>a</i><i>s</i><i>d</i><i>f</i><i>g</i><i>h</i><i>j</i><i>k</i><i>l</i></div><div><i class=\"s\">⇧</i><div style=\"flex:1;gap:4px\"><i>z</i><i>x</i><i>c</i><i>v</i><i>b</i><i>n</i><i>m</i></div><i class=\"s\">⌫</i></div><div><i class=\"w\">123</i><i></i><i class=\"w\">↵</i></div></div></div><p class=\"cap\">Bottom Glow, keyboard up</p></figure><figure><div class=\"tile\" data-clip><div class=\"glow\" data-theme=\"cool\" data-placement=\"bottom\" style=\"--glow-size:490px\"><canvas aria-hidden=\"true\"></canvas></div></div><p class=\"cap\">Bottom Glow</p></figure></div>"
+    }
+  ]
 }
