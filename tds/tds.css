@@ -46,6 +46,7 @@
 @import url("organisms/header-inset-card/header-inset-card.css") layer(organisms);
 @import url("organisms/session-history-card/session-history-card.css") layer(organisms);
 @import url("organisms/cta-card/cta-card.css") layer(organisms);
+@import url("organisms/home-header/home-header.css") layer(organisms);
 @import url("organisms/end-of-session-card/end-of-session-card.css") layer(organisms);
 @import url("organisms/resource-card/resource-card.css") layer(organisms);
 

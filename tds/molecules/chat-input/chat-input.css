@@ -17,3 +17,13 @@
 }
 .chat-input > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chat-input > .icon { --icon-color: var(--chat-input-text); flex: none; }
+
+/* Large: the box on the home screen. Taller, the prompt starts at the top and the arrow sits at the bottom right. */
+.chat-input[data-variant="large"] {
+  --chat-input-height: 110px;
+  height: auto; min-height: var(--chat-input-height); align-items: stretch; padding: var(--padding-md);
+  border-radius: var(--radius-md); backdrop-filter: blur(30px);
+  box-shadow: 0 4.5px 54px color-mix(in srgb, var(--black) 9%, transparent);
+}
+.chat-input[data-variant="large"] > span { white-space: normal; }
+.chat-input[data-variant="large"] > .icon { align-self: flex-end; }

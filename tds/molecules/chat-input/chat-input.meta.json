@@ -6,8 +6,17 @@
   "uses": [
     "atoms/icon"
   ],
-  "markup": "<div class=\"chat-input\"><span>Start session</span><i class=\"icon icon-arrow-up\" data-size=\"md\"></i></div>",
-  "attributes": {},
+  "markup": "<div class=\"chat-input\" data-variant=\"pill\"><span>Start session</span><i class=\"icon icon-arrow-up\" data-size=\"md\"></i></div>",
+  "attributes": {
+    "data-variant": {
+      "type": "enum",
+      "values": [
+        "pill",
+        "large"
+      ],
+      "default": "pill"
+    }
+  },
   "states": [],
   "variables": {
     "--chat-input-fill": "fill",
@@ -17,7 +26,7 @@
     "--chat-input-padding-x": "padding"
   },
   "styles": [],
-  "description": "The pill at the bottom of a session card: a prompt and an arrow to send. Use it to start a session or a new topic from a card.",
+  "description": "The pill at the bottom of a session card: a prompt and an arrow to send. Use it to start a session or a new topic from a card. Large is the tall box on the home screen, with the prompt at the top and the arrow at the bottom right.",
   "content": [
     {
       "label": "Prompt",
@@ -29,7 +38,16 @@
       "type": "text",
       "label": "Prompt",
       "default": "Start session"
+    },
+    "variant": {
+      "type": "enum",
+      "label": "Variant",
+      "values": [
+        "pill",
+        "large"
+      ],
+      "default": "pill"
     }
   },
-  "template": "<div class=\"chat-input\"><span>{{text}}</span><i class=\"icon icon-arrow-up\" data-size=\"md\"></i></div>"
+  "template": "<div class=\"chat-input\" data-variant=\"{{variant}}\"><span>{{text}}</span><i class=\"icon icon-arrow-up\" data-size=\"md\"></i></div>"
 }

@@ -1,0 +1,22 @@
+/* Organism: home header. The top of the home screen: header (status bar and an action), T with a soft glow behind it, a headline and
+   a line of copy, then the large chat input. It runs to the screen edges (cancelling the page gutter) and the glow fades into the
+   screen below. Slots are real elements ([data-slot]): top, content, input. */
+.home-header {
+  --home-header-padding-x: var(--padding-xl);
+  --skeleton-align: center;
+  position: relative; isolation: isolate; overflow-x: clip;   /* the glow is wider than the screen; sideways is cut, downward it fades out */
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  margin: calc(var(--page-gutter, var(--space-6)) * -1) calc(var(--page-gutter, var(--space-6)) * -1) 0; width: auto;
+  padding-bottom: var(--space-16);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--purple-500) 22%, transparent), transparent 560px);
+}
+/* T is drawn smaller here than its token sizes (the Figma hero is a large T at about 100px) */
+.home-header .blob { --blob-size: 100px; }
+/* the light behind T: rose, centered on it, not part of the layout */
+.home-header__glow { --glow-size: 520px; --glow-blur: 90px; --glow-opacity: .55; position: absolute; left: 50%; top: 40px; translate: -50% 0; z-index: -1; }
+.home-header__top { width: 100%; }
+.home-header__content { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); width: 100%; box-sizing: border-box; padding: 0 var(--home-header-padding-x); }
+.home-header__titles { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); width: 100%; }
+.home-header__headline { font: var(--text-headline-1); letter-spacing: var(--text-headline-1-ls); }
+.home-header__body { color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
+.home-header__input { width: 100%; box-sizing: border-box; padding: var(--space-6) var(--home-header-padding-x) 0; }
