@@ -101,12 +101,97 @@
         }
       ],
       "personas": []
+    },
+    {
+      "id": "session",
+      "name": "Session",
+      "template": "<section class=\"chat\" data-state=\"session\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__scroll\"><div class=\"chat__flow\"><div class=\"chat__messages\" data-slot=\"messages\">{{item:sbot1}}{{item:suser}}{{item:sbot2}}</div></div></div><div class=\"chat__input\" data-slot=\"input\">{{item:input}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "messages",
+          "label": "Messages slot",
+          "items": [
+            "sbot1",
+            "suser",
+            "sbot2"
+          ]
+        },
+        {
+          "id": "input",
+          "label": "Input slot",
+          "items": [
+            "input"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "timer": "on",
+            "recap": "on"
+          }
+        }
+      }
+    },
+    {
+      "id": "session-keyboard",
+      "name": "Session, typing",
+      "template": "<section class=\"chat\" data-state=\"session-keyboard\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__scroll\"><div class=\"chat__flow\"><div class=\"chat__messages\" data-slot=\"messages\">{{item:sbot1}}{{item:suser}}{{item:sbot2}}</div></div></div><div class=\"chat__input\" data-slot=\"input\">{{item:input}}</div><div class=\"chat__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "messages",
+          "label": "Messages slot",
+          "items": [
+            "sbot1",
+            "suser",
+            "sbot2"
+          ]
+        },
+        {
+          "id": "input",
+          "label": "Input slot",
+          "items": [
+            "input"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "keyboard"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "timer": "on",
+            "recap": "on"
+          }
+        }
+      }
     }
   ],
   "variables": {},
   "styles": [],
   "selector": ".chat",
-  "description": "A whole chat screen. Recommendations ends the conversation with two sessions to choose from (5 or 10 minutes) or Save for later; Typing is the conversation with the input and the keyboard up. The header can show a timer and the icon for when your therapist can see a recap.",
+  "description": "A whole chat screen. Recommendations ends the conversation with two sessions to choose from (5 or 10 minutes) or Save for later; Typing is the conversation with the input and the keyboard up. The header can show a timer and the icon for when your therapist can see a recap. Session and Session, typing are the conversation while the timer runs (a progress bar under the session name, the recap icon on).",
   "items": {
     "header": {
       "type": "component",
@@ -118,7 +203,7 @@
       "expose": [
         "title",
         "timer",
-        "clock",
+        "progress",
         "recap"
       ]
     },
@@ -279,6 +364,42 @@
       "component": "molecules/keyboard",
       "label": "Keyboard",
       "props": {}
+    },
+    "sbot1": {
+      "type": "component",
+      "component": "molecules/chat-message",
+      "label": "T message 1",
+      "props": {
+        "from": "bot",
+        "text": "Last time, we talked about [insert most recent summary]. This time, let’s [insert suggestion for next steps on this topic]. [Insert a question to start today’s convo]?"
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "suser": {
+      "type": "component",
+      "component": "molecules/chat-message",
+      "label": "Your message",
+      "props": {
+        "from": "user",
+        "text": "I want to feel better about it"
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "sbot2": {
+      "type": "component",
+      "component": "molecules/chat-message",
+      "label": "T message 2",
+      "props": {
+        "from": "bot",
+        "text": "Last time, we talked about [insert most recent summary]. This time, let’s [insert suggestion for next steps on this topic]. [Insert a question to start today’s convo]?"
+      },
+      "expose": [
+        "text"
+      ]
     }
   },
   "personas": [],
