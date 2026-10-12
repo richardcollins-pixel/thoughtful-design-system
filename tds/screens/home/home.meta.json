@@ -1,0 +1,159 @@
+{
+  "name": "Home",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "organisms/home-header",
+    "patterns/topics-section",
+    "patterns/bite-size-support-section",
+    "patterns/provider-carousel"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4140-107377",
+  "align": "top",
+  "states": [
+    {
+      "id": "start",
+      "name": "New",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:topics}}{{item:bite}}{{item:providers}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "topics",
+            "bite",
+            "providers"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "topics": {
+          "props": {
+            "state": "start"
+          }
+        }
+      }
+    },
+    {
+      "id": "recent-1",
+      "name": "One recent topic",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:topics}}{{item:bite}}{{item:providers}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "topics",
+            "bite",
+            "providers"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "topics": {
+          "props": {
+            "state": "recent-1"
+          }
+        }
+      }
+    },
+    {
+      "id": "recent-many",
+      "name": "Returning",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:topics}}{{item:bite}}{{item:providers}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "topics",
+            "bite",
+            "providers"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {}
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".home",
+  "description": "The home screen: the home header (say anything to start), then your topics, bite size support and your providers, one under the other. New shows the New topic card alone; One recent topic and Returning show the topics you have started.",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "organisms/home-header",
+      "label": "Home header",
+      "props": {
+        "state": "default"
+      },
+      "expose": [
+        "headline",
+        "body",
+        "input.text"
+      ]
+    },
+    "topics": {
+      "type": "component",
+      "component": "patterns/topics-section",
+      "label": "Your topics",
+      "props": {
+        "state": "recent-many"
+      },
+      "expose": [
+        "state",
+        "heading",
+        "copy"
+      ]
+    },
+    "bite": {
+      "type": "component",
+      "component": "patterns/bite-size-support-section",
+      "label": "Bite size support",
+      "props": {
+        "state": "default"
+      },
+      "expose": [
+        "heading",
+        "copy"
+      ]
+    },
+    "providers": {
+      "type": "component",
+      "component": "patterns/provider-carousel",
+      "label": "Providers",
+      "props": {
+        "state": "default"
+      },
+      "expose": []
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}

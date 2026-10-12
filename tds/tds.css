@@ -60,6 +60,7 @@
 @import url("patterns/bite-size-support-section/bite-size-support-section.css") layer(patterns);
 @import url("patterns/provider-carousel/provider-carousel.css") layer(patterns);
 @import url("screens/chat/chat.css") layer(screens);
+@import url("screens/home/home.css") layer(screens);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */
 

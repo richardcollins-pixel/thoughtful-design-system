@@ -1,0 +1,6 @@
+/* Screen: home. The home header runs to the top and the screen edges; under it the sections (topics, bite size support, providers)
+   follow one after another. The page scrolls. Slots are real elements ([data-slot]): header, sections. */
+.home { --home-gap: var(--space-12); display: flex; flex-direction: column; width: 100%; padding-bottom: var(--space-16); }
+.home__sections { display: flex; flex-direction: column; gap: var(--home-gap); padding-top: var(--home-gap); }
+/* the sections come right after the header, so the header's own bottom room is not needed */
+.home .home-header { padding-bottom: var(--space-2); }
