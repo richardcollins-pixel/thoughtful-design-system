@@ -239,6 +239,13 @@
    "bytes": 675
   },
   {
+   "name": "person-check",
+   "file": "glyphs/Name=Person check.svg",
+   "width": 24.0,
+   "height": 24.0,
+   "bytes": 1514
+  },
+  {
    "name": "person",
    "file": "glyphs/Name=person.svg",
    "width": 25.0,

@@ -1,0 +1,5 @@
+/* Molecule: chat message. T (bot) is plain text across the width; the person (user) is a bubble on the right, at most 310px. */
+.chat-message { display: flex; width: 100%; color: var(--text-primary); }
+.chat-message > p { margin: 0; font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
+.chat-message[data-from="user"] { justify-content: flex-end; }
+.chat-message[data-from="user"] > p { max-width: 310px; box-sizing: border-box; padding: var(--padding-md) var(--space-6); background: var(--bg-elevation-10); border-radius: var(--radius-sm); }
