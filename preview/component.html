@@ -9,10 +9,17 @@
     body { padding: var(--page-gutter, var(--space-6)); }
     .label { margin-bottom: var(--space-2); }
     .embed { padding: 0; }
-    .controls { display: flex; gap: 40px; align-self: center; }
-    .control-col { display: flex; flex-direction: column; gap: var(--space-4); }
+    .controls { display: grid; grid-template-columns: auto auto; column-gap: 40px; row-gap: var(--space-4); align-self: center; align-items: start; }
+    .control-col { display: contents; }
     .control { display: flex; flex-direction: column; gap: var(--space-2); }
     .control label { display: flex; align-items: center; gap: var(--space-2); cursor: pointer; }
+    /* controls on the tiles are white on transparent: no blue, no dark fill */
+    .controls input { appearance: none; margin: 0; width: 16px; height: 16px; flex: none; border: 1.5px solid rgba(255,255,255,.7); background: transparent; display: grid; place-items: center; cursor: pointer; }
+    .controls input[type=radio] { border-radius: 50%; }
+    .controls input[type=checkbox] { border-radius: 4px; }
+    .controls input:checked::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+    .controls input[type=checkbox]:checked::after { border-radius: 2px; }
+    .controls input:focus-visible { outline: 2px solid rgba(255,255,255,.5); outline-offset: 2px; }
     /* designed sticker sheets (Figma "Mockups"): rounded tiles on the page, each with a caption */
     .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; width: 100%; }
     .tile { position: relative; display: flex; flex-direction: column; align-items: center; min-height: 230px; border-radius: var(--radius-md, 16px); background: var(--bg-elevation-5); overflow: hidden; }
@@ -205,7 +212,7 @@
           }
           const k = c.col || 1;
           if (!cols[k]) { cols[k] = document.createElement('div'); cols[k].className = 'control-col'; box.append(cols[k]); }
-          cols[k].append(row);
+          row.style.gridColumn = k; row.style.gridRow = c.type === 'switch' ? 1 : 2; cols[k].append(row);
         }
         return box;
       };
