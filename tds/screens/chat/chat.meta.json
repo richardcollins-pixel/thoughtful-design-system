@@ -1,0 +1,285 @@
+{
+  "name": "Chat",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "molecules/chat-header",
+    "organisms/chat-thread",
+    "organisms/chat-composer",
+    "organisms/end-of-session-card",
+    "atoms/glow"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
+  "align": "top",
+  "states": [
+    {
+      "id": "recommendations",
+      "name": "Recommendations",
+      "template": "<section class=\"chat\" data-state=\"recommendations\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "thread",
+          "label": "Thread slot",
+          "items": [
+            "thread"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "thread": {
+          "props": {
+            "state": "recommendations"
+          }
+        }
+      }
+    },
+    {
+      "id": "typing",
+      "name": "Typing",
+      "template": "<section class=\"chat\" data-state=\"typing\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "thread",
+          "label": "Thread slot",
+          "items": [
+            "thread"
+          ]
+        },
+        {
+          "id": "composer",
+          "label": "Composer slot",
+          "items": [
+            "composer"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "thread": {
+          "props": {
+            "state": "conversation"
+          }
+        },
+        "composer": {
+          "props": {
+            "state": "keyboard"
+          }
+        }
+      }
+    },
+    {
+      "id": "session",
+      "name": "Session",
+      "template": "<section class=\"chat\" data-state=\"session\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "thread",
+          "label": "Thread slot",
+          "items": [
+            "thread"
+          ]
+        },
+        {
+          "id": "composer",
+          "label": "Composer slot",
+          "items": [
+            "composer"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "timer": "on",
+            "recap": "on"
+          }
+        },
+        "thread": {
+          "props": {
+            "state": "session"
+          }
+        },
+        "composer": {
+          "props": {
+            "state": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "session-keyboard",
+      "name": "Session, typing",
+      "template": "<section class=\"chat\" data-state=\"session-keyboard\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "thread",
+          "label": "Thread slot",
+          "items": [
+            "thread"
+          ]
+        },
+        {
+          "id": "composer",
+          "label": "Composer slot",
+          "items": [
+            "composer"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "timer": "on",
+            "recap": "on"
+          }
+        },
+        "thread": {
+          "props": {
+            "state": "session"
+          }
+        },
+        "composer": {
+          "props": {
+            "state": "keyboard"
+          }
+        }
+      }
+    },
+    {
+      "id": "end",
+      "name": "End of session",
+      "template": "<section class=\"chat\" data-state=\"end\"><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__end\" data-slot=\"end\">{{item:end}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "thread",
+          "label": "Thread slot",
+          "items": [
+            "thread"
+          ]
+        },
+        {
+          "id": "end",
+          "label": "End slot",
+          "items": [
+            "end"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "bar": "off"
+          }
+        },
+        "thread": {
+          "props": {
+            "state": "end"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".chat",
+  "description": "A whole chat screen: the header, the thread, and either the composer (with the keyboard up or not) or the end of session card. Recommendations, Typing, Session and Session typing (the timer runs) and End of session are the states in the Figma.",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "molecules/chat-header",
+      "label": "Header",
+      "props": {
+        "title": "Leave it here"
+      },
+      "expose": [
+        "title",
+        "bar",
+        "timer",
+        "progress",
+        "recap"
+      ]
+    },
+    "thread": {
+      "type": "component",
+      "component": "organisms/chat-thread",
+      "label": "Thread",
+      "props": {
+        "state": "recommendations"
+      },
+      "expose": [
+        "state"
+      ]
+    },
+    "composer": {
+      "type": "component",
+      "component": "organisms/chat-composer",
+      "label": "Composer",
+      "props": {
+        "state": "input"
+      },
+      "expose": [
+        "state"
+      ]
+    },
+    "end": {
+      "type": "component",
+      "component": "organisms/end-of-session-card",
+      "label": "End of session card",
+      "props": {
+        "overline": "Time well spent",
+        "headline": "You made steady progress today",
+        "primary.label": "Review key takeaways",
+        "secondary.label": "Share feedback"
+      },
+      "expose": [
+        "overline",
+        "headline",
+        "primary.label",
+        "secondary.label"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}

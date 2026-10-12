@@ -1,0 +1,3 @@
+/* Organism: chat composer. The input pill, and with the keyboard up the keyboard under it. Slots: input, keyboard. */
+.chat-composer { display: flex; flex-direction: column; }
+.chat-composer__input { padding: 0 var(--padding-md) var(--padding-md); }

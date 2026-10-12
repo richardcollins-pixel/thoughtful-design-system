@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Enforce the layer rule: a component may only use components from LOWER levels.
-atoms < molecules < organisms < patterns.   Run:  python3 tools/check_layers.py"""
+device < atoms < molecules < organisms < patterns < screens.   Run:  python3 tools/check_layers.py"""
 import json, os, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-ORDER = ["atoms", "molecules", "organisms", "patterns"]
+ORDER = ["device", "atoms", "molecules", "organisms", "patterns", "screens"]
 index = json.load(open(os.path.join(ROOT, "tds/index.json")))["components"]
 bad = 0
 for path in index:

@@ -1,0 +1,12 @@
+/* Organism: chat thread. The conversation: T in plain text, you in a bubble, newest last. It scrolls and opens on the newest message
+   (column-reverse), and a short chat sits at the bottom. Recommendations adds two options, OR and Save for later. Slots: messages,
+   rationale, options, action. */
+.chat-thread { --chat-gap: var(--space-6); flex: 1; min-height: 0; height: 100%; display: flex; flex-direction: column-reverse; overflow-x: clip; overflow-y: auto; padding: var(--padding-md) var(--padding-md) var(--space-6); box-sizing: border-box; scrollbar-width: none; }
+.chat-thread::-webkit-scrollbar { display: none; }
+.chat-thread__flow { display: flex; flex-direction: column; gap: var(--chat-gap); }
+.chat-thread__messages { display: flex; flex-direction: column; gap: var(--chat-gap); }
+.chat-thread__recs { display: flex; flex-direction: column; gap: var(--space-4); }
+.chat-thread__cards { display: flex; flex-direction: column; gap: var(--space-4); }
+.chat-thread__or { display: flex; align-items: center; gap: var(--space-4); padding-block: var(--space-4) 0; margin-bottom: var(--space-2); }
+.chat-thread__or::before, .chat-thread__or::after { content: ""; flex: 1; height: 1px; background: var(--border-secondary); }
+.chat-thread__or-label { font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }

@@ -1,0 +1,16 @@
+/* Screen: chat. A whole chat screen on a dark purple page with a rose glow rising from the bottom: the header, the thread (it scrolls and
+   takes the space left), then the composer or the end of session card. It runs to the screen edges. Slots are real elements
+   ([data-slot]): top, thread, composer, end. */
+.chat {
+  position: relative; isolation: isolate; overflow: clip; box-sizing: border-box;
+  display: flex; flex-direction: column; height: 100dvh; min-height: 640px;
+  margin: calc(var(--page-gutter, var(--space-6)) * -1); width: auto;
+  background: var(--bg-base);
+}
+.chat__glow { --glow-size: 520px; --glow-blur: 90px; --glow-opacity: .6; z-index: -1; }
+.chat__top { flex: none; }
+.chat__thread { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.chat__composer, .chat__end { flex: none; }
+.chat__end { padding: 0 var(--padding-md) 64px; }
+/* with the keyboard up the light rises above it, to about the input, so it can be seen */
+.chat:has(.chat-composer[data-keyboard]) .chat__glow { bottom: calc(340px - var(--glow-size) / 2); }

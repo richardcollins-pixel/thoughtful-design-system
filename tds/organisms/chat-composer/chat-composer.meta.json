@@ -1,0 +1,77 @@
+{
+  "name": "Chat composer",
+  "tier": "organisms",
+  "category": "chat",
+  "stateful": false,
+  "uses": [
+    "molecules/chat-input",
+    "device/keyboard"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
+  "states": [
+    {
+      "id": "input",
+      "name": "Input",
+      "template": "<div class=\"chat-composer\"><div class=\"chat-composer__input\" data-slot=\"input\">{{item:input}}</div></div>",
+      "slots": [
+        {
+          "id": "input",
+          "label": "Input slot",
+          "items": [
+            "input"
+          ]
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "keyboard",
+      "name": "Keyboard up",
+      "template": "<div class=\"chat-composer\" data-keyboard><div class=\"chat-composer__input\" data-slot=\"input\">{{item:input}}</div><div class=\"chat-composer__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></div>",
+      "slots": [
+        {
+          "id": "input",
+          "label": "Input slot",
+          "items": [
+            "input"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "keyboard"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".chat-composer",
+  "description": "Where you type in a chat: the input pill, and with the keyboard up the keyboard under it (the keyboard is phone chrome and can be switched off with the Device UI mode).",
+  "items": {
+    "input": {
+      "type": "component",
+      "component": "molecules/chat-input",
+      "label": "Input",
+      "props": {
+        "variant": "empty",
+        "text": "Start typing..."
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "keyboard": {
+      "type": "component",
+      "component": "device/keyboard",
+      "label": "Keyboard",
+      "props": {}
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}
