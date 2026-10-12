@@ -4,8 +4,8 @@
   "category": "media",
   "stateful": false,
   "uses": [],
-  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4361-70379",
-  "markup": "<div class=\"blob\" data-shape=\"blob\" data-theme=\"auto\"><canvas aria-hidden=\"true\"></canvas></div>",
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4359-55294",
+  "markup": "<div class=\"blob\" data-shape=\"blob\" data-theme=\"cool\" data-cycle=\"on\" data-size=\"124\"><canvas aria-hidden=\"true\"></canvas></div>",
   "attributes": {
     "data-shape": {
       "type": "enum",
@@ -21,23 +21,44 @@
     "data-theme": {
       "type": "enum",
       "values": [
-        "auto",
         "cool",
         "warm",
         "rose",
         "ember",
         "bloom"
       ],
-      "default": "auto"
+      "default": "cool"
+    },
+    "data-cycle": {
+      "type": "enum",
+      "values": [
+        "on",
+        "off"
+      ],
+      "default": "on"
+    },
+    "data-loop": {
+      "type": "enum",
+      "values": [
+        "off",
+        "pencil",
+        "envelope",
+        "bubble",
+        "chat"
+      ],
+      "default": "off"
     },
     "data-size": {
       "type": "enum",
       "values": [
-        "sm",
-        "md",
-        "lg"
+        "24",
+        "32",
+        "48",
+        "80",
+        "124",
+        "180"
       ],
-      "default": "md"
+      "default": "124"
     }
   },
   "states": [],
@@ -45,7 +66,7 @@
     "--blob-size": "padding"
   },
   "styles": [],
-  "description": "The animated shape that is T. It bounces slowly, its outline morphs slowly, and its colours travel round the edge while the theme shifts every few seconds. In special cases it becomes another shape (a pencil, a chat bubble, an envelope, a chat) to stand for what T is doing; the plain blob is its default. Themes: auto cycles cool, warm and rose; or pin one.",
+  "description": "The animated shape that is T. It bounces slowly up and down, its outline morphs slowly, and its colours travel round the edge while the theme shifts every few seconds (cool, warm, rose). In special cases it becomes another shape to stand for what T is doing (a pencil, a chat bubble, an email); the plain blob is its default, and it morphs back.",
   "props": {
     "shape": {
       "type": "enum",
@@ -63,27 +84,85 @@
       "type": "enum",
       "label": "Theme",
       "values": [
-        "auto",
         "cool",
         "warm",
         "rose",
         "ember",
         "bloom"
       ],
-      "default": "auto"
+      "default": "cool"
+    },
+    "cycle": {
+      "type": "enum",
+      "label": "Color cycle",
+      "ui": "steps",
+      "values": [
+        "on",
+        "off"
+      ],
+      "default": "on"
+    },
+    "loop": {
+      "type": "enum",
+      "label": "Loop",
+      "values": [
+        "off",
+        "pencil",
+        "envelope",
+        "bubble",
+        "chat"
+      ],
+      "default": "off"
     },
     "size": {
       "type": "enum",
       "label": "Size",
-      "ui": "steps",
       "values": [
-        "sm",
-        "md",
-        "lg"
+        "24",
+        "32",
+        "48",
+        "80",
+        "124",
+        "180"
       ],
-      "default": "md"
+      "default": "124"
     }
   },
-  "template": "<div class=\"blob\" data-shape=\"{{shape}}\" data-theme=\"{{theme}}\" data-size=\"{{size}}\"><canvas aria-hidden=\"true\"></canvas></div>",
-  "skeleton": "<span class=\"skeleton\" data-shape=\"dot\" data-size=\"{{size}}\" style=\"width:116px;height:116px\"></span>"
+  "template": "<div class=\"blob\" data-shape=\"{{shape}}\" data-theme=\"{{theme}}\" data-cycle=\"{{cycle}}\" data-loop=\"{{loop}}\" data-size=\"{{size}}\"><canvas aria-hidden=\"true\"></canvas></div>",
+  "skeleton": "<span class=\"skeleton\" data-shape=\"dot\" style=\"width:124px;height:124px\"></span>",
+  "gallery": "examples",
+  "examples": [
+    {
+      "name": "T",
+      "markup": "<div style=\"padding:24px 8px\"><div class=\"blob\" data-size=\"180\" data-theme=\"cool\" data-cycle=\"on\"><canvas aria-hidden=\"true\"></canvas></div></div>",
+      "target": ".blob",
+      "controls": [
+        {
+          "type": "switch",
+          "label": "Color cycle",
+          "attr": "data-cycle",
+          "on": "on",
+          "off": "off"
+        },
+        {
+          "type": "radio",
+          "label": "Starts on",
+          "attr": "data-theme",
+          "values": [
+            "cool",
+            "warm",
+            "rose"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sizes",
+      "markup": "<div style=\"display:flex;align-items:flex-end;gap:32px\"><figure style=\"margin:0;display:flex;flex-direction:column;align-items:center;gap:12px\"><div class=\"blob\" data-size=\"24\" data-theme=\"warm\" data-cycle=\"on\"><canvas aria-hidden=\"true\"></canvas></div><figcaption class=\"text-body-xs text-secondary\">24</figcaption></figure><figure style=\"margin:0;display:flex;flex-direction:column;align-items:center;gap:12px\"><div class=\"blob\" data-size=\"32\" data-theme=\"warm\" data-cycle=\"on\"><canvas aria-hidden=\"true\"></canvas></div><figcaption class=\"text-body-xs text-secondary\">32</figcaption></figure><figure style=\"margin:0;display:flex;flex-direction:column;align-items:center;gap:12px\"><div class=\"blob\" data-size=\"48\" data-theme=\"warm\" data-cycle=\"on\"><canvas aria-hidden=\"true\"></canvas></div><figcaption class=\"text-body-xs text-secondary\">48</figcaption></figure><figure style=\"margin:0;display:flex;flex-direction:column;align-items:center;gap:12px\"><div class=\"blob\" data-size=\"80\" data-theme=\"warm\" data-cycle=\"on\"><canvas aria-hidden=\"true\"></canvas></div><figcaption class=\"text-body-xs text-secondary\">80</figcaption></figure><figure style=\"margin:0;display:flex;flex-direction:column;align-items:center;gap:12px\"><div class=\"blob\" data-size=\"124\" data-theme=\"warm\" data-cycle=\"on\"><canvas aria-hidden=\"true\"></canvas></div><figcaption class=\"text-body-xs text-secondary\">124</figcaption></figure><figure style=\"margin:0;display:flex;flex-direction:column;align-items:center;gap:12px\"><div class=\"blob\" data-size=\"180\" data-theme=\"warm\" data-cycle=\"on\"><canvas aria-hidden=\"true\"></canvas></div><figcaption class=\"text-body-xs text-secondary\">180</figcaption></figure></div>"
+    },
+    {
+      "name": "Morphs (each loops: blob, shape, blob)",
+      "markup": "<div style=\"display:flex;align-items:flex-end;gap:48px\"><figure style=\"margin:0;display:flex;flex-direction:column;align-items:center;gap:12px\"><div class=\"blob\" data-size=\"124\" data-loop=\"pencil\"><canvas aria-hidden=\"true\"></canvas></div><figcaption class=\"text-body-xs text-secondary\">Pencil</figcaption></figure><figure style=\"margin:0;display:flex;flex-direction:column;align-items:center;gap:12px\"><div class=\"blob\" data-size=\"124\" data-loop=\"envelope\"><canvas aria-hidden=\"true\"></canvas></div><figcaption class=\"text-body-xs text-secondary\">Email</figcaption></figure><figure style=\"margin:0;display:flex;flex-direction:column;align-items:center;gap:12px\"><div class=\"blob\" data-size=\"124\" data-loop=\"bubble\"><canvas aria-hidden=\"true\"></canvas></div><figcaption class=\"text-body-xs text-secondary\">Chat bubble</figcaption></figure></div>"
+    }
+  ]
 }

@@ -6,8 +6,10 @@
 // that blob's shape and colours) or, more usually, on its own near the bottom of a screen.
 //
 // You do not call this: put the markup on the page and set attributes, and this file finds it (now and later) and keeps it in sync.
-//   <div class="blob" data-shape="blob" data-theme="auto"></div>            data-shape: blob | pencil | bubble | envelope | chat
-//   <div class="glow" data-theme="auto" data-placement="bottom"></div>      data-theme: auto | cool | warm | rose | ember | bloom
+//   <div class="blob" data-shape="blob" data-theme="cool"></div>            data-shape: blob | pencil | bubble | envelope | chat
+//   <div class="glow" data-theme="cool" data-placement="bottom"></div>      data-theme: cool | warm | rose | ember | bloom (where it starts)
+//                                                                          data-cycle="off" stops the colour shifting; data-loop="pencil" (or
+//                                                                          envelope, bubble, chat) morphs to the shape and back, on repeat
 //   <div class="blob" id="t"></div> <div class="glow" data-for="t"></div>   a glow tied to the blob with that id (placement "behind")
 // Changing data-shape / data-theme morphs it. In code: TBlob.create(canvas, opts) returns { setShape, setTheme, destroy }.
 //
@@ -1190,31 +1192,72 @@ return{
 /* ================================================================== the host: one blob (or glow), both engines, one loop */
 const reduceMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* The special-case morphs, with the timings and colours of the prototypes they came from. Each runs: at home as the blob, morph out,
+   hold in the shape, morph back, repeat. The loading screen's pencil and chat bubble shed a bloblet as they form; the intro's envelope and
+   chat detach a flap and a dot. (Loading: 600 + 500 at home, 850 morph, 3000 hold, with the colours crossfading over 1.4x the morph.
+   Intro: a 1700 morph out and a 1300 morph back, in rose.) */
+const LOOPS = {
+  pencil:   { home: 1100, to: 850,  hold: 3000, back: 850,  fadeMul: 1.4, homeTheme: EMBER, shapeTheme: BLOOM },
+  bubble:   { home: 1100, to: 850,  hold: 3000, back: 850,  fadeMul: 1.4, homeTheme: EMBER, shapeTheme: BLOOM },
+  envelope: { home: 1100, to: 1700, hold: 3000, back: 1300, fadeMul: 1.0, homeTheme: ROSE,  shapeTheme: ROSE },
+  chat:     { home: 1100, to: 1700, hold: 3000, back: 1300, fadeMul: 1.0, homeTheme: ROSE,  shapeTheme: ROSE },
+};
+
 export function create(canvas, opts = {}) {
-  const o = { shape: 'blob', theme: 'auto', glow: null, glowHost: null, asGlow: false, bloblets: true, ...opts };
+  const o = { shape: 'blob', theme: 'cool', cycle: true, loop: null, glow: null, glowHost: null, asGlow: false, bloblets: true, ...opts };
+  if (o.theme === 'auto') { o.theme = 'cool'; o.cycle = true; }          // the old spelling: cycle, from cool
   const P = createPolarEngine();
   let T = null, active = 'P';
   const engine = () => (active === 'P' ? P : T);
   const mountOpts = () => ({ glow: o.glow, glowHost: o.glowHost, asGlow: o.asGlow });
 
-  let themeAuto = false, cycleIdx = 0, lastCycle = null;
+  let cycleOn = !!o.cycle, cycleIdx = Math.max(0, CYCLE.indexOf(THEMES[o.theme] || COOL)), lastCycle = null;
   let want = { shape: 'blob', ms: 0 };
+  let loop = null, savedCycle = null;
 
   P.mount(canvas, mountOpts());
   if (o.asGlow || !o.bloblets) P.setBloblets(false);
-  P.setPreset(CYCLE[0], 0);
+  P.setPreset(THEMES[o.theme] || COOL, 0);
 
+  // the theme the blob is on now; with the cycle on it then moves along from here every few seconds
   function setTheme(name, ms) {
     if (reduceMotion) ms = 0;
-    if (name === 'auto') { themeAuto = true; return; }
-    themeAuto = false;
+    if (name === 'auto') { setCycle(true); return; }
     const preset = typeof name === 'string' ? THEMES[name] : name;
-    if (preset) engine().setPreset(preset, ms === undefined ? 800 : ms);
+    if (!preset) return;
+    const at = CYCLE.indexOf(preset); if (at >= 0) cycleIdx = at;
+    lastCycle = null;
+    engine().setPreset(preset, ms === undefined ? 800 : ms);
   }
+  function setCycle(on) { cycleOn = !!on; lastCycle = null; }
   function setShape(name, ms) {
     if (!SHAPES.includes(name)) name = 'blob';
     want = { shape: name, ms: reduceMotion ? 0 : (ms === undefined ? 1100 : ms) };
     if (o.asGlow && TRACED.has(name)) want.shape = 'blob';   // an independent glow only ever swells with the polar shapes
+  }
+  // loop: the blob goes to this shape and back, on repeat, until told otherwise
+  function setLoop(shape) {
+    if (reduceMotion || o.asGlow) shape = null;
+    if (shape && LOOPS[shape]) {
+      if (!loop) { savedCycle = cycleOn; cycleOn = false; }
+      loop = { shape, cfg: LOOPS[shape], phase: 'home', t0: null };
+      engine().setPreset(loop.cfg.homeTheme, 600);
+    } else if (loop) {
+      loop = null; setShape('blob', 900);
+      if (savedCycle !== null) { cycleOn = savedCycle; savedCycle = null; lastCycle = null; }
+    }
+  }
+  function stepLoop(ts) {
+    if (!loop) return;
+    if (loop.t0 === null) loop.t0 = ts;
+    const c = loop.cfg, el = ts - loop.t0;
+    if (loop.phase === 'home' && el >= c.home) {
+      loop.phase = 'to'; loop.t0 = ts; setShape(loop.shape, c.to); engine().setPreset(c.shapeTheme, c.to * c.fadeMul);
+    } else if (loop.phase === 'to' && el >= c.to + c.hold) {
+      loop.phase = 'back'; loop.t0 = ts; setShape('blob', c.back); engine().setPreset(c.homeTheme, c.back * c.fadeMul);
+    } else if (loop.phase === 'back' && el >= c.back) {
+      loop.phase = 'home'; loop.t0 = ts;
+    }
   }
 
   // hand the canvas from one engine to the other, keeping the colours and the phase of the drift
@@ -1243,20 +1286,21 @@ export function create(canvas, opts = {}) {
     }
   }
 
-  setTheme(o.theme, 0);
   setShape(o.shape, 0);
   steer(); steer();
+  if (o.loop) setLoop(o.loop);
 
   return {
     canvas,
-    setShape, setTheme,
+    setShape, setTheme, setCycle, setLoop,
     attachGlow(glowCanvas, glowHost) { o.glow = glowCanvas; o.glowHost = glowHost; engine().mount(canvas, mountOpts()); },
     resize() { engine().mount(canvas, mountOpts()); },   // re-reads the canvas size
     frame(ts) {
-      if (themeAuto) {
+      if (cycleOn) {
         if (lastCycle === null) lastCycle = ts;
         if (ts - lastCycle > CYCLE_EVERY_MS) { lastCycle = ts; cycleIdx = (cycleIdx + 1) % CYCLE.length; engine().setPreset(CYCLE[cycleIdx], reduceMotion ? 0 : CYCLE_FADE_MS); }
       }
+      stepLoop(ts);
       steer();
       engine().frame(ts);
     },
@@ -1277,7 +1321,8 @@ function tick(ts) {
 }
 const ensureLoop = () => { if (!raf && !reduceMotion) raf = requestAnimationFrame(tick); };
 
-const attrs = (el) => ({ shape: el.dataset.shape || 'blob', theme: el.dataset.theme || 'auto' });
+const attrs = (el) => ({ shape: el.dataset.shape || 'blob', theme: el.dataset.theme || 'cool', cycle: el.dataset.cycle !== 'off', loop: el.dataset.loop && el.dataset.loop !== 'off' ? el.dataset.loop : '' });
+const keyOf = (a) => [a.shape, a.theme, a.cycle, a.loop].join('|');
 
 function mount(el) {
   if (live.has(el) || el.__blobPending) return;
@@ -1302,8 +1347,8 @@ function mount(el) {
   if (!isGlow && el.id) glowEl = document.querySelector(`.glow[data-for="${CSS.escape(el.id)}"]`);
   let glowCanvas = null;
   if (glowEl) { glowCanvas = glowEl.querySelector(':scope > canvas'); if (!glowCanvas) { glowCanvas = document.createElement('canvas'); glowCanvas.setAttribute('aria-hidden', 'true'); glowEl.append(glowCanvas); } glowEl.__linked = true; }
-  const ctrl = create(canvas, { shape: a.shape, theme: a.theme, glow: glowCanvas, glowHost: glowEl, asGlow: isGlow });
-  const rec = { ctrl, visible: true, last: a.shape + '|' + a.theme };
+  const ctrl = create(canvas, { shape: a.shape, theme: a.theme, cycle: a.cycle, loop: a.loop, glow: glowCanvas, glowHost: glowEl, asGlow: isGlow });
+  const rec = { ctrl, visible: true, last: a };
   live.set(el, rec);
   if (io) { rec.visible = false; io.observe(el); }
   ctrl.frame(performance.now());                // something on screen straight away, even before the first animation frame
@@ -1314,12 +1359,13 @@ function mount(el) {
 
 function sync(el) {
   const rec = live.get(el); if (!rec) return;
-  const a = attrs(el), key = a.shape + '|' + a.theme;
-  if (key === rec.last) return;
-  const [shape, theme] = rec.last.split('|');
-  rec.last = key;
-  if (a.shape !== shape) rec.ctrl.setShape(a.shape, 1100);
-  if (a.theme !== theme) rec.ctrl.setTheme(a.theme, 1200);
+  const a = attrs(el), was = rec.last;
+  if (keyOf(a) === keyOf(was)) return;
+  rec.last = a;
+  if (a.loop !== was.loop) rec.ctrl.setLoop(a.loop);
+  else if (a.shape !== was.shape && !a.loop) rec.ctrl.setShape(a.shape, 1100);
+  if (a.theme !== was.theme) rec.ctrl.setTheme(a.theme, 1200);
+  if (a.cycle !== was.cycle) rec.ctrl.setCycle(a.cycle);
   if (reduceMotion) { rec.ctrl.frame(performance.now()); rec.ctrl.frame(performance.now() + 16); }
 }
 
@@ -1340,7 +1386,7 @@ if (typeof document !== 'undefined') {
       r.addedNodes.forEach((n) => { if (n.nodeType === 1) { scan(n); } });
       r.removedNodes.forEach((n) => { if (n.nodeType === 1) { (n.matches && n.matches('.blob, .glow') ? [n] : []).concat([...(n.querySelectorAll ? n.querySelectorAll('.blob, .glow') : [])]).forEach((e) => { if (!e.isConnected) forget(e); }); } });
     }
-  }).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-shape', 'data-theme'] });
+  }).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-shape', 'data-theme', 'data-cycle', 'data-loop'] });
 }
 
 if (typeof window !== 'undefined') window.TBlob = { create, THEMES, SHAPES };

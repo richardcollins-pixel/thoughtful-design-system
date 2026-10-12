@@ -1,10 +1,14 @@
 /* Atom: blob. The animated gradient shape: it bounces slowly, its outline morphs, and its colours travel round the edge while the theme
    shifts every few seconds. behaviors/blob.js draws it. --blob-size is its mean diameter; the canvas is larger on purpose (1.74x),
    because the morph overshoots and swells and a canvas sized to the resting shape would clip it. The extra is transparent and takes
-   no space in the layout. */
-.blob { --blob-size: 116px; --blob-canvas: calc(var(--blob-size) * 1.74); position: relative; display: inline-block; flex: none; width: var(--blob-size); height: var(--blob-size); }
-.blob[data-size="sm"] { --blob-size: 36px; }
-.blob[data-size="lg"] { --blob-size: 160px; }
+   no space in the layout. Sizes are the avatar sizes from Figma (24, 32, 48, 80, 124) and the large T (180). */
+.blob { --blob-size: 124px; --blob-canvas: calc(var(--blob-size) * 1.74); position: relative; display: inline-block; flex: none; width: var(--blob-size); height: var(--blob-size); }
+.blob[data-size="24"] { --blob-size: 24px; }
+.blob[data-size="32"] { --blob-size: 32px; }
+.blob[data-size="48"] { --blob-size: 48px; }
+.blob[data-size="80"] { --blob-size: 80px; }
+.blob[data-size="124"] { --blob-size: 124px; }
+.blob[data-size="180"] { --blob-size: 180px; }
 .blob > canvas { position: absolute; left: 50%; top: 50%; width: var(--blob-canvas); height: var(--blob-canvas); margin: calc(var(--blob-canvas) / -2) 0 0 calc(var(--blob-canvas) / -2); display: block; pointer-events: none; }
 /* Charcoal: the accent colours go, so the blob goes grey */
 :root[data-fidelity="wireframe"] .blob > canvas { filter: grayscale(1); }
