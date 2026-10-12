@@ -81,6 +81,5 @@
     }
   },
   "template": "<button class=\"icon-button\" data-elevation=\"{{elevation}}\" data-size=\"{{size}}\" aria-label=\"{{icon}}\"><i class=\"icon icon-{{icon}}\"></i></button>",
-  "skeleton": "<span class=\"icon-button\" data-state=\"loading\" data-size=\"{{size}}\" data-elevation=\"{{elevation}}\"></span>",
-  "inverse": true
+  "skeleton": "<span class=\"icon-button\" data-state=\"loading\" data-size=\"{{size}}\" data-elevation=\"{{elevation}}\"></span>"
 }
