@@ -11,7 +11,8 @@ const setPath = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); k
 
 let tokens = [], schema = { fontFamilies: [], fontWeights: [] };
 let typeStyles = [], selectedStyle = null;   // styles > type: the text styles (Headline 1 … Body XS)
-let fidelity = 'styled';
+let fidelity = 'styled', deviceUi = true;
+const modeSwitches = () => `<span class="cp-tools"><label class="switch"><span>Device UI</span><input type="checkbox" data-device-ui role="switch" ${deviceUi ? 'checked' : ''}><i></i></label><label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></span>`;
 let libraries = [], library = null, asset = null;
 const freshPreview = () => ({ attrs: {}, state: '', vars: {}, example: 0, surface: 'normal' });
 let collapsed = {};   // panel sections the user folded
@@ -93,8 +94,8 @@ function curve([x1, y1, x2, y2], size) {
   return `<svg class="curve" width="${size}" height="${size * 1.4}" viewBox="-4 -24 68 108"><path d="M0 ${s} C${f(x1)} ${s - f(y1)} ${f(x2)} ${s - f(y2)} ${s} 0" fill="none" stroke="#7a4de8" stroke-width="3"/><path d="M0 ${s}H${s}M0 0H${s}" stroke="#ddd" stroke-dasharray="2 3"/></svg>`;
 }
 
-/* ---------- nav: tokens, styles, atoms, molecules, organisms, patterns ---------- */
-const LEVELS = ['tokens', 'styles', 'atoms', 'molecules', 'organisms', 'patterns'];
+/* ---------- nav: tokens, styles, atoms, molecules, organisms, patterns (sections), screens, device (phone chrome) ---------- */
+const LEVELS = ['tokens', 'styles', 'atoms', 'molecules', 'organisms', 'patterns', 'screens', 'device'];
 const TOKEN_LEAVES = [['primitives', 'primitive'], ['roles', 'role'], ['padding', 'padding'], ['spacing', 'spacing'], ['radius', 'radius'], ['font family', 'font-family'], ['weight', 'font-weight'], ['size', 'font-size'], ['line height', 'line-height'], ['letter spacing', 'letter-spacing'], ['duration', 'duration'], ['easing', 'easing']];
 const camel = (str) => str.replace(/-(\w)/g, (m, c) => c.toUpperCase());
 const levelLeaves = (level) => {
@@ -104,7 +105,7 @@ const levelLeaves = (level) => {
 };
 let openLevel = 'tokens';   // one level open at a time
 // Atoms and molecules are one page each: a sticker sheet of every element (in the nav they have no list under them).
-const SHEET_TIERS = ['atoms', 'molecules'];
+const SHEET_TIERS = ['atoms', 'molecules', 'device'];
 let sheetTier = null;       // 'atoms' | 'molecules' while that sheet is showing
 
 function renderNav() {
@@ -197,10 +198,10 @@ function fieldHtml(f, t) {
   }
 }
 
-const TIER_NOTE = { atoms: 'The smallest pieces. Everything else is built from these.', molecules: 'Small groups of atoms that do one job together.' };
+const TIER_NOTE = { atoms: 'The smallest pieces. Everything else is built from these.', molecules: 'Small groups of atoms that do one job together.', device: 'The phone\u2019s own chrome (status bar, keyboard), drawn so screens look right. Switch it off with the Device UI mode.' };
 function renderSheetPanel(p) {
   const list = components.filter((c) => c.tier === sheetTier);
-  p.innerHTML = `<div class="cp-top"><h2 class="cp-title" style="text-transform:capitalize">${esc(sheetTier)}</h2><label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div><p class="mute">${esc(TIER_NOTE[sheetTier] || '')} Open one to edit its defaults.</p>
+  p.innerHTML = `<div class="cp-top"><h2 class="cp-title" style="text-transform:capitalize">${esc(sheetTier)}</h2>${modeSwitches()}</div><p class="mute">${esc(TIER_NOTE[sheetTier] || '')} Open one to edit its defaults.</p>
     <div class="nested">${list.map((c) => `<button class="nested-row" type="button" data-open="${c.path}"><span>${esc(c.meta.name)}</span><span class="meta">${CHEV_RIGHT}</span></button>`).join('')}</div>`;
 }
 $('#panel').addEventListener('click', (e) => {
@@ -520,7 +521,7 @@ const tokenOptions = (type) => {
   return '';
 };
 
-const isSingle = (c) => ['organisms', 'patterns'].includes(c.tier);   // organisms and beyond: one instance, variants in the panel
+const isSingle = (c) => ['organisms', 'patterns', 'screens'].includes(c.tier);   // organisms and beyond: one instance, variants in the panel
 const field = (label, control) => `<div class="field"><label>${esc(label)}</label>${control}</div>`;
 const select = (attr, options, current) => `<select ${attr}>${options.map(([v, l]) => `<option value="${esc(v)}" ${String(v) === String(current) ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select>`;
 const varControl = (k, type, cur, attr) => (type === 'number'
@@ -539,7 +540,7 @@ const iconMask = (file) => `<i class="mask" style="-webkit-mask-image:url('${gly
 const sec = (id, title, body, tools = '', attrs = '') => `<section class="cp-sec${collapsed[id] ? '' : ' open'}"><div class="cp-sec-head" role="button" tabindex="0" data-csec="${id}" ${attrs}><span>${esc(title)}</span><span class="cp-sec-tools">${tools}${CHEV_UP}</span></div><div class="cp-sec-body"><div class="cp-sec-inner">${body}</div></div></section>`;
 const prow = (label, control) => `<div class="prow"><span class="plabel">${esc(label)}</span><div class="pctl">${control}</div></div>`;
 const RELOAD = '<button class="reload" type="button" data-reload title="Reload: show the loading state" aria-label="Reload"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg></button>';
-const panelHead = (m, extra = '') => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><span class="cp-tools"><label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></span></div>${extra}
+const panelHead = (m, extra = '') => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><span class="cp-tools">${modeSwitches()}</span></div>${extra}
   <div class="field"><label>Description</label><textarea class="cp-desc-edit" rows="3" data-cdesc>${esc(m.description || '')}</textarea></div>`;
 
 // ---- controls
@@ -693,7 +694,7 @@ const selectionHead = (model, slot, here) => {
   const crumbs = [`<button class="link" id="el-back">${esc(stateName)}</button>`];
   if (slot) crumbs.push(here ? `<button class="link" data-el-slot="${slot.id}">${esc(slot.label)}</button>` : `<span class="here">${esc(slot.label)}</span>`);
   if (here && slot) crumbs.push(`<span class="here">${esc(here)}</span>`);
-  return `<div class="cp-top"><h2 class="cp-title">${esc(component.meta.name)}</h2><label class="switch"><span>Charcoal</span><input type="checkbox" data-charcoal role="switch" ${fidelity === 'wireframe' ? 'checked' : ''}><i></i></label></div>
+  return `<div class="cp-top"><h2 class="cp-title">${esc(component.meta.name)}</h2>${modeSwitches()}</div>
   <nav class="crumb-path">${crumbs.join('<span class="sep2">/</span>')}</nav>`;
 };
 
@@ -751,6 +752,7 @@ $('#panel').addEventListener('input', (e) => {
   }
 });
 $('#panel').addEventListener('change', (e) => {
+  if ('deviceUi' in e.target.dataset) { deviceUi = e.target.checked; applyModes(); document.querySelectorAll('[data-device-ui]').forEach((c) => { c.checked = deviceUi; }); return; }
   if (!('charcoal' in e.target.dataset)) return;
   fidelity = e.target.checked ? 'wireframe' : 'styled'; applyModes();   // "Charcoal"
   document.querySelectorAll('[data-charcoal]').forEach((c) => { c.checked = e.target.checked; });
@@ -881,7 +883,7 @@ for (const id of ['dw', 'dh']) $('#' + id).addEventListener('change', (e) => {
 function applyModes() {
   const sheetDocs = sheetTier && screen.contentDocument ? [...screen.contentDocument.querySelectorAll('iframe')] : [];   // the sticker sheet's pages
   const docs = [screen, ...sheetDocs, ...document.querySelectorAll('.thumb-frame iframe')].map((f) => f.contentDocument).filter(Boolean);   // the canvas and the panel thumbnails
-  for (const d of docs) d.documentElement.setAttribute('data-fidelity', fidelity);
+  for (const d of docs) { d.documentElement.setAttribute('data-fidelity', fidelity); d.documentElement.setAttribute('data-device-ui', deviceUi ? 'on' : 'off'); }
 }
 
 screen.addEventListener('load', () => { applyModes(); applyLive(); applyTypeLive(); });

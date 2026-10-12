@@ -1,6 +1,6 @@
 /* Thoughtful Design System — entry point.
    Layer order is the dependency order: a layer may only use layers before it. */
-@layer tokens, base, styles, layout, atoms, molecules, organisms, patterns, modes;
+@layer tokens, base, styles, layout, device, atoms, molecules, organisms, patterns, screens, modes;
 
 
 @import url("foundations/fonts.css");
@@ -25,7 +25,7 @@
 @import url("atoms/blob/blob.css")                      layer(atoms);
 @import url("atoms/glow/glow.css")                      layer(atoms);
 @import url("atoms/skeleton/skeleton.css")             layer(atoms);
-@import url("atoms/status-bar/status-bar.css")         layer(atoms);
+@import url("device/status-bar/status-bar.css")        layer(device);
 @import url("atoms/dots/dots.css")                     layer(atoms);
 @import url("atoms/icon-button/icon-button.css")        layer(atoms);
 @import url("atoms/avatar/avatar.css")                  layer(atoms);
@@ -38,7 +38,7 @@
 @import url("molecules/chat-header/chat-header.css") layer(molecules);
 @import url("molecules/chat-message/chat-message.css") layer(molecules);
 @import url("molecules/fork-option/fork-option.css") layer(molecules);
-@import url("molecules/keyboard/keyboard.css") layer(molecules);
+@import url("device/keyboard/keyboard.css")            layer(device);
 @import url("molecules/header/header.css")             layer(molecules);
 @import url("molecules/tile/tile.css")                 layer(molecules);
 
@@ -51,14 +51,17 @@
 @import url("organisms/session-history-card/session-history-card.css") layer(organisms);
 @import url("organisms/cta-card/cta-card.css") layer(organisms);
 @import url("organisms/home-header/home-header.css") layer(organisms);
+@import url("organisms/chat-thread/chat-thread.css") layer(organisms);
+@import url("organisms/chat-composer/chat-composer.css") layer(organisms);
 @import url("organisms/end-of-session-card/end-of-session-card.css") layer(organisms);
 @import url("organisms/resource-card/resource-card.css") layer(organisms);
 
 @import url("patterns/topics-section/topics-section.css") layer(patterns);
 @import url("patterns/bite-size-support-section/bite-size-support-section.css") layer(patterns);
 @import url("patterns/provider-carousel/provider-carousel.css") layer(patterns);
-@import url("patterns/chat/chat.css") layer(patterns);
+@import url("screens/chat/chat.css") layer(screens);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */
 
 @import url("modes/wireframe.css")                     layer(modes);
+@import url("modes/device.css")                        layer(modes);

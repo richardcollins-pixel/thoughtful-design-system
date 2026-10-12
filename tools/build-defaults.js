@@ -1,6 +1,6 @@
 // Components' saved defaults (the "defaults" map in each meta.json) -> one stylesheet, applied after the components'
 // own CSS so it wins. Runs in the browser, like build-tokens.js.
-const TIERS = ['atoms', 'molecules', 'organisms', 'patterns'];
+const TIERS = ['device', 'atoms', 'molecules', 'organisms', 'patterns', 'screens'];
 
 export const selectorFor = (meta) => meta.selector || '.' + ((/class="([^"\s]+)/.exec(meta.markup) || [])[1] || 'unknown');
 

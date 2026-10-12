@@ -113,7 +113,7 @@
     }
     // Atoms and molecules show every variant at once. Organisms and beyond show one instance; the editor's
     // panel switches variants, state and surface.
-    const single = ['organisms', 'patterns'].includes(meta.tier);
+    const single = ['organisms', 'patterns', 'screens'].includes(meta.tier);
     document.body.classList.toggle('single', single && !thumb);
     if (meta.align) document.body.dataset.align = meta.align;
     document.body.classList.toggle('thumb', !!thumb);
@@ -353,7 +353,7 @@
       };
       const ro = new ResizeObserver(report); ro.observe(document.body); ro.observe(document.documentElement); report();
       addEventListener('load', report); if (document.fonts) document.fonts.ready.then(report);
-      document.documentElement.dataset.fidelity = (parent.document.documentElement.dataset.fidelity || 'styled');
+      document.documentElement.dataset.fidelity = (parent.document.documentElement.dataset.fidelity || 'styled'); document.documentElement.dataset.deviceUi = (parent.document.documentElement.dataset.deviceUi || 'on');
     }
     document.body.dataset.ready = '';   // until now the page shows nothing, not its placeholder
     if (self !== top && !thumb && !embed) parent.postMessage({ type: 'tds-ready', meta }, location.origin);

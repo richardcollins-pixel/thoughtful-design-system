@@ -1,6 +1,6 @@
 {
   "name": "Status bar",
-  "tier": "atoms",
+  "tier": "device",
   "category": "device",
   "stateful": false,
   "uses": [],

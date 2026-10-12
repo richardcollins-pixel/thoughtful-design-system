@@ -1,0 +1,6 @@
+/* Mode: device UI off. The phone's own chrome (the status bar, the keyboard picture) is hidden, for prototypes you open on a real
+   phone in the browser. <html data-device-ui="off">. Components that leave room for the status bar give it back. */
+:root[data-device-ui="off"] :is(.status-bar, .header__status, .chat-header__status, .keyboard) { display: none; }
+:root[data-device-ui="off"] .header-card { --header-safe-top: var(--space-8); }
+:root[data-device-ui="off"] .chat-composer__keyboard { display: none; }
+:root[data-device-ui="off"] :is(.chat-header, .header) { padding-top: var(--space-4); }

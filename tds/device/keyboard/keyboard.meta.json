@@ -1,7 +1,7 @@
 {
   "name": "Keyboard",
-  "tier": "molecules",
-  "category": "inputs",
+  "tier": "device",
+  "category": "device",
   "stateful": false,
   "uses": [],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",

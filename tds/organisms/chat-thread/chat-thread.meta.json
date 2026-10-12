@@ -1,33 +1,20 @@
 {
-  "name": "Chat",
-  "tier": "patterns",
-  "category": "screens",
+  "name": "Chat thread",
+  "tier": "organisms",
+  "category": "chat",
   "stateful": false,
   "uses": [
-    "molecules/chat-header",
     "molecules/chat-message",
     "molecules/fork-option",
-    "molecules/chat-input",
-    "molecules/keyboard",
-    "atoms/button",
-    "atoms/glow",
-    "organisms/end-of-session-card"
+    "atoms/button"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
-  "align": "top",
   "states": [
     {
       "id": "recommendations",
       "name": "Recommendations",
-      "template": "<section class=\"chat\" data-state=\"recommendations\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__scroll\"><div class=\"chat__flow\"><div class=\"chat__messages\" data-slot=\"messages\">{{item:bot1}}{{item:user1}}{{item:bot2}}{{item:user2}}{{item:bot3}}{{item:user3}}</div><div class=\"chat__recs\"><div data-slot=\"rationale\">{{item:rationale}}</div><div class=\"chat__cards\" data-slot=\"options\">{{item:fork1}}{{item:fork2}}</div><div class=\"chat__or\">{{item:or}}</div><div data-slot=\"action\">{{item:save}}</div></div></div></div></section>",
+      "template": "<div class=\"chat-thread\"><div class=\"chat-thread__flow\"><div class=\"chat-thread__messages\" data-slot=\"messages\">{{item:bot1}}{{item:user1}}{{item:bot2}}{{item:user2}}{{item:bot3}}{{item:user3}}</div><div class=\"chat-thread__recs\"><div data-slot=\"rationale\">{{item:rationale}}</div><div class=\"chat-thread__cards\" data-slot=\"options\">{{item:fork1}}{{item:fork2}}</div><div class=\"chat-thread__or\">{{item:or}}</div><div data-slot=\"action\">{{item:save}}</div></div></div></div>",
       "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
         {
           "id": "messages",
           "label": "Messages slot",
@@ -66,17 +53,10 @@
       "personas": []
     },
     {
-      "id": "typing",
-      "name": "Typing",
-      "template": "<section class=\"chat\" data-state=\"typing\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__scroll\"><div class=\"chat__flow\"><div class=\"chat__messages\" data-slot=\"messages\">{{item:bot1}}{{item:user1}}{{item:bot2}}</div></div></div><div class=\"chat__input\" data-slot=\"input\">{{item:input}}</div><div class=\"chat__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></section>",
+      "id": "conversation",
+      "name": "Conversation",
+      "template": "<div class=\"chat-thread\"><div class=\"chat-thread__flow\"><div class=\"chat-thread__messages\" data-slot=\"messages\">{{item:bot1}}{{item:user1}}{{item:bot2}}</div></div></div>",
       "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
         {
           "id": "messages",
           "label": "Messages slot",
@@ -85,20 +65,6 @@
             "user1",
             "bot2"
           ]
-        },
-        {
-          "id": "input",
-          "label": "Input slot",
-          "items": [
-            "input"
-          ]
-        },
-        {
-          "id": "keyboard",
-          "label": "Keyboard slot",
-          "items": [
-            "keyboard"
-          ]
         }
       ],
       "personas": []
@@ -106,15 +72,8 @@
     {
       "id": "session",
       "name": "Session",
-      "template": "<section class=\"chat\" data-state=\"session\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__scroll\"><div class=\"chat__flow\"><div class=\"chat__messages\" data-slot=\"messages\">{{item:sbot1}}{{item:suser}}{{item:sbot2}}</div></div></div><div class=\"chat__input\" data-slot=\"input\">{{item:input}}</div></section>",
+      "template": "<div class=\"chat-thread\"><div class=\"chat-thread__flow\"><div class=\"chat-thread__messages\" data-slot=\"messages\">{{item:sbot1}}{{item:suser}}{{item:sbot2}}</div></div></div>",
       "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
         {
           "id": "messages",
           "label": "Messages slot",
@@ -123,83 +82,15 @@
             "suser",
             "sbot2"
           ]
-        },
-        {
-          "id": "input",
-          "label": "Input slot",
-          "items": [
-            "input"
-          ]
         }
       ],
-      "personas": [],
-      "overrides": {
-        "header": {
-          "props": {
-            "timer": "on",
-            "recap": "on"
-          }
-        }
-      }
-    },
-    {
-      "id": "session-keyboard",
-      "name": "Session, typing",
-      "template": "<section class=\"chat\" data-state=\"session-keyboard\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__scroll\"><div class=\"chat__flow\"><div class=\"chat__messages\" data-slot=\"messages\">{{item:sbot1}}{{item:suser}}{{item:sbot2}}</div></div></div><div class=\"chat__input\" data-slot=\"input\">{{item:input}}</div><div class=\"chat__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></section>",
-      "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "messages",
-          "label": "Messages slot",
-          "items": [
-            "sbot1",
-            "suser",
-            "sbot2"
-          ]
-        },
-        {
-          "id": "input",
-          "label": "Input slot",
-          "items": [
-            "input"
-          ]
-        },
-        {
-          "id": "keyboard",
-          "label": "Keyboard slot",
-          "items": [
-            "keyboard"
-          ]
-        }
-      ],
-      "personas": [],
-      "overrides": {
-        "header": {
-          "props": {
-            "timer": "on",
-            "recap": "on"
-          }
-        }
-      }
+      "personas": []
     },
     {
       "id": "end",
       "name": "End of session",
-      "template": "<section class=\"chat\" data-state=\"end\"><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__scroll\"><div class=\"chat__flow\"><div class=\"chat__messages\" data-slot=\"messages\">{{item:sbot1}}{{item:suser}}{{item:sbot2}}{{item:suser2}}{{item:slast}}</div></div></div><div class=\"chat__end\" data-slot=\"end\">{{item:end}}</div></section>",
+      "template": "<div class=\"chat-thread\"><div class=\"chat-thread__flow\"><div class=\"chat-thread__messages\" data-slot=\"messages\">{{item:sbot1}}{{item:suser}}{{item:sbot2}}{{item:suser2}}{{item:slast}}</div></div></div>",
       "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
         {
           "id": "messages",
           "label": "Messages slot",
@@ -210,45 +101,16 @@
             "suser2",
             "slast"
           ]
-        },
-        {
-          "id": "end",
-          "label": "End slot",
-          "items": [
-            "end"
-          ]
         }
       ],
-      "personas": [],
-      "overrides": {
-        "header": {
-          "props": {
-            "bar": "off"
-          }
-        }
-      }
+      "personas": []
     }
   ],
   "variables": {},
   "styles": [],
-  "selector": ".chat",
-  "description": "A whole chat screen. Recommendations ends the conversation with two sessions to choose from (5 or 10 minutes) or Save for later; Typing is the conversation with the input and the keyboard up. The header can show a timer and the icon for when your therapist can see a recap. Session and Session, typing are the conversation while the timer runs (a progress bar under the session name, the recap icon on). End of session is the last message of a session with the end of session card to review the takeaways.",
+  "selector": ".chat-thread",
+  "description": "The conversation in a chat: T speaks in plain text, you speak in a bubble. It scrolls and always opens on the newest message. Recommendations ends with two sessions to choose from (5 or 10 minutes) and Save for later.",
   "items": {
-    "header": {
-      "type": "component",
-      "component": "molecules/chat-header",
-      "label": "Header",
-      "props": {
-        "title": "Leave it here"
-      },
-      "expose": [
-        "title",
-        "bar",
-        "timer",
-        "progress",
-        "recap"
-      ]
-    },
     "bot1": {
       "type": "component",
       "component": "molecules/chat-message",
@@ -370,7 +232,7 @@
     "or": {
       "type": "text",
       "tag": "span",
-      "class": "chat__or-label",
+      "class": "chat-thread__or-label",
       "label": "Divider",
       "value": "OR"
     },
@@ -388,24 +250,6 @@
       "expose": [
         "label"
       ]
-    },
-    "input": {
-      "type": "component",
-      "component": "molecules/chat-input",
-      "label": "Input",
-      "props": {
-        "variant": "empty",
-        "text": "Start typing..."
-      },
-      "expose": [
-        "text"
-      ]
-    },
-    "keyboard": {
-      "type": "component",
-      "component": "molecules/keyboard",
-      "label": "Keyboard",
-      "props": {}
     },
     "sbot1": {
       "type": "component",
@@ -465,23 +309,6 @@
       },
       "expose": [
         "text"
-      ]
-    },
-    "end": {
-      "type": "component",
-      "component": "organisms/end-of-session-card",
-      "label": "End of session card",
-      "props": {
-        "overline": "Time well spent",
-        "headline": "You made steady progress today",
-        "primary.label": "Review key takeaways",
-        "secondary.label": "Share feedback"
-      },
-      "expose": [
-        "overline",
-        "headline",
-        "primary.label",
-        "secondary.label"
       ]
     }
   },
