@@ -285,3 +285,9 @@ dialog::backdrop { background:rgb(0 0 0 / .25); backdrop-filter:blur(2px); }
 .chip-bg { position:relative; display:inline-grid; place-items:center; }
 .chip-aa { font-size:10px; font-weight:600; letter-spacing:-.02em; pointer-events:none; }
 .aa { display:inline-grid; place-items:center; width:32px; height:22px; border-radius:6px; font-size:11px; font-weight:600; }
+
+/* the mode switches (Device UI, Charcoal) sit at the right of the canvas, over the page or the sticker sheet */
+.modes { position:absolute; right:18px; top:50%; transform:translateY(-50%); gap:18px; font-size:12px; color:var(--ink); }
+.app[data-dark="on"] .modes { color:#fff; }
+.app[data-dark="on"] .modes .switch i { background:rgb(255 255 255 / .28); }
+.app[data-dark="on"] .modes .switch input:checked + i { background:rgb(255 255 255 / .6); }
