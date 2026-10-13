@@ -4,3 +4,4 @@
 :root[data-device-ui="off"] .header-card { --header-safe-top: var(--space-8); }
 :root[data-device-ui="off"] .chat-composer__keyboard { display: none; }
 :root[data-device-ui="off"] :is(.chat-header, .header) { padding-top: var(--space-4); }
+:root[data-device-ui="off"] .bottom-nav__safe { display: none; }

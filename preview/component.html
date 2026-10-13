@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="../tds/tds.css">
   <style>
     /* canvas chrome only */
+    html { scrollbar-width: none; }   /* a screen scrolls, but a phone shows no scrollbar */
+    html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
     body { padding: var(--page-gutter, var(--space-6)); }
     .label { margin-bottom: var(--space-2); }
     .embed { padding: 0; }

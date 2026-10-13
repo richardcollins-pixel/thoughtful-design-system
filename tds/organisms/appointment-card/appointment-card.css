@@ -7,7 +7,7 @@
 .appointment-card__header { min-width: 0; }
 .appointment-card__content { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--appointment-content-gap); min-width: 0; }
 .appointment-card__cta { margin-top: var(--card-gap); }
-.appointment-card--tight { --appointment-content-gap: 0; }
+.appointment-card--tight { --appointment-content-gap: calc(-1 * (48px - 1.6 * 18px)); }   /* the copy tucks up under the name, beside the 48px avatar */
 
 /* inside the header slot */
 .appointment-card__titles { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
