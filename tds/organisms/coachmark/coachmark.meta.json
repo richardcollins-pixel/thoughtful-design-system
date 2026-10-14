@@ -1,0 +1,222 @@
+{
+  "name": "Coachmark",
+  "tier": "organisms",
+  "category": "coachmark",
+  "stateful": false,
+  "uses": [
+    "molecules/coachmark-header",
+    "molecules/coachmark-bar",
+    "molecules/thoughtstarter",
+    "atoms/blob"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4225-64725",
+  "states": [
+    {
+      "id": "intro",
+      "name": "Intro",
+      "template": "<div class=\"coachmark\" data-arrow=\"up\" data-surface=\"inverse\"><span class=\"coachmark__arrow\" aria-hidden=\"true\"></span><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "header",
+            "body"
+          ]
+        },
+        {
+          "id": "bar",
+          "label": "Bar slot",
+          "items": [
+            "bar"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ]
+    },
+    {
+      "id": "intro-below",
+      "name": "Intro, arrow below",
+      "template": "<div class=\"coachmark\" data-arrow=\"down\" data-surface=\"inverse\"><span class=\"coachmark__arrow\" aria-hidden=\"true\"></span><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "header",
+            "body"
+          ]
+        },
+        {
+          "id": "bar",
+          "label": "Bar slot",
+          "items": [
+            "bar"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ]
+    },
+    {
+      "id": "choices",
+      "name": "Choices",
+      "template": "<div class=\"coachmark\" data-arrow=\"up\" data-surface=\"inverse\"><span class=\"coachmark__arrow\" aria-hidden=\"true\"></span><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}</div><div class=\"coachmark__options\" data-slot=\"options\">{{item:opt1}}{{item:opt2}}{{item:opt3}}</div></div>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Options slot",
+          "items": [
+            "opt1",
+            "opt2",
+            "opt3"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "header": {
+          "props": {
+            "type": "last",
+            "title": "Let’s start together..."
+          }
+        }
+      }
+    },
+    {
+      "id": "provider",
+      "name": "With provider",
+      "template": "<div class=\"coachmark\" data-arrow=\"up\" data-surface=\"inverse\"><span class=\"coachmark__arrow\" aria-hidden=\"true\"></span><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "header",
+            "body"
+          ]
+        },
+        {
+          "id": "bar",
+          "label": "Bar slot",
+          "items": [
+            "bar"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "header": {
+          "props": {
+            "type": "t-provider",
+            "title": "Get More From Sessions"
+          }
+        },
+        "body": {
+          "value": "Your support is better when we work together with a therapist. By default, I'll give them a summary on the discoveries that we make together."
+        },
+        "bar": {
+          "props": {
+            "variant": "button",
+            "label": "Next"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".coachmark",
+  "description": "A white speech bubble that points at something on screen and explains it. Intro has a header, a line of copy and progress dots with Next; Intro, arrow below points down instead; Choices offers thoughtstarters to begin a thought; With provider shows your provider next to T and one full-width button.",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "molecules/coachmark-header",
+      "label": "Header",
+      "props": {
+        "type": "t",
+        "title": "Expand your care team"
+      },
+      "expose": [
+        "type",
+        "title",
+        "subline",
+        "person"
+      ]
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "coachmark__body",
+      "label": "Body Copy",
+      "value": "Whenever you're ready, build on our conversations with a therapist"
+    },
+    "bar": {
+      "type": "component",
+      "component": "molecules/coachmark-bar",
+      "label": "Bar",
+      "props": {
+        "variant": "dots",
+        "step": "1",
+        "label": "Next"
+      },
+      "expose": [
+        "variant",
+        "step",
+        "label"
+      ]
+    },
+    "opt1": {
+      "type": "component",
+      "component": "molecules/thoughtstarter",
+      "label": "Option 1",
+      "props": {
+        "text": "I've never mentioned this to anyone, but..."
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "opt2": {
+      "type": "component",
+      "component": "molecules/thoughtstarter",
+      "label": "Option 2",
+      "props": {
+        "text": "I'm always there for others, but lately..."
+      },
+      "expose": [
+        "text"
+      ]
+    },
+    "opt3": {
+      "type": "component",
+      "component": "molecules/thoughtstarter",
+      "label": "Option 3",
+      "props": {
+        "text": "✏️ I’ll write my own"
+      },
+      "expose": [
+        "text"
+      ]
+    }
+  },
+  "personas": [
+    "provider"
+  ],
+  "properties": [],
+  "prompts": []
+}

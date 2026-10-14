@@ -1,0 +1,69 @@
+{
+  "name": "Coachmark header",
+  "tier": "molecules",
+  "category": "coachmark",
+  "stateful": false,
+  "uses": [
+    "atoms/blob",
+    "atoms/icon",
+    "atoms/dots",
+    "atoms/button"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4225-64725",
+  "attributes": {
+    "data-type": {
+      "type": "enum",
+      "values": [
+        "t",
+        "t-provider",
+        "t-icon",
+        "last"
+      ],
+      "default": "t"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "The top of a coachmark. T by itself, T with your provider, T as a person icon, or (for the last coachmark) a headline with a line under it and a close button.",
+  "content": [
+    {
+      "label": "Title",
+      "selector": ".coachmark-header__title"
+    },
+    {
+      "label": "Subline",
+      "selector": ".coachmark-header__subline"
+    }
+  ],
+  "props": {
+    "type": {
+      "type": "enum",
+      "label": "Type",
+      "values": [
+        "t",
+        "t-provider",
+        "t-icon",
+        "last"
+      ],
+      "default": "t"
+    },
+    "title": {
+      "type": "text",
+      "label": "Title",
+      "default": "Headline goes here"
+    },
+    "subline": {
+      "type": "text",
+      "label": "Subline",
+      "default": "You don't need to have it figured out"
+    },
+    "person": {
+      "type": "person",
+      "label": "Provider",
+      "default": "kristina"
+    }
+  },
+  "template": "<div class=\"coachmark-header\" data-type=\"{{type}}\"><span class=\"coachmark-header__icons\"><span class=\"blob\" style=\"--blob-size:28px\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"avatar coachmark-header__provider\" data-size=\"sm\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span><span class=\"coachmark-header__person\"><i class=\"icon icon-person\"></i></span></span><span class=\"coachmark-header__titles\"><span class=\"coachmark-header__title\">{{title}}</span><span class=\"coachmark-header__subline\">{{subline}}</span></span><button class=\"coachmark-header__close\" aria-label=\"Close\"><i class=\"icon icon-x\"></i></button></div>",
+  "markup": "<div class=\"coachmark-header\" data-type=\"t\"><span class=\"coachmark-header__icons\"><span class=\"blob\" style=\"--blob-size:28px\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"avatar coachmark-header__provider\" data-size=\"sm\"><img src=\"../tds/assets/../tds/assets/placeholder\" alt=\"\"></span><span class=\"coachmark-header__person\"><i class=\"icon icon-person\"></i></span></span><span class=\"coachmark-header__titles\"><span class=\"coachmark-header__title\">Headline goes here</span><span class=\"coachmark-header__subline\">You don't need to have it figured out</span></span><button class=\"coachmark-header__close\" aria-label=\"Close\"><i class=\"icon icon-x\"></i></button></div>"
+}

@@ -36,6 +36,9 @@
 @import url("molecules/skeleton-text/skeleton-text.css") layer(molecules);
 @import url("molecules/chat-input/chat-input.css")      layer(molecules);
 @import url("molecules/bottom-nav/bottom-nav.css") layer(molecules);
+@import url("molecules/coachmark-header/coachmark-header.css") layer(molecules);
+@import url("molecules/coachmark-bar/coachmark-bar.css") layer(molecules);
+@import url("molecules/thoughtstarter/thoughtstarter.css") layer(molecules);
 @import url("molecules/chat-header/chat-header.css") layer(molecules);
 @import url("molecules/chat-message/chat-message.css") layer(molecules);
 @import url("molecules/fork-option/fork-option.css") layer(molecules);
@@ -53,6 +56,7 @@
 @import url("organisms/cta-card/cta-card.css") layer(organisms);
 @import url("organisms/home-header/home-header.css") layer(organisms);
 @import url("organisms/chat-thread/chat-thread.css") layer(organisms);
+@import url("organisms/coachmark/coachmark.css") layer(organisms);
 @import url("organisms/chat-composer/chat-composer.css") layer(organisms);
 @import url("organisms/end-of-session-card/end-of-session-card.css") layer(organisms);
 @import url("organisms/resource-card/resource-card.css") layer(organisms);

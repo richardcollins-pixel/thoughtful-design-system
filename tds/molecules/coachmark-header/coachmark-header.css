@@ -1,0 +1,18 @@
+/* Molecule: coachmark header. Four types: T, T and provider (T with your provider's photo overlapping it), T as a person icon, and Last
+   (a headline, a line under it and a close button). Drawn for the coachmark's white surface, in the base color. */
+.coachmark-header { display: flex; align-items: center; gap: var(--space-4); width: 100%; color: var(--purple-900); }
+.coachmark-header__icons { display: flex; flex: none; align-items: center; }
+.coachmark-header__icons > * { display: none; }
+.coachmark-header__titles { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.coachmark-header__title { font: var(--text-body-lg-semibold); letter-spacing: var(--text-body-lg-semibold-ls); }
+.coachmark-header__subline { display: none; font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); color: color-mix(in srgb, var(--black) 50%, transparent); }
+.coachmark-header__close { display: none; appearance: none; border: 0; background: none; padding: 0; margin: 0; width: 16px; height: 16px; align-self: flex-start; color: inherit; cursor: pointer; }
+.coachmark-header__close > .icon { --icon-size: 16px; --icon-color: currentColor; }
+.coachmark-header[data-type="t"] .blob, .coachmark-header[data-type="t-provider"] .blob, .coachmark-header[data-type="t-provider"] .coachmark-header__provider { display: inline-block; }
+.coachmark-header[data-type="t-provider"] .coachmark-header__provider { --avatar-size: 28px; margin-left: -12px; box-shadow: 0 0 0 2px var(--white); }
+.coachmark-header[data-type="t-icon"] .coachmark-header__person { display: grid; }
+.coachmark-header__person { width: 32px; height: 32px; place-items: center; border-radius: 10px; color: var(--white); background: var(--gradient-dark-rose-to-orange); }
+.coachmark-header__person > .icon { --icon-size: 16px; --icon-color: currentColor; }
+.coachmark-header[data-type="last"] { align-items: flex-start; }
+.coachmark-header[data-type="last"] .coachmark-header__subline, .coachmark-header[data-type="last"] .coachmark-header__close { display: block; }
+.coachmark-header[data-type="last"] .coachmark-header__icons { display: none; }
