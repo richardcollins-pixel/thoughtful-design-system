@@ -1,0 +1,64 @@
+{
+  "name": "Coachmark bar",
+  "tier": "molecules",
+  "category": "coachmark",
+  "stateful": false,
+  "uses": [
+    "atoms/blob",
+    "atoms/icon",
+    "atoms/dots",
+    "atoms/button"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4225-64725",
+  "attributes": {
+    "data-variant": {
+      "type": "enum",
+      "values": [
+        "dots",
+        "button"
+      ],
+      "default": "dots"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "The bottom of a coachmark: progress dots with a Next button on the right, or one full-width button.",
+  "content": [
+    {
+      "label": "Button",
+      "selector": ".button"
+    }
+  ],
+  "props": {
+    "variant": {
+      "type": "enum",
+      "label": "Variant",
+      "values": [
+        "dots",
+        "button"
+      ],
+      "default": "dots"
+    },
+    "step": {
+      "type": "enum",
+      "label": "Step",
+      "values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "default": "1",
+      "ui": "steps"
+    },
+    "label": {
+      "type": "text",
+      "label": "Button",
+      "default": "Next"
+    }
+  },
+  "template": "<div class=\"coachmark-bar\" data-variant=\"{{variant}}\"><span class=\"dots\" data-current=\"{{step}}\" data-count=\"5\" role=\"img\" aria-label=\"Step {{step}} of 5\"><i></i><i></i><i></i><i></i><i></i></span><button class=\"button\" data-variant=\"filled\" data-size=\"md\">{{label}}</button></div>",
+  "markup": "<div class=\"coachmark-bar\" data-variant=\"dots\"><span class=\"dots\" data-current=\"1\" data-count=\"5\" role=\"img\" aria-label=\"Step 1 of 5\"><i></i><i></i><i></i><i></i><i></i></span><button class=\"button\" data-variant=\"filled\" data-size=\"md\">Next</button></div>"
+}

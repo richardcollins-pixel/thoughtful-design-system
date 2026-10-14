@@ -1,0 +1,33 @@
+{
+  "name": "Thoughtstarter",
+  "tier": "molecules",
+  "category": "coachmark",
+  "stateful": false,
+  "uses": [
+    "atoms/blob",
+    "atoms/icon",
+    "atoms/dots",
+    "atoms/button"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4225-64725",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A way to start saying something: a soft pink button with the first words of a thought. Several sit in a list; the last one can be I’ll write my own.",
+  "content": [
+    {
+      "label": "Text",
+      "selector": ":scope"
+    }
+  ],
+  "props": {
+    "text": {
+      "type": "text",
+      "label": "Text",
+      "default": "I've never mentioned this to anyone, but..."
+    }
+  },
+  "template": "<button class=\"thoughtstarter\">{{text}}</button>",
+  "markup": "<button class=\"thoughtstarter\">I've never mentioned this to anyone, but...</button>"
+}

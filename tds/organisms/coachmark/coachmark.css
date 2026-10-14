@@ -1,0 +1,10 @@
+/* Organism: coachmark. A white speech bubble (the inverse surface) with an arrow pointing up or down at what it explains: a header, copy,
+   then progress dots and a button, or a list of thoughtstarters. The arrow sits at --coachmark-arrow-x (the middle by default).
+   Slots are real elements ([data-slot]): content, bar, options. */
+.coachmark { --coachmark-arrow-x: 50%; position: relative; box-sizing: border-box; width: 100%; max-width: 370px; display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-6); color: var(--purple-900); background: var(--white); border-radius: var(--radius-md); filter: drop-shadow(0 4px 27px color-mix(in srgb, var(--purple-900) 70%, transparent)); }
+.coachmark__arrow { position: absolute; left: var(--coachmark-arrow-x); translate: -50% 0; width: 40px; height: 28px; background: var(--white); clip-path: path('M0 28 L15 7 Q20 0 25 7 L40 28 Z'); }
+.coachmark[data-arrow="up"] .coachmark__arrow { top: -18px; }
+.coachmark[data-arrow="down"] .coachmark__arrow { bottom: -18px; scale: 1 -1; }
+.coachmark__content { display: flex; flex-direction: column; gap: var(--space-2); }
+.coachmark__body { margin: 0; font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
+.coachmark__options { display: flex; flex-direction: column; gap: var(--space-4); }

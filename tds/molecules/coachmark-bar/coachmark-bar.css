@@ -1,0 +1,6 @@
+/* Molecule: coachmark bar. Progress dots on the left and a Next button on the right, or one button across the width. */
+.coachmark-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); width: 100%; }
+.coachmark-bar[data-variant="button"] > .dots { display: none; }
+.coachmark-bar[data-variant="button"] > .button { width: 100%; }
+/* on the coachmark's white surface the dots are the base purple */
+.coachmark-bar > .dots { --dots-current: var(--purple-900); --dots-fill: color-mix(in srgb, var(--purple-900) 20%, transparent); }
