@@ -1,0 +1,9 @@
+/* Molecule: coachmark arrow. A white pointer (40 x 28, rounded tip). Inside a coachmark it is fixed to the top or the bottom edge of
+   the bubble, at the start, middle or end. */
+.coachmark-arrow { display: block; width: 40px; height: 28px; background: var(--white); clip-path: path('M0 28 L15 7 Q20 0 25 7 L40 28 Z'); }
+.coachmark-arrow[data-direction="down"] { scale: 1 -1; }
+.coachmark .coachmark-arrow { position: absolute; left: 50%; translate: -50% 0; }
+.coachmark .coachmark-arrow[data-position="start"] { left: 20%; }
+.coachmark .coachmark-arrow[data-position="end"] { left: 80%; }
+.coachmark .coachmark-arrow[data-direction="up"] { top: -18px; }
+.coachmark .coachmark-arrow[data-direction="down"] { bottom: -18px; }

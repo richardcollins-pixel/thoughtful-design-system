@@ -7,15 +7,23 @@
     "molecules/coachmark-header",
     "molecules/coachmark-bar",
     "molecules/thoughtstarter",
-    "atoms/blob"
+    "atoms/blob",
+    "molecules/coachmark-arrow"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4225-64725",
   "states": [
     {
-      "id": "intro",
-      "name": "Intro",
-      "template": "<div class=\"coachmark\" data-arrow=\"up\" data-surface=\"inverse\"><span class=\"coachmark__arrow\" aria-hidden=\"true\"></span><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
+      "id": "step",
+      "name": "Step",
+      "template": "<div class=\"coachmark\" data-surface=\"inverse\"><div class=\"coachmark__arrow-slot\" data-slot=\"arrow\">{{item:arrow}}</div><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
       "slots": [
+        {
+          "id": "arrow",
+          "label": "Arrow slot",
+          "items": [
+            "arrow"
+          ]
+        },
         {
           "id": "content",
           "label": "Content slot",
@@ -34,38 +42,29 @@
       ],
       "personas": [
         "provider"
-      ]
+      ],
+      "overrides": {
+        "bar": {
+          "props": {
+            "variant": "dots",
+            "step": "1",
+            "label": "Next"
+          }
+        }
+      }
     },
     {
-      "id": "intro-below",
-      "name": "Intro, arrow below",
-      "template": "<div class=\"coachmark\" data-arrow=\"down\" data-surface=\"inverse\"><span class=\"coachmark__arrow\" aria-hidden=\"true\"></span><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
+      "id": "choice",
+      "name": "Choice",
+      "template": "<div class=\"coachmark\" data-surface=\"inverse\"><div class=\"coachmark__arrow-slot\" data-slot=\"arrow\">{{item:arrow}}</div><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}</div><div class=\"coachmark__options\" data-slot=\"options\">{{item:opt1}}{{item:opt2}}{{item:opt3}}</div></div>",
       "slots": [
         {
-          "id": "content",
-          "label": "Content slot",
+          "id": "arrow",
+          "label": "Arrow slot",
           "items": [
-            "header",
-            "body"
+            "arrow"
           ]
         },
-        {
-          "id": "bar",
-          "label": "Bar slot",
-          "items": [
-            "bar"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ]
-    },
-    {
-      "id": "choices",
-      "name": "Choices",
-      "template": "<div class=\"coachmark\" data-arrow=\"up\" data-surface=\"inverse\"><span class=\"coachmark__arrow\" aria-hidden=\"true\"></span><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}</div><div class=\"coachmark__options\" data-slot=\"options\">{{item:opt1}}{{item:opt2}}{{item:opt3}}</div></div>",
-      "slots": [
         {
           "id": "content",
           "label": "Content slot",
@@ -96,10 +95,17 @@
       }
     },
     {
-      "id": "provider",
-      "name": "With provider",
-      "template": "<div class=\"coachmark\" data-arrow=\"up\" data-surface=\"inverse\"><span class=\"coachmark__arrow\" aria-hidden=\"true\"></span><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
+      "id": "single-cta",
+      "name": "Single CTA",
+      "template": "<div class=\"coachmark\" data-surface=\"inverse\"><div class=\"coachmark__arrow-slot\" data-slot=\"arrow\">{{item:arrow}}</div><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
       "slots": [
+        {
+          "id": "arrow",
+          "label": "Arrow slot",
+          "items": [
+            "arrow"
+          ]
+        },
         {
           "id": "content",
           "label": "Content slot",
@@ -141,7 +147,7 @@
   "variables": {},
   "styles": [],
   "selector": ".coachmark",
-  "description": "A white speech bubble that points at something on screen and explains it. Intro has a header, a line of copy and progress dots with Next; Intro, arrow below points down instead; Choices offers thoughtstarters to begin a thought; With provider shows your provider next to T and one full-width button.",
+  "description": "A white speech bubble that points at something on screen and explains it. Step has a header, copy and a bar with progress dots and Next; Choice offers a list of thoughtstarters to begin a thought; Single CTA ends in one full-width button. In each, pick the header (T, T with your provider, T as a person icon, or Last), turn the progress dots on or off, and point the arrow up or down at the start, middle or end.",
   "items": {
     "header": {
       "type": "component",
@@ -211,6 +217,19 @@
       },
       "expose": [
         "text"
+      ]
+    },
+    "arrow": {
+      "type": "component",
+      "component": "molecules/coachmark-arrow",
+      "label": "Arrow",
+      "props": {
+        "direction": "up",
+        "position": "center"
+      },
+      "expose": [
+        "direction",
+        "position"
       ]
     }
   },

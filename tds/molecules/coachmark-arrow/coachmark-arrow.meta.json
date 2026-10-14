@@ -1,0 +1,57 @@
+{
+  "name": "Coachmark arrow",
+  "tier": "molecules",
+  "category": "coachmark",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4225-64725",
+  "attributes": {
+    "data-direction": {
+      "type": "enum",
+      "values": [
+        "up",
+        "down"
+      ],
+      "default": "up"
+    },
+    "data-position": {
+      "type": "enum",
+      "values": [
+        "start",
+        "center",
+        "end"
+      ],
+      "default": "center"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "The little pointer on a coachmark: up or down, near the start, the middle or the end of the bubble.",
+  "content": [],
+  "props": {
+    "direction": {
+      "type": "enum",
+      "label": "Points",
+      "values": [
+        "up",
+        "down"
+      ],
+      "default": "up",
+      "ui": "steps"
+    },
+    "position": {
+      "type": "enum",
+      "label": "Position",
+      "values": [
+        "start",
+        "center",
+        "end"
+      ],
+      "default": "center",
+      "ui": "steps"
+    }
+  },
+  "template": "<span class=\"coachmark-arrow\" data-direction=\"{{direction}}\" data-position=\"{{position}}\" aria-hidden=\"true\"></span>",
+  "markup": "<span class=\"coachmark-arrow\" data-direction=\"up\" data-position=\"center\" aria-hidden=\"true\"></span>"
+}
