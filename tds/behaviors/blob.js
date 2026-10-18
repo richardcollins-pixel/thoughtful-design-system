@@ -1346,6 +1346,18 @@ function mount(el) {
   }
   let glowEl = null;
   if (!isGlow && el.id) glowEl = document.querySelector(`.glow[data-for="${CSS.escape(el.id)}"]`);
+  // a blob that says data-glow, inside an element with a data-glow-layer child, gets its own glow in that layer: centered on the blob and
+  // drawn from the blob's colors (the layer decides how far it reaches and clips it)
+  if (!glowEl && !isGlow && el.hasAttribute('data-glow')) {
+    let layer = null;   // the nearest ancestor that has a glow layer as a child
+    for (let a = el.parentElement; a && !layer; a = a.parentElement) layer = a.querySelector(':scope > [data-glow-layer]');
+    if (layer) {
+      glowEl = document.createElement('div'); glowEl.className = 'glow'; glowEl.dataset.placement = 'behind'; glowEl.setAttribute('aria-hidden', 'true');
+      layer.prepend(glowEl);
+      const place = () => { const a = layer.getBoundingClientRect(), b = el.getBoundingClientRect(); glowEl.style.left = `${b.left + b.width / 2 - a.left}px`; glowEl.style.top = `${b.top + b.height / 2 - a.top}px`; };
+      place(); const ro = new ResizeObserver(place); ro.observe(layer); ro.observe(el);
+    }
+  }
   let glowCanvas = null;
   if (glowEl) { glowCanvas = glowEl.querySelector(':scope > canvas'); if (!glowCanvas) { glowCanvas = document.createElement('canvas'); glowCanvas.setAttribute('aria-hidden', 'true'); glowEl.append(glowCanvas); } glowEl.__linked = true; }
   const ctrl = create(canvas, { shape: a.shape, theme: a.theme, cycle: a.cycle, loop: a.loop, loopDelay: a.loopDelay, glow: glowCanvas, glowHost: glowEl, asGlow: isGlow });
