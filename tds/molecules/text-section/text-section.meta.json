@@ -1,0 +1,37 @@
+{
+  "name": "Text section",
+  "tier": "molecules",
+  "category": "content",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4197-43941",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A section of plain text: a serif subhead and a few lines under it (Today’s Topic, The Reframe, The Plan). Line breaks in the text are kept.",
+  "content": [
+    {
+      "label": "Subhead",
+      "selector": ".text-section__title"
+    },
+    {
+      "label": "Body Copy",
+      "selector": ".text-section__body"
+    }
+  ],
+  "props": {
+    "heading": {
+      "type": "text",
+      "label": "Subhead",
+      "default": "Today’s Topic"
+    },
+    "body": {
+      "type": "text",
+      "label": "Body Copy",
+      "default": "You came in feeling overwhelmed by low-grade depression and anxiety primarily driven by the financial uncertainty of your work situation."
+    }
+  },
+  "template": "<section class=\"text-section\"><h2 class=\"text-section__title\">{{heading}}</h2><p class=\"text-section__body\">{{body}}</p></section>",
+  "markup": "<section class=\"text-section\"><h2 class=\"text-section__title\">Today’s Topic</h2><p class=\"text-section__body\">You came in feeling overwhelmed by low-grade depression and anxiety primarily driven by the financial uncertainty of your work situation.</p></section>"
+}

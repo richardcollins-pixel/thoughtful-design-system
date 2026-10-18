@@ -5,7 +5,7 @@
   "stateful": false,
   "uses": [
     "organisms/header-card",
-    "patterns/text-section",
+    "molecules/text-section",
     "patterns/suggestions-section",
     "patterns/therapist-section",
     "patterns/resources-section"
@@ -116,7 +116,7 @@
     },
     "topic": {
       "type": "component",
-      "component": "patterns/text-section",
+      "component": "molecules/text-section",
       "label": "Today’s Topic",
       "props": {
         "heading": "Today’s Topic",
@@ -131,7 +131,7 @@
     },
     "reframe": {
       "type": "component",
-      "component": "patterns/text-section",
+      "component": "molecules/text-section",
       "label": "The Reframe",
       "props": {
         "heading": "The Reframe",
@@ -146,7 +146,7 @@
     },
     "plan": {
       "type": "component",
-      "component": "patterns/text-section",
+      "component": "molecules/text-section",
       "label": "The Plan",
       "props": {
         "heading": "The Plan",

@@ -44,6 +44,7 @@
 @import url("molecules/chat-input/chat-input.css")      layer(molecules);
 @import url("molecules/bottom-nav/bottom-nav.css") layer(molecules);
 @import url("molecules/action-row/action-row.css") layer(molecules);
+@import url("molecules/text-section/text-section.css") layer(molecules);
 @import url("molecules/coachmark-arrow/coachmark-arrow.css") layer(molecules);
 @import url("molecules/coachmark-bar/coachmark-bar.css") layer(molecules);
 @import url("molecules/thoughtstarter/thoughtstarter.css") layer(molecules);
@@ -78,7 +79,6 @@
 @import url("patterns/bite-size-support-section/bite-size-support-section.css") layer(patterns);
 @import url("patterns/provider-carousel/provider-carousel.css") layer(patterns);
 @import url("patterns/therapist-section/therapist-section.css") layer(patterns);
-@import url("patterns/text-section/text-section.css") layer(patterns);
 @import url("patterns/suggestions-section/suggestions-section.css") layer(patterns);
 @import url("patterns/resources-section/resources-section.css") layer(patterns);
 @import url("patterns/session-sharing-sheet/session-sharing-sheet.css") layer(patterns);
