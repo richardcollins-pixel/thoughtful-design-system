@@ -1,10 +1,10 @@
 {
   "name": "Session sharing sheet",
-  "tier": "organisms",
+  "tier": "patterns",
   "category": "sheets",
   "stateful": false,
   "uses": [
-    "atoms/sheet",
+    "organisms/bottom-sheet",
     "atoms/avatar",
     "atoms/blob",
     "atoms/button",
@@ -15,11 +15,11 @@
     {
       "id": "off",
       "name": "Sharing",
-      "template": "<div class=\"sheet session-sharing\"><span class=\"sheet__handle\"></span><div class=\"session-sharing__main\"><div class=\"session-sharing__intro\" data-slot=\"content\"><div class=\"session-sharing__title\"><span class=\"session-sharing__icons\"><span class=\"blob\" style=\"--blob-size:28px\"><canvas aria-hidden=\"true\"></canvas></span>{{item:avatar}}</span>{{item:headline}}</div>{{item:body}}<ul class=\"session-sharing__list\">{{item:b1}}{{item:b2}}{{item:b3}}</ul></div><div class=\"session-sharing__group\" data-slot=\"toggle\">{{item:toggle}}<hr class=\"session-sharing__rule\"><div class=\"session-sharing__safety\"><i class=\"icon icon-help\"></i>{{item:safety}}</div></div></div><div class=\"session-sharing__action\" data-slot=\"action\">{{item:done}}</div></div>",
+      "template": "<div class=\"bottom-sheet session-sharing\"><span class=\"bottom-sheet__handle\"></span><div class=\"bottom-sheet__header session-sharing__header\" data-slot=\"header\"><div class=\"session-sharing__title\"><span class=\"session-sharing__icons\"><span class=\"blob\" style=\"--blob-size:28px\"><canvas aria-hidden=\"true\"></canvas></span>{{item:avatar}}</span>{{item:headline}}</div>{{item:body}}<ul class=\"session-sharing__list\">{{item:b1}}{{item:b2}}{{item:b3}}</ul></div><div class=\"bottom-sheet__content session-sharing__group\" data-slot=\"content\">{{item:toggle}}<hr class=\"session-sharing__rule\"><div class=\"session-sharing__safety\"><i class=\"icon icon-help\"></i>{{item:safety}}</div></div><div class=\"bottom-sheet__action\" data-slot=\"action\">{{item:done}}</div></div>",
       "slots": [
         {
-          "id": "content",
-          "label": "Content slot",
+          "id": "header",
+          "label": "Header slot",
           "items": [
             "avatar",
             "headline",
@@ -30,8 +30,8 @@
           ]
         },
         {
-          "id": "toggle",
-          "label": "Toggle slot",
+          "id": "content",
+          "label": "Content slot",
           "items": [
             "toggle",
             "safety"
@@ -52,11 +52,11 @@
     {
       "id": "off-record",
       "name": "Off the record",
-      "template": "<div class=\"sheet session-sharing\"><span class=\"sheet__handle\"></span><div class=\"session-sharing__main\"><div class=\"session-sharing__intro\" data-slot=\"content\"><div class=\"session-sharing__title\"><span class=\"session-sharing__icons\"><span class=\"blob\" style=\"--blob-size:28px\"><canvas aria-hidden=\"true\"></canvas></span>{{item:avatar}}</span>{{item:headline}}</div>{{item:body}}<ul class=\"session-sharing__list\">{{item:b1}}{{item:b2}}{{item:b3}}</ul></div><div class=\"session-sharing__group\" data-slot=\"toggle\">{{item:toggle}}<hr class=\"session-sharing__rule\"><div class=\"session-sharing__safety\"><i class=\"icon icon-help\"></i>{{item:safety}}</div></div></div><div class=\"session-sharing__action\" data-slot=\"action\">{{item:done}}</div></div>",
+      "template": "<div class=\"bottom-sheet session-sharing\"><span class=\"bottom-sheet__handle\"></span><div class=\"bottom-sheet__header session-sharing__header\" data-slot=\"header\"><div class=\"session-sharing__title\"><span class=\"session-sharing__icons\"><span class=\"blob\" style=\"--blob-size:28px\"><canvas aria-hidden=\"true\"></canvas></span>{{item:avatar}}</span>{{item:headline}}</div>{{item:body}}<ul class=\"session-sharing__list\">{{item:b1}}{{item:b2}}{{item:b3}}</ul></div><div class=\"bottom-sheet__content session-sharing__group\" data-slot=\"content\">{{item:toggle}}<hr class=\"session-sharing__rule\"><div class=\"session-sharing__safety\"><i class=\"icon icon-help\"></i>{{item:safety}}</div></div><div class=\"bottom-sheet__action\" data-slot=\"action\">{{item:done}}</div></div>",
       "slots": [
         {
-          "id": "content",
-          "label": "Content slot",
+          "id": "header",
+          "label": "Header slot",
           "items": [
             "avatar",
             "headline",
@@ -67,8 +67,8 @@
           ]
         },
         {
-          "id": "toggle",
-          "label": "Toggle slot",
+          "id": "content",
+          "label": "Content slot",
           "items": [
             "toggle",
             "safety"
@@ -97,7 +97,7 @@
   "variables": {},
   "styles": [],
   "selector": ".session-sharing",
-  "description": "The bottom sheet behind the record icon in a chat. It explains that your therapist gets a short recap of the session, and lets you go off the record: Sharing has the toggle off, Off the record has it on. A line at the bottom says the care team is told if a conversation raises a safety concern.",
+  "description": "A bottom sheet (the bottom sheet organism's slots) for the record icon in a chat. Header: T and your provider, a serif headline, copy and three bullets. Content: the go off the record toggle and the safety note. Action: Done. Sharing has the toggle off; Off the record has it on.",
   "items": {
     "avatar": {
       "type": "component",
@@ -189,5 +189,6 @@
     "provider"
   ],
   "properties": [],
-  "prompts": []
+  "prompts": [],
+  "align": "bottom"
 }

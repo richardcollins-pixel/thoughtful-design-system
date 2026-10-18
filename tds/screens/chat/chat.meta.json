@@ -9,7 +9,7 @@
     "organisms/chat-composer",
     "organisms/end-of-session-card",
     "atoms/glow",
-    "organisms/session-sharing-sheet"
+    "patterns/session-sharing-sheet"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
   "align": "top",
@@ -222,7 +222,7 @@
     {
       "id": "sharing",
       "name": "Sharing sheet",
-      "template": "<section class=\"chat\" data-state=\"sharing\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"sheet-backdrop\"></div><div class=\"chat__sheet\" data-slot=\"sheet\">{{item:sheet}}</div></section>",
+      "template": "<section class=\"chat\" data-state=\"sharing\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"bottom-sheet-backdrop\"></div><div class=\"chat__sheet\" data-slot=\"sheet\">{{item:sheet}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -283,7 +283,7 @@
     {
       "id": "sharing-off-record",
       "name": "Sharing sheet, off the record",
-      "template": "<section class=\"chat\" data-state=\"sharing-off-record\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"sheet-backdrop\"></div><div class=\"chat__sheet\" data-slot=\"sheet\">{{item:sheet}}</div></section>",
+      "template": "<section class=\"chat\" data-state=\"sharing-off-record\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"bottom-sheet-backdrop\"></div><div class=\"chat__sheet\" data-slot=\"sheet\">{{item:sheet}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -452,7 +452,7 @@
     },
     "sheet": {
       "type": "component",
-      "component": "organisms/session-sharing-sheet",
+      "component": "patterns/session-sharing-sheet",
       "label": "Sharing sheet",
       "props": {
         "state": "off"

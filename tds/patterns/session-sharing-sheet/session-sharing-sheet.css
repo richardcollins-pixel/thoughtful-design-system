@@ -1,18 +1,16 @@
-/* Organism: session sharing sheet. A bottom sheet (the sheet atom's surface): T and your provider with a serif headline, a line of copy
-   and three bullets, then a group with the off-the-record toggle and a safety note, then Done. Slots: content, toggle, action. */
-.session-sharing { gap: var(--space-8); padding-bottom: 60px; }
-.session-sharing__main { display: flex; flex-direction: column; gap: var(--space-6); }
-.session-sharing__intro { display: flex; flex-direction: column; gap: var(--space-4); padding-block: var(--space-6); }
+/* Pattern: session sharing sheet. The bottom sheet organism with T and your provider, a headline, copy and bullets in the header slot, the
+   off-the-record toggle and a safety note in the content slot, and Done in the action slot. */
+.session-sharing__header { gap: var(--space-4); padding-block: var(--space-6); }
+.session-sharing { gap: var(--space-6); }
 .session-sharing__title { display: flex; align-items: center; gap: var(--space-4); }
 .session-sharing__icons { display: flex; flex: none; align-items: center; }
 .session-sharing__icons .avatar { --avatar-size: 32px; margin-left: -12px; }
 .session-sharing__headline { flex: 1; min-width: 0; margin: 0; font: var(--text-subhead); letter-spacing: var(--text-subhead-ls); }
 .session-sharing__body { margin: 0; color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
 .session-sharing__list { margin: 0; padding-left: var(--space-6); color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
-.session-sharing__group { display: flex; flex-direction: column; gap: var(--space-4); padding: 20px; background: var(--bg-elevation-10); border-radius: var(--radius-md); }
+.session-sharing__group { gap: var(--space-4); padding: 20px; background: var(--bg-elevation-10); border-radius: var(--radius-md); }
 .session-sharing__rule { width: 100%; height: 1px; margin: 0; border: 0; background: var(--bg-elevation-10); }
 .session-sharing__safety { display: flex; align-items: center; gap: var(--space-6); }
 .session-sharing__safety > .icon { --icon-size: 24px; --icon-color: var(--text-primary); flex: none; }
 .session-sharing__safety-text { flex: 1; margin: 0; color: var(--text-secondary); font: 400 13px/1.4 var(--font-family-body); }
-/* on its own it runs to the screen edges and the bottom (cancelling the page gutter) */
-.session-sharing { margin-inline: calc(var(--page-gutter, var(--space-4)) * -1); }
+.chat__sheet .session-sharing { margin: 0; }

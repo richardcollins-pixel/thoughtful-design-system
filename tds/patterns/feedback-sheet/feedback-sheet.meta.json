@@ -1,10 +1,10 @@
 {
   "name": "Feedback sheet",
-  "tier": "organisms",
+  "tier": "patterns",
   "category": "sheets",
   "stateful": false,
   "uses": [
-    "atoms/sheet",
+    "organisms/bottom-sheet",
     "atoms/button",
     "atoms/textarea",
     "molecules/rating-option",
@@ -16,19 +16,19 @@
     {
       "id": "rating",
       "name": "Rating",
-      "template": "<div class=\"feedback-sheet\" data-selected=\"no\" data-animate=\"on\"><div class=\"sheet feedback-sheet__sheet\"><span class=\"sheet__handle\"></span><div class=\"feedback-sheet__head\" data-slot=\"head\">{{item:title}}{{item:intro}}</div><div class=\"feedback-sheet__ratings\" data-slot=\"ratings\">{{item:r1}}{{item:r2}}{{item:r3}}</div><div class=\"feedback-sheet__action\" data-slot=\"action\">{{item:next}}</div></div></div>",
+      "template": "<div class=\"bottom-sheet feedback-sheet\" data-selected=\"no\" data-animate=\"on\"><span class=\"bottom-sheet__handle\"></span><div class=\"bottom-sheet__header feedback-sheet__head\" data-slot=\"header\">{{item:title}}{{item:intro}}</div><div class=\"bottom-sheet__content\" data-slot=\"content\"><div class=\"feedback-sheet__ratings\">{{item:r1}}{{item:r2}}{{item:r3}}</div></div><div class=\"bottom-sheet__action\" data-slot=\"action\">{{item:next}}</div></div>",
       "slots": [
         {
-          "id": "head",
-          "label": "Head slot",
+          "id": "header",
+          "label": "Header slot",
           "items": [
             "title",
             "intro"
           ]
         },
         {
-          "id": "ratings",
-          "label": "Ratings slot",
+          "id": "content",
+          "label": "Content slot",
           "items": [
             "r1",
             "r2",
@@ -48,19 +48,19 @@
     {
       "id": "rating-picked",
       "name": "Rating picked",
-      "template": "<div class=\"feedback-sheet\" data-selected=\"yes\" data-animate=\"off\"><div class=\"sheet feedback-sheet__sheet\"><span class=\"sheet__handle\"></span><div class=\"feedback-sheet__head\" data-slot=\"head\">{{item:title}}{{item:intro}}</div><div class=\"feedback-sheet__ratings\" data-slot=\"ratings\">{{item:r1}}{{item:r2}}{{item:r3}}</div><div class=\"feedback-sheet__action\" data-slot=\"action\">{{item:next}}</div></div></div>",
+      "template": "<div class=\"bottom-sheet feedback-sheet\" data-selected=\"yes\" data-animate=\"off\"><span class=\"bottom-sheet__handle\"></span><div class=\"bottom-sheet__header feedback-sheet__head\" data-slot=\"header\">{{item:title}}{{item:intro}}</div><div class=\"bottom-sheet__content\" data-slot=\"content\"><div class=\"feedback-sheet__ratings\">{{item:r1}}{{item:r2}}{{item:r3}}</div></div><div class=\"bottom-sheet__action\" data-slot=\"action\">{{item:next}}</div></div>",
       "slots": [
         {
-          "id": "head",
-          "label": "Head slot",
+          "id": "header",
+          "label": "Header slot",
           "items": [
             "title",
             "intro"
           ]
         },
         {
-          "id": "ratings",
-          "label": "Ratings slot",
+          "id": "content",
+          "label": "Content slot",
           "items": [
             "r1",
             "r2",
@@ -97,20 +97,26 @@
     {
       "id": "comment",
       "name": "Comment",
-      "template": "<div class=\"feedback-sheet\" data-selected=\"yes\" data-animate=\"off\"><div class=\"sheet feedback-sheet__sheet\"><span class=\"sheet__handle\"></span><div class=\"feedback-sheet__head\" data-slot=\"head\">{{item:question}}</div><div class=\"feedback-sheet__form\" data-slot=\"form\">{{item:field}}{{item:submit}}</div></div></div>",
+      "template": "<div class=\"bottom-sheet feedback-sheet\" data-compact data-selected=\"yes\" data-animate=\"off\"><span class=\"bottom-sheet__handle\"></span><div class=\"bottom-sheet__header feedback-sheet__head\" data-slot=\"header\">{{item:question}}</div><div class=\"bottom-sheet__content\" data-slot=\"content\">{{item:field}}</div><div class=\"bottom-sheet__action\" data-slot=\"action\">{{item:submit}}</div></div>",
       "slots": [
         {
-          "id": "head",
-          "label": "Head slot",
+          "id": "header",
+          "label": "Header slot",
           "items": [
             "question"
           ]
         },
         {
-          "id": "form",
-          "label": "Form slot",
+          "id": "content",
+          "label": "Content slot",
           "items": [
-            "field",
+            "field"
+          ]
+        },
+        {
+          "id": "action",
+          "label": "Action slot",
+          "items": [
             "submit"
           ]
         }
@@ -120,20 +126,26 @@
     {
       "id": "comment-typing",
       "name": "Comment, typing",
-      "template": "<div class=\"feedback-sheet\" data-selected=\"yes\" data-animate=\"off\"><div class=\"sheet feedback-sheet__sheet\"><span class=\"sheet__handle\"></span><div class=\"feedback-sheet__head\" data-slot=\"head\">{{item:question}}</div><div class=\"feedback-sheet__form\" data-slot=\"form\">{{item:field}}{{item:submit}}</div><div class=\"feedback-sheet__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></div></div>",
+      "template": "<div class=\"bottom-sheet feedback-sheet\" data-compact data-selected=\"yes\" data-animate=\"off\"><span class=\"bottom-sheet__handle\"></span><div class=\"bottom-sheet__header feedback-sheet__head\" data-slot=\"header\">{{item:question}}</div><div class=\"bottom-sheet__content\" data-slot=\"content\">{{item:field}}</div><div class=\"bottom-sheet__action\" data-slot=\"action\">{{item:submit}}</div><div class=\"bottom-sheet__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></div>",
       "slots": [
         {
-          "id": "head",
-          "label": "Head slot",
+          "id": "header",
+          "label": "Header slot",
           "items": [
             "question"
           ]
         },
         {
-          "id": "form",
-          "label": "Form slot",
+          "id": "content",
+          "label": "Content slot",
           "items": [
-            "field",
+            "field"
+          ]
+        },
+        {
+          "id": "action",
+          "label": "Action slot",
+          "items": [
             "submit"
           ]
         },
@@ -175,19 +187,19 @@
   "styles": [],
   "selector": ".feedback-sheet",
   "align": "bottom",
-  "description": "The in-app feedback sheet. It can pop up anywhere in the app. Rating asks how you are liking Thoughtful with three faces that rise in one after another (the animation); Rating picked dims the other two and lights Continue; Comment asks for one sentence, with the keyboard up while typing; Sent is the thank-you toast.",
+  "description": "The in-app feedback bottom sheet (the bottom sheet organism's slots), which can pop up anywhere. Rating: the header asks how you like Thoughtful, the content is three faces that rise in one after another (the animation), the action is Continue (dimmed until you pick). Rating picked dims the other two. Comment asks for one sentence in a text area with Submit, with the keyboard up while typing. Sent is the thank-you toast.",
   "items": {
     "title": {
       "type": "text",
       "tag": "h2",
-      "class": "feedback-sheet__title",
+      "class": "bottom-sheet__title",
       "label": "Headline",
       "value": "How are you liking thoughtful?"
     },
     "intro": {
       "type": "text",
       "tag": "p",
-      "class": "feedback-sheet__intro",
+      "class": "bottom-sheet__intro",
       "label": "Intro",
       "value": "We’d love your feedback to help us improve the experience."
     },
