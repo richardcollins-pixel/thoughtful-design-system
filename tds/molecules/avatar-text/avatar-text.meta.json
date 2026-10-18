@@ -1,0 +1,115 @@
+{
+  "name": "Avatar with text",
+  "tier": "molecules",
+  "category": "avatars",
+  "stateful": false,
+  "uses": [
+    "atoms/blob",
+    "atoms/avatar",
+    "atoms/icon"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4359-55294",
+  "attributes": {
+    "data-style": {
+      "type": "enum",
+      "values": [
+        "small",
+        "medium",
+        "large",
+        "subhead"
+      ],
+      "default": "large"
+    },
+    "data-close": {
+      "type": "enum",
+      "values": [
+        "off",
+        "on"
+      ],
+      "default": "off"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A T avatar (or none) beside a title and an optional line under it, with an optional close button. Pick the type style for the title: small, medium or large semibold, or the serif subhead. It is the top of a coachmark and of the session sharing sheet.",
+  "content": [
+    {
+      "label": "Title",
+      "selector": ".avatar-text__title"
+    },
+    {
+      "label": "Subline",
+      "selector": ".avatar-text__subline"
+    }
+  ],
+  "props": {
+    "avatar": {
+      "type": "enum",
+      "label": "Avatar",
+      "values": [
+        "none",
+        "t",
+        "t-provider",
+        "icon"
+      ],
+      "default": "t"
+    },
+    "size": {
+      "type": "enum",
+      "label": "Avatar size",
+      "values": [
+        "24",
+        "28",
+        "32",
+        "48"
+      ],
+      "default": "28",
+      "ui": "steps"
+    },
+    "icon": {
+      "type": "icon",
+      "label": "Icon",
+      "default": "person"
+    },
+    "person": {
+      "type": "person",
+      "label": "Provider",
+      "default": "kristina"
+    },
+    "style": {
+      "type": "enum",
+      "label": "Title style",
+      "values": [
+        "small",
+        "medium",
+        "large",
+        "subhead"
+      ],
+      "default": "large",
+      "ui": "steps"
+    },
+    "title": {
+      "type": "text",
+      "label": "Title",
+      "default": "Headline goes here"
+    },
+    "subline": {
+      "type": "text",
+      "label": "Subline",
+      "default": ""
+    },
+    "close": {
+      "type": "enum",
+      "label": "Close",
+      "values": [
+        "off",
+        "on"
+      ],
+      "default": "off",
+      "ui": "steps"
+    }
+  },
+  "template": "<div class=\"avatar-text\" data-style=\"{{style}}\" data-close=\"{{close}}\"><span class=\"t-avatar\" data-type=\"{{avatar}}\" data-size=\"{{size}}\"><span class=\"t-avatar__t\"><span class=\"blob\"><canvas aria-hidden=\"true\"></canvas></span></span><span class=\"avatar t-avatar__provider\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span><span class=\"t-avatar__icon\"><i class=\"icon icon-{{icon}}\"></i></span></span><span class=\"avatar-text__titles\"><span class=\"avatar-text__title\">{{title}}</span>{{?subline}}<span class=\"avatar-text__subline\">{{subline}}</span>{{/subline}}</span><button class=\"avatar-text__close\" aria-label=\"Close\"><i class=\"icon icon-x\"></i></button></div>",
+  "markup": "<div class=\"avatar-text\" data-style=\"large\" data-close=\"off\"><span class=\"t-avatar\" data-type=\"t\" data-size=\"28\"><span class=\"t-avatar__t\"><span class=\"blob\"><canvas aria-hidden=\"true\"></canvas></span></span><span class=\"avatar t-avatar__provider\"><img src=\"../tds/assets/images/therapists/Therapist-7.png\" alt=\"\"></span><span class=\"t-avatar__icon\"><i class=\"icon icon-person\"></i></span></span><span class=\"avatar-text__titles\"><span class=\"avatar-text__title\">Headline goes here</span></span><button class=\"avatar-text__close\" aria-label=\"Close\"><i class=\"icon icon-x\"></i></button></div>"
+}

@@ -1,0 +1,74 @@
+{
+  "name": "T avatar",
+  "tier": "molecules",
+  "category": "avatars",
+  "stateful": false,
+  "uses": [
+    "atoms/blob",
+    "atoms/avatar",
+    "atoms/icon"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4359-55294",
+  "attributes": {
+    "data-type": {
+      "type": "enum",
+      "values": [
+        "t",
+        "t-provider",
+        "icon"
+      ],
+      "default": "t"
+    },
+    "data-size": {
+      "type": "enum",
+      "values": [
+        "24",
+        "28",
+        "32",
+        "48"
+      ],
+      "default": "32"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "T as an avatar: T by itself (the blob), T with your provider’s photo overlapping it, or a round gradient with an icon (a person, or a person with an x). Three sizes: 24, 32 and 48 (and 28 as the coachmarks use).",
+  "content": [],
+  "props": {
+    "type": {
+      "type": "enum",
+      "label": "Type",
+      "values": [
+        "t",
+        "t-provider",
+        "icon"
+      ],
+      "default": "t"
+    },
+    "size": {
+      "type": "enum",
+      "label": "Size",
+      "values": [
+        "24",
+        "28",
+        "32",
+        "48"
+      ],
+      "default": "32",
+      "ui": "steps"
+    },
+    "icon": {
+      "type": "icon",
+      "label": "Icon",
+      "default": "person"
+    },
+    "person": {
+      "type": "person",
+      "label": "Provider",
+      "default": "kristina"
+    }
+  },
+  "template": "<span class=\"t-avatar\" data-type=\"{{type}}\" data-size=\"{{size}}\"><span class=\"t-avatar__t\"><span class=\"blob\"><canvas aria-hidden=\"true\"></canvas></span></span><span class=\"avatar t-avatar__provider\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span><span class=\"t-avatar__icon\"><i class=\"icon icon-{{icon}}\"></i></span></span>",
+  "markup": "<span class=\"t-avatar\" data-type=\"t\" data-size=\"32\"><span class=\"t-avatar__t\"><span class=\"blob\"><canvas aria-hidden=\"true\"></canvas></span></span><span class=\"avatar t-avatar__provider\"><img src=\"../tds/assets/images/therapists/Therapist-7.png\" alt=\"\"></span><span class=\"t-avatar__icon\"><i class=\"icon icon-person\"></i></span></span>"
+}

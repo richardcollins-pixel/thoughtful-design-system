@@ -1,0 +1,11 @@
+/* Molecule: T avatar. A row of up to two round things at one size (--t-size): T (the blob); T with the provider's photo overlapping it by
+   half; or a gradient circle with an icon. The photo has a ring (--t-avatar-ring) in the surface color, so it reads as sitting in front of T. */
+.t-avatar { --t-size: 32px; --t-gap: 3px; display: inline-flex; flex: none; align-items: center; height: var(--t-size); color: var(--text-primary); }
+.t-avatar[data-size="24"] { --t-size: 24px; } .t-avatar[data-size="28"] { --t-size: 28px; } .t-avatar[data-size="48"] { --t-size: 48px; }
+.t-avatar > * { display: none; }
+.t-avatar__t { position: relative; width: var(--t-size); height: var(--t-size); flex: none; }
+.t-avatar .blob { --blob-size: var(--t-size); }
+.t-avatar[data-type="t"] .t-avatar__t, .t-avatar[data-type="t-provider"] .t-avatar__t, .t-avatar[data-type="t-provider"] .t-avatar__provider { display: block; }
+.t-avatar[data-type="t-provider"] .t-avatar__provider { --avatar-size: var(--t-size); margin-left: calc(var(--t-size) / -2); position: relative; z-index: 1; box-shadow: 0 0 0 var(--t-gap) var(--t-avatar-ring, var(--bg-base)); }
+.t-avatar[data-type="icon"] .t-avatar__icon { display: grid; place-items: center; width: var(--t-size); height: var(--t-size); border-radius: 50%; color: var(--white); background: var(--gradient-dark-rose-to-orange); }
+.t-avatar__icon > .icon { --icon-size: calc(var(--t-size) / 2); --icon-color: currentColor; }

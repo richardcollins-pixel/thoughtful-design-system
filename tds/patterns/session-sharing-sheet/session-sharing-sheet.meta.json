@@ -5,24 +5,22 @@
   "stateful": false,
   "uses": [
     "organisms/bottom-sheet",
-    "atoms/avatar",
-    "atoms/blob",
     "atoms/button",
-    "molecules/toggle-row"
+    "molecules/toggle-row",
+    "molecules/avatar-text"
   ],
   "figma": "https://www.figma.com/design/2dd93uRGMkAzwfaUu9CcSi/Session-Sharing?node-id=629-3943",
   "states": [
     {
       "id": "off",
       "name": "Sharing",
-      "template": "<div class=\"bottom-sheet session-sharing\"><span class=\"bottom-sheet__handle\"></span><div class=\"bottom-sheet__header session-sharing__header\" data-slot=\"header\"><div class=\"session-sharing__title\"><span class=\"session-sharing__icons\"><span class=\"blob\" style=\"--blob-size:28px\"><canvas aria-hidden=\"true\"></canvas></span>{{item:avatar}}</span>{{item:headline}}</div>{{item:body}}<ul class=\"session-sharing__list\">{{item:b1}}{{item:b2}}{{item:b3}}</ul></div><div class=\"bottom-sheet__content session-sharing__group\" data-slot=\"content\">{{item:toggle}}<hr class=\"session-sharing__rule\"><div class=\"session-sharing__safety\"><i class=\"icon icon-help\"></i>{{item:safety}}</div></div><div class=\"bottom-sheet__action\" data-slot=\"action\">{{item:done}}</div></div>",
+      "template": "<div class=\"bottom-sheet session-sharing\"><span class=\"bottom-sheet__handle\"></span><div class=\"bottom-sheet__header session-sharing__header\" data-slot=\"header\">{{item:title}}{{item:body}}<ul class=\"session-sharing__list\">{{item:b1}}{{item:b2}}{{item:b3}}</ul></div><div class=\"bottom-sheet__content session-sharing__group\" data-slot=\"content\">{{item:toggle}}<hr class=\"session-sharing__rule\"><div class=\"session-sharing__safety\"><i class=\"icon icon-help\"></i>{{item:safety}}</div></div><div class=\"bottom-sheet__action\" data-slot=\"action\">{{item:done}}</div></div>",
       "slots": [
         {
           "id": "header",
           "label": "Header slot",
           "items": [
-            "avatar",
-            "headline",
+            "title",
             "body",
             "b1",
             "b2",
@@ -52,14 +50,13 @@
     {
       "id": "off-record",
       "name": "Off the record",
-      "template": "<div class=\"bottom-sheet session-sharing\"><span class=\"bottom-sheet__handle\"></span><div class=\"bottom-sheet__header session-sharing__header\" data-slot=\"header\"><div class=\"session-sharing__title\"><span class=\"session-sharing__icons\"><span class=\"blob\" style=\"--blob-size:28px\"><canvas aria-hidden=\"true\"></canvas></span>{{item:avatar}}</span>{{item:headline}}</div>{{item:body}}<ul class=\"session-sharing__list\">{{item:b1}}{{item:b2}}{{item:b3}}</ul></div><div class=\"bottom-sheet__content session-sharing__group\" data-slot=\"content\">{{item:toggle}}<hr class=\"session-sharing__rule\"><div class=\"session-sharing__safety\"><i class=\"icon icon-help\"></i>{{item:safety}}</div></div><div class=\"bottom-sheet__action\" data-slot=\"action\">{{item:done}}</div></div>",
+      "template": "<div class=\"bottom-sheet session-sharing\"><span class=\"bottom-sheet__handle\"></span><div class=\"bottom-sheet__header session-sharing__header\" data-slot=\"header\">{{item:title}}{{item:body}}<ul class=\"session-sharing__list\">{{item:b1}}{{item:b2}}{{item:b3}}</ul></div><div class=\"bottom-sheet__content session-sharing__group\" data-slot=\"content\">{{item:toggle}}<hr class=\"session-sharing__rule\"><div class=\"session-sharing__safety\"><i class=\"icon icon-help\"></i>{{item:safety}}</div></div><div class=\"bottom-sheet__action\" data-slot=\"action\">{{item:done}}</div></div>",
       "slots": [
         {
           "id": "header",
           "label": "Header slot",
           "items": [
-            "avatar",
-            "headline",
+            "title",
             "body",
             "b1",
             "b2",
@@ -99,27 +96,6 @@
   "selector": ".session-sharing",
   "description": "A bottom sheet (the bottom sheet organism's slots) for the record icon in a chat. Header: T and your provider, a serif headline, copy and three bullets. Content: the go off the record toggle and the safety note. Action: Done. Sharing has the toggle off; Off the record has it on.",
   "items": {
-    "avatar": {
-      "type": "component",
-      "component": "atoms/avatar",
-      "label": "Provider",
-      "props": {
-        "size": "sm"
-      },
-      "expose": [
-        "person"
-      ],
-      "bind": {
-        "person": "provider"
-      }
-    },
-    "headline": {
-      "type": "text",
-      "tag": "h2",
-      "class": "session-sharing__headline",
-      "label": "Headline",
-      "value": "Your support is better when {{provider-name}} is up to speed"
-    },
     "body": {
       "type": "text",
       "tag": "p",
@@ -182,6 +158,25 @@
       },
       "expose": [
         "label"
+      ]
+    },
+    "title": {
+      "type": "component",
+      "component": "molecules/avatar-text",
+      "label": "Title",
+      "props": {
+        "avatar": "t-provider",
+        "size": "32",
+        "style": "subhead",
+        "title": "Your support is better when {{provider-name}} is up to speed"
+      },
+      "bind": {
+        "person": "provider"
+      },
+      "expose": [
+        "title",
+        "avatar",
+        "person"
       ]
     }
   },

@@ -12,3 +12,4 @@
 .bottom-sheet__title { margin: 0; font: var(--text-subhead); letter-spacing: var(--text-subhead-ls); }
 .bottom-sheet__intro, .bottom-sheet__body { margin: 0; color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
 .bottom-sheet-backdrop { position: absolute; inset: 0; z-index: 5; background: color-mix(in srgb, var(--black) 45%, transparent); }
+.bottom-sheet { --t-avatar-ring: var(--bg-slate); }
