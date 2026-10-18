@@ -1,0 +1,163 @@
+{
+  "name": "Profile",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "molecules/header",
+    "organisms/header-inset-card",
+    "organisms/action-group",
+    "molecules/bottom-nav"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4196-43598",
+  "align": "top",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<main class=\"profile\"><div class=\"glow profile__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"profile__top\" data-slot=\"top\">{{item:header}}</div><div class=\"profile__sections\" data-slot=\"sections\">{{item:card}}{{item:therapist}}{{item:prefs}}{{item:support}}{{item:account}}</div><div class=\"profile__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "card",
+            "therapist",
+            "prefs",
+            "support",
+            "account"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".profile",
+  "description": "The profile screen: a title bar, a card with your name, phone and address, then groups of rows: Your Therapist, Preferences (with the SMS reminders toggle), Support & Feedback, and Account & Privacy. The bottom nav is on Profile. The title bar and the nav are blurred over the content as it scrolls.",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "molecules/header",
+      "label": "Header",
+      "props": {
+        "variant": "section-root",
+        "title": "Profile"
+      },
+      "expose": [
+        "title"
+      ]
+    },
+    "card": {
+      "type": "component",
+      "component": "organisms/header-inset-card",
+      "label": "Profile card",
+      "props": {
+        "state": "profile",
+        "headline": "Rich",
+        "body": "861-881-2857\n41 Georgian Rd. Morristown NJ"
+      },
+      "expose": [
+        "headline",
+        "body"
+      ]
+    },
+    "therapist": {
+      "type": "component",
+      "component": "organisms/action-group",
+      "label": "Your Therapist",
+      "props": {
+        "state": "one",
+        "title": "Your Therapist",
+        "row1.text": "Find your therapist"
+      },
+      "expose": [
+        "state",
+        "title",
+        "row1.text"
+      ]
+    },
+    "prefs": {
+      "type": "component",
+      "component": "organisms/action-group",
+      "label": "Preferences",
+      "props": {
+        "state": "one",
+        "title": "Preferences",
+        "row1.text": "SMS Reminders",
+        "row1.trailing": "toggle",
+        "row1.on": "true"
+      },
+      "expose": [
+        "state",
+        "title",
+        "row1.text"
+      ]
+    },
+    "support": {
+      "type": "component",
+      "component": "organisms/action-group",
+      "label": "Support & Feedback",
+      "props": {
+        "state": "three",
+        "title": "Support & Feedback",
+        "row1.text": "Get Support",
+        "row2.text": "Share Feedback",
+        "row3.text": "About Thoughtful"
+      },
+      "expose": [
+        "state",
+        "title",
+        "row1.text",
+        "row2.text",
+        "row3.text"
+      ]
+    },
+    "account": {
+      "type": "component",
+      "component": "organisms/action-group",
+      "label": "Account & Privacy",
+      "props": {
+        "state": "two",
+        "title": "Account & Privacy",
+        "row1.text": "Log Out",
+        "row2.text": "Delete Account"
+      },
+      "expose": [
+        "state",
+        "title",
+        "row1.text",
+        "row2.text"
+      ]
+    },
+    "nav": {
+      "type": "component",
+      "component": "molecules/bottom-nav",
+      "label": "Bottom nav",
+      "props": {
+        "current": "profile"
+      },
+      "expose": [
+        "current"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}
