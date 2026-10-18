@@ -15,3 +15,4 @@
 .face[data-face="get-motivated"] > i { background-image: url("../../assets/images/faces/get-motivated.svg"); left: calc(50% + 0.09px); top: 30.66%; bottom: 24.14%; width: 38.175px; transform: translateX(-50%); }
 .face[data-face="build-connections"] > i { background-image: url("../../assets/images/faces/build-connections.svg"); inset: 31.17% 29.25% 32% 28.75%; }
 .face[data-face="start-a-plan"] > i { background-image: url("../../assets/images/faces/start-a-plan.svg"); inset: 35.78% 31.97% 32% 32.5%; }
+:root[data-fidelity="wireframe"] .face > i { filter: brightness(0); }   /* Charcoal: the drawn features are black, not purple */
