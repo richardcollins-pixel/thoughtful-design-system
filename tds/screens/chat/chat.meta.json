@@ -319,7 +319,7 @@
         "header": {
           "props": {
             "timer": "on",
-            "recap": "on",
+            "recap": "otr",
             "title": "10 minute session"
           }
         },
