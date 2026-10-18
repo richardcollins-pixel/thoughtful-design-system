@@ -20,7 +20,7 @@
 
 .icon-button[data-size="lg"] { --icon-button-size: var(--space-16); }
 .icon-button[data-size="sm"] { --icon-button-icon-size: var(--space-4); }
-.icon-button[data-size="xs"] { --icon-button-size: var(--space-6); }
+.icon-button[data-size="xs"] { --icon-button-size: var(--space-6); --icon-button-icon-size: var(--space-4); }   /* 24px button, 16px icon, so it has room around it */
 
 .icon-button[data-elevation="70"] { --icon-button-fill: var(--bg-elevation-70); --icon-button-fill-hover: var(--bg-elevation-40); --icon-button-fill-pressed: var(--bg-elevation-20); }
 .icon-button[data-elevation="40"] { --icon-button-fill: var(--bg-elevation-40); --icon-button-fill-hover: var(--bg-elevation-70); --icon-button-fill-pressed: var(--bg-elevation-20); --icon-button-icon: var(--icon-primary); }
