@@ -14,3 +14,6 @@
 .chat__end { padding: 0 var(--padding-md) 64px; }
 /* with the keyboard up the light rises above it, to about the input, so it can be seen */
 .chat:has(.chat-composer[data-keyboard]) .chat__glow { bottom: calc(340px - var(--glow-size) / 2); }
+/* a sheet opened over the chat: a dimmed backdrop over everything, the sheet stuck to the bottom */
+.chat__sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 6; }
+.chat__sheet .session-sharing { margin: 0; }

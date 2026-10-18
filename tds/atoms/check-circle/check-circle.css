@@ -1,0 +1,5 @@
+/* Atom: check circle. 24px; an outline, or filled white with a dark check when picked. */
+.check-circle { box-sizing: border-box; flex: none; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--white); }
+.check-circle > .icon { --icon-size: 16px; --icon-color: var(--purple-900); display: none; }
+.check-circle[data-on="true"] { background: var(--bg-elevation-100); }
+.check-circle[data-on="true"] > .icon { display: block; }

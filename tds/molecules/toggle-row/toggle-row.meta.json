@@ -1,0 +1,49 @@
+{
+  "name": "Toggle row",
+  "tier": "molecules",
+  "category": "inputs",
+  "stateful": false,
+  "uses": [
+    "atoms/toggle"
+  ],
+  "figma": "https://www.figma.com/design/2dd93uRGMkAzwfaUu9CcSi/Session-Sharing?node-id=629-3943",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A setting you can switch: a title, a line under it and a toggle on the right.",
+  "content": [
+    {
+      "label": "Title",
+      "selector": ".toggle-row__title"
+    },
+    {
+      "label": "Subtext",
+      "selector": ".toggle-row__sub"
+    }
+  ],
+  "props": {
+    "title": {
+      "type": "text",
+      "label": "Title",
+      "default": "Go off the record"
+    },
+    "sub": {
+      "type": "text",
+      "label": "Subtext",
+      "default": "Keep this between you and T"
+    },
+    "on": {
+      "type": "enum",
+      "label": "On",
+      "values": [
+        "false",
+        "true"
+      ],
+      "default": "false",
+      "ui": "steps"
+    }
+  },
+  "template": "<div class=\"toggle-row\"><div class=\"toggle-row__text\"><span class=\"toggle-row__title\">{{title}}</span><span class=\"toggle-row__sub\">{{sub}}</span></div><button class=\"toggle\" role=\"switch\" aria-checked=\"{{on}}\" data-on=\"{{on}}\"><span></span></button></div>",
+  "markup": "<div class=\"toggle-row\"><div class=\"toggle-row__text\"><span class=\"toggle-row__title\">Go off the record</span><span class=\"toggle-row__sub\">Keep this between you and T</span></div><button class=\"toggle\" role=\"switch\" aria-checked=\"false\" data-on=\"false\"><span></span></button></div>"
+}

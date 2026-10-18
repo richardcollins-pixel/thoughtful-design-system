@@ -1,0 +1,92 @@
+{
+  "name": "Rating option",
+  "tier": "molecules",
+  "category": "inputs",
+  "stateful": false,
+  "uses": [
+    "atoms/face",
+    "atoms/check-circle"
+  ],
+  "figma": "https://www.figma.com/design/qGPykdv2u1DdzaycmLLaK0/In-App-Feedback?node-id=969-12616",
+  "attributes": {
+    "data-tilt": {
+      "type": "enum",
+      "values": [
+        "left",
+        "none",
+        "right"
+      ],
+      "default": "none"
+    },
+    "data-selected": {
+      "type": "enum",
+      "values": [
+        "no",
+        "yes",
+        "dim"
+      ],
+      "default": "no"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "One choice in a rating: a face on a tilted tile, its label and a check circle. When another one is picked it dims.",
+  "content": [
+    {
+      "label": "Label",
+      "selector": ".rating-option__label"
+    }
+  ],
+  "props": {
+    "face": {
+      "type": "enum",
+      "label": "Face",
+      "values": [
+        "set-boundaries",
+        "give-yourself-grace",
+        "build-connections"
+      ],
+      "default": "give-yourself-grace"
+    },
+    "tilt": {
+      "type": "enum",
+      "label": "Tilt",
+      "values": [
+        "left",
+        "none",
+        "right"
+      ],
+      "default": "none",
+      "ui": "steps"
+    },
+    "label": {
+      "type": "text",
+      "label": "Label",
+      "default": "Satisfied"
+    },
+    "selected": {
+      "type": "enum",
+      "label": "Selected",
+      "values": [
+        "no",
+        "yes",
+        "dim"
+      ],
+      "default": "no",
+      "ui": "steps"
+    },
+    "order": {
+      "type": "enum",
+      "label": "Order",
+      "values": [
+        "0",
+        "1",
+        "2"
+      ],
+      "default": "1"
+    }
+  },
+  "template": "<div class=\"rating-option\" data-tilt=\"{{tilt}}\" data-selected=\"{{selected}}\" style=\"--i:{{order}}\"><span class=\"rating-option__tile\"><span class=\"face\" data-face=\"{{face}}\"><i></i></span></span><span class=\"rating-option__label\">{{label}}</span><span class=\"check-circle\" data-on=\"{{selected}}\"><i class=\"icon icon-check\"></i></span></div>",
+  "markup": "<div class=\"rating-option\" data-tilt=\"none\" data-selected=\"no\" style=\"--i:1\"><span class=\"rating-option__tile\"><span class=\"face\" data-face=\"give-yourself-grace\"><i></i></span></span><span class=\"rating-option__label\">Satisfied</span><span class=\"check-circle\" data-on=\"no\"><i class=\"icon icon-check\"></i></span></div>"
+}

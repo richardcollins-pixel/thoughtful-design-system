@@ -1,0 +1,59 @@
+{
+  "name": "Toast",
+  "tier": "molecules",
+  "category": "overlays",
+  "stateful": false,
+  "uses": [
+    "atoms/icon"
+  ],
+  "figma": "https://www.figma.com/design/2dd93uRGMkAzwfaUu9CcSi/Session-Sharing?node-id=629-3943",
+  "attributes": {
+    "data-status": {
+      "type": "enum",
+      "values": [
+        "success",
+        "warning",
+        "error"
+      ],
+      "default": "success"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A short message that slides in at the top of a screen: a colored bar, an icon, a bold line and a line under it. Success, warning or error.",
+  "content": [
+    {
+      "label": "Title",
+      "selector": ".toast__title"
+    },
+    {
+      "label": "Body",
+      "selector": ".toast__body"
+    }
+  ],
+  "props": {
+    "status": {
+      "type": "enum",
+      "label": "Status",
+      "values": [
+        "success",
+        "warning",
+        "error"
+      ],
+      "default": "success"
+    },
+    "title": {
+      "type": "text",
+      "label": "Title",
+      "default": "Thanks for the feedback!"
+    },
+    "body": {
+      "type": "text",
+      "label": "Body",
+      "default": "We will use it to make Thoughtful better for you and others."
+    }
+  },
+  "template": "<div class=\"toast\" data-status=\"{{status}}\"><span class=\"toast__bar\"></span><div class=\"toast__row\"><span class=\"toast__icon\"><i class=\"icon icon-check\"></i><i class=\"icon icon-warning\"></i><i class=\"icon icon-x\"></i></span><div class=\"toast__text\"><span class=\"toast__title\">{{title}}</span><span class=\"toast__body\">{{body}}</span></div></div></div>",
+  "markup": "<div class=\"toast\" data-status=\"success\"><span class=\"toast__bar\"></span><div class=\"toast__row\"><span class=\"toast__icon\"><i class=\"icon icon-check\"></i><i class=\"icon icon-warning\"></i><i class=\"icon icon-x\"></i></span><div class=\"toast__text\"><span class=\"toast__title\">Thanks for the feedback!</span><span class=\"toast__body\">We will use it to make Thoughtful better for you and others.</span></div></div></div>"
+}

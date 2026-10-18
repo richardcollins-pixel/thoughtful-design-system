@@ -8,7 +8,8 @@
     "organisms/chat-thread",
     "organisms/chat-composer",
     "organisms/end-of-session-card",
-    "atoms/glow"
+    "atoms/glow",
+    "organisms/session-sharing-sheet"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
   "align": "top",
@@ -217,12 +218,183 @@
           }
         }
       }
+    },
+    {
+      "id": "sharing",
+      "name": "Sharing sheet",
+      "template": "<section class=\"chat\" data-state=\"sharing\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"sheet-backdrop\"></div><div class=\"chat__sheet\" data-slot=\"sheet\">{{item:sheet}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "thread",
+          "label": "Thread slot",
+          "items": [
+            "thread"
+          ]
+        },
+        {
+          "id": "composer",
+          "label": "Composer slot",
+          "items": [
+            "composer"
+          ]
+        },
+        {
+          "id": "sheet",
+          "label": "Sheet slot",
+          "items": [
+            "sheet"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "timer": "on",
+            "recap": "on",
+            "title": "10 minute session"
+          }
+        },
+        "thread": {
+          "props": {
+            "state": "start",
+            "bot1.text": "Hi Rich, What’s been weighing on you lately?"
+          }
+        },
+        "composer": {
+          "props": {
+            "state": "keyboard"
+          }
+        },
+        "sheet": {
+          "props": {
+            "state": "off"
+          }
+        }
+      }
+    },
+    {
+      "id": "sharing-off-record",
+      "name": "Sharing sheet, off the record",
+      "template": "<section class=\"chat\" data-state=\"sharing-off-record\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"sheet-backdrop\"></div><div class=\"chat__sheet\" data-slot=\"sheet\">{{item:sheet}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "thread",
+          "label": "Thread slot",
+          "items": [
+            "thread"
+          ]
+        },
+        {
+          "id": "composer",
+          "label": "Composer slot",
+          "items": [
+            "composer"
+          ]
+        },
+        {
+          "id": "sheet",
+          "label": "Sheet slot",
+          "items": [
+            "sheet"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "timer": "on",
+            "recap": "on",
+            "title": "10 minute session"
+          }
+        },
+        "thread": {
+          "props": {
+            "state": "start",
+            "bot1.text": "Hi Rich, What’s been weighing on you lately?"
+          }
+        },
+        "composer": {
+          "props": {
+            "state": "keyboard"
+          }
+        },
+        "sheet": {
+          "props": {
+            "state": "off-record"
+          }
+        }
+      }
+    },
+    {
+      "id": "off-record",
+      "name": "Off the record",
+      "template": "<section class=\"chat\" data-state=\"off-record\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "thread",
+          "label": "Thread slot",
+          "items": [
+            "thread"
+          ]
+        },
+        {
+          "id": "composer",
+          "label": "Composer slot",
+          "items": [
+            "composer"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "timer": "on",
+            "recap": "otr",
+            "title": "10 minute session"
+          }
+        },
+        "thread": {
+          "props": {
+            "state": "start",
+            "bot1.text": "Hi Rich, What’s been weighing on you lately?"
+          }
+        },
+        "composer": {
+          "props": {
+            "state": "keyboard"
+          }
+        }
+      }
     }
   ],
   "variables": {},
   "styles": [],
   "selector": ".chat",
-  "description": "A whole chat screen: the header, the thread, and either the composer (with the keyboard up or not) or the end of session card. Recommendations, Typing, Session and Session typing (the timer runs) and End of session are the states in the Figma.",
+  "description": "A whole chat screen: the header, the thread, and either the composer (with the keyboard up or not) or the end of session card. Recommendations, Typing, Session and Session typing (the timer runs) and End of session are the states in the Figma. Sharing sheet and Sharing sheet, off the record show the session sharing sheet opened from the record icon; Off the record is the chat after you have gone off the record (the icon becomes a person with an x).",
   "items": {
     "header": {
       "type": "component",
@@ -276,6 +448,17 @@
         "headline",
         "primary.label",
         "secondary.label"
+      ]
+    },
+    "sheet": {
+      "type": "component",
+      "component": "organisms/session-sharing-sheet",
+      "label": "Sharing sheet",
+      "props": {
+        "state": "off"
+      },
+      "expose": [
+        "state"
       ]
     }
   },

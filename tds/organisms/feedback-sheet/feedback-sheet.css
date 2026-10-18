@@ -1,0 +1,17 @@
+/* Organism: feedback sheet. The in-app feedback bottom sheet in its steps: three rating options and Continue, then a text area and Submit,
+   then (Sent) only the thank-you toast. The step with the ratings plays the rise-in animation (data-animate="on"). Continue waits (dimmed)
+   until a rating is picked. Slots: head, ratings, action, form, keyboard, toast. */
+.feedback-sheet { position: relative; }
+.feedback-sheet__sheet { gap: var(--space-8); }
+.feedback-sheet__head { display: flex; flex-direction: column; gap: var(--space-4); text-align: center; }
+.feedback-sheet__title { margin: 0; font: var(--text-subhead); letter-spacing: var(--text-subhead-ls); }
+.feedback-sheet__intro { margin: 0; color: var(--text-secondary); font: var(--text-body-lg); letter-spacing: var(--text-body-lg-ls); }
+.feedback-sheet__question { margin: 0; color: var(--text-secondary); font: var(--text-body-lg); letter-spacing: var(--text-body-lg-ls); text-align: left; }
+.feedback-sheet__ratings { display: flex; align-items: flex-start; gap: 0; margin-top: calc(var(--space-4) * -1); }
+.feedback-sheet__action, .feedback-sheet__form { display: flex; flex-direction: column; gap: var(--space-4); }
+.feedback-sheet[data-selected="no"] .feedback-sheet__action .button { opacity: .4; pointer-events: none; }
+.feedback-sheet__keyboard { margin: 0 calc(var(--space-8) * -1) calc(var(--space-8) * -1); }
+.feedback-sheet__keyboard .keyboard { border-radius: 0; }
+.feedback-sheet__toast { padding: var(--padding-md); }
+/* on its own it runs to the screen edges and the bottom (cancelling the page gutter) */
+.feedback-sheet { margin-inline: calc(var(--page-gutter, var(--space-4)) * -1); }

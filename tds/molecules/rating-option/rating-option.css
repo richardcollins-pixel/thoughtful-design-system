@@ -1,0 +1,18 @@
+/* Molecule: rating option. A face tile (tilted 5.76 degrees left or right, or straight) over its label and a check circle. Dimmed to half
+   strength when another option is picked. The tile slides and fades in when the sheet around it asks for the animation. */
+.rating-option { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-primary); transition: opacity var(--duration-base, .2s); }
+.rating-option__tile { display: grid; place-items: center; width: 88px; height: 88px; margin-bottom: 8px; }
+.rating-option__tile > .face { border-radius: var(--radius-sm); box-shadow: 0 4px 14px rgb(0 0 0 / .25); }
+.rating-option[data-tilt="left"] .rating-option__tile > .face { rotate: -5.76deg; }
+.rating-option[data-tilt="right"] .rating-option__tile > .face { rotate: 5.76deg; }
+.rating-option__label { font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); text-align: center; }
+.rating-option[data-selected="dim"] { opacity: .5; }
+.rating-option[data-selected="yes"] .check-circle { background: var(--bg-elevation-100); }
+.rating-option[data-selected="yes"] .check-circle > .icon { display: block; }
+/* the animation: the faces come up one after the other, and the last one gives a little wobble */
+@keyframes tds-rate-in { from { opacity: 0; translate: 0 24px; scale: .6; } 60% { opacity: 1; scale: 1.08; } to { opacity: 1; translate: 0 0; scale: 1; } }
+@keyframes tds-rate-wobble { 0%, 100% { rotate: 5.76deg; } 30% { rotate: 14deg; } 60% { rotate: -3deg; } }
+[data-animate="on"] .rating-option__tile { animation: tds-rate-in .55s var(--ease-standard, cubic-bezier(.2, .8, .3, 1)) both; animation-delay: calc(.3s + var(--i) * .22s); }
+[data-animate="on"] .rating-option[data-tilt="right"] .rating-option__tile > .face { animation: tds-rate-wobble .9s ease-in-out 1.4s 1; }
+[data-animate="on"] .rating-option__label, [data-animate="on"] .rating-option .check-circle { animation: tds-rate-in .4s ease both; animation-delay: calc(.45s + var(--i) * .22s); }
+@media (prefers-reduced-motion: reduce) { [data-animate="on"] .rating-option * { animation: none !important; } }

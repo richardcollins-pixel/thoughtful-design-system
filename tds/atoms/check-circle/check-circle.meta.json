@@ -1,0 +1,37 @@
+{
+  "name": "Check circle",
+  "tier": "atoms",
+  "category": "inputs",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/qGPykdv2u1DdzaycmLLaK0/In-App-Feedback?node-id=969-12616",
+  "attributes": {
+    "data-on": {
+      "type": "enum",
+      "values": [
+        "false",
+        "true"
+      ],
+      "default": "false"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A 24px circle: an outline when off, filled white with a check when on. It shows which option is picked.",
+  "content": [],
+  "props": {
+    "on": {
+      "type": "enum",
+      "label": "On",
+      "values": [
+        "false",
+        "true"
+      ],
+      "default": "false",
+      "ui": "steps"
+    }
+  },
+  "template": "<span class=\"check-circle\" data-on=\"{{on}}\"><i class=\"icon icon-check\"></i></span>",
+  "markup": "<span class=\"check-circle\" data-on=\"false\"><i class=\"icon icon-check\"></i></span>"
+}

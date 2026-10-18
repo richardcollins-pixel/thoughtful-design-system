@@ -1,0 +1,315 @@
+{
+  "name": "Feedback sheet",
+  "tier": "organisms",
+  "category": "sheets",
+  "stateful": false,
+  "uses": [
+    "atoms/sheet",
+    "atoms/button",
+    "atoms/textarea",
+    "molecules/rating-option",
+    "molecules/toast",
+    "device/keyboard"
+  ],
+  "figma": "https://www.figma.com/design/qGPykdv2u1DdzaycmLLaK0/In-App-Feedback?node-id=969-12616",
+  "states": [
+    {
+      "id": "rating",
+      "name": "Rating",
+      "template": "<div class=\"feedback-sheet\" data-selected=\"no\" data-animate=\"on\"><div class=\"sheet feedback-sheet__sheet\"><span class=\"sheet__handle\"></span><div class=\"feedback-sheet__head\" data-slot=\"head\">{{item:title}}{{item:intro}}</div><div class=\"feedback-sheet__ratings\" data-slot=\"ratings\">{{item:r1}}{{item:r2}}{{item:r3}}</div><div class=\"feedback-sheet__action\" data-slot=\"action\">{{item:next}}</div></div></div>",
+      "slots": [
+        {
+          "id": "head",
+          "label": "Head slot",
+          "items": [
+            "title",
+            "intro"
+          ]
+        },
+        {
+          "id": "ratings",
+          "label": "Ratings slot",
+          "items": [
+            "r1",
+            "r2",
+            "r3"
+          ]
+        },
+        {
+          "id": "action",
+          "label": "Action slot",
+          "items": [
+            "next"
+          ]
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "rating-picked",
+      "name": "Rating picked",
+      "template": "<div class=\"feedback-sheet\" data-selected=\"yes\" data-animate=\"off\"><div class=\"sheet feedback-sheet__sheet\"><span class=\"sheet__handle\"></span><div class=\"feedback-sheet__head\" data-slot=\"head\">{{item:title}}{{item:intro}}</div><div class=\"feedback-sheet__ratings\" data-slot=\"ratings\">{{item:r1}}{{item:r2}}{{item:r3}}</div><div class=\"feedback-sheet__action\" data-slot=\"action\">{{item:next}}</div></div></div>",
+      "slots": [
+        {
+          "id": "head",
+          "label": "Head slot",
+          "items": [
+            "title",
+            "intro"
+          ]
+        },
+        {
+          "id": "ratings",
+          "label": "Ratings slot",
+          "items": [
+            "r1",
+            "r2",
+            "r3"
+          ]
+        },
+        {
+          "id": "action",
+          "label": "Action slot",
+          "items": [
+            "next"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "r1": {
+          "props": {
+            "selected": "dim"
+          }
+        },
+        "r2": {
+          "props": {
+            "selected": "dim"
+          }
+        },
+        "r3": {
+          "props": {
+            "selected": "yes"
+          }
+        }
+      }
+    },
+    {
+      "id": "comment",
+      "name": "Comment",
+      "template": "<div class=\"feedback-sheet\" data-selected=\"yes\" data-animate=\"off\"><div class=\"sheet feedback-sheet__sheet\"><span class=\"sheet__handle\"></span><div class=\"feedback-sheet__head\" data-slot=\"head\">{{item:question}}</div><div class=\"feedback-sheet__form\" data-slot=\"form\">{{item:field}}{{item:submit}}</div></div></div>",
+      "slots": [
+        {
+          "id": "head",
+          "label": "Head slot",
+          "items": [
+            "question"
+          ]
+        },
+        {
+          "id": "form",
+          "label": "Form slot",
+          "items": [
+            "field",
+            "submit"
+          ]
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "comment-typing",
+      "name": "Comment, typing",
+      "template": "<div class=\"feedback-sheet\" data-selected=\"yes\" data-animate=\"off\"><div class=\"sheet feedback-sheet__sheet\"><span class=\"sheet__handle\"></span><div class=\"feedback-sheet__head\" data-slot=\"head\">{{item:question}}</div><div class=\"feedback-sheet__form\" data-slot=\"form\">{{item:field}}{{item:submit}}</div><div class=\"feedback-sheet__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></div></div>",
+      "slots": [
+        {
+          "id": "head",
+          "label": "Head slot",
+          "items": [
+            "question"
+          ]
+        },
+        {
+          "id": "form",
+          "label": "Form slot",
+          "items": [
+            "field",
+            "submit"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "keyboard"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "field": {
+          "props": {
+            "text": "This is what the user typed",
+            "filled": "yes"
+          }
+        }
+      }
+    },
+    {
+      "id": "sent",
+      "name": "Sent",
+      "template": "<div class=\"feedback-sheet\" data-sent><div class=\"feedback-sheet__toast\" data-slot=\"toast\">{{item:toast}}</div></div>",
+      "slots": [
+        {
+          "id": "toast",
+          "label": "Toast slot",
+          "items": [
+            "toast"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".feedback-sheet",
+  "align": "bottom",
+  "description": "The in-app feedback sheet. It can pop up anywhere in the app. Rating asks how you are liking Thoughtful with three faces that rise in one after another (the animation); Rating picked dims the other two and lights Continue; Comment asks for one sentence, with the keyboard up while typing; Sent is the thank-you toast.",
+  "items": {
+    "title": {
+      "type": "text",
+      "tag": "h2",
+      "class": "feedback-sheet__title",
+      "label": "Headline",
+      "value": "How are you liking thoughtful?"
+    },
+    "intro": {
+      "type": "text",
+      "tag": "p",
+      "class": "feedback-sheet__intro",
+      "label": "Intro",
+      "value": "We’d love your feedback to help us improve the experience."
+    },
+    "r1": {
+      "type": "component",
+      "component": "molecules/rating-option",
+      "label": "Rating 1",
+      "props": {
+        "face": "set-boundaries",
+        "tilt": "left",
+        "label": "Not Satisfied",
+        "selected": "no",
+        "order": "0"
+      },
+      "expose": [
+        "label",
+        "selected"
+      ]
+    },
+    "r2": {
+      "type": "component",
+      "component": "molecules/rating-option",
+      "label": "Rating 2",
+      "props": {
+        "face": "give-yourself-grace",
+        "tilt": "none",
+        "label": "Satisfied",
+        "selected": "no",
+        "order": "1"
+      },
+      "expose": [
+        "label",
+        "selected"
+      ]
+    },
+    "r3": {
+      "type": "component",
+      "component": "molecules/rating-option",
+      "label": "Rating 3",
+      "props": {
+        "face": "build-connections",
+        "tilt": "right",
+        "label": "Very Satisfied",
+        "selected": "no",
+        "order": "2"
+      },
+      "expose": [
+        "label",
+        "selected"
+      ]
+    },
+    "next": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Continue",
+      "props": {
+        "label": "Continue",
+        "variant": "filled",
+        "size": "md",
+        "width": "full"
+      },
+      "expose": [
+        "label"
+      ]
+    },
+    "question": {
+      "type": "text",
+      "tag": "p",
+      "class": "feedback-sheet__question",
+      "label": "Question",
+      "value": "In one sentence, how was Thoughtful different from other mental health or wellbeing resources you’ve used (at work or elsewhere)?"
+    },
+    "field": {
+      "type": "component",
+      "component": "atoms/textarea",
+      "label": "Field",
+      "props": {
+        "text": "Share your feedback",
+        "filled": "no"
+      },
+      "expose": [
+        "text",
+        "filled"
+      ]
+    },
+    "submit": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Submit",
+      "props": {
+        "label": "Submit Feedback",
+        "variant": "filled",
+        "size": "md",
+        "width": "full"
+      },
+      "expose": [
+        "label"
+      ]
+    },
+    "keyboard": {
+      "type": "component",
+      "component": "device/keyboard",
+      "label": "Keyboard",
+      "props": {},
+      "expose": []
+    },
+    "toast": {
+      "type": "component",
+      "component": "molecules/toast",
+      "label": "Toast",
+      "props": {
+        "status": "success",
+        "title": "Thanks for the feedback!",
+        "body": "We will use it to make Thoughtful better for you and others."
+      },
+      "expose": [
+        "title",
+        "body"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}

@@ -1,0 +1,7 @@
+/* Atom: text area. 224px tall, 80% white with a white border, 16px padding, 8px corners. Dark text; the prompt is half strength. */
+.textarea { box-sizing: border-box; width: 100%; height: 224px; display: flex; align-items: flex-start; padding: var(--padding-md); background: color-mix(in srgb, var(--white) 80%, transparent); border: 1px solid var(--white); border-radius: var(--radius-sm); color: var(--black); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); text-align: left; }
+.textarea__cursor { flex: none; width: 1.5px; height: 26px; margin-right: 2px; background: var(--black); animation: tds-caret 1s steps(1) infinite; }
+.textarea[data-filled="no"] .textarea__text { color: color-mix(in srgb, var(--black) 50%, transparent); }
+.textarea[data-filled="yes"] .textarea__cursor { order: 1; margin: 0 0 0 1px; }
+@keyframes tds-caret { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .textarea__cursor { animation: none; } }

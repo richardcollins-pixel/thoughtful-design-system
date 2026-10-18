@@ -1,0 +1,37 @@
+{
+  "name": "Toggle",
+  "tier": "atoms",
+  "category": "inputs",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/2dd93uRGMkAzwfaUu9CcSi/Session-Sharing?node-id=629-3943",
+  "attributes": {
+    "data-on": {
+      "type": "enum",
+      "values": [
+        "false",
+        "true"
+      ],
+      "default": "false"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "An on/off switch: a 52 by 32 pill with a round white handle that slides right and turns purple when on.",
+  "content": [],
+  "props": {
+    "on": {
+      "type": "enum",
+      "label": "On",
+      "values": [
+        "false",
+        "true"
+      ],
+      "default": "false",
+      "ui": "steps"
+    }
+  },
+  "template": "<button class=\"toggle\" role=\"switch\" aria-checked=\"{{on}}\" data-on=\"{{on}}\"><span></span></button>",
+  "markup": "<button class=\"toggle\" role=\"switch\" aria-checked=\"false\" data-on=\"false\"><span></span></button>"
+}

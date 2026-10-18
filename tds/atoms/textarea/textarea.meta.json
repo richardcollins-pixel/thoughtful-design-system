@@ -1,0 +1,47 @@
+{
+  "name": "Text area",
+  "tier": "atoms",
+  "category": "inputs",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/qGPykdv2u1DdzaycmLLaK0/In-App-Feedback?node-id=969-12616",
+  "attributes": {
+    "data-filled": {
+      "type": "enum",
+      "values": [
+        "no",
+        "yes"
+      ],
+      "default": "no"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A multi-line field for writing: a soft white box (80% white) with a dark cursor and a half-strength prompt until something is typed.",
+  "content": [
+    {
+      "label": "Text",
+      "selector": ".textarea__text"
+    }
+  ],
+  "props": {
+    "text": {
+      "type": "text",
+      "label": "Text",
+      "default": "Share your feedback"
+    },
+    "filled": {
+      "type": "enum",
+      "label": "Filled",
+      "values": [
+        "no",
+        "yes"
+      ],
+      "default": "no",
+      "ui": "steps"
+    }
+  },
+  "template": "<div class=\"textarea\" data-filled=\"{{filled}}\"><span class=\"textarea__cursor\"></span><span class=\"textarea__text\">{{text}}</span></div>",
+  "markup": "<div class=\"textarea\" data-filled=\"no\"><span class=\"textarea__cursor\"></span><span class=\"textarea__text\">Share your feedback</span></div>"
+}
