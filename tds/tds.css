@@ -37,10 +37,11 @@
 
 @import url("molecules/icon-label/icon-label.css")      layer(molecules);
 @import url("molecules/avatar-group/avatar-group.css")  layer(molecules);
+@import url("molecules/t-avatar/t-avatar.css") layer(molecules);
+@import url("molecules/avatar-text/avatar-text.css") layer(molecules);
 @import url("molecules/skeleton-text/skeleton-text.css") layer(molecules);
 @import url("molecules/chat-input/chat-input.css")      layer(molecules);
 @import url("molecules/bottom-nav/bottom-nav.css") layer(molecules);
-@import url("molecules/coachmark-header/coachmark-header.css") layer(molecules);
 @import url("molecules/coachmark-arrow/coachmark-arrow.css") layer(molecules);
 @import url("molecules/coachmark-bar/coachmark-bar.css") layer(molecules);
 @import url("molecules/thoughtstarter/thoughtstarter.css") layer(molecules);

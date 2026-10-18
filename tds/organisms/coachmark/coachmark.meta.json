@@ -4,11 +4,11 @@
   "category": "coachmark",
   "stateful": false,
   "uses": [
-    "molecules/coachmark-header",
     "molecules/coachmark-bar",
     "molecules/thoughtstarter",
     "atoms/blob",
-    "molecules/coachmark-arrow"
+    "molecules/coachmark-arrow",
+    "molecules/avatar-text"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4225-64725",
   "states": [
@@ -88,8 +88,10 @@
       "overrides": {
         "header": {
           "props": {
-            "type": "last",
-            "title": "Let’s start together..."
+            "title": "Let’s start together...",
+            "avatar": "none",
+            "subline": "You don't need to have it figured out",
+            "close": "on"
           }
         }
       }
@@ -128,8 +130,8 @@
       "overrides": {
         "header": {
           "props": {
-            "type": "t-provider",
-            "title": "Get More From Sessions"
+            "title": "Get More From Sessions",
+            "avatar": "t-provider"
           }
         },
         "body": {
@@ -151,17 +153,21 @@
   "items": {
     "header": {
       "type": "component",
-      "component": "molecules/coachmark-header",
+      "component": "molecules/avatar-text",
       "label": "Header",
       "props": {
-        "type": "t",
+        "avatar": "t",
+        "size": "28",
+        "style": "large",
         "title": "Expand your care team"
       },
       "expose": [
-        "type",
+        "avatar",
         "title",
         "subline",
-        "person"
+        "person",
+        "close",
+        "icon"
       ]
     },
     "body": {
