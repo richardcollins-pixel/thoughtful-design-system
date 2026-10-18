@@ -15,7 +15,7 @@
     {
       "id": "step",
       "name": "Step",
-      "template": "<div class=\"coachmark\" data-surface=\"inverse\"><div class=\"coachmark__arrow-slot\" data-slot=\"arrow\">{{item:arrow}}</div><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
+      "template": "<div class=\"coachmark\" data-surface=\"inverse\"><span class=\"coachmark__light\" data-glow-layer aria-hidden=\"true\"></span><div class=\"coachmark__arrow-slot\" data-slot=\"arrow\">{{item:arrow}}</div><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
       "slots": [
         {
           "id": "arrow",
@@ -56,7 +56,7 @@
     {
       "id": "choice",
       "name": "Choice",
-      "template": "<div class=\"coachmark\" data-surface=\"inverse\"><div class=\"coachmark__arrow-slot\" data-slot=\"arrow\">{{item:arrow}}</div><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}</div><div class=\"coachmark__options\" data-slot=\"options\">{{item:opt1}}{{item:opt2}}{{item:opt3}}</div></div>",
+      "template": "<div class=\"coachmark\" data-surface=\"inverse\"><span class=\"coachmark__light\" data-glow-layer aria-hidden=\"true\"></span><div class=\"coachmark__arrow-slot\" data-slot=\"arrow\">{{item:arrow}}</div><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}</div><div class=\"coachmark__options\" data-slot=\"options\">{{item:opt1}}{{item:opt2}}{{item:opt3}}</div></div>",
       "slots": [
         {
           "id": "arrow",
@@ -99,7 +99,7 @@
     {
       "id": "single-cta",
       "name": "Single CTA",
-      "template": "<div class=\"coachmark\" data-surface=\"inverse\"><div class=\"coachmark__arrow-slot\" data-slot=\"arrow\">{{item:arrow}}</div><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
+      "template": "<div class=\"coachmark\" data-surface=\"inverse\"><span class=\"coachmark__light\" data-glow-layer aria-hidden=\"true\"></span><div class=\"coachmark__arrow-slot\" data-slot=\"arrow\">{{item:arrow}}</div><div class=\"coachmark__content\" data-slot=\"content\">{{item:header}}{{item:body}}</div><div class=\"coachmark__bar\" data-slot=\"bar\">{{item:bar}}</div></div>",
       "slots": [
         {
           "id": "arrow",

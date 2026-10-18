@@ -2,9 +2,10 @@
    then progress dots and a button, or a list of thoughtstarters. The arrow is its own part (up or down; start, middle or end).
    Slots are real elements ([data-slot]): content, bar, options. */
 .coachmark { position: relative; box-sizing: border-box; width: 100%; max-width: 370px; display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-6); color: var(--purple-900); background: var(--white); border-radius: var(--radius-md); filter: drop-shadow(0 4px 27px color-mix(in srgb, var(--purple-900) 70%, transparent)); }
-/* a soft pink light behind T when the header shows it, kept inside the bubble */
-.coachmark::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; background: radial-gradient(circle at 38px 38px, color-mix(in srgb, var(--orange) 28%, transparent), transparent 110px); }
-.coachmark:has(.t-avatar[data-type="t"], .t-avatar[data-type="t-provider"])::before { opacity: 1; }
+/* a soft light behind T, drawn from the blob's own colors (the blob makes it inside this layer, which keeps it inside the bubble) */
+.coachmark { isolation: isolate; }
+.coachmark__light { position: absolute; inset: 0; z-index: -1; border-radius: inherit; overflow: clip; pointer-events: none; }
+.coachmark .glow { --glow-size: 150px; --glow-blur: 36px; --glow-opacity: .5; }
 .coachmark__arrow-slot { display: contents; }
 .coachmark .avatar-text { color: var(--purple-900); }
 .coachmark .avatar-text__subline { color: var(--black); }

@@ -69,6 +69,6 @@
       "default": "kristina"
     }
   },
-  "template": "<span class=\"t-avatar\" data-type=\"{{type}}\" data-size=\"{{size}}\"><span class=\"t-avatar__t\"><span class=\"blob\"><canvas aria-hidden=\"true\"></canvas></span></span><span class=\"avatar t-avatar__provider\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span><span class=\"t-avatar__icon\"><i class=\"icon icon-{{icon}}\"></i></span></span>",
-  "markup": "<span class=\"t-avatar\" data-type=\"t\" data-size=\"32\"><span class=\"t-avatar__t\"><span class=\"blob\"><canvas aria-hidden=\"true\"></canvas></span></span><span class=\"avatar t-avatar__provider\"><img src=\"../tds/assets/images/therapists/Therapist-7.png\" alt=\"\"></span><span class=\"t-avatar__icon\"><i class=\"icon icon-person\"></i></span></span>"
+  "template": "<span class=\"t-avatar\" data-type=\"{{type}}\" data-size=\"{{size}}\"><span class=\"t-avatar__t\"><span class=\"blob\" data-glow data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span></span><span class=\"avatar t-avatar__provider\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span><span class=\"t-avatar__icon\"><i class=\"icon icon-{{icon}}\"></i></span></span>",
+  "markup": "<span class=\"t-avatar\" data-type=\"t\" data-size=\"32\"><span class=\"t-avatar__t\"><span class=\"blob\" data-glow data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span></span><span class=\"avatar t-avatar__provider\"><img src=\"../tds/assets/images/therapists/Therapist-7.png\" alt=\"\"></span><span class=\"t-avatar__icon\"><i class=\"icon icon-person\"></i></span></span>"
 }
