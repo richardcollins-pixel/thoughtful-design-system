@@ -1,5 +1,5 @@
 /* Molecule: chat header. The status bar, then a row: T and the session name on the left; on the right an progress bar under the name when the timer is on, an optional
-   "your therapist can see a recap" icon and a check to finish, at half strength until the timer is on. Built from the status bar, blob and icon button. */
+   "your therapist can see a recap" icon and a check to finish (always shown, always at full strength). Built from the status bar, blob and icon button. */
 .chat-header { display: flex; flex-direction: column; box-sizing: border-box; width: 100%; padding: 0 var(--padding-md) var(--padding-md); color: var(--text-primary); }
 .chat-header__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); height: 48px; }
 .chat-header__left { flex: 1; min-width: 0; display: flex; align-items: center; gap: var(--space-2); }
@@ -8,9 +8,7 @@
 .chat-header__progress { display: none; height: 4px; border-radius: 10px; background: var(--bg-elevation-10); overflow: hidden; }
 .chat-header__progress > i { display: block; height: 100%; width: var(--progress, 10%); border-radius: 10px; background: var(--bg-elevation-100); }
 .chat-header[data-timer="on"] .chat-header__progress { display: block; }
-.chat-header__right { display: flex; align-items: center; gap: var(--space-2); opacity: .5; }
-.chat-header[data-timer="on"] .chat-header__right { opacity: 1; }
-.chat-header[data-recap="off"] .chat-header__recap { display: none; }
+.chat-header__right { display: flex; align-items: center; gap: var(--space-2); }
 .chat-header[data-bar="off"] .chat-header__bar { display: none; }
 /* the record icon: a check when the therapist sees a recap, an x when you are off the record */
 .chat-header__recap > .icon-person-x, .chat-header__done > .icon-x { display: none; }
