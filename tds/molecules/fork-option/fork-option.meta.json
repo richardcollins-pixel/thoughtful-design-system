@@ -4,7 +4,7 @@
   "category": "cards",
   "stateful": false,
   "uses": [
-    "atoms/face"
+    "atoms/time-chip"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
   "attributes": {
@@ -24,7 +24,7 @@
   "content": [
     {
       "label": "Minutes",
-      "selector": ".fork-option__time b"
+      "selector": ".time-chip b"
     },
     {
       "label": "Title",
@@ -61,6 +61,6 @@
       "default": "Why we are showing this"
     }
   },
-  "template": "<button class=\"fork-option\" data-tone=\"{{tone}}\"><span class=\"fork-option__time\"><b>{{minutes}}</b><span>min</span></span><span class=\"fork-option__text\"><span class=\"fork-option__title\">{{title}}</span><span class=\"fork-option__description\">{{description}}</span></span></button>",
-  "markup": "<button class=\"fork-option\" data-tone=\"orange\"><span class=\"fork-option__time\"><b>5</b><span>min</span></span><span class=\"fork-option__text\"><span class=\"fork-option__title\">Session name</span><span class=\"fork-option__description\">Why we are showing this</span></span></button>"
+  "template": "<button class=\"fork-option\" data-tone=\"{{tone}}\"><span class=\"time-chip\" data-tone=\"{{tone}}\"><b>{{minutes}}</b><span>min</span></span><span class=\"fork-option__text\"><span class=\"fork-option__title\">{{title}}</span><span class=\"fork-option__description\">{{description}}</span></span></button>",
+  "markup": "<button class=\"fork-option\" data-tone=\"orange\"><span class=\"time-chip\" data-tone=\"orange\"><b>5</b><span>min</span></span><span class=\"fork-option__text\"><span class=\"fork-option__title\">Session name</span><span class=\"fork-option__description\">Why we are showing this</span></span></button>"
 }
