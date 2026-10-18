@@ -64,6 +64,8 @@ const compProps = (comp, ctx) => comp.items ? {
     const inner = (ctx.components[i.component] || {}).props || {};
     return (i.expose || []).filter((p) => inner[p] && inner[p].type === 'text').map((p) => [`${k}.${p}`, { type: 'text', label: `${i.label || k} · ${inner[p].label || p}`, default: (i.props || {})[p] ?? inner[p].default }]);
   })),
+  // whether each part inside it is shown, as "item.show" (a section can be left out)
+  ...Object.fromEntries(Object.entries(comp.items).filter(([, i]) => i.type === 'component').map(([k, i]) => [`${k}.show`, { type: 'enum', label: `${i.label || k} \u00b7 Show`, ui: 'steps', values: ['on', 'off'], default: 'on' }])),
 } : (comp.props || {});
 
 // An organism inside a pattern renders itself (in its chosen state, with any text edits). Its parts aren't selectable
@@ -106,6 +108,7 @@ function textSkeleton(it, data) {
 
 function renderItem(scope, id) {
   const it = effectiveItem(scope.meta, scope.st, id);
+  if (it.props && it.props.show === 'off') return '';   // a part can be switched off, and then it is not drawn at all
   if (scope.skeleton.has(id)) {   // inside a loading slot
     if (it.skeleton === false) return '';   // not shown while loading (the skeleton stays simple)
     if (it.type === 'text') return tagItem(textSkeleton(it, scope.data), id);
@@ -138,7 +141,7 @@ function controlFor(meta, st, ctx, comp, key, item) {
   // an organism's text shows what it currently says (its state's wording unless edited)
   const innerEff = (k) => { const [iid, prop] = k.split('.'); return effectiveItem(comp, { state: item.props.state || comp.states[0].id }, iid).props[prop]; };
   const value = item.props[key] ?? (comp.items && def.type === 'text' ? (key.includes('.') ? innerEff(key) : effectiveItem(comp, { state: item.props.state || comp.states[0].id }, key).value) : def.default);
-  const c = { key, label: def.label || key, type: def.type, value, ui: def.ui, content: def.type === 'text' };
+  const c = { key, label: def.label || key, type: def.type, value, ui: def.ui, content: def.type === 'text' || key === 'show' || key === 'state' || key.endsWith('.show') };
   if (def.type === 'enum') c.values = def.values;
   if (def.type === 'person') {
     c.options = (ctx.personas.provider || []).map((x) => ({ value: x.id, label: x.name, photo: x.photo }));
@@ -176,6 +179,7 @@ export function getModel(meta, st, ctx, opts = {}) {
         if (it.type === 'text') return { id, type: 'text', label: it.label || id, value: it.value, prompt: promptFor(meta, state, id) };
         const comp = ctx.components[it.component];
         let controls = (it.expose || []).filter((k) => compProps(comp, ctx)[k]).map((k) => controlFor(meta, st, ctx, comp, k, it));
+        if ((it.expose || []).includes('show')) controls.unshift({ key: 'show', label: 'Show', type: 'enum', values: ['on', 'off'], ui: 'steps', value: (it.props || {}).show || 'on', content: true });
         if (!opts.edit) controls = controls.filter((c) => c.content);
         return { id, type: 'component', label: it.label || comp.name, controls, prompt: promptFor(meta, state, id) };
       }).filter((it) => it.type === 'text' || it.controls.length),

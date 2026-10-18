@@ -115,6 +115,50 @@
       }
     },
     {
+      "id": "summary-provider",
+      "name": "Summary, provider",
+      "template": "<article class=\"card header-card\" data-variant=\"provider\"><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\">{{item:photo}}<div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div>{{item:body}}<div class=\"header-card__labels\" data-slot=\"labels\">{{item:duration}}{{item:label2}}</div></div></article>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "photo",
+            "overline",
+            "headline",
+            "body",
+            "duration"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "labels",
+          "label": "Labels slot",
+          "items": [
+            "duration",
+            "label2"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "duration": {
+          "props": {
+            "text": "1 hr"
+          }
+        }
+      }
+    },
+    {
       "id": "provider",
       "name": "Provider",
       "template": "<article class=\"card header-card\" data-variant=\"provider\"><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\">{{item:photo}}<div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div>{{item:body}}{{item:duration}}</div></article>",
@@ -235,7 +279,7 @@
     "label2": {
       "type": "component",
       "component": "molecules/icon-label",
-      "label": "Label",
+      "label": "Off the record",
       "props": {
         "icon": "person-x",
         "text": "Off the Record",

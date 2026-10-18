@@ -14,9 +14,9 @@
   "align": "top",
   "states": [
     {
-      "id": "summary",
-      "name": "Summary",
-      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:reframe}}{{item:plan}}</div></main>",
+      "id": "t",
+      "name": "T",
+      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:reframe}}{{item:plan}}{{item:suggestions}}{{item:therapist}}{{item:resources}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -31,42 +31,16 @@
           "items": [
             "topic",
             "reframe",
-            "plan"
+            "plan",
+            "suggestions",
+            "therapist",
+            "resources"
           ]
         }
       ],
-      "personas": [],
-      "overrides": {
-        "header": {
-          "props": {
-            "state": "default"
-          }
-        }
-      }
-    },
-    {
-      "id": "off-record",
-      "name": "Off the record",
-      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:reframe}}{{item:plan}}</div></main>",
-      "slots": [
-        {
-          "id": "header",
-          "label": "Header slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "sections",
-          "label": "Sections slot",
-          "items": [
-            "topic",
-            "reframe",
-            "plan"
-          ]
-        }
+      "personas": [
+        "provider"
       ],
-      "personas": [],
       "overrides": {
         "header": {
           "props": {
@@ -76,155 +50,9 @@
       }
     },
     {
-      "id": "suggestions",
-      "name": "Suggestions",
-      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:suggestions}}</div></main>",
-      "slots": [
-        {
-          "id": "header",
-          "label": "Header slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "sections",
-          "label": "Sections slot",
-          "items": [
-            "suggestions"
-          ]
-        }
-      ],
-      "personas": [],
-      "overrides": {
-        "header": {
-          "props": {
-            "state": "saved"
-          }
-        }
-      }
-    },
-    {
-      "id": "find",
-      "name": "Find a therapist",
-      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:therapist}}{{item:resources}}</div></main>",
-      "slots": [
-        {
-          "id": "header",
-          "label": "Header slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "sections",
-          "label": "Sections slot",
-          "items": [
-            "topic",
-            "therapist",
-            "resources"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "header": {
-          "props": {
-            "state": "default",
-            "duration.text": "5 min"
-          }
-        },
-        "therapist": {
-          "props": {
-            "state": "summary-find"
-          }
-        }
-      }
-    },
-    {
-      "id": "booked",
-      "name": "Session booked",
-      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:therapist}}{{item:resources}}</div></main>",
-      "slots": [
-        {
-          "id": "header",
-          "label": "Header slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "sections",
-          "label": "Sections slot",
-          "items": [
-            "topic",
-            "therapist",
-            "resources"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "header": {
-          "props": {
-            "state": "default",
-            "duration.text": "5 min"
-          }
-        },
-        "therapist": {
-          "props": {
-            "state": "summary-booked"
-          }
-        }
-      }
-    },
-    {
-      "id": "book",
-      "name": "Book another session",
-      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:therapist}}{{item:resources}}</div></main>",
-      "slots": [
-        {
-          "id": "header",
-          "label": "Header slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "sections",
-          "label": "Sections slot",
-          "items": [
-            "topic",
-            "therapist",
-            "resources"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "header": {
-          "props": {
-            "state": "default",
-            "duration.text": "5 min"
-          }
-        },
-        "therapist": {
-          "props": {
-            "state": "summary-book"
-          }
-        }
-      }
-    },
-    {
       "id": "provider",
-      "name": "Provider summary",
-      "template": "<main class=\"summary\"><div class=\"glow summary__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:reframe}}{{item:plan}}</div></main>",
+      "name": "Provider",
+      "template": "<main class=\"summary\"><div class=\"glow summary__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:reframe}}{{item:plan}}{{item:suggestions}}{{item:therapist}}{{item:resources}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -239,7 +67,10 @@
           "items": [
             "topic",
             "reframe",
-            "plan"
+            "plan",
+            "suggestions",
+            "therapist",
+            "resources"
           ]
         }
       ],
@@ -249,7 +80,7 @@
       "overrides": {
         "header": {
           "props": {
-            "state": "provider",
+            "state": "summary-provider",
             "duration.text": "1 hr"
           }
         }
@@ -259,18 +90,19 @@
   "variables": {},
   "styles": [],
   "selector": ".summary",
-  "description": "What T writes up after a session. A header with the date, the title, a line and how long it took (and a label: off the record, or left with T), then sections: Today’s Topic, The Reframe and The Plan; or Suggestions; or Want to talk to someone? (find a therapist, a booked session, or book another) with Support Resources. Provider summary is the version a provider reads, with their photo in a flat header.",
+  "description": "What T writes up after a session. A header (the date, the title, a line and how long it took) over sections you can show or hide in the Sections slot: Today’s Topic, The Reframe and The Plan (T can leave one out if it does not fit the session), Suggestions (only for LIWT conversations), and, for higher acuity, Your therapist and Support Resources. Off the record shows a label in the header when the person chose it, in any conversation. T is the version T writes; Provider is the version a provider reads, with their photo in a flat header.",
   "items": {
     "header": {
       "type": "component",
       "component": "organisms/header-card",
       "label": "Header",
       "props": {
-        "state": "default",
+        "state": "summary",
         "overline": "Thurs, Oct 20 at 12:38pm",
         "headline": "Managing Financial Stress",
         "body": "You mentioned feeling anxious at work. We could slow this down together and look at what might help you feel more steady.",
-        "duration.text": "10 min"
+        "duration.text": "10 min",
+        "label2.show": "off"
       },
       "expose": [
         "state",
@@ -278,6 +110,7 @@
         "headline",
         "body",
         "duration.text",
+        "label2.show",
         "label2.text"
       ]
     },
@@ -287,9 +120,11 @@
       "label": "Today’s Topic",
       "props": {
         "heading": "Today’s Topic",
-        "body": "You came in feeling overwhelmed by low-grade depression and anxiety primarily driven by the financial uncertainty of your work situation."
+        "body": "You came in feeling overwhelmed by low-grade depression and anxiety primarily driven by the financial uncertainty of your work situation.",
+        "show": "on"
       },
       "expose": [
+        "show",
         "heading",
         "body"
       ]
@@ -300,9 +135,11 @@
       "label": "The Reframe",
       "props": {
         "heading": "The Reframe",
-        "body": "We reframed your challenge of paralyzing anxiety to a matter of reclaiming your power by focusing on what you can control"
+        "body": "We reframed your challenge of paralyzing anxiety to a matter of reclaiming your power by focusing on what you can control",
+        "show": "on"
       },
       "expose": [
+        "show",
         "heading",
         "body"
       ]
@@ -313,9 +150,11 @@
       "label": "The Plan",
       "props": {
         "heading": "The Plan",
-        "body": "Immediate Self-Care: Try meditating today (after this session or at 3 PM) to create a clear moment of peace.\n\nSkill Use: Use the 4-4-6 breathing technique when anxiety spikes to reclaim calm.\n\nRoutine Fix: Introduce a “tech reward” system for your children to ease the stressful bedtime routine and lower your evening tension."
+        "body": "Immediate Self-Care: Try meditating today (after this session or at 3 PM) to create a clear moment of peace.\n\nSkill Use: Use the 4-4-6 breathing technique when anxiety spikes to reclaim calm.\n\nRoutine Fix: Introduce a “tech reward” system for your children to ease the stressful bedtime routine and lower your evening tension.",
+        "show": "on"
       },
       "expose": [
+        "show",
         "heading",
         "body"
       ]
@@ -325,9 +164,11 @@
       "component": "patterns/suggestions-section",
       "label": "Suggestions",
       "props": {
-        "state": "default"
+        "state": "default",
+        "show": "off"
       },
       "expose": [
+        "show",
         "heading",
         "copy"
       ]
@@ -337,9 +178,11 @@
       "component": "patterns/therapist-section",
       "label": "Want to talk to someone?",
       "props": {
-        "state": "summary-find"
+        "state": "summary-find",
+        "show": "off"
       },
       "expose": [
+        "show",
         "state",
         "heading"
       ]
@@ -349,9 +192,11 @@
       "component": "patterns/resources-section",
       "label": "Support Resources",
       "props": {
-        "state": "default"
+        "state": "default",
+        "show": "off"
       },
       "expose": [
+        "show",
         "heading",
         "copy"
       ]
