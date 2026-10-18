@@ -1,0 +1,365 @@
+{
+  "name": "Summary",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "organisms/header-card",
+    "patterns/text-section",
+    "patterns/suggestions-section",
+    "patterns/therapist-section",
+    "patterns/resources-section"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4197-43941",
+  "align": "top",
+  "states": [
+    {
+      "id": "summary",
+      "name": "Summary",
+      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:reframe}}{{item:plan}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "topic",
+            "reframe",
+            "plan"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "state": "default"
+          }
+        }
+      }
+    },
+    {
+      "id": "off-record",
+      "name": "Off the record",
+      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:reframe}}{{item:plan}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "topic",
+            "reframe",
+            "plan"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "state": "summary"
+          }
+        }
+      }
+    },
+    {
+      "id": "suggestions",
+      "name": "Suggestions",
+      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:suggestions}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "suggestions"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "state": "saved"
+          }
+        }
+      }
+    },
+    {
+      "id": "find",
+      "name": "Find a therapist",
+      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:therapist}}{{item:resources}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "topic",
+            "therapist",
+            "resources"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "header": {
+          "props": {
+            "state": "default",
+            "duration.text": "5 min"
+          }
+        },
+        "therapist": {
+          "props": {
+            "state": "summary-find"
+          }
+        }
+      }
+    },
+    {
+      "id": "booked",
+      "name": "Session booked",
+      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:therapist}}{{item:resources}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "topic",
+            "therapist",
+            "resources"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "header": {
+          "props": {
+            "state": "default",
+            "duration.text": "5 min"
+          }
+        },
+        "therapist": {
+          "props": {
+            "state": "summary-booked"
+          }
+        }
+      }
+    },
+    {
+      "id": "book",
+      "name": "Book another session",
+      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:therapist}}{{item:resources}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "topic",
+            "therapist",
+            "resources"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "header": {
+          "props": {
+            "state": "default",
+            "duration.text": "5 min"
+          }
+        },
+        "therapist": {
+          "props": {
+            "state": "summary-book"
+          }
+        }
+      }
+    },
+    {
+      "id": "provider",
+      "name": "Provider summary",
+      "template": "<main class=\"summary\"><div class=\"glow summary__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:reframe}}{{item:plan}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "topic",
+            "reframe",
+            "plan"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "header": {
+          "props": {
+            "state": "provider",
+            "duration.text": "1 hr"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".summary",
+  "description": "What T writes up after a session. A header with the date, the title, a line and how long it took (and a label: off the record, or left with T), then sections: Today’s Topic, The Reframe and The Plan; or Suggestions; or Want to talk to someone? (find a therapist, a booked session, or book another) with Support Resources. Provider summary is the version a provider reads, with their photo in a flat header.",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "organisms/header-card",
+      "label": "Header",
+      "props": {
+        "state": "default",
+        "overline": "Thurs, Oct 20 at 12:38pm",
+        "headline": "Managing Financial Stress",
+        "body": "You mentioned feeling anxious at work. We could slow this down together and look at what might help you feel more steady.",
+        "duration.text": "10 min"
+      },
+      "expose": [
+        "state",
+        "overline",
+        "headline",
+        "body",
+        "duration.text",
+        "label2.text"
+      ]
+    },
+    "topic": {
+      "type": "component",
+      "component": "patterns/text-section",
+      "label": "Today’s Topic",
+      "props": {
+        "heading": "Today’s Topic",
+        "body": "You came in feeling overwhelmed by low-grade depression and anxiety primarily driven by the financial uncertainty of your work situation."
+      },
+      "expose": [
+        "heading",
+        "body"
+      ]
+    },
+    "reframe": {
+      "type": "component",
+      "component": "patterns/text-section",
+      "label": "The Reframe",
+      "props": {
+        "heading": "The Reframe",
+        "body": "We reframed your challenge of paralyzing anxiety to a matter of reclaiming your power by focusing on what you can control"
+      },
+      "expose": [
+        "heading",
+        "body"
+      ]
+    },
+    "plan": {
+      "type": "component",
+      "component": "patterns/text-section",
+      "label": "The Plan",
+      "props": {
+        "heading": "The Plan",
+        "body": "Immediate Self-Care: Try meditating today (after this session or at 3 PM) to create a clear moment of peace.\n\nSkill Use: Use the 4-4-6 breathing technique when anxiety spikes to reclaim calm.\n\nRoutine Fix: Introduce a “tech reward” system for your children to ease the stressful bedtime routine and lower your evening tension."
+      },
+      "expose": [
+        "heading",
+        "body"
+      ]
+    },
+    "suggestions": {
+      "type": "component",
+      "component": "patterns/suggestions-section",
+      "label": "Suggestions",
+      "props": {
+        "state": "default"
+      },
+      "expose": [
+        "heading",
+        "copy"
+      ]
+    },
+    "therapist": {
+      "type": "component",
+      "component": "patterns/therapist-section",
+      "label": "Want to talk to someone?",
+      "props": {
+        "state": "summary-find"
+      },
+      "expose": [
+        "state",
+        "heading"
+      ]
+    },
+    "resources": {
+      "type": "component",
+      "component": "patterns/resources-section",
+      "label": "Support Resources",
+      "props": {
+        "state": "default"
+      },
+      "expose": [
+        "heading",
+        "copy"
+      ]
+    }
+  },
+  "personas": [
+    "provider"
+  ],
+  "properties": [],
+  "prompts": []
+}

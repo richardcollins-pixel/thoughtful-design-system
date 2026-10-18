@@ -1,0 +1,106 @@
+{
+  "name": "Resources section",
+  "tier": "patterns",
+  "category": "sections",
+  "stateful": false,
+  "uses": [
+    "organisms/resource-card"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4197-43941",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<section class=\"resources-section\"><div class=\"resources-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"resources-section__cards\" data-slot=\"cards\">{{item:res1}}{{item:res2}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "cards",
+          "label": "Cards slot",
+          "items": [
+            "res1",
+            "res2"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".resources-section",
+  "description": "A subhead and a line of copy, then two resource cards (a hotline or a site, with Call and Text).",
+  "items": {
+    "heading": {
+      "type": "text",
+      "tag": "h2",
+      "class": "resources-section__title",
+      "label": "Subhead",
+      "value": "Support Resources",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "copy": {
+      "type": "text",
+      "tag": "p",
+      "class": "resources-section__copy",
+      "label": "Copy",
+      "value": "[Dynamic copy that contextualizes the support resources based on what this user said]",
+      "skeleton": {
+        "lines": 2
+      }
+    },
+    "res1": {
+      "type": "component",
+      "component": "organisms/resource-card",
+      "label": "Resource 1",
+      "props": {
+        "state": "default",
+        "headline": "SAMHSA National Helpline",
+        "link": "samhsa.gov",
+        "body": "National helpline that offers support related to substance use 24/7",
+        "button1.label": "Call",
+        "button2.label": "Text"
+      },
+      "expose": [
+        "headline",
+        "link",
+        "body",
+        "button1.label",
+        "button2.label"
+      ]
+    },
+    "res2": {
+      "type": "component",
+      "component": "organisms/resource-card",
+      "label": "Resource 2",
+      "props": {
+        "state": "default",
+        "headline": "SAMHSA National Helpline",
+        "link": "samhsa.gov",
+        "body": "National helpline that offers support related to substance use 24/7",
+        "button1.label": "Call",
+        "button2.label": "Text"
+      },
+      "expose": [
+        "headline",
+        "link",
+        "body",
+        "button1.label",
+        "button2.label"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}

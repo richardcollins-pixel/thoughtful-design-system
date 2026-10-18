@@ -1,0 +1,100 @@
+{
+  "name": "Suggestions section",
+  "tier": "patterns",
+  "category": "sections",
+  "stateful": false,
+  "uses": [
+    "molecules/fork-option"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4197-43941",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<section class=\"suggestions-section\"><div class=\"suggestions-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"suggestions-section__options\" data-slot=\"options\">{{item:fork1}}{{item:fork2}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "options",
+          "label": "Options slot",
+          "items": [
+            "fork1",
+            "fork2"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".suggestions-section",
+  "description": "A subhead and a line of copy, then two things T suggests as fork option cards (5 or 10 minutes).",
+  "items": {
+    "heading": {
+      "type": "text",
+      "tag": "h2",
+      "class": "suggestions-section__title",
+      "label": "Subhead",
+      "value": "Suggestions",
+      "skeleton": {
+        "lines": 1
+      }
+    },
+    "copy": {
+      "type": "text",
+      "tag": "p",
+      "class": "suggestions-section__copy",
+      "label": "Copy",
+      "value": "In that case, here’s what I have in mind if you have time to keep chatting.",
+      "skeleton": {
+        "lines": 2
+      }
+    },
+    "fork1": {
+      "type": "component",
+      "component": "molecules/fork-option",
+      "label": "Option 1",
+      "props": {
+        "minutes": "5",
+        "tone": "orange",
+        "title": "[Bite Size Session Name]",
+        "description": "[Rationale for showing this]"
+      },
+      "expose": [
+        "minutes",
+        "tone",
+        "title",
+        "description"
+      ]
+    },
+    "fork2": {
+      "type": "component",
+      "component": "molecules/fork-option",
+      "label": "Option 2",
+      "props": {
+        "minutes": "10",
+        "tone": "rose",
+        "title": "[Gain Clarity]",
+        "description": "[Insights on what's going on]"
+      },
+      "expose": [
+        "minutes",
+        "tone",
+        "title",
+        "description"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}

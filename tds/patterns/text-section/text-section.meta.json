@@ -1,0 +1,50 @@
+{
+  "name": "Text section",
+  "tier": "patterns",
+  "category": "sections",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4197-43941",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<section class=\"text-section\"><div class=\"text-section__text\" data-slot=\"content\">{{item:heading}}{{item:body}}</div></section>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "heading",
+            "body"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".text-section",
+  "description": "A section of plain text: a serif subhead and a few lines under it (Today’s Topic, The Reframe, The Plan). Line breaks in the text are kept.",
+  "items": {
+    "heading": {
+      "type": "text",
+      "tag": "h2",
+      "class": "text-section__title",
+      "label": "Subhead",
+      "value": "Today’s Topic"
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "text-section__body",
+      "label": "Body Copy",
+      "value": "You came in feeling overwhelmed by low-grade depression and anxiety primarily driven by the financial uncertainty of your work situation."
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}

@@ -39,6 +39,82 @@
       "personas": []
     },
     {
+      "id": "summary",
+      "name": "Summary, off the record",
+      "template": "<article class=\"card header-card\" data-variant=\"default\"><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\"><div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div>{{item:body}}<div class=\"header-card__labels\" data-slot=\"labels\">{{item:duration}}{{item:label2}}</div></div></article>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "overline",
+            "headline",
+            "body",
+            "duration"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "labels",
+          "label": "Labels slot",
+          "items": [
+            "duration",
+            "label2"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {}
+    },
+    {
+      "id": "saved",
+      "name": "Summary, left with T",
+      "template": "<article class=\"card header-card\" data-variant=\"default\"><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\"><div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div>{{item:body}}<div class=\"header-card__labels\" data-slot=\"labels\">{{item:label2}}</div></div></article>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "overline",
+            "headline",
+            "body",
+            "duration"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "labels",
+          "label": "Labels slot",
+          "items": [
+            "label2"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "label2": {
+          "props": {
+            "icon": "bookmark",
+            "text": "Leave it with T"
+          }
+        }
+      }
+    },
+    {
       "id": "provider",
       "name": "Provider",
       "template": "<article class=\"card header-card\" data-variant=\"provider\"><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\">{{item:photo}}<div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div>{{item:body}}{{item:duration}}</div></article>",
@@ -154,6 +230,21 @@
         "title",
         "action",
         "step"
+      ]
+    },
+    "label2": {
+      "type": "component",
+      "component": "molecules/icon-label",
+      "label": "Label",
+      "props": {
+        "icon": "person-x",
+        "text": "Off the Record",
+        "emphasis": "primary",
+        "size": "md"
+      },
+      "expose": [
+        "text",
+        "icon"
       ]
     }
   },
