@@ -25,6 +25,23 @@
         }
       ],
       "personas": []
+    },
+    {
+      "id": "profile",
+      "name": "Profile",
+      "template": "<article class=\"card header-inset-card\" style=\"--card-fill: var(--gradient-purple-to-orange)\"><div class=\"header-inset-card__content\" data-slot=\"content\">{{item:headline}}{{item:body}}</div></article>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "headline",
+            "body"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": []
     }
   ],
   "variables": {

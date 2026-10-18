@@ -1,0 +1,8 @@
+/* Molecule: action row. 64px tall: a 14px semibold label and, on the right, a 16px chevron or a toggle. The group around it draws the dividers. */
+.action-row { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); width: 100%; min-height: 64px; padding-right: var(--space-1); color: var(--text-primary); }
+.action-row__text { flex: 1; min-width: 0; font: var(--text-body-sm-semibold); letter-spacing: var(--text-body-sm-semibold-ls); }
+.action-row > .icon { --icon-size: 16px; --icon-color: currentColor; flex: none; }
+.action-row > .toggle { display: none; }
+.action-row[data-trailing="chevron"] > .icon { display: block; }
+.action-row:not([data-trailing="chevron"]) > .icon { display: none; }
+.action-row[data-trailing="toggle"] > .toggle { display: flex; }

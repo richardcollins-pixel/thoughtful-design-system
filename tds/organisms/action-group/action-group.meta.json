@@ -1,0 +1,139 @@
+{
+  "name": "Action group",
+  "tier": "organisms",
+  "category": "lists",
+  "stateful": false,
+  "uses": [
+    "molecules/action-row"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4196-43598",
+  "states": [
+    {
+      "id": "one",
+      "name": "One row",
+      "template": "<section class=\"action-group\"><div class=\"action-group__header\" data-slot=\"header\">{{item:title}}</div><div class=\"action-group__rows\" data-slot=\"rows\">{{item:row1}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "title"
+          ]
+        },
+        {
+          "id": "rows",
+          "label": "Rows slot",
+          "items": [
+            "row1"
+          ]
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "two",
+      "name": "Two rows",
+      "template": "<section class=\"action-group\"><div class=\"action-group__header\" data-slot=\"header\">{{item:title}}</div><div class=\"action-group__rows\" data-slot=\"rows\">{{item:row1}}{{item:row2}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "title"
+          ]
+        },
+        {
+          "id": "rows",
+          "label": "Rows slot",
+          "items": [
+            "row1",
+            "row2"
+          ]
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "three",
+      "name": "Three rows",
+      "template": "<section class=\"action-group\"><div class=\"action-group__header\" data-slot=\"header\">{{item:title}}</div><div class=\"action-group__rows\" data-slot=\"rows\">{{item:row1}}{{item:row2}}{{item:row3}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "title"
+          ]
+        },
+        {
+          "id": "rows",
+          "label": "Rows slot",
+          "items": [
+            "row1",
+            "row2",
+            "row3"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".action-group",
+  "description": "A small list of settings or links under a quiet title: the rows sit in one rounded, soft box with a faint line between them. Use it on the profile screen; one, two or three rows.",
+  "items": {
+    "title": {
+      "type": "text",
+      "tag": "p",
+      "class": "action-group__title",
+      "label": "Title",
+      "value": "Group title"
+    },
+    "row1": {
+      "type": "component",
+      "component": "molecules/action-row",
+      "label": "Row 1",
+      "props": {
+        "text": "Row one",
+        "trailing": "chevron"
+      },
+      "expose": [
+        "text",
+        "trailing",
+        "on"
+      ]
+    },
+    "row2": {
+      "type": "component",
+      "component": "molecules/action-row",
+      "label": "Row 2",
+      "props": {
+        "text": "Row two",
+        "trailing": "chevron"
+      },
+      "expose": [
+        "text",
+        "trailing",
+        "on"
+      ]
+    },
+    "row3": {
+      "type": "component",
+      "component": "molecules/action-row",
+      "label": "Row 3",
+      "props": {
+        "text": "Row three",
+        "trailing": "chevron"
+      },
+      "expose": [
+        "text",
+        "trailing",
+        "on"
+      ]
+    }
+  },
+  "personas": [],
+  "properties": [],
+  "prompts": []
+}

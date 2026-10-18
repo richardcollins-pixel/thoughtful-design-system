@@ -1,0 +1,62 @@
+{
+  "name": "Action row",
+  "tier": "molecules",
+  "category": "lists",
+  "stateful": false,
+  "uses": [
+    "atoms/icon",
+    "atoms/toggle"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4196-43598",
+  "attributes": {
+    "data-trailing": {
+      "type": "enum",
+      "values": [
+        "chevron",
+        "toggle",
+        "none"
+      ],
+      "default": "chevron"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "One row in a list of settings or links: a 14px semibold label, 64px tall, with a chevron on the right (it goes somewhere), a toggle (it switches something), or nothing.",
+  "content": [
+    {
+      "label": "Text",
+      "selector": ".action-row__text"
+    }
+  ],
+  "props": {
+    "text": {
+      "type": "text",
+      "label": "Text",
+      "default": "Row"
+    },
+    "trailing": {
+      "type": "enum",
+      "label": "Trailing",
+      "values": [
+        "chevron",
+        "toggle",
+        "none"
+      ],
+      "default": "chevron",
+      "ui": "steps"
+    },
+    "on": {
+      "type": "enum",
+      "label": "Toggle on",
+      "values": [
+        "false",
+        "true"
+      ],
+      "default": "false",
+      "ui": "steps"
+    }
+  },
+  "template": "<div class=\"action-row\" data-trailing=\"{{trailing}}\"><span class=\"action-row__text\">{{text}}</span><i class=\"icon icon-chevron-right\"></i><button class=\"toggle\" role=\"switch\" aria-checked=\"{{on}}\" data-on=\"{{on}}\"><span></span></button></div>",
+  "markup": "<div class=\"action-row\" data-trailing=\"chevron\"><span class=\"action-row__text\">Row</span><i class=\"icon icon-chevron-right\"></i><button class=\"toggle\" role=\"switch\" aria-checked=\"false\" data-on=\"false\"><span></span></button></div>"
+}
