@@ -4,7 +4,8 @@
   "category": "sheets",
   "stateful": false,
   "uses": [
-    "atoms/button"
+    "atoms/button",
+    "atoms/image-placeholder"
   ],
   "figma": "https://www.figma.com/design/2dd93uRGMkAzwfaUu9CcSi/Session-Sharing?node-id=629-3943",
   "states": [
@@ -65,7 +66,7 @@
   "styles": [],
   "selector": ".bottom-sheet",
   "align": "bottom",
-  "description": "The shell every bottom sheet shares: a slate surface with 24px top corners and a pull handle, over a dimmed backdrop, with three slots that always sit in the same order: Header (a headline and a line of copy), Content (whatever the sheet is for) and Action (the main button). It runs full width and clings to the bottom. Patterns such as the session sharing sheet and the feedback sheet choose what goes in each slot.",
+  "description": "The shell every bottom sheet shares: a slate surface with 24px top corners and a pull handle, over a dimmed backdrop, with three slots that always sit in the same order: Header (a headline and a line of copy), Content (whatever the sheet is for; an image placeholder stands in) and Action (the main button). It runs full width and clings to the bottom. Patterns such as the session sharing sheet and the feedback sheet choose what goes in each slot.",
   "items": {
     "title": {
       "type": "text",
@@ -82,11 +83,15 @@
       "value": "A line or two of copy goes here to say what the sheet is for."
     },
     "body": {
-      "type": "text",
-      "tag": "p",
-      "class": "bottom-sheet__body",
+      "type": "component",
+      "component": "atoms/image-placeholder",
       "label": "Content",
-      "value": "Whatever the sheet is for goes in the content slot."
+      "props": {
+        "ratio": "16:9"
+      },
+      "expose": [
+        "ratio"
+      ]
     },
     "action": {
       "type": "component",

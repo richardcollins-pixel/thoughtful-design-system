@@ -8,7 +8,6 @@
     "atoms/button",
     "atoms/textarea",
     "molecules/rating-option",
-    "molecules/toast",
     "device/keyboard"
   ],
   "figma": "https://www.figma.com/design/qGPykdv2u1DdzaycmLLaK0/In-App-Feedback?node-id=969-12616",
@@ -166,28 +165,13 @@
           }
         }
       }
-    },
-    {
-      "id": "sent",
-      "name": "Sent",
-      "template": "<div class=\"feedback-sheet\" data-sent><div class=\"feedback-sheet__toast\" data-slot=\"toast\">{{item:toast}}</div></div>",
-      "slots": [
-        {
-          "id": "toast",
-          "label": "Toast slot",
-          "items": [
-            "toast"
-          ]
-        }
-      ],
-      "personas": []
     }
   ],
   "variables": {},
   "styles": [],
   "selector": ".feedback-sheet",
   "align": "bottom",
-  "description": "The in-app feedback bottom sheet (the bottom sheet organism's slots), which can pop up anywhere. Rating: the header asks how you like Thoughtful, the content is three faces that rise in one after another (the animation), the action is Continue (dimmed until you pick). Rating picked dims the other two. Comment asks for one sentence in a text area with Submit, with the keyboard up while typing. Sent is the thank-you toast.",
+  "description": "The in-app feedback bottom sheet (the bottom sheet organism's slots), which can pop up anywhere. Rating: the header asks how you like Thoughtful, the content is three faces that rise in one after another (the animation), the action is Continue (dimmed until you pick). Rating picked dims the other two. Comment asks for one sentence in a text area with Submit, with the keyboard up while typing.",
   "items": {
     "title": {
       "type": "text",
@@ -305,20 +289,6 @@
       "label": "Keyboard",
       "props": {},
       "expose": []
-    },
-    "toast": {
-      "type": "component",
-      "component": "molecules/toast",
-      "label": "Toast",
-      "props": {
-        "status": "success",
-        "title": "Thanks for the feedback!",
-        "body": "We will use it to make Thoughtful better for you and others."
-      },
-      "expose": [
-        "title",
-        "body"
-      ]
     }
   },
   "personas": [],

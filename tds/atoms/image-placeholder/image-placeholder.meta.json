@@ -1,0 +1,39 @@
+{
+  "name": "Image placeholder",
+  "tier": "atoms",
+  "category": "media",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/2dd93uRGMkAzwfaUu9CcSi/Session-Sharing?node-id=629-3943",
+  "attributes": {
+    "data-ratio": {
+      "type": "enum",
+      "values": [
+        "16:9",
+        "4:3",
+        "1:1"
+      ],
+      "default": "16:9"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A soft box that stands in for an image until a real one is set: full width, rounded, with a small picture icon in the middle. Choose 16:9, 4:3 or square.",
+  "content": [],
+  "props": {
+    "ratio": {
+      "type": "enum",
+      "label": "Ratio",
+      "values": [
+        "16:9",
+        "4:3",
+        "1:1"
+      ],
+      "default": "16:9",
+      "ui": "steps"
+    }
+  },
+  "template": "<div class=\"image-placeholder\" data-ratio=\"{{ratio}}\" data-imagery role=\"img\" aria-label=\"Image placeholder\"><i class=\"icon icon-image\"></i></div>",
+  "markup": "<div class=\"image-placeholder\" data-ratio=\"16:9\" data-imagery role=\"img\" aria-label=\"Image placeholder\"><i class=\"icon icon-image\"></i></div>"
+}

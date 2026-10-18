@@ -1,0 +1,5 @@
+/* Atom: image placeholder. A full-width rounded box (the elevation 10 fill) with a picture icon, standing in for an image. 16:9, 4:3 or square. */
+.image-placeholder { box-sizing: border-box; width: 100%; display: grid; place-items: center; aspect-ratio: 16 / 9; border-radius: var(--radius-md); background: var(--bg-elevation-10); }
+.image-placeholder[data-ratio="4:3"] { aspect-ratio: 4 / 3; }
+.image-placeholder[data-ratio="1:1"] { aspect-ratio: 1 / 1; }
+.image-placeholder > .icon { --icon-size: 32px; --icon-color: var(--text-tertiary, color-mix(in srgb, var(--white) 40%, transparent)); }

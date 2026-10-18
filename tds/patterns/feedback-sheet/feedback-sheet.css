@@ -1,10 +1,11 @@
 /* Pattern: feedback sheet. The bottom sheet organism in the in-app feedback steps. Header: a serif headline and a line (or the question).
    Content: three rating options in a row (which rise in when data-animate="on"), or the text area. Action: Continue (dimmed until a rating is
-   picked) or Submit. Sent is only the toast. */
+   picked) or Submit. */
 .feedback-sheet { position: relative; }
 .feedback-sheet__head { text-align: center; }
 .feedback-sheet__head .bottom-sheet__intro { font: var(--text-body-lg); letter-spacing: var(--text-body-lg-ls); }
 .feedback-sheet__question { margin: 0; color: var(--text-secondary); font: var(--text-body-lg); letter-spacing: var(--text-body-lg-ls); text-align: left; }
-.feedback-sheet__ratings { display: flex; align-items: flex-start; margin-top: calc(var(--space-4) * -1); }
+.feedback-sheet__ratings { display: flex; align-items: flex-start; }
+/* the faces tilt and rise above their row, so give the content slot the room instead of pulling it up */
+.feedback-sheet .bottom-sheet__content { padding-top: var(--space-2); }
 .feedback-sheet[data-selected="no"] .bottom-sheet__action .button { opacity: .4; pointer-events: none; }
-.feedback-sheet__toast { padding: var(--padding-md); }
