@@ -149,6 +149,134 @@
           }
         }
       }
+    },
+    {
+      "id": "summary-find",
+      "name": "Summary: find a therapist",
+      "template": "<section class=\"therapist-section\"><div class=\"therapist-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"therapist-section__card\" data-slot=\"card\">{{item:card}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "card",
+          "label": "Card slot",
+          "items": [
+            "card"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "heading": {
+          "value": "Want to talk to someone?"
+        },
+        "copy": {
+          "value": ""
+        },
+        "card": {
+          "props": {
+            "state": "provider-cta",
+            "headline": "I’ll help find the right therapist for you",
+            "body": "[Dynamic copy that contextualizes seeing a therapist based on what the user said]",
+            "button.label": "Find a therapist"
+          }
+        }
+      }
+    },
+    {
+      "id": "summary-booked",
+      "name": "Summary: session booked",
+      "template": "<section class=\"therapist-section\"><div class=\"therapist-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"therapist-section__card\" data-slot=\"card\">{{item:card}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "card",
+          "label": "Card slot",
+          "items": [
+            "card"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "heading": {
+          "value": "Want to talk to someone?"
+        },
+        "copy": {
+          "value": ""
+        },
+        "card": {
+          "props": {
+            "state": "booked",
+            "headline": "Worth discussing with {{provider-name}}",
+            "body": "[Dynamic copy that contextualizes talking to the therapist about what they said]"
+          }
+        }
+      }
+    },
+    {
+      "id": "summary-book",
+      "name": "Summary: book another",
+      "template": "<section class=\"therapist-section\"><div class=\"therapist-section__header\" data-slot=\"header\">{{item:heading}}{{item:copy}}</div><div class=\"therapist-section__card\" data-slot=\"card\">{{item:card}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "heading",
+            "copy"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "card",
+          "label": "Card slot",
+          "items": [
+            "card"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "heading": {
+          "value": "Want to talk to someone?"
+        },
+        "copy": {
+          "value": ""
+        },
+        "card": {
+          "props": {
+            "state": "no-appointment",
+            "headline": "Book another session with {{provider-name}}",
+            "body": "[Dynamic copy that contextualizes talking to the therapist about what they said]",
+            "button.label": "Book a session"
+          }
+        }
+      }
     }
   ],
   "variables": {},

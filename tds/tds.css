@@ -76,10 +76,14 @@
 @import url("patterns/bite-size-support-section/bite-size-support-section.css") layer(patterns);
 @import url("patterns/provider-carousel/provider-carousel.css") layer(patterns);
 @import url("patterns/therapist-section/therapist-section.css") layer(patterns);
+@import url("patterns/text-section/text-section.css") layer(patterns);
+@import url("patterns/suggestions-section/suggestions-section.css") layer(patterns);
+@import url("patterns/resources-section/resources-section.css") layer(patterns);
 @import url("patterns/session-sharing-sheet/session-sharing-sheet.css") layer(patterns);
 @import url("patterns/feedback-sheet/feedback-sheet.css") layer(patterns);
 @import url("screens/chat/chat.css") layer(screens);
 @import url("screens/home/home.css") layer(screens);
+@import url("screens/summary/summary.css") layer(screens);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */
 

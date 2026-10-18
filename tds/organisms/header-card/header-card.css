@@ -28,3 +28,4 @@
 /* the header sits on top of the card, over its padding (the card's own top padding leaves room for it) */
 .header-card { position: relative; }
 .header-card__top { position: absolute; inset: 0 0 auto 0; }
+.header-card__labels { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-6); }

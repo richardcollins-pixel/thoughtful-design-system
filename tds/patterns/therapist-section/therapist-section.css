@@ -3,3 +3,4 @@
 .therapist-section__header { display: flex; flex-direction: column; }
 .therapist-section__title { font: var(--text-subhead); letter-spacing: var(--text-subhead-ls); }
 .therapist-section__copy { color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
+.therapist-section__copy:empty { display: none; }

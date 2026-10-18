@@ -1,0 +1,5 @@
+/* Screen: summary. The header card (it runs to the top and the screen edges) and the sections under it, one after another. The provider
+   version has a soft glow rising from the bottom. Slots are real elements ([data-slot]): header, sections. */
+.summary { --summary-gap: var(--space-12); position: relative; isolation: isolate; display: flex; flex-direction: column; width: 100%; }
+.summary__sections { display: flex; flex-direction: column; gap: var(--summary-gap); padding-block: var(--summary-gap) var(--space-16); }
+.summary__glow { --glow-size: 600px; --glow-blur: 80px; --glow-opacity: .95; z-index: -1; position: fixed; }
