@@ -1,0 +1,8 @@
+/* Atom: time chip. An 80px rounded square with a big number over "min", on a soft gradient (orange or rose), black text. In Charcoal it is a
+   flat elevation 20 square with the normal text color. */
+.time-chip { --time-chip-art: radial-gradient(circle at 100% 0, color-mix(in srgb, #e15e9b 90%, transparent), transparent 45%), radial-gradient(circle at 100% 100%, #ffa86b, transparent 55%), #ff8e5d;
+  flex: none; width: 80px; height: 80px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: var(--radius-sm); background: var(--time-chip-art); color: var(--black); }
+.time-chip[data-tone="rose"] { --time-chip-art: radial-gradient(circle at 100% 100%, #f57f70, transparent 60%), #c94e93; }
+.time-chip > b { font: var(--text-headline-2); letter-spacing: var(--text-headline-2-ls); margin-bottom: -8px; }
+.time-chip > span { font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
+:root[data-fidelity="wireframe"] .time-chip { background: var(--bg-elevation-20); color: var(--text-primary); }

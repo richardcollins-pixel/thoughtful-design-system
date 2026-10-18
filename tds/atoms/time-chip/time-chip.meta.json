@@ -1,0 +1,47 @@
+{
+  "name": "Time chip",
+  "tier": "atoms",
+  "category": "media",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
+  "attributes": {
+    "data-tone": {
+      "type": "enum",
+      "values": [
+        "orange",
+        "rose"
+      ],
+      "default": "orange"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "An 80px colored square that says how long something takes: a big number over \"min\". Orange for 5, rose for 10. In Charcoal it is a plain elevation 20 square.",
+  "content": [
+    {
+      "label": "Minutes",
+      "selector": "b"
+    }
+  ],
+  "props": {
+    "minutes": {
+      "type": "text",
+      "label": "Minutes",
+      "default": "5"
+    },
+    "tone": {
+      "type": "enum",
+      "label": "Color",
+      "values": [
+        "orange",
+        "rose"
+      ],
+      "default": "orange",
+      "ui": "steps"
+    }
+  },
+  "template": "<span class=\"time-chip\" data-tone=\"{{tone}}\"><b>{{minutes}}</b><span>min</span></span>",
+  "markup": "<span class=\"time-chip\" data-tone=\"orange\"><b>5</b><span>min</span></span>"
+}

@@ -34,6 +34,7 @@
 @import url("atoms/check-circle/check-circle.css") layer(atoms);
 @import url("atoms/textarea/textarea.css") layer(atoms);
 @import url("atoms/image-placeholder/image-placeholder.css") layer(atoms);
+@import url("atoms/time-chip/time-chip.css") layer(atoms);
 
 @import url("molecules/icon-label/icon-label.css")      layer(molecules);
 @import url("molecules/avatar-group/avatar-group.css")  layer(molecules);
