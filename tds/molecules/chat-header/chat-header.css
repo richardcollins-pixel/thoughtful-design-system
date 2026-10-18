@@ -12,3 +12,7 @@
 .chat-header[data-timer="on"] .chat-header__right { opacity: 1; }
 .chat-header[data-recap="off"] .chat-header__recap { display: none; }
 .chat-header[data-bar="off"] .chat-header__bar { display: none; }
+/* the record icon: a check when the therapist sees a recap, an x when you are off the record */
+.chat-header__recap > .icon-person-x, .chat-header__done > .icon-x { display: none; }
+.chat-header[data-recap="otr"] .chat-header__recap > .icon-person-check, .chat-header[data-recap="otr"] .chat-header__done > .icon-check { display: none; }
+.chat-header[data-recap="otr"] .chat-header__recap > .icon-person-x, .chat-header[data-recap="otr"] .chat-header__done > .icon-x { display: block; }

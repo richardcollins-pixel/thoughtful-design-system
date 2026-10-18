@@ -246,6 +246,13 @@
    "bytes": 1514
   },
   {
+   "name": "person-x",
+   "file": "glyphs/Name=Person x.svg",
+   "width": 24.0,
+   "height": 24.0,
+   "bytes": 1220
+  },
+  {
    "name": "person",
    "file": "glyphs/Name=person.svg",
    "width": 25.0,

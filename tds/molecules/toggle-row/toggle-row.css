@@ -1,0 +1,5 @@
+/* Molecule: toggle row. Title and a line of subtext on the left, the toggle on the right. */
+.toggle-row { display: flex; align-items: center; gap: var(--space-4); width: 100%; padding-block: var(--space-1); color: var(--text-primary); }
+.toggle-row__text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.toggle-row__title { font: var(--text-body-md-semibold); letter-spacing: var(--text-body-md-semibold-ls); }
+.toggle-row__sub { color: var(--text-secondary); font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); }

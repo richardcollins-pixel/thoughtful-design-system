@@ -104,6 +104,21 @@
         }
       ],
       "personas": []
+    },
+    {
+      "id": "start",
+      "name": "Start",
+      "template": "<div class=\"chat-thread\"><div class=\"chat-thread__flow\"><div class=\"chat-thread__messages\" data-slot=\"messages\">{{item:bot1}}</div></div></div>",
+      "slots": [
+        {
+          "id": "messages",
+          "label": "Messages slot",
+          "items": [
+            "bot1"
+          ]
+        }
+      ],
+      "personas": []
     }
   ],
   "variables": {},

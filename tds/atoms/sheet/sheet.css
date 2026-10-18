@@ -1,0 +1,6 @@
+/* Atom: sheet. The shell of a bottom sheet: slate fill, 24px top corners, a 76 x 4 pull handle, 8px above and 32px at the sides.
+   Organisms put their own content inside. .sheet-backdrop is the dimmed layer behind it. */
+.sheet { box-sizing: border-box; width: 100%; display: flex; flex-direction: column; gap: var(--space-8); padding: var(--space-2) var(--space-8) var(--space-8); color: var(--text-primary); background: var(--bg-slate); border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+.sheet__handle { align-self: center; width: 76px; height: 4px; border-radius: 2px; background: color-mix(in srgb, var(--white) 20%, transparent); }
+.sheet__body { color: var(--text-secondary); font: var(--text-body-md); }
+.sheet-backdrop { position: absolute; inset: 0; z-index: 5; background: color-mix(in srgb, var(--black) 45%, transparent); }

@@ -30,6 +30,10 @@
 @import url("atoms/icon-button/icon-button.css")        layer(atoms);
 @import url("atoms/avatar/avatar.css")                  layer(atoms);
 @import url("atoms/card/card.css")                      layer(atoms);
+@import url("atoms/toggle/toggle.css") layer(atoms);
+@import url("atoms/check-circle/check-circle.css") layer(atoms);
+@import url("atoms/textarea/textarea.css") layer(atoms);
+@import url("atoms/sheet/sheet.css") layer(atoms);
 
 @import url("molecules/icon-label/icon-label.css")      layer(molecules);
 @import url("molecules/avatar-group/avatar-group.css")  layer(molecules);
@@ -46,6 +50,9 @@
 @import url("device/keyboard/keyboard.css")            layer(device);
 @import url("molecules/header/header.css")             layer(molecules);
 @import url("molecules/tile/tile.css")                 layer(molecules);
+@import url("molecules/toggle-row/toggle-row.css") layer(molecules);
+@import url("molecules/rating-option/rating-option.css") layer(molecules);
+@import url("molecules/toast/toast.css") layer(molecules);
 
 @import url("organisms/appointment-card/appointment-card.css") layer(organisms);
 @import url("organisms/bite-size-columns/bite-size-columns.css") layer(organisms);
@@ -61,6 +68,8 @@
 @import url("organisms/chat-composer/chat-composer.css") layer(organisms);
 @import url("organisms/end-of-session-card/end-of-session-card.css") layer(organisms);
 @import url("organisms/resource-card/resource-card.css") layer(organisms);
+@import url("organisms/session-sharing-sheet/session-sharing-sheet.css") layer(organisms);
+@import url("organisms/feedback-sheet/feedback-sheet.css") layer(organisms);
 
 @import url("patterns/topics-section/topics-section.css") layer(patterns);
 @import url("patterns/bite-size-support-section/bite-size-support-section.css") layer(patterns);

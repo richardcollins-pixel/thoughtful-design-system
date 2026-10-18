@@ -1,0 +1,6 @@
+/* Atom: toggle. A 52 x 32 pill (the elevation 10 fill, purple when on) with a 24px white handle that slides to the right. */
+.toggle { appearance: none; border: 0; margin: 0; padding: 4px; box-sizing: border-box; flex: none; width: 52px; height: 32px; display: flex; align-items: center; justify-content: flex-start; border-radius: 16px; background: var(--bg-elevation-10); cursor: pointer; transition: background var(--duration-base, .2s); -webkit-tap-highlight-color: transparent; }
+.toggle > span { display: block; width: 24px; height: 24px; border-radius: 50%; background: var(--bg-elevation-100); transition: transform var(--duration-base, .2s) var(--ease-standard, ease); }
+.toggle[data-on="true"] { background: var(--bg-accent); }
+.toggle[data-on="true"] > span { transform: translateX(20px); }
+.toggle:focus-visible { outline: 2px solid var(--text-primary); outline-offset: 2px; }
