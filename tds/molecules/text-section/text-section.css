@@ -1,4 +1,4 @@
-.text-section { width: 100%; }
-.text-section__text { display: flex; flex-direction: column; gap: var(--space-2); }
+/* Molecule: text section. A serif subhead and plain text under it (Today's Topic, The Reframe, The Plan). Line breaks in the text are kept. */
+.text-section { display: flex; flex-direction: column; gap: var(--space-2); width: 100%; }
 .text-section__title { margin: 0; font: var(--text-subhead); letter-spacing: var(--text-subhead-ls); }
 .text-section__body { margin: 0; color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); white-space: pre-line; }
