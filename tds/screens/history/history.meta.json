@@ -1,0 +1,159 @@
+{
+  "name": "History",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "molecules/header",
+    "organisms/session-history-card",
+    "molecules/bottom-nav"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4196-43599",
+  "align": "top",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<main class=\"history\"><div class=\"glow history__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"history__top\" data-slot=\"top\">{{item:header}}</div><div class=\"history__list\" data-slot=\"list\">{{item:c1}}{{item:c2}}{{item:c3}}{{item:c4}}</div><div class=\"history__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "list",
+          "label": "List slot",
+          "items": [
+            "c1",
+            "c2",
+            "c3",
+            "c4"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ]
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".history",
+  "description": "The history screen: a title bar, then a list of past sessions as session history cards (the first one with the provider’s photo, off the record), and the bottom nav on Sessions. The title bar and the nav are blurred over the cards as they scroll.",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "molecules/header",
+      "label": "Header",
+      "props": {
+        "variant": "section-root",
+        "title": "History"
+      },
+      "expose": [
+        "title"
+      ]
+    },
+    "c1": {
+      "type": "component",
+      "component": "organisms/session-history-card",
+      "label": "Session 1",
+      "props": {
+        "state": "off-record",
+        "overline": "Thurs, Oct 20 1:15pm",
+        "headline": "Managing Financial Stress",
+        "body": "You mentioned feeling anxious at work. We could slow this down together and look at what might help you feel more steady going into your day.",
+        "duration.text": "10 min"
+      },
+      "expose": [
+        "state",
+        "overline",
+        "headline",
+        "body",
+        "duration.text"
+      ]
+    },
+    "c2": {
+      "type": "component",
+      "component": "organisms/session-history-card",
+      "label": "Session 2",
+      "props": {
+        "state": "default",
+        "overline": "Thurs, Oct 20 1:15pm",
+        "headline": "Running on Empty",
+        "body": "You’ve been running on fumes for weeks, pushing through sprint after sprint with no end in sight.",
+        "duration.text": "10 min"
+      },
+      "expose": [
+        "state",
+        "overline",
+        "headline",
+        "body",
+        "duration.text"
+      ]
+    },
+    "c3": {
+      "type": "component",
+      "component": "organisms/session-history-card",
+      "label": "Session 3",
+      "props": {
+        "state": "default",
+        "overline": "Thurs, Oct 20 1:15pm",
+        "headline": "Headline goes here",
+        "body": "Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "duration.text": "10 min"
+      },
+      "expose": [
+        "state",
+        "overline",
+        "headline",
+        "body",
+        "duration.text"
+      ]
+    },
+    "c4": {
+      "type": "component",
+      "component": "organisms/session-history-card",
+      "label": "Session 4",
+      "props": {
+        "state": "default",
+        "overline": "Thurs, Oct 20 1:15pm",
+        "headline": "Headline goes here",
+        "body": "Body copy goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "duration.text": "10 min"
+      },
+      "expose": [
+        "state",
+        "overline",
+        "headline",
+        "body",
+        "duration.text"
+      ]
+    },
+    "nav": {
+      "type": "component",
+      "component": "molecules/bottom-nav",
+      "label": "Bottom nav",
+      "props": {
+        "current": "sessions"
+      },
+      "expose": [
+        "current"
+      ]
+    }
+  },
+  "personas": [
+    "provider"
+  ],
+  "properties": [],
+  "prompts": []
+}

@@ -66,6 +66,43 @@
       "personas": [
         "provider"
       ]
+    },
+    {
+      "id": "off-record",
+      "name": "Off the record",
+      "template": "<article class=\"card session-history-card\" style=\"--card-fill: var(--gradient-dark-rose-to-orange)\"><div class=\"session-history-card__content\" data-slot=\"content\"><div class=\"session-history-card__titles\">{{item:overline}}<div class=\"session-history-card__title-row\">{{item:photo}}{{item:headline}}</div></div>{{item:body}}<div class=\"session-history-card__labels\" data-slot=\"labels\">{{item:duration}}{{item:label2}}</div></div><div class=\"session-history-card__action\" data-slot=\"action\">{{item:next}}</div></article>",
+      "slots": [
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "overline",
+            "photo",
+            "headline",
+            "body",
+            "duration"
+          ],
+          "skeleton": true
+        },
+        {
+          "id": "action",
+          "label": "Action slot",
+          "items": [
+            "next"
+          ]
+        },
+        {
+          "id": "labels",
+          "label": "Labels slot",
+          "items": [
+            "duration",
+            "label2"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ]
     }
   ],
   "variables": {
@@ -74,7 +111,7 @@
   },
   "styles": [],
   "selector": ".session-history-card",
-  "description": "A past session in a list: overline, headline, a few lines of copy and how long it was, with an arrow button to open it. The With image state puts a small photo before the headline.",
+  "description": "A past session in a list: overline, headline, a few lines of copy and how long it was, with an arrow button to open it. The With image state puts a small photo before the headline. Off the record adds a second label and the dark rose to orange fill.",
   "items": {
     "overline": {
       "type": "text",
@@ -142,6 +179,21 @@
         "size": "md"
       },
       "expose": [
+        "icon"
+      ]
+    },
+    "label2": {
+      "type": "component",
+      "component": "molecules/icon-label",
+      "label": "Label",
+      "props": {
+        "icon": "person-x",
+        "text": "Off the Record",
+        "emphasis": "primary",
+        "size": "md"
+      },
+      "expose": [
+        "text",
         "icon"
       ]
     }
