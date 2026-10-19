@@ -532,7 +532,7 @@ const CHEV_UP = svg('<path d="m4 10 4-4 4 4"/>'), CHEV_DOWN = svg('<path d="m4 6
 const encPath = (rel) => rel.split('/').map(encodeURIComponent).join('/');
 const photoUrl = (rel) => `../tds/assets/${encPath(rel)}`;
 const glyphUrl = (file) => `../tds/atoms/icon/${encPath(file)}`;
-const iconMask = (file) => `<i class="mask" style="-webkit-mask-image:url('${glyphUrl(file)}');mask-image:url('${glyphUrl(file)}')"></i>`;
+const iconMask = (file) => !file ? '' : `<i class="mask" style="-webkit-mask-image:url('${glyphUrl(file)}');mask-image:url('${glyphUrl(file)}')"></i>`;
 
 // ---- layout of the panel: collapsible sections, label-left / control-right rows, dashed "add" placeholders
 // A section folds like a blind (the body animates open and shut). `tools` sit left of the chevron; `attrs` go on the header.
@@ -540,7 +540,7 @@ const sec = (id, title, body, tools = '', attrs = '') => `<section class="cp-sec
 const prow = (label, control) => `<div class="prow"><span class="plabel">${esc(label)}</span><div class="pctl">${control}</div></div>`;
 const RELOAD = '<button class="reload" type="button" data-reload title="Reload: show the loading state" aria-label="Reload"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg></button>';
 const panelHead = (m, extra = '') => `<div class="cp-top"><h2 class="cp-title">${esc(m.name)}</h2><span class="cp-tools"></span></div>${extra}
-  <div class="field"><label>Description</label><textarea class="cp-desc-edit" rows="3" data-cdesc>${esc(m.description || '')}</textarea></div>`;
+  <div class="field"><label>Description</label><textarea class="cp-desc-edit" data-cdesc>${esc(m.description || '')}</textarea></div>`;
 
 // ---- controls
 const steps = (opts, value, attrs) => `<div class="steps" ${attrs}>${opts.map((o) => { const on = String(o.value) === String(value); return `<button class="step${on ? ' sel' : ''}" type="button" data-step="${esc(o.value)}" title="${esc(o.title || o.label)}">${on ? esc(o.label) : '<i></i>'}</button>`; }).join('')}</div>`;
@@ -561,21 +561,41 @@ function aiMenu(prompt, model) {
 }
 const textControl = (attrs, value, model, long, prompt) => `<div class="inwrap">${long ? `<textarea rows="2" ${attrs}>${esc(value)}</textarea>` : `<input ${attrs} value="${esc(value)}">`}<button class="aibtn${prompt ? ' on' : ''}" type="button" data-ai title="${prompt ? 'Connected to a prompt' : 'Connect a prompt'}">${AI_ICON}</button>${aiMenu(prompt, model)}</div>`;
 
-// Everyday panel: content only. Structure (icons, sizes, adding things) is for edit mode.
-function itemHtml(it, model) {
-  if (it.type === 'text') return field(it.label, textControl(`data-cm-item="${it.id}"`, it.value, model, it.value.length > 40, it.prompt));
-  return it.controls.map((c) => field(it.controls.length > 1 ? c.label : it.label, textControl(`data-cm-item="${it.id}" data-cm-prop="${c.key}"`, c.value, model, false, it.prompt))).join('');
-}
+// ---- the panel for a composed component (a card, a pattern, a screen): states, variables, then every slot as a list of rows.
+// A row is one item: its name, an eye to show or hide it, a link to the component behind it, and its controls (text, pickers).
+const EYE = svg('<path d="M1.5 8s2.3-4.5 6.5-4.5S14.5 8 14.5 8s-2.3 4.5-6.5 4.5S1.5 8 1.5 8z"/><circle cx="8" cy="8" r="1.8"/>', 16);
+const EYE_OFF = svg('<path d="M2.5 2.5l11 11"/><path d="M6.6 4a6.4 6.4 0 0 1 1.4-.1c4.2 0 6.5 4.1 6.5 4.1a10.6 10.6 0 0 1-2 2.5M4.2 5.6A10.5 10.5 0 0 0 1.5 8s2.3 4.5 6.5 4.5c1 0 1.9-.2 2.6-.6"/><path d="M6.6 6.7a1.8 1.8 0 0 0 2.7 2.4"/>', 16);
+const OPEN = svg('<path d="M6 3.5H3.5v9h9V10"/><path d="M9 3h4v4M13 3 7.5 8.5"/>', 14);
 const CHEV_RIGHT = svg('<path d="m6 4 4 4-4 4"/>');
-// In the organism panel each slot is a section that folds open to its content fields (closed to start with). Hovering its header
-// previews the slot on the canvas; getting to a slot's own page is done by clicking it on the canvas.
-// The components inside a slot (avatar, button, date…): a row each, opening that component's own variables.
-const nestedHtml = (list) => (list && list.length ? `<div class="nested"><span class="nested-label">Components</span>${list.map((n) => `<button class="nested-row" type="button" data-el-item="${n.id}"><span>${esc(n.label)}</span><span class="meta">${n.kind === n.label ? '' : esc(n.kind)}${CHEV_RIGHT}</span></button>`).join('')}</div>` : '');
+const controlHtml = (it, c, model, alone) => {
+  const a = `data-cm-item="${it.id}" data-cm-prop="${c.key}"`;
+  if (c.type === 'text') return alone ? textControl(a, c.value, model, false, it.prompt) : field(c.label, textControl(a, c.value, model, false, it.prompt));
+  if (c.bound) return prow(c.label, `<span class="bound">${esc(c.bound.label)} · ${esc(c.bound.value)}</span>`);
+  if (c.type === 'person') return prow(c.label, dd(a, c.options, c.value, 'person'));
+  if (c.type === 'icon') return dd(a, c.options, c.value, 'icon');
+  if (c.type === 'enum') return prow(c.label, c.ui === 'steps' ? steps(c.values.map((v) => ({ value: v, label: (c.labels || {})[v] || v })), c.value, a) : dd(a, c.values.map((v) => ({ value: v, label: (c.labels || {})[v] || v })), c.value));
+  return '';
+};
+function rowHtml(it, model) {
+  const eye = it.hideable ? `<button class="eye" type="button" data-eye="${it.id}" title="${it.shown ? 'Hide' : 'Show'}" aria-label="${it.shown ? 'Hide' : 'Show'} ${esc(it.label)}">${it.shown ? EYE : EYE_OFF}</button>` : '';
+  const open = it.component ? `<button class="open-comp" type="button" data-open="${it.component}" title="Open ${esc(it.kind)}" aria-label="Open ${esc(it.kind)}">${OPEN}</button>` : '';
+  let body;
+  if (it.type === 'text') body = textControl(`data-cm-item="${it.id}"`, it.value, model, it.value.length > 40, it.prompt);
+  else {
+    const cs = it.controls, textIcon = cs.length === 2 && cs[0].type === 'text' && cs[1].type === 'icon';
+    body = textIcon ? `<div class="inline2">${controlHtml(it, cs[0], model, true)}${controlHtml(it, cs[1], model)}</div>` : cs.map((c) => controlHtml(it, c, model, cs.length === 1)).join('');
+  }
+  return `<div class="irow${it.shown ? '' : ' off'}" data-row="${it.id}"><div class="irow-head" data-el-item="${it.id}"><span class="irow-label">${esc(it.label)}</span><span class="irow-tools">${open}${eye}</span></div>${body ? `<div class="irow-body">${body}</div>` : ''}</div>`;
+}
 const slotsHtml = (model) => model.slots.map((sl) => {
-  const id = `slot-${sl.id}`; if (!(id in collapsed)) collapsed[id] = true;
-  return sec(id, sl.label, sl.items.map((it) => itemHtml(it, model)).join('') + nestedHtml(sl.nested), '', `data-hover-slot="${sl.id}"`);
+  const id = `slot-${sl.id}`; if (!(id in collapsed)) collapsed[id] = false;
+  return sec(id, sl.label, sl.items.map((it) => rowHtml(it, model)).join(''), '', `data-hover-slot="${sl.id}"`);
 }).join('');
 const personaRows = (model) => model.personas.map((pe) => prow(pe.label, dd(`data-cpersona="${pe.role}"`, pe.options, pe.value, 'person'))).join('');
+const inputRows = (model) => (model.inputs || []).map((i) => (i.type === 'toggle'
+  ? prow(i.label, `<label class="switch"><input type="checkbox" role="switch" data-cinput="${i.id}" ${i.value ? 'checked' : ''}><i></i></label>`)
+  : prow(i.label, dd(`data-cinput="${i.id}"`, i.options, i.value)))).join('');
+const variablesSec = (model) => { const body = inputRows(model) + personaRows(model); return sec('variables', 'Variables', body).replace('<section class="cp-sec', `<section ${body ? '' : 'hidden '}data-vars-sec class="cp-sec`); };
 
 // ---- token-bound properties (background, corner radius, padding)
 const propCur = (m, v, dflt) => cstate.vars[v] ?? (m.defaults || {})[v] ?? dflt;
@@ -617,7 +637,7 @@ function renderComponentPanel() {
   if (m.items) {   // a composed organism: provider, state, background, then its slots' content
     const model = api && api.getModel();
     p.innerHTML = (model
-      ? `<div id="cp-main">${panelHead(m)}<div class="cp-sections">${sec('state', 'State', stateThumbs(model), RELOAD)}${propsSec(m, model.state)}<div class="cp-persona" id="cp-persona">${personaRows(model)}</div><div id="cp-slots">${slotsHtml(model)}</div>${m.surface ? sec('options', 'Options', surfaceField()) : ''}</div></div><div id="cp-el" hidden></div>`
+      ? `<div id="cp-main">${panelHead(m)}<div class="cp-sections">${sec('state', 'States', stateThumbs(model), RELOAD)}<div id="cp-vars">${variablesSec(model)}</div>${propsSec(m, model.state)}<div id="cp-slots">${slotsHtml(model)}</div>${m.surface ? sec('options', 'Options', surfaceField()) : ''}</div></div><div id="cp-el" hidden></div>`
       : panelHead(m)) + footer;
     showSelection();
   } else {            // an atom or molecule: variants, properties, content, options
@@ -679,57 +699,25 @@ function editDefault(k, v) {
 const setItem = (api, item, prop, value) => api.setItem(item, prop ? { props: { [prop]: value } } : { value });
 // The slots and the Provider row follow the current state (a state without a provider has no picker).
 const refreshSlots = (api) => {
-  const model = api.getModel(), box = $('#cp-slots'), pr = $('#cp-persona'), ps = $('#cp-main [data-props-sec]');
+  const model = api.getModel(), box = $('#cp-slots'), vr = $('#cp-vars'), ps = $('#cp-main [data-props-sec]');
   if (ps && component.meta.items) { const inner = ps.querySelector('.cp-sec-inner'), body = propsBody(component.meta, true, model.state); inner.innerHTML = body; ps.hidden = !body; }
   if (box) box.innerHTML = slotsHtml(model);
-  if (pr) pr.innerHTML = personaRows(model);
+  if (vr) vr.innerHTML = variablesSec(model);
 };
 const refreshPanel = (api) => (selection ? showSelection() : refreshSlots(api));
 
-// ---- element panel: what opens when you click an item on the canvas
-// The path back up: Appointment card › Header slot (an item's slot is clickable, so you can step up one level).
-const selectionHead = (model, slot, here) => {
-  const stateName = (model.states.find((x) => x.id === model.state) || {}).name || '';
-  const crumbs = [`<button class="link" id="el-back">${esc(stateName)}</button>`];
-  if (slot) crumbs.push(here ? `<button class="link" data-el-slot="${slot.id}">${esc(slot.label)}</button>` : `<span class="here">${esc(slot.label)}</span>`);
-  if (here && slot) crumbs.push(`<span class="here">${esc(here)}</span>`);
-  return `<div class="cp-top"><h2 class="cp-title">${esc(component.meta.name)}</h2></div>
-  <nav class="crumb-path">${crumbs.join('<span class="sep2">/</span>')}</nav>`;
-};
-
-// ---- slot panel: the slot's content fields, then a list of the items inside it (click one to select it)
-function slotPanel(sm, model) {
-  const content = sm.content.map((it) => itemHtml(it, model)).join('');
-  return `${selectionHead(model, { id: sm.id, label: sm.label })}
-    <div class="cp-sections">${content || (sm.nested || []).length ? sec('el-content', 'Content', content + nestedHtml(sm.nested)) : '<p class="mute" style="padding:12px 0">Nothing to edit in this slot yet.</p>'}</div>`;
-}
-
-function elementPanel(it, model) {
-  const content = [], props = [];
-  if (it.type === 'text') content.push(field('Text', textControl(`data-cm-item="${it.id}"`, it.value, model, it.value.length > 40, it.prompt)));
-  for (const c of it.controls) {
-    const a = `data-cm-item="${it.id}" data-cm-prop="${c.key}"`;
-    if (c.type === 'text') content.push(field(c.label, textControl(a, c.value, model, false, it.prompt)));
-    else if (c.bound) props.push(prow(c.label, `<span class="bound">${esc(c.bound.label)} · ${esc(c.bound.value)}</span>`));
-    else if (c.type === 'person') props.push(prow(c.label, dd(a, c.options, c.value, 'person')));
-    else if (c.type === 'icon') props.push(prow(c.label, dd(a, c.options, c.value, 'icon')));
-    else if (c.type === 'enum') props.push(prow(c.label, steps(c.values.map((v) => ({ value: v, label: v })), c.value, a)));
-
-  }
-  const body = (content.length ? sec('el-content', 'Content', content.join('')) : '') + (props.length ? sec('el-props', 'Properties', props.join('')) : '');
-  return `${selectionHead(model, it.slot, it.label)}
-    <div class="cp-sections">${body || '<p class="mute" style="padding:12px 0">Nothing to edit on this element yet.</p>'}</div>`;
-}
 function showSelection() {
-  const main = $('#cp-main'), box = $('#cp-el'); if (!main || !box) return;
+  const main = $('#cp-main'), box = $('#cp-el'); if (!main) return;
   const api = screen.contentWindow && screen.contentWindow.tdsComponent;
-  let html = null;
-  if (selection && api) {
-    if (selection.kind === 'slot') { const sm = api.getSlotModel(selection.id); if (sm) html = slotPanel(sm, api.getModel()); }
-    else { const it = api.getItemModel(selection.id); if (it) html = elementPanel(it, api.getModel()); }
-  }
-  if (!html) { selection = null; box.hidden = true; box.innerHTML = ''; main.hidden = false; if (api) refreshSlots(api); return; }
-  box.innerHTML = html; main.hidden = true; box.hidden = false;
+  if (box) { box.hidden = true; box.innerHTML = ''; }
+  main.hidden = false;
+  main.querySelectorAll('.irow.sel, .cp-sec.sel').forEach((n) => n.classList.remove('sel'));
+  if (!selection) return;
+  // clicking something on the canvas opens its slot and marks its row
+  const row = selection.kind === 'item' ? main.querySelector(`[data-row="${selection.id}"]`) : null;
+  const sec_ = row ? row.closest('.cp-sec') : selection.kind === 'slot' ? main.querySelector(`[data-hover-slot="${selection.id}"]`)?.closest('.cp-sec') : null;
+  if (sec_ && !sec_.classList.contains('open')) { sec_.classList.add('open'); const h = sec_.querySelector('[data-csec]'); if (h) collapsed[h.dataset.csec] = false; }
+  if (row) { row.classList.add('sel'); row.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } else if (sec_) { sec_.classList.add('sel'); sec_.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
 }
 const closeMenus = (except) => document.querySelectorAll('.dd-menu, .aimenu').forEach((mn) => { if (mn !== except) mn.hidden = true; });
 document.addEventListener('click', (e) => { if (!e.target.closest('.dd, .inwrap')) closeMenus(); });
@@ -738,6 +726,7 @@ $('#panel').addEventListener('input', (e) => {
   const el = e.target;
   if ('cdesc' in el.dataset) { if (component) component.meta.description = el.value; return; }   // not saved yet
   const api = component && screen.contentWindow.tdsComponent; if (!api) return;
+  if (el.dataset.cinput !== undefined && el.type === 'checkbox') { api.setInput(el.dataset.cinput, el.checked); refreshPanel(api); return; }
   if (el.dataset.cmItem !== undefined && el.matches('input, textarea, select')) setItem(api, el.dataset.cmItem, el.dataset.cmProp, el.value);
   else if (el.dataset.cdef) editDefault(el.dataset.cdef, el.value);
   else if ('ccontent' in el.dataset) api.setContent(+el.dataset.ccontent, el.value);
@@ -766,11 +755,15 @@ $('#panel').addEventListener('click', (e) => {
     const section = head.parentElement, open = section.classList.toggle('open');
     collapsed[head.dataset.csec] = !open; section.classList.add('anim'); clearTimeout(section._t); section._t = setTimeout(() => section.classList.remove('anim'), 260); return;
   }
+  const eyeBtn = t.closest('[data-eye]'), openBtn = t.closest('[data-open]');
+  if (eyeBtn && api) { const row = eyeBtn.closest('.irow'), off = !row.classList.contains('off'); api.setItem(eyeBtn.dataset.eye, { props: { show: off ? 'off' : 'on' } }); refreshPanel(api); return; }
+  if (openBtn) { openComponent(openBtn.dataset.open); return; }
   const ddBtn = t.closest('[data-dd]'), opt = t.closest('[data-dd-opt]'), ai = t.closest('[data-ai]');
   if (ddBtn) { const mn = ddBtn.nextElementSibling; closeMenus(mn); mn.hidden = !mn.hidden; return; }
   if (opt && api) {
     const root = opt.closest('.dd');
-    if (root.dataset.cpersona) { api.setPersona(root.dataset.cpersona, opt.dataset.ddOpt); $('#cp-persona').innerHTML = personaRows(api.getModel()); return; }
+    if (root.dataset.cpersona) { api.setPersona(root.dataset.cpersona, opt.dataset.ddOpt); refreshPanel(api); return; }
+    if (root.dataset.cinput) { api.setInput(root.dataset.cinput, opt.dataset.ddOpt); refreshPanel(api); return; }
     setItem(api, root.dataset.cmItem, root.dataset.cmProp, opt.dataset.ddOpt); refreshPanel(api); return;
   }
   if (ai) { const mn = ai.nextElementSibling; closeMenus(mn); mn.hidden = !mn.hidden; return; }

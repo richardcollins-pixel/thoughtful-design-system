@@ -44,7 +44,7 @@
       "overrides": {
         "header": {
           "props": {
-            "state": "summary"
+            "state": "default"
           }
         }
       }
@@ -80,8 +80,7 @@
       "overrides": {
         "header": {
           "props": {
-            "state": "summary-provider",
-            "duration.text": "1 hr"
+            "state": "provider"
           }
         }
       }
@@ -97,21 +96,16 @@
       "component": "organisms/header-card",
       "label": "Header",
       "props": {
-        "state": "summary",
+        "state": "default",
         "overline": "Thurs, Oct 20 at 12:38pm",
         "headline": "Managing Financial Stress",
         "body": "You mentioned feeling anxious at work. We could slow this down together and look at what might help you feel more steady.",
-        "duration.text": "10 min",
-        "label2.show": "off"
+        "duration.text": "10 min"
       },
       "expose": [
-        "state",
         "overline",
         "headline",
-        "body",
-        "duration.text",
-        "label2.show",
-        "label2.text"
+        "body"
       ]
     },
     "topic": {
@@ -124,7 +118,6 @@
         "show": "on"
       },
       "expose": [
-        "show",
         "heading",
         "body"
       ]
@@ -139,7 +132,6 @@
         "show": "on"
       },
       "expose": [
-        "show",
         "heading",
         "body"
       ]
@@ -154,7 +146,6 @@
         "show": "on"
       },
       "expose": [
-        "show",
         "heading",
         "body"
       ]
@@ -168,7 +159,6 @@
         "show": "off"
       },
       "expose": [
-        "show",
         "heading",
         "copy"
       ]
@@ -182,7 +172,6 @@
         "show": "off"
       },
       "expose": [
-        "show",
         "state",
         "heading"
       ]
@@ -196,7 +185,6 @@
         "show": "off"
       },
       "expose": [
-        "show",
         "heading",
         "copy"
       ]
@@ -206,5 +194,129 @@
     "provider"
   ],
   "properties": [],
-  "prompts": []
+  "prompts": [],
+  "inputs": [
+    {
+      "id": "session",
+      "label": "Session",
+      "type": "select",
+      "options": [
+        {
+          "value": "5 min",
+          "set": [
+            [
+              "header",
+              "duration.text",
+              "5 min"
+            ]
+          ]
+        },
+        {
+          "value": "10 min",
+          "set": [
+            [
+              "header",
+              "duration.text",
+              "10 min"
+            ]
+          ]
+        },
+        {
+          "value": "30 min",
+          "set": [
+            [
+              "header",
+              "duration.text",
+              "30 min"
+            ]
+          ]
+        },
+        {
+          "value": "1 hr",
+          "set": [
+            [
+              "header",
+              "duration.text",
+              "1 hr"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "label",
+      "label": "Label",
+      "type": "select",
+      "options": [
+        {
+          "value": "none",
+          "label": "None",
+          "set": [
+            [
+              "header",
+              "label2.show",
+              "off"
+            ],
+            [
+              "header",
+              "duration.show",
+              "on"
+            ]
+          ]
+        },
+        {
+          "value": "otr",
+          "label": "Off the record",
+          "set": [
+            [
+              "header",
+              "label2.show",
+              "on"
+            ],
+            [
+              "header",
+              "label2.icon",
+              "person-x"
+            ],
+            [
+              "header",
+              "label2.text",
+              "Off the Record"
+            ],
+            [
+              "header",
+              "duration.show",
+              "on"
+            ]
+          ]
+        },
+        {
+          "value": "saved",
+          "label": "Leave it with T",
+          "set": [
+            [
+              "header",
+              "label2.show",
+              "on"
+            ],
+            [
+              "header",
+              "label2.icon",
+              "bookmark"
+            ],
+            [
+              "header",
+              "label2.text",
+              "Leave it with T"
+            ],
+            [
+              "header",
+              "duration.show",
+              "off"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
 }

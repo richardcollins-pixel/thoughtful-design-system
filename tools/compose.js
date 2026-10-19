@@ -56,7 +56,7 @@ export function effectiveItem(meta, st, id) {
 
 // A component's editable props. An organism placed inside a pattern exposes its state and its text items.
 const compProps = (comp, ctx) => comp.items ? {
-  state: { type: 'enum', label: 'State', values: comp.states.map((s) => s.id), default: comp.states[0].id },
+  state: { type: 'enum', label: 'State', values: comp.states.map((s) => s.id), labels: Object.fromEntries(comp.states.map((s) => [s.id, s.name])), default: comp.states[0].id },
   ...Object.fromEntries((comp.personas || []).map((role) => [role, { type: 'person', label: cap(role), default: '' }])),
   ...Object.fromEntries(Object.entries(comp.items).filter(([, i]) => i.type === 'text').map(([k, i]) => [k, { type: 'text', label: i.label || k, default: i.value }])),
   // the text of the components inside it too (a button's label, a duration), as "item.prop"
@@ -142,7 +142,7 @@ function controlFor(meta, st, ctx, comp, key, item) {
   const innerEff = (k) => { const [iid, prop] = k.split('.'); return effectiveItem(comp, { state: item.props.state || comp.states[0].id }, iid).props[prop]; };
   const value = item.props[key] ?? (comp.items && def.type === 'text' ? (key.includes('.') ? innerEff(key) : effectiveItem(comp, { state: item.props.state || comp.states[0].id }, key).value) : def.default);
   const c = { key, label: def.label || key, type: def.type, value, ui: def.ui, content: def.type === 'text' || key === 'show' || key === 'state' || key.endsWith('.show') };
-  if (def.type === 'enum') c.values = def.values;
+  if (def.type === 'enum') { c.values = def.values; c.labels = def.labels; }
   if (def.type === 'person') {
     c.options = (ctx.personas.provider || []).map((x) => ({ value: x.id, label: x.name, photo: x.photo }));
     const role = (item.bind || {})[key];
@@ -159,7 +159,7 @@ const nestedOf = (meta, ctx, slot) => slot.items.map((id) => {
   return comp && Object.keys(compProps(comp, ctx)).length ? { id, label: it.label || comp.name, kind: comp.name } : null;
 }).filter(Boolean);
 
-// What the panel needs. By default only content (text) is exposed; { edit: true } also exposes structure (icons, sizes…).
+// What the panel needs: the states, the variables, and for each slot its items (name, whether it is shown, and every control it exposes).
 export function getModel(meta, st, ctx, opts = {}) {
   const state = stateOf(meta, st), data = dataFor(meta, st, ctx);
   const roles = statePersonas(meta, state);
@@ -172,19 +172,37 @@ export function getModel(meta, st, ctx, opts = {}) {
     }),
     environments: (ctx.environments || {}).environments || [],
     variables: Object.entries(data).map(([name, value]) => ({ name, value })),
+    // The variables: switches and pickers that go with any state (a card shown or not, the length of a session, a label in the header).
+    inputs: (meta.inputs || []).map((inp) => inputModel(meta, st, inp)),
     slots: state.slots.map((slot) => ({
       id: slot.id, label: slot.label, nested: nestedOf(meta, ctx, slot),
       items: slot.items.map((id) => {
-        const it = effectiveItem(meta, st, id);
-        if (it.type === 'text') return { id, type: 'text', label: it.label || id, value: it.value, prompt: promptFor(meta, state, id) };
+        const it = effectiveItem(meta, st, id), shown = (it.props || {}).show !== 'off', hideable = it.required !== true;
+        if (it.type === 'text') return { id, type: 'text', label: it.label || id, value: it.value, prompt: promptFor(meta, state, id), shown, hideable };
         const comp = ctx.components[it.component];
-        let controls = (it.expose || []).filter((k) => compProps(comp, ctx)[k]).map((k) => controlFor(meta, st, ctx, comp, k, it));
-        if ((it.expose || []).includes('show')) controls.unshift({ key: 'show', label: 'Show', type: 'enum', values: ['on', 'off'], ui: 'steps', value: (it.props || {}).show || 'on', content: true });
-        if (!opts.edit) controls = controls.filter((c) => c.content);
-        return { id, type: 'component', label: it.label || comp.name, controls, prompt: promptFor(meta, state, id) };
-      }).filter((it) => it.type === 'text' || it.controls.length),
-    })).filter((slot) => slot.items.length || slot.nested.length),
+        const controls = (it.expose || []).filter((k) => compProps(comp, ctx)[k]).map((k) => controlFor(meta, st, ctx, comp, k, it));
+        return { id, type: 'component', label: it.label || comp.name, component: it.component, kind: comp.name, controls, prompt: promptFor(meta, state, id), shown, hideable };
+      }),
+    })),
   };
+}
+
+// A variable as the panel shows it. A toggle switches one prop of one item (usually "show"); a select picks one value for a prop, or
+// an option can set several props on several items at once ("set": [[item, prop, value], ...]).
+const curProp = (meta, st, item, prop) => { const e = effectiveItem(meta, st, item); return e.props ? e.props[prop] : undefined; };
+function inputModel(meta, st, inp) {
+  const base = { id: inp.id, label: inp.label, type: inp.type };
+  if (inp.type === 'toggle') { const prop = inp.prop || 'show', on = inp.on || 'on', v = curProp(meta, st, inp.item, prop); return { ...base, value: (v === undefined ? (inp.default || on) : v) === on }; }
+  const opts = (inp.options || []).map((o) => ({ value: o.value, label: o.label || o.value }));
+  const hit = (inp.options || []).find((o) => (o.set || []).length ? o.set.every(([i, p, v]) => (curProp(meta, st, i, p) ?? 'on') === v) : curProp(meta, st, inp.item, inp.prop) === o.value);
+  return { ...base, options: opts, value: (hit || inp.options[0]).value };
+}
+// The [item, prop, value] changes a variable makes when it is set to `value`.
+export function inputPatches(meta, id, value) {
+  const inp = (meta.inputs || []).find((x) => x.id === id); if (!inp) return [];
+  if (inp.type === 'toggle') return [[inp.item, inp.prop || 'show', value ? (inp.on || 'on') : (inp.off || 'off')]];
+  const o = (inp.options || []).find((x) => String(x.value) === String(value)); if (!o) return [];
+  return o.set && o.set.length ? o.set : [[inp.item, inp.prop, o.value]];
 }
 
 // The slots of the current state, with the item ids each one holds (the canvas outlines a slot around its items).
