@@ -292,3 +292,20 @@ dialog::backdrop { background:rgb(0 0 0 / .25); backdrop-filter:blur(2px); }
 .app[data-dark="on"] .modes .switch i { background:rgb(255 255 255 / .28); }
 .app[data-dark="on"] .modes .switch input:checked + i { background:rgb(255 255 255 / .6); }
 .top { justify-content:flex-start; padding-left:24px; }   /* the device selector sits at the left of the canvas */
+
+/* ---- composed components: variables and slot rows ---- */
+.cp-desc-edit { field-sizing: content; min-height: 0; width: 100%; resize: none; border: 0; background: transparent; padding: 0; color: var(--ink); font: inherit; line-height: 1.45; }
+.irow { padding: 6px 0 10px; }
+.irow-head { display: flex; align-items: center; justify-content: space-between; min-height: 22px; }
+.irow-label { font-size: 12px; color: var(--mute); }
+.irow-tools { display: inline-flex; align-items: center; gap: 2px; }
+.irow-tools button { display: inline-grid; place-items: center; width: 24px; height: 24px; border: 0; border-radius: 6px; background: none; color: var(--mute); cursor: pointer; padding: 0; }
+.irow-tools button:hover { color: var(--ink); background: var(--chip); }
+.irow-body { display: flex; flex-direction: column; gap: 8px; margin-top: 2px; }
+.irow-body .field { margin: 0; }
+.irow.off .irow-body { opacity: .4; }
+.irow.off .irow-label { opacity: .6; }
+.irow .inline2 { display: flex; gap: 8px; align-items: flex-start; }
+.irow .inline2 > .inwrap { flex: 1; min-width: 0; }
+.irow.sel { box-shadow: -8px 0 0 -6px #0d99ff; }
+.cp-sec.sel > .cp-sec-head { color: #0d99ff; }

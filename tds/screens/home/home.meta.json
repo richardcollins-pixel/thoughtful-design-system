@@ -17,7 +17,7 @@
     {
       "id": "new",
       "name": "New",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -33,7 +33,8 @@
             "bite",
             "topics",
             "deep",
-            "therapist"
+            "therapist",
+            "reminders"
           ]
         },
         {
@@ -63,7 +64,7 @@
     {
       "id": "one-topic",
       "name": "One topic",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -79,7 +80,8 @@
             "bite",
             "topics",
             "deep",
-            "therapist"
+            "therapist",
+            "reminders"
           ]
         },
         {
@@ -109,7 +111,7 @@
     {
       "id": "several-topics",
       "name": "Several topics",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -125,7 +127,8 @@
             "bite",
             "topics",
             "deep",
-            "therapist"
+            "therapist",
+            "reminders"
           ]
         },
         {
@@ -155,7 +158,7 @@
     {
       "id": "booked",
       "name": "Session booked",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -171,7 +174,8 @@
             "bite",
             "topics",
             "deep",
-            "therapist"
+            "therapist",
+            "reminders"
           ]
         },
         {
@@ -196,47 +200,6 @@
     {
       "id": "no-appointment",
       "name": "No appointment",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
-      "slots": [
-        {
-          "id": "header",
-          "label": "Header slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "sections",
-          "label": "Sections slot",
-          "items": [
-            "bite",
-            "topics",
-            "deep",
-            "therapist"
-          ]
-        },
-        {
-          "id": "nav",
-          "label": "Nav slot",
-          "items": [
-            "nav"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "therapist": {
-          "props": {
-            "state": "book-next"
-          }
-        }
-      }
-    },
-    {
-      "id": "reminders",
-      "name": "With reminders",
       "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
       "slots": [
         {
@@ -315,6 +278,11 @@
           "props": {
             "state": "join"
           }
+        },
+        "reminders": {
+          "props": {
+            "show": "on"
+          }
         }
       }
     }
@@ -322,7 +290,7 @@
   "variables": {},
   "styles": [],
   "selector": ".home",
-  "description": "The home screen: the home header, then sections one under the other, and the bottom nav stuck to the bottom. The states follow your care: New, One topic, Several topics, Session booked, No appointment, With reminders (the reminders card at the end) and Session today (your therapist first, with Join session).",
+  "description": "The home screen: the home header, then sections one under the other, and the bottom nav stuck to the bottom. The states follow your care: New, One topic, Several topics, Session booked, No appointment and Session today (your therapist first, with Join session).",
   "items": {
     "header": {
       "type": "component",
@@ -394,7 +362,8 @@
       "props": {
         "headline": "Want reminders to stay on track?",
         "body": "I can help you build a check-in rhythm based on your sessions.",
-        "button.label": "Turn on reminders"
+        "button.label": "Turn on reminders",
+        "show": "off"
       },
       "expose": [
         "headline",
@@ -418,5 +387,13 @@
     "provider"
   ],
   "properties": [],
-  "prompts": []
+  "prompts": [],
+  "inputs": [
+    {
+      "id": "reminders",
+      "label": "Reminders card",
+      "type": "toggle",
+      "item": "reminders"
+    }
+  ]
 }

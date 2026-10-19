@@ -323,6 +323,10 @@
         state.items[id] = { ...cur, ...('value' in patch ? { value: patch.value } : {}), props: { ...(cur.props || {}), ...(patch.props || {}) } };
         place(build());
       },
+      setInput(id, value) {   // a variable: change the props it stands for, then draw again
+        for (const [item, prop, v] of compose.inputPatches(meta, id, value)) { const cur = state.items[item] || {}; state.items[item] = { ...cur, props: { ...(cur.props || {}), [prop]: v } }; }
+        place(build());
+      },
       setSurface(v) { surfaceState = v; if (v === 'inverse') subject.dataset.surface = 'inverse'; else delete subject.dataset.surface; },
       getContent() { return contentDefs().map((c, i) => { const el = target(c); return { i, label: c.label, value: el ? el.textContent.trim() : '' }; }); },
       setContent(i, v) { const el = contentDefs()[i] && target(contentDefs()[i]); if (el) el.textContent = v; },
