@@ -1,0 +1,37 @@
+{
+  "name": "Day chip",
+  "tier": "molecules",
+  "category": "forms",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-47440",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A small tile for one day: the weekday over the date. Selected turns solid white with dark text.",
+  "props": {
+    "day": {
+      "type": "text",
+      "label": "Weekday",
+      "default": "Mon"
+    },
+    "date": {
+      "type": "text",
+      "label": "Date",
+      "default": "2"
+    },
+    "selected": {
+      "type": "enum",
+      "label": "Selected",
+      "ui": "steps",
+      "values": [
+        "no",
+        "yes"
+      ],
+      "default": "no"
+    }
+  },
+  "template": "<button class=\"day-chip\" data-selected=\"{{selected}}\"><span>{{day}}</span><b>{{date}}</b></button>",
+  "markup": "<button class=\"day-chip\" data-selected=\"no\"><span>Mon</span><b>2</b></button>"
+}

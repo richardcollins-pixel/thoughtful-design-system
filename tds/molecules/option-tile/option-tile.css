@@ -1,0 +1,3 @@
+/* Molecule: option tile. 58px tall, frosted (20% white), 8px corners, centered 16px label; selected adds a white outline. */
+.option-tile { box-sizing: border-box; width: 100%; height: 58px; display: grid; place-items: center; padding-inline: var(--space-4); border: 1px solid transparent; border-radius: var(--radius-sm); background: var(--bg-elevation-20); backdrop-filter: blur(22px); color: var(--text-primary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); text-align: center; cursor: pointer; }
+.option-tile[data-selected="yes"] { border-color: var(--white); }
