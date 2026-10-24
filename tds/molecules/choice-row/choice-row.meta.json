@@ -1,0 +1,44 @@
+{
+  "name": "Choice row",
+  "tier": "molecules",
+  "category": "forms",
+  "stateful": false,
+  "uses": [
+    "atoms/check-circle"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-46866",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A tall outlined pill with a check circle and a label, for picking one answer. Picked fills the circle; Dim fades the row, for the answers not picked.",
+  "props": {
+    "label": {
+      "type": "text",
+      "label": "Label",
+      "default": "Yes"
+    },
+    "picked": {
+      "type": "enum",
+      "label": "Picked",
+      "ui": "steps",
+      "values": [
+        "false",
+        "true"
+      ],
+      "default": "false"
+    },
+    "dim": {
+      "type": "enum",
+      "label": "Dim",
+      "ui": "steps",
+      "values": [
+        "false",
+        "true"
+      ],
+      "default": "false"
+    }
+  },
+  "template": "<button class=\"choice-row\" data-picked=\"{{picked}}\" data-dim=\"{{dim}}\"><span class=\"check-circle\" data-on=\"{{picked}}\"><i class=\"icon icon-check\"></i></span><span class=\"choice-row__label\">{{label}}</span></button>",
+  "markup": "<button class=\"choice-row\" data-picked=\"false\" data-dim=\"false\"><span class=\"check-circle\" data-on=\"false\"><i class=\"icon icon-check\"></i></span><span class=\"choice-row__label\">Yes</span></button>"
+}
