@@ -9,4 +9,4 @@
 .keyboard__bottom { gap: 6px; margin-top: 0; }
 .keyboard__bottom i[data-wide] { flex: 0 0 91px; }
 .keyboard__bottom i[data-label] { font: 500 16px/1 system-ui, -apple-system, sans-serif; text-transform: none; letter-spacing: -.32px; }
-.keyboard i[data-dim] { opacity: .5; }
+.keyboard i[data-dim] { opacity: var(--opacity-muted, .5); }

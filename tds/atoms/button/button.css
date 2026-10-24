@@ -69,7 +69,7 @@
   --button-fill: transparent; --button-fill-hover: transparent; --button-text: var(--text-tertiary); --button-border: var(--border-secondary);
 }
 .button[data-variant="glass"]:disabled, .button[data-variant="glass"][data-state="disabled"],
-.button[data-variant="flat"]:disabled,  .button[data-variant="flat"][data-state="disabled"] { opacity: 0.4; }
+.button[data-variant="flat"]:disabled,  .button[data-variant="flat"][data-state="disabled"] { opacity: var(--opacity-disabled, 0.4); }
 
 .button[data-state="loading"] { --button-fill: var(--bg-elevation-20); --button-fill-hover: var(--bg-elevation-20); --button-text: var(--text-primary); pointer-events: none; }
 .button[data-variant="outline"][data-state="loading"] { --button-fill: transparent; --button-fill-hover: transparent; }

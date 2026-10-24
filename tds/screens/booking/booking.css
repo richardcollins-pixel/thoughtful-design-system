@@ -1,7 +1,7 @@
 /* Screen: booking. Header on top, content in the middle, the main button pinned to the bottom. Interstitial has the cycle art and a Skip link;
    questions stack option tiles; matches is the provider carousel; book is a day row and a time grid. Slots: top, main, options, days, slots, bottom. */
 .booking { position: relative; isolation: isolate; display: flex; flex-direction: column; box-sizing: border-box; min-height: 100dvh; margin: calc(var(--page-gutter, var(--space-4)) * -1); }
-.booking__glow { --glow-size: 550px; --glow-blur: 90px; --glow-opacity: .6; z-index: -1; position: fixed; }
+.booking__glow { --glow-size: var(--glow-screen-size); --glow-blur: var(--glow-screen-blur); --glow-opacity: var(--glow-screen-opacity); z-index: var(--layer-behind); position: fixed; }
 .booking__top .header__title { display: none; }
 .booking[data-kind="matches"] .booking__top .header__title, .booking[data-kind="book"] .booking__top .header__title { display: revert-layer; }
 .booking__main { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); width: 100%; max-width: 402px; margin-inline: auto; padding: var(--space-8) var(--space-5, 20px) 0; text-align: center; }

@@ -231,8 +231,19 @@
   --shadow-2: 0 4px 12px rgb(0 0 0 / 0.12);
   --shadow-3: 0 12px 32px rgb(0 0 0 / 0.18);
   --opacity-dim: 0.2;
+  --opacity-faint: 0.3;
   --opacity-disabled: 0.4;
   --opacity-muted: 0.5;
+  --opacity-soft: 0.6;
+  --opacity-scrim: 0.7;
+  --opacity-strong: 0.8;
+  --layer-behind: -1;
+  --layer-raised: 1;
+  --layer-sticky: 2;
+  --layer-scrim: 3;
+  --layer-overlay: 4;
+  --layer-toast: 5;
+  --layer-sheet: 6;
 }
 
 :root {
@@ -277,6 +288,66 @@
   --motion-travel-duration: var(--duration-slow);
   --motion-travel-ease: var(--ease-standard);
   --motion-travel-delay: 0ms;
+}
+
+:root {
+  --glow-screen-size: 550px;
+  --glow-screen-blur: 90px;
+  --glow-screen-opacity: 0.6;
+  --glow-page-size: 560px;
+  --glow-page-blur: 80px;
+  --glow-page-opacity: 0.55;
+  --glow-strong-size: 600px;
+  --glow-strong-blur: 80px;
+  --glow-strong-opacity: 0.95;
+  --glow-header-size: 520px;
+  --glow-header-blur: 90px;
+  --glow-header-opacity: 0.4;
+  --glow-card-size: 150px;
+  --glow-card-blur: 36px;
+  --glow-card-opacity: 0.35;
+}
+
+:root {
+  --container-page-x: var(--space-4);
+  --container-page-y: var(--space-4);
+  --container-page-gap: var(--space-6);
+  --container-card-x: var(--padding-md);
+  --container-card-y: var(--padding-lg);
+  --container-card-gap: var(--space-4);
+  --container-inset-x: var(--padding-xl);
+  --container-inset-y: var(--space-12);
+  --container-inset-gap: var(--space-4);
+  --container-sheet-x: var(--space-6);
+  --container-sheet-y: var(--space-6);
+  --container-sheet-gap: var(--space-6);
+}
+
+:root {
+  --background-gradient-fill: var(--gradient-dark-rose-to-orange);
+  --background-gradient-glow-size: 0px;
+  --background-gradient-glow-blur: 0px;
+  --background-gradient-glow-opacity: 0;
+  --background-gradient-blur: 0px;
+  --background-gradient-alpha: 1;
+  --background-page-fill: var(--bg-base);
+  --background-page-glow-size: var(--glow-screen-size);
+  --background-page-glow-blur: var(--glow-screen-blur);
+  --background-page-glow-opacity: var(--glow-screen-opacity);
+  --background-page-blur: 0px;
+  --background-page-alpha: 1;
+  --background-chat-fill: var(--bg-base);
+  --background-chat-glow-size: var(--glow-screen-size);
+  --background-chat-glow-blur: var(--glow-screen-blur);
+  --background-chat-glow-opacity: var(--glow-screen-opacity);
+  --background-chat-blur: 0px;
+  --background-chat-alpha: 1;
+  --background-backdrop-fill: var(--bg-base);
+  --background-backdrop-glow-size: 0px;
+  --background-backdrop-glow-blur: 0px;
+  --background-backdrop-glow-opacity: 0;
+  --background-backdrop-blur: var(--blur-md);
+  --background-backdrop-alpha: var(--opacity-scrim);
 }
 
 @media (prefers-reduced-motion: reduce) {

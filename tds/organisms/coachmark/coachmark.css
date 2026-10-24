@@ -4,8 +4,8 @@
 .coachmark { position: relative; box-sizing: border-box; width: 100%; max-width: 370px; display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-6); color: var(--purple-900); background: var(--white); border-radius: var(--radius-md); filter: drop-shadow(0 4px 27px color-mix(in srgb, var(--purple-900) 70%, transparent)); }
 /* a soft light behind T, drawn from the blob's own colors (the blob makes it inside this layer, which keeps it inside the bubble) */
 .coachmark { isolation: isolate; }
-.coachmark__light { position: absolute; inset: 0; z-index: -1; border-radius: inherit; overflow: clip; pointer-events: none; }
-.coachmark .glow { --glow-size: 150px; --glow-blur: 36px; --glow-opacity: .35; }
+.coachmark__light { position: absolute; inset: 0; z-index: var(--layer-behind); border-radius: inherit; overflow: clip; pointer-events: none; }
+.coachmark .glow { --glow-size: var(--glow-card-size); --glow-blur: var(--glow-card-blur); --glow-opacity: var(--glow-card-opacity); }
 .coachmark__arrow-slot { display: contents; }
 .coachmark .avatar-text { color: var(--purple-900); }
 .coachmark .avatar-text__subline { color: var(--black); }

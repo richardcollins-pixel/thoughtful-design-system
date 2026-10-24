@@ -108,6 +108,24 @@ const KINDS = {
      { key: 'delay', label: 'Delay (ms)', type: 'number', min: 0, step: 50 }],
     [['Duration', (t) => `<span class="mute">${esc(t.duration)}</span>`], ['Easing', (t) => `<span class="mute">${esc(t.easing)}</span>`], ['Delay', (t) => `${t.delay || 0}ms`], ['', (t) => motionSpec(t, false)]],
     (t) => motionSpec(t, true)),
+  layer: simple(['tokens', 'layout', 'layer'], 'layer', () => ({ value: 1 }), [{ key: 'value', label: 'Stacking order (z-index)', type: 'number', step: 1 }],
+    [['z-index', (t) => `${t.value}`], ['', (t) => `<span class="layerbar"><i style="width:${Math.max(0, t.value + 1) * 12 + 8}px"></i></span>`]],
+    (t) => `<div class="layerstack">${tokens.filter((x) => x.kind === 'layer').sort((a, b) => a.value - b.value).map((x) => `<div class="${x === t ? 'sel' : ''}" style="margin-left:${(x.value + 1) * 14}px">${esc(x.name)} <em>${x.value}</em></div>`).join('')}</div>`),
+  glow: simple(['styles', 'glow'], 'glow', () => ({ size: 550, blur: 90, percent: 60 }),
+    [px('size', 'Size (px)'), px('blur', 'Blur (px)'), { key: 'percent', label: 'Opacity (%)', type: 'number', min: 0, step: 5 }],
+    [['Size', (t) => `${t.size}px`], ['Blur', (t) => `${t.blur}px`], ['Opacity', (t) => `${t.percent}%`], ['', (t) => glowSpec(t, 'sm')]],
+    (t) => glowSpec(t, 'lg')),
+  background: simple(['styles', 'background'], 'background', () => ({ fill: 'bg-base', glow: 'none', blur: 'none', alpha: 'none' }),
+    [{ section: 'Fill' }, { key: 'fill', label: 'Color or gradient', type: 'select', options: () => [...tokOpts('role', (t) => t.group === 'background'), ...tokOpts('gradient')] },
+     { section: 'Glow' }, { key: 'glow', label: 'Glow style', type: 'select', options: () => [['none', 'None'], ...tokOpts('glow')] },
+     { section: 'Backdrop' }, { key: 'blur', label: 'Background blur', type: 'select', options: () => [['none', 'None'], ...tokOpts('blur')] }, { key: 'alpha', label: 'Opacity', type: 'select', options: () => [['none', 'Solid'], ...tokOpts('opacity')] }],
+    [['Preview', (t) => bgSpec(t, 'sm')], ['Fill', (t) => `<span class="mute">${esc(t.fill)}</span>`], ['Glow', (t) => `<span class="mute">${esc(t.glow)}</span>`], ['Blur', (t) => `<span class="mute">${esc(t.blur)}</span>`], ['Opacity', (t) => `<span class="mute">${esc(t.alpha)}</span>`]],
+    (t) => bgSpec(t, 'lg')),
+  container: simple(['styles', 'container'], 'container', () => ({ padX: 'space-4', padY: 'space-4', gap: 'space-4' }),
+    [{ key: 'padX', label: 'Padding across', type: 'select', options: () => [...tokOpts('padding'), ...tokOpts('spacing')] }, { key: 'padY', label: 'Padding down', type: 'select', options: () => [...tokOpts('padding'), ...tokOpts('spacing')] },
+     { key: 'gap', label: 'Gap between things', type: 'select', options: () => tokOpts('spacing') }],
+    [['Across', (t) => `<span class="mute">${esc(t.padX)} · ${tokOf(t.padX) ? tokOf(t.padX).px : '?'}px</span>`], ['Down', (t) => `<span class="mute">${esc(t.padY)} · ${tokOf(t.padY) ? tokOf(t.padY).px : '?'}px</span>`], ['Gap', (t) => `<span class="mute">${esc(t.gap)} · ${tokOf(t.gap) ? tokOf(t.gap).px : '?'}px</span>`], ['', (t) => containerSpec(t, 'sm')]],
+    (t) => containerSpec(t, 'lg')),
 };
 
 // ---- helpers for the styles pages (elevation, motion)
@@ -127,10 +145,28 @@ function motionSpec(t, big) {
   const bz = e ? `cubic-bezier(${e.bezier.join(',')})` : 'ease';
   return `<div class="dot-track"><div class="dot" style="--d:${Math.max(ms, 30) * 4}ms;animation-timing-function:${bz}"></div></div>${big ? '<p class="mute" style="margin-top:8px">Preview plays 4× slower</p>' : ''}`;
 }
+function glowSpec(t, size) {
+  const k = size === 'lg' ? 0.2 : 0.08, d = Math.min(t.size * k, size === 'lg' ? 120 : 34);
+  return `<div class="glowbg ${size}"><i style="width:${d}px;height:${d}px;filter:blur(${Math.max(2, t.blur * k)}px);opacity:${Math.min(1, t.percent / 100 + .1)}"></i></div>`;
+}
+function bgSpec(t, size) {
+  const f = tokOf(t.fill), g = tokOf(t.glow), b = tokOf(t.blur), a = tokOf(t.alpha);
+  const fill = !f ? 'transparent' : f.kind === 'gradient' ? gradientCss(f) : fillCss(t.fill);
+  const glow = g ? `<i class="bgglow" style="width:${size === 'lg' ? 120 : 34}px;height:${size === 'lg' ? 120 : 34}px;filter:blur(${Math.max(2, g.blur * (size === 'lg' ? .2 : .08))}px);opacity:${Math.min(1, g.percent / 100 + .1)}"></i>` : '';
+  const over = a || b ? `<div class="bgover" style="background:${f && f.kind === 'role' ? rgba(primHex(f.values.base.ref), a ? a.percent : 100) : fill};${b ? `backdrop-filter:blur(${b.px}px);-webkit-backdrop-filter:blur(${b.px}px);` : ''}"></div>` : '';
+  return `<div class="bgspec ${size}" style="background:${a || b ? 'repeating-linear-gradient(135deg,#7a4de8 0 10px,#f57f70 10px 20px,#62c2e5 20px 30px)' : fill}">${glow}${over}</div>`;
+}
+function containerSpec(t, size) {
+  const x = tokOf(t.padX), y = tokOf(t.padY), gp = tokOf(t.gap), k = size === 'lg' ? 1.4 : 0.55;
+  return `<div class="ctnspec ${size}" style="padding:${(y ? y.px : 0) * k}px ${(x ? x.px : 0) * k}px;gap:${(gp ? gp.px : 0) * k}px"><i></i><i></i></div>`;
+}
 // which token kinds a styles page shows, in sections
 const GROUPS = {
   elevation: [['Elevation styles', 'elevation'], ['Background blur', 'blur'], ['Corner radius', 'radius'], ['Shadow', 'shadow']],
   motion: [['Motion styles', 'motion'], ['Duration', 'duration'], ['Easing', 'easing']],
+  glow: [['Glow styles', 'glow']],
+  background: [['Background styles', 'background']],
+  container: [['Container styles', 'container'], ['Padding', 'padding'], ['Spacing', 'spacing']],
 };
 
 
@@ -141,11 +177,11 @@ function curve([x1, y1, x2, y2], size) {
 
 /* ---------- nav: tokens, styles, atoms, molecules, organisms, patterns (sections), screens, device (phone chrome) ---------- */
 const LEVELS = ['tokens', 'styles', 'atoms', 'molecules', 'organisms', 'patterns', 'screens'];
-const TOKEN_LEAVES = [['primitives', 'primitive'], ['roles', 'role'], ['padding', 'padding'], ['spacing', 'spacing'], ['radius', 'radius'], ['opacity', 'opacity'], ['font family', 'font-family'], ['weight', 'font-weight'], ['size', 'font-size'], ['line height', 'line-height'], ['letter spacing', 'letter-spacing'], ['duration', 'duration'], ['easing', 'easing']];
+const TOKEN_LEAVES = [['primitives', 'primitive'], ['roles', 'role'], ['padding', 'padding'], ['spacing', 'spacing'], ['radius', 'radius'], ['opacity', 'opacity'], ['layer', 'layer'], ['font family', 'font-family'], ['weight', 'font-weight'], ['size', 'font-size'], ['line height', 'line-height'], ['letter spacing', 'letter-spacing'], ['duration', 'duration'], ['easing', 'easing']];
 const camel = (str) => str.replace(/-(\w)/g, (m, c) => c.toUpperCase());
 const levelLeaves = (level) => {
   if (level === 'tokens') return TOKEN_LEAVES.map(([label, k]) => ({ label, kind: k }));
-  if (level === 'styles') return [{ label: 'color', kind: 'gradient' }, { label: 'type', kind: 'typestyles' }, { label: 'elevation', kind: 'elevation' }, { label: 'motion', kind: 'motion' }];
+  if (level === 'styles') return [{ label: 'color', kind: 'gradient' }, { label: 'type', kind: 'typestyles' }, { label: 'elevation', kind: 'elevation' }, { label: 'glow', kind: 'glow' }, { label: 'background', kind: 'background' }, { label: 'container', kind: 'container' }, { label: 'motion', kind: 'motion' }];
   return components.filter((c) => c.tier === level).map((c) => ({ label: camel(c.path.split('/')[1]), component: c.path }));
 };
 let openLevel = 'tokens';   // one level open at a time
@@ -199,6 +235,11 @@ const DESC = {
   gradient: 'Named gradient styles for surfaces and chat UI.',
   elevation: 'Elevation styles: a surface color, a background blur, a corner radius and a shadow used together. The blur, radius and shadow they point to are listed below, so a change there changes every style that uses it.',
   motion: 'Motion styles: each animation preset (data-motion) is a duration, an easing and a delay. Duration and easing are the shared tokens; the preview plays 4× slower.',
+  glow: 'Glow styles: how big, how blurred and how strong the soft light behind T, or rising from the bottom of a screen, is. Screens and components point at one of these.',
+  background: 'Background styles: a fill (a color or a gradient), a glow and, for the dimmed backdrop behind a dialog, a blur and an opacity.',
+  container: 'Container styles: the padding and gap of the boxes that hold things: the page (its side padding is the page gutter), a card, an inset card and a sheet.',
+  layer: 'The stacking order (z-index) of things that sit over other things: the sticky header and nav, the dimmed backdrop, dialogs, toasts, sheets. Use the token, not a number.',
+  opacity: 'Opacities used on their own: dimmed, disabled, muted, scrim.',
   typestyles: 'Text styles. Each one bundles a font, weight, size, line height and letter spacing; components use the style, so changing it here changes it everywhere.',
 };
 
@@ -308,7 +349,7 @@ $('#panel').addEventListener('change', (e) => {
   selected.name = v; renderTable(); scheduleSave();
 });
 
-const REF_FIELDS = ['fill', 'blur', 'radius', 'shadow', 'duration', 'easing'];
+const REF_FIELDS = ['fill', 'blur', 'radius', 'shadow', 'duration', 'easing', 'glow', 'alpha', 'padX', 'padY', 'gap'];
 $('#panel').addEventListener('click', (e) => {
   if (e.target.id !== 'del' || !selected) return;
   const used = tokens.filter((t) => REF_FIELDS.some((f) => t[f] === selected.name));

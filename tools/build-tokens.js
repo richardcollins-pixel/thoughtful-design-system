@@ -60,6 +60,7 @@ export function buildCss(tokens, schema) {
     ...of('blur').map((t) => `--${t.name}: ${fmt(t.px)}px;`),
     ...of('shadow').map((t) => `--${t.name}: ${fmtShadow(t)};`),
     ...of('opacity').map((t) => `--${t.name}: ${fmt(t.percent / 100)};`),
+    ...of('layer').map((t) => `--${t.name}: ${fmt(t.value)};`),
   ]);
   // an elevation style is a surface color, a background blur, a corner radius and a shadow, used together
   const ref = (v, none) => (v === 'none' || !v ? none : `var(--${v})`);
@@ -70,6 +71,16 @@ export function buildCss(tokens, schema) {
   // a motion style is a duration, an easing and a delay; data-motion presets read them
   block(':root', of('motion').flatMap((t) => [
     `--${t.name}-duration: ${ref(t.duration, 'var(--duration-base)')};`, `--${t.name}-ease: ${ref(t.easing, 'var(--ease-standard)')};`, `--${t.name}-delay: ${fmt(t.delay || 0)}ms;`,
+  ]));
+  // a glow style is the size, blur and opacity of a glow
+  block(':root', of('glow').flatMap((t) => [`--${t.name}-size: ${fmt(t.size)}px;`, `--${t.name}-blur: ${fmt(t.blur)}px;`, `--${t.name}-opacity: ${fmt(t.percent / 100)};`]));
+  // a container style is the padding (across and down) and the gap of a box that holds things
+  block(':root', of('container').flatMap((t) => [`--${t.name}-x: ${ref(t.padX, '0px')};`, `--${t.name}-y: ${ref(t.padY, '0px')};`, `--${t.name}-gap: ${ref(t.gap, '0px')};`]));
+  // a background style is a fill, a glow and, for a backdrop, a blur and an opacity
+  const glowVar = (t, k, none) => (t.glow === 'none' || !t.glow ? none : `var(--${t.glow}-${k})`);
+  block(':root', of('background').flatMap((t) => [
+    `--${t.name}-fill: ${ref(t.fill, 'transparent')};`, `--${t.name}-glow-size: ${glowVar(t, 'size', '0px')};`, `--${t.name}-glow-blur: ${glowVar(t, 'blur', '0px')};`,
+    `--${t.name}-glow-opacity: ${glowVar(t, 'opacity', '0')};`, `--${t.name}-blur: ${ref(t.blur, '0px')};`, `--${t.name}-alpha: ${ref(t.alpha, '1')};`,
   ]));
   out.push(`@media (prefers-reduced-motion: reduce) {\n  :root { ${of('duration').map((t) => `--${t.name}: 0.01ms;`).join(' ')} }\n}\n`);
   return out.join('\n');

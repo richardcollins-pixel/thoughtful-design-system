@@ -1,7 +1,7 @@
 /* Screen: screener. Intro: T, a light headline, a line, and Continue at the bottom. Questions: the question at the top, the Yes and No rows and
    Continue pinned to the bottom. A back button, progress dots and Support sit on top. Slots: top, main, question, bottom. */
 .screener { position: relative; isolation: isolate; display: flex; flex-direction: column; box-sizing: border-box; min-height: 100dvh; margin: calc(var(--page-gutter, var(--space-4)) * -1); }
-.screener__glow { --glow-size: 550px; --glow-blur: 90px; --glow-opacity: .6; z-index: -1; position: fixed; }
+.screener__glow { --glow-size: var(--glow-screen-size); --glow-blur: var(--glow-screen-blur); --glow-opacity: var(--glow-screen-opacity); z-index: var(--layer-behind); position: fixed; }
 .screener__top .header__title { display: none; }
 .screener__main { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); width: 100%; max-width: 352px; margin-inline: auto; padding: var(--space-16) var(--space-4) 0; text-align: center; }
 .screener__blob { display: grid; place-items: center; height: 180px; }

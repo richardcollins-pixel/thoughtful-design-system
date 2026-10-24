@@ -1,0 +1,6 @@
+/* Background styles (styles > background): a fill, a glow and, for a backdrop, a blur and an opacity, set up as tokens. Apply with a class.
+   A glow element (atoms/glow) inside takes the size, blur and opacity of its background's glow style. */
+.background-gradient { background: var(--background-gradient-fill); }
+.background-page, .background-chat { background: var(--background-page-fill); --glow-size: var(--background-page-glow-size); --glow-blur: var(--background-page-glow-blur); --glow-opacity: var(--background-page-glow-opacity); }
+.background-chat { background: var(--background-chat-fill); --glow-size: var(--background-chat-glow-size); --glow-blur: var(--background-chat-glow-blur); --glow-opacity: var(--background-chat-glow-opacity); }
+.background-backdrop { background: color-mix(in srgb, var(--background-backdrop-fill) calc(var(--background-backdrop-alpha) * 100%), transparent); backdrop-filter: blur(var(--background-backdrop-blur)); }
