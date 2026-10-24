@@ -1,0 +1,13 @@
+/* Screen: profile-pages. The pages one level under Profile. Hero pages (About, Support): the gradient hero runs to the screen edges and the groups follow
+   (24px apart). Feedback: a tall text area, the checkbox row, the button above the keyboard. Read page: the header, a card, then sections. Slots: hero, top,
+   sections, form, bottom. */
+.profile-pages { position: relative; isolation: isolate; display: flex; flex-direction: column; box-sizing: border-box; min-height: 100dvh; margin: calc(var(--page-gutter, var(--space-4)) * -1); }
+.profile-pages__glow { --glow-size: 560px; --glow-blur: 80px; --glow-opacity: .55; z-index: -1; position: fixed; }
+.profile-pages__sections { display: flex; flex-direction: column; gap: var(--space-6); padding: var(--space-6) var(--space-4) var(--space-12); }
+.profile-pages[data-kind="what-is"] .profile-pages__sections { gap: var(--space-12); padding-top: var(--space-4); }
+.profile-pages__form { display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-3, 12px) var(--space-4) 0; }
+.profile-pages__form .textarea { height: 313px; }
+.profile-pages__terms { display: flex; align-items: center; gap: var(--space-2); color: var(--text-primary); font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); }
+.profile-pages__bottom { margin-top: auto; }
+.profile-pages__bottom > .button, .profile-pages__bottom > [data-item="submit"] { margin-inline: var(--space-4); width: calc(100% - var(--space-8)); margin-bottom: 23px; }
+.profile-pages[data-kind="what-is"] .header-inset-card { --card-fill: var(--gradient-purple-to-orange); }

@@ -317,6 +317,40 @@
           ]
         }
       ]
+    },
+    {
+      "id": "back",
+      "label": "Header",
+      "type": "select",
+      "options": [
+        {
+          "value": "close",
+          "label": "Close",
+          "set": [
+            [
+              "header",
+              "header.variant",
+              "close"
+            ]
+          ]
+        },
+        {
+          "value": "history",
+          "label": "Back (from history)",
+          "set": [
+            [
+              "header",
+              "header.variant",
+              "sub-section"
+            ],
+            [
+              "header",
+              "header.title",
+              "History"
+            ]
+          ]
+        }
+      ]
     }
   ]
 }

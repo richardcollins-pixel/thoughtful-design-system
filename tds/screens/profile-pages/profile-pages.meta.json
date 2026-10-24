@@ -1,0 +1,453 @@
+{
+  "name": "Profile pages",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "organisms/hero-header",
+    "organisms/action-group",
+    "molecules/header",
+    "atoms/textarea",
+    "atoms/checkbox",
+    "atoms/button",
+    "device/keyboard",
+    "organisms/header-inset-card",
+    "molecules/text-section",
+    "atoms/glow"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4364-76152",
+  "align": "top",
+  "states": [
+    {
+      "id": "about",
+      "name": "About",
+      "template": "<section class=\"profile-pages\" data-kind=\"about\"><div class=\"glow profile-pages__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"profile-pages__hero\" data-slot=\"hero\">{{item:hero}}</div><div class=\"profile-pages__sections\" data-slot=\"sections\">{{item:g1}}{{item:g2}}</div></section>",
+      "slots": [
+        {
+          "id": "hero",
+          "label": "Hero slot",
+          "items": [
+            "hero"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "g1",
+            "g2"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "hero": {
+          "props": {
+            "state": "cool",
+            "header.title": "About",
+            "headline": "Meet Thoughtful"
+          }
+        },
+        "g1": {
+          "props": {
+            "state": "one",
+            "title": "About",
+            "row1.text": "What is Thoughtful?",
+            "row1.trailing": "chevron"
+          }
+        },
+        "g2": {
+          "props": {
+            "state": "two",
+            "title": "Legal",
+            "row1.text": "Privacy Policy",
+            "row1.trailing": "chevron",
+            "row2.text": "Terms & Conditions",
+            "row2.trailing": "chevron"
+          }
+        }
+      }
+    },
+    {
+      "id": "support",
+      "name": "Support",
+      "template": "<section class=\"profile-pages\" data-kind=\"support\"><div class=\"glow profile-pages__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"profile-pages__hero\" data-slot=\"hero\">{{item:hero}}</div><div class=\"profile-pages__sections\" data-slot=\"sections\">{{item:g1}}{{item:g2}}</div></section>",
+      "slots": [
+        {
+          "id": "hero",
+          "label": "Hero slot",
+          "items": [
+            "hero"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "g1",
+            "g2"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "hero": {
+          "props": {
+            "state": "warm",
+            "header.title": "Support",
+            "headline": "How can we help?"
+          }
+        },
+        "g1": {
+          "props": {
+            "state": "two",
+            "title": "Thoughtful Support",
+            "row1.text": "Email careteam@thoughtful.com",
+            "row1.trailing": "icon",
+            "row1.icon": "email",
+            "row2.text": "Request a Call",
+            "row2.trailing": "icon",
+            "row2.icon": "call"
+          }
+        },
+        "g2": {
+          "props": {
+            "state": "two",
+            "title": "Immediate Help",
+            "row1.text": "Suicide & Crisis Lifeline (Dial 988)",
+            "row1.trailing": "icon",
+            "row1.icon": "call",
+            "row2.text": "Crisis Text Line (Text HOME to 741741)",
+            "row2.trailing": "icon",
+            "row2.icon": "sms"
+          }
+        }
+      }
+    },
+    {
+      "id": "support-called",
+      "name": "Support, call requested",
+      "template": "<section class=\"profile-pages\" data-kind=\"support-called\"><div class=\"glow profile-pages__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"profile-pages__hero\" data-slot=\"hero\">{{item:hero}}</div><div class=\"profile-pages__sections\" data-slot=\"sections\">{{item:g1}}{{item:g2}}</div></section>",
+      "slots": [
+        {
+          "id": "hero",
+          "label": "Hero slot",
+          "items": [
+            "hero"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "g1",
+            "g2"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "hero": {
+          "props": {
+            "state": "warm",
+            "header.title": "Support",
+            "headline": "How can we help?"
+          }
+        },
+        "g1": {
+          "props": {
+            "state": "two",
+            "title": "Thoughtful Support",
+            "row1.text": "Email careteam@thoughtful.com",
+            "row1.trailing": "icon",
+            "row1.icon": "email",
+            "row2.text": "Call Requested",
+            "row2.trailing": "icon",
+            "row2.icon": "check",
+            "row2.dim": "yes"
+          }
+        },
+        "g2": {
+          "props": {
+            "state": "two",
+            "title": "Immediate Help",
+            "row1.text": "Suicide & Crisis Lifeline (Dial 988)",
+            "row1.trailing": "icon",
+            "row1.icon": "call",
+            "row2.text": "Crisis Text Line (Text HOME to 741741)",
+            "row2.trailing": "icon",
+            "row2.icon": "sms"
+          }
+        }
+      }
+    },
+    {
+      "id": "feedback",
+      "name": "Share feedback",
+      "template": "<section class=\"profile-pages\" data-kind=\"feedback\"><div class=\"glow profile-pages__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"profile-pages__top\" data-slot=\"top\">{{item:header}}</div><div class=\"profile-pages__form\" data-slot=\"form\">{{item:field}}<label class=\"profile-pages__terms\">{{item:check}}{{item:terms}}</label></div><div class=\"profile-pages__bottom\" data-slot=\"bottom\">{{item:submit}}{{item:keyboard}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "form",
+          "label": "Form slot",
+          "items": [
+            "field",
+            "check",
+            "terms"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "submit",
+            "keyboard"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "sub-section",
+            "title": "Share feedback"
+          }
+        }
+      }
+    },
+    {
+      "id": "what-is",
+      "name": "What is Thoughtful?",
+      "template": "<section class=\"profile-pages\" data-kind=\"what-is\"><div class=\"glow profile-pages__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"profile-pages__top\" data-slot=\"top\">{{item:header}}</div><div class=\"profile-pages__sections\" data-slot=\"sections\">{{item:card}}{{item:welcome}}{{item:how}}{{item:privacy}}{{item:important}}{{item:safety}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "card",
+            "welcome",
+            "how",
+            "privacy",
+            "important",
+            "safety"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "sub-section",
+            "title": "About Thoughtful"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".profile-pages",
+  "description": "The pages you reach from Profile: About (Meet Thoughtful, with About and Legal), Support (How can we help, and with the call requested), Share feedback (a big text area, the research checkbox and the keyboard) and What is Thoughtful? (a long read).",
+  "items": {
+    "hero": {
+      "type": "component",
+      "component": "organisms/hero-header",
+      "label": "Hero",
+      "props": {
+        "state": "warm"
+      },
+      "expose": [
+        "state",
+        "header.title",
+        "headline"
+      ]
+    },
+    "g1": {
+      "type": "component",
+      "component": "organisms/action-group",
+      "label": "Group 1",
+      "props": {
+        "state": "two",
+        "title": "Group"
+      },
+      "expose": [
+        "state",
+        "title"
+      ]
+    },
+    "g2": {
+      "type": "component",
+      "component": "organisms/action-group",
+      "label": "Group 2",
+      "props": {
+        "state": "two",
+        "title": "Group"
+      },
+      "expose": [
+        "state",
+        "title"
+      ]
+    },
+    "header": {
+      "type": "component",
+      "component": "molecules/header",
+      "label": "Header",
+      "props": {
+        "variant": "sub-section",
+        "title": "Title"
+      },
+      "expose": [
+        "variant",
+        "title"
+      ]
+    },
+    "field": {
+      "type": "component",
+      "component": "atoms/textarea",
+      "label": "Feedback field",
+      "props": {
+        "text": "This is what the user typed",
+        "filled": "yes"
+      },
+      "expose": [
+        "text",
+        "filled"
+      ]
+    },
+    "check": {
+      "type": "component",
+      "component": "atoms/checkbox",
+      "label": "Research checkbox",
+      "props": {
+        "checked": "yes"
+      },
+      "expose": [
+        "checked"
+      ]
+    },
+    "terms": {
+      "type": "text",
+      "tag": "span",
+      "class": "profile-pages__terms-text",
+      "label": "Checkbox label",
+      "value": "Contact me to participate in user research"
+    },
+    "submit": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Submit",
+      "props": {
+        "label": "Submit Feedback",
+        "variant": "filled",
+        "size": "md",
+        "width": "full"
+      },
+      "expose": [
+        "label"
+      ]
+    },
+    "keyboard": {
+      "type": "component",
+      "component": "device/keyboard",
+      "label": "Keyboard",
+      "props": {},
+      "expose": []
+    },
+    "card": {
+      "type": "component",
+      "component": "organisms/header-inset-card",
+      "label": "Intro card",
+      "props": {
+        "state": "default",
+        "headline": "Transform your perspective",
+        "body": "Improve your life. 10 mins at a time"
+      },
+      "expose": [
+        "headline",
+        "body"
+      ]
+    },
+    "welcome": {
+      "type": "component",
+      "component": "molecules/text-section",
+      "label": "Welcome",
+      "props": {
+        "heading": "Welcome to Thoughtful",
+        "body": "Thoughtful is your personal, AI-powered support tool, here to help you build skills and emotional resilience.\n\nGet safe, private, and unlimited guidance that's tailored specifically to your needs. The system uses a skills-based approach and was designed with input from clinicians, ensuring you get a structured, supportive experience every time."
+      },
+      "expose": [
+        "heading",
+        "body"
+      ]
+    },
+    "how": {
+      "type": "component",
+      "component": "molecules/text-section",
+      "label": "How it works",
+      "props": {
+        "heading": "How it works",
+        "body": "Thoughtful uses Artificial Intelligence (AI) to provide personalized support and guidance based on what you choose to share.\n\nSkills-Based Sessions: You select a session length designed to teach you emotional resilience skills.\n\nPersonalized Chat: The AI chat gives you immediate support, tracks your progress, and guides you through structured techniques.\n\nReview and Track: You can review past sessions and learnings in your private Session History and skill library, seeing the real skills you've developed."
+      },
+      "expose": [
+        "heading",
+        "body"
+      ]
+    },
+    "privacy": {
+      "type": "component",
+      "component": "molecules/text-section",
+      "label": "Your Data is Private",
+      "props": {
+        "heading": "Your Data is Private",
+        "body": "Your Privacy is Paramount. As a mental wellness tool, your information is treated with the highest level of security and respect.\n\nSecurity: Your sessions are private, safe, and secure. All data is encrypted and stored securely.\n\nData Use: The data you share is only used to personalize your experience and improve the quality of the guidance and support you receive.\n\nNo Selling or Sharing: Your data is never sold or shared with third parties for marketing or advertising.\n\nFor a complete and detailed breakdown of data practices, please review the Privacy Policy."
+      },
+      "expose": [
+        "heading",
+        "body"
+      ]
+    },
+    "important": {
+      "type": "component",
+      "component": "molecules/text-section",
+      "label": "Important Information",
+      "props": {
+        "heading": "Important Information",
+        "body": "This is Not a Therapist: Thoughtful is an AI tool, not a human therapist. It cannot and does not provide medical advice or diagnose conditions.\n\nAlways Consult a Professional: Information or suggestions generated by Thoughtful are for general support purposes only. Always consult a qualified medical or mental health professional for critical decisions."
+      },
+      "expose": [
+        "heading",
+        "body"
+      ]
+    },
+    "safety": {
+      "type": "component",
+      "component": "molecules/text-section",
+      "label": "Safety and Emergencies",
+      "props": {
+        "heading": "Safety and Emergencies",
+        "body": "If you are in a crisis or need immediate help, do not rely on Thoughtful.\n\nImmediate Support: If you're in a crisis and need to talk to someone now, please call 1 (855) 629-0554 opt. 2 for immediate crisis support or 911. Support is available 24/7.\n\nBeta Status: This AI product is currently in Beta and may not meet standards safety protocols.\n\nAI Can Make Mistakes: The AI is always learning. Sometimes it gives suggestions that don't seem right. Feel free to ignore them. For anything important, double-check and reach out to a licensed professional."
+      },
+      "expose": [
+        "heading",
+        "body"
+      ]
+    }
+  },
+  "personas": [],
+  "inputs": [],
+  "properties": [],
+  "prompts": []
+}
