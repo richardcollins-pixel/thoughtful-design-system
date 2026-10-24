@@ -1,0 +1,14 @@
+/* Device: alert. The iPhone's own alert: a 300px dark glass card (34px corners), the app's icon with a small badge, a 17px bold title and a
+   17px message in the system font, and two pill buttons. Drawn to look right on a screen; it is the phone's, so Device UI off hides it. */
+.device-alert { --alert-font: -apple-system, "SF Pro Text", "SF Pro", system-ui, sans-serif; position: relative; box-sizing: border-box; width: 300px; display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 34px; color: #fff; font-family: var(--alert-font); letter-spacing: -.43px; background: color-mix(in srgb, #000 55%, transparent); backdrop-filter: blur(40px) saturate(1.3); box-shadow: 0 0 0 .5px color-mix(in srgb, #fff 18%, transparent) inset, 0 20px 50px color-mix(in srgb, #000 22%, transparent); }
+.device-alert__icon { position: relative; width: 63px; height: 62px; }
+.device-alert__app, .device-alert__badge { position: absolute; overflow: hidden; display: block; }
+.device-alert__app { left: 0; top: 0; width: 62.667px; height: 61.667px; border-radius: 15.3px; }
+.device-alert__app img { position: absolute; max-width: none; height: 1368.65%; width: 622.34%; left: -98.4%; top: -419.46%; }
+.device-alert__badge { left: 39.67px; top: 39.67px; width: 27.333px; height: 27.667px; border-radius: 5.7px; }
+.device-alert__badge img { position: absolute; max-width: none; height: 3050.6%; width: 1426.83%; left: -370.73%; top: -1078.31%; }
+.device-alert__text { display: flex; flex-direction: column; gap: 10px; padding: 8px 8px 24px; font-size: 17px; line-height: 22px; }
+.device-alert__title { margin: 0; font-weight: 590; }
+.device-alert__message { margin: 0; font-weight: 400; }
+.device-alert__buttons { display: flex; flex-direction: column; gap: 10px; }
+.device-alert__button { appearance: none; border: 0; margin: 0; width: 100%; padding: 13px 16px; border-radius: 100px; background: rgb(120 120 128 / .32); color: #fff; font: 510 17px/22px var(--alert-font); letter-spacing: -.43px; cursor: pointer; }

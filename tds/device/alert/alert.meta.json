@@ -1,0 +1,47 @@
+{
+  "name": "Alert",
+  "tier": "device",
+  "category": "device",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3953-56958",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "The iPhone’s own alert (here the tracking permission): a dark glass card with the app’s icon, a bold title, a message and two pill buttons. It belongs to the phone, not the app, so Device UI off hides it.",
+  "content": [
+    {
+      "label": "Title",
+      "selector": ".device-alert__title"
+    },
+    {
+      "label": "Message",
+      "selector": ".device-alert__message"
+    }
+  ],
+  "props": {
+    "title": {
+      "type": "text",
+      "label": "Title",
+      "default": "Allow “Thoughtful” to track your activity across other companies’ apps and websites?"
+    },
+    "message": {
+      "type": "text",
+      "label": "Message",
+      "default": "This helps “Thoughtful” recognize and link your account correctly, so your experience works as expected."
+    },
+    "primary": {
+      "type": "text",
+      "label": "First button",
+      "default": "Ask App Not to Track"
+    },
+    "secondary": {
+      "type": "text",
+      "label": "Second button",
+      "default": "Allow"
+    }
+  },
+  "template": "<div class=\"device-alert\" role=\"alertdialog\"><div class=\"device-alert__icon\"><span class=\"device-alert__app\"><img src=\"../tds/assets/images/system/att-icon.png\" alt=\"\"></span><span class=\"device-alert__badge\"><img src=\"../tds/assets/images/system/att-icon.png\" alt=\"\"></span></div><div class=\"device-alert__text\"><p class=\"device-alert__title\">{{title}}</p><p class=\"device-alert__message\">{{message}}</p></div><div class=\"device-alert__buttons\"><button class=\"device-alert__button\">{{primary}}</button><button class=\"device-alert__button\">{{secondary}}</button></div></div>",
+  "markup": "<div class=\"device-alert\" role=\"alertdialog\"><div class=\"device-alert__icon\"><span class=\"device-alert__app\"><img src=\"../tds/assets/images/system/att-icon.png\" alt=\"\"></span><span class=\"device-alert__badge\"><img src=\"../tds/assets/images/system/att-icon.png\" alt=\"\"></span></div><div class=\"device-alert__text\"><p class=\"device-alert__title\">Allow “Thoughtful” to track your activity across other companies’ apps and websites?</p><p class=\"device-alert__message\">This helps “Thoughtful” recognize and link your account correctly, so your experience works as expected.</p></div><div class=\"device-alert__buttons\"><button class=\"device-alert__button\">Ask App Not to Track</button><button class=\"device-alert__button\">Allow</button></div></div>"
+}

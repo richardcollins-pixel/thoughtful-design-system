@@ -1,0 +1,37 @@
+{
+  "name": "Wordmark",
+  "tier": "atoms",
+  "category": "brand",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3953-56958",
+  "attributes": {
+    "data-size": {
+      "type": "enum",
+      "values": [
+        "md",
+        "lg"
+      ],
+      "default": "lg"
+    }
+  },
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "The word “thoughtful” in white, in the brand’s rounded sans (Instrument Sans in the Figma; it falls back to Inter until that font is added).",
+  "content": [],
+  "props": {
+    "size": {
+      "type": "enum",
+      "label": "Size",
+      "values": [
+        "md",
+        "lg"
+      ],
+      "default": "lg",
+      "ui": "steps"
+    }
+  },
+  "template": "<span class=\"wordmark\" data-size=\"{{size}}\">thoughtful</span>",
+  "markup": "<span class=\"wordmark\" data-size=\"lg\">thoughtful</span>"
+}

@@ -6,3 +6,4 @@
 :root[data-device-ui="off"] :is(.chat-header, .header) { padding-top: var(--space-4); }
 :root[data-device-ui="off"] .bottom-nav__safe { display: none; }
 :root[data-device-ui="off"] .summary .header-card:not([data-variant="provider"]) { --header-safe-top: 98px; }   /* the status bar is gone: its 62px too */
+:root[data-device-ui="off"] .device-alert { display: none; }
