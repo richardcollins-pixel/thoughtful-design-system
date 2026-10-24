@@ -22,6 +22,8 @@
 .tour[data-spot="topics"] [data-item="header"], .tour[data-spot="topics"] [data-item="bite"], .tour[data-spot="topics"] [data-item="deep"], .tour[data-spot="topics"] [data-item="therapist"] { opacity: var(--tour-dim); }
 .tour[data-spot="record"] .chat-header__left, .tour[data-spot="record"] .chat-header__done, .tour[data-spot="record"] .tour__thread, .tour[data-spot="record"] .tour__composer { opacity: var(--tour-dim); }
 
+.tour[data-spot="header"] [data-item="bite"], .tour[data-spot="header"] [data-item="topics"], .tour[data-spot="header"] [data-item="deep"], .tour[data-spot="header"] [data-item="therapist"], .tour[data-spot="header"] .header__action { opacity: var(--tour-dim); }
+
 /* scrolled so the target sits near the top, as in the Figma frames */
 .tour[data-spot="bite"] { --tour-scroll: -465px; }
 .tour[data-spot="topics"] { --tour-scroll: -1000px; }

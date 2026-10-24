@@ -21,7 +21,7 @@
     {
       "id": "step-1",
       "name": "Home, step 1",
-      "template": "<section class=\"tour\" data-base=\"home\" data-spot=\"composer\"><div class=\"glow tour__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"tour__page\" data-slot=\"page\"><div class=\"tour__header\" data-slot=\"header\">{{item:header}}</div><div class=\"tour__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div></div><div class=\"tour__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"tour__coach\" data-slot=\"coach\">{{item:coach}}</div></section>",
+      "template": "<section class=\"tour\" data-base=\"home\" data-spot=\"header\"><div class=\"glow tour__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"tour__page\" data-slot=\"page\"><div class=\"tour__header\" data-slot=\"header\">{{item:header}}</div><div class=\"tour__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div></div><div class=\"tour__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"tour__coach\" data-slot=\"coach\">{{item:coach}}</div></section>",
       "slots": [
         {
           "id": "header",
@@ -269,6 +269,16 @@
             "timer": "on",
             "recap": "on"
           }
+        },
+        "thread": {
+          "props": {
+            "show": "off"
+          }
+        },
+        "composer": {
+          "props": {
+            "show": "off"
+          }
         }
       }
     },
@@ -324,6 +334,16 @@
           "props": {
             "timer": "on",
             "recap": "otr"
+          }
+        },
+        "thread": {
+          "props": {
+            "show": "off"
+          }
+        },
+        "composer": {
+          "props": {
+            "show": "off"
           }
         }
       }
