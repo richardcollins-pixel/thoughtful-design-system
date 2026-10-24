@@ -4,7 +4,7 @@
 .device-alert__icon { position: relative; width: 63px; height: 62px; }
 .device-alert__app, .device-alert__badge { position: absolute; overflow: hidden; display: block; }
 .device-alert__app { left: 0; top: 0; width: 62.667px; height: 61.667px; border-radius: 15.3px; }
-.device-alert__app img { position: absolute; max-width: none; height: 1368.65%; width: 622.34%; left: -98.4%; top: -419.46%; }
+.device-alert__app img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .device-alert__badge { left: 39.67px; top: 39.67px; width: 27.333px; height: 27.667px; border-radius: 5.7px; }
 .device-alert__badge img { position: absolute; max-width: none; height: 3050.6%; width: 1426.83%; left: -370.73%; top: -1078.31%; }
 .device-alert__text { display: flex; flex-direction: column; gap: 10px; padding: 8px 8px 24px; font-size: 17px; line-height: 22px; }
