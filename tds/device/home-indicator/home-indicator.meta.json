@@ -1,0 +1,17 @@
+{
+  "name": "Home indicator",
+  "tier": "device",
+  "category": "device",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4181-22757",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "The thin bar at the very bottom of an iPhone that you swipe up from. It belongs to the phone, not the app, so Device UI off hides it. For now only the bottom nav shows it.",
+  "content": [],
+  "props": {},
+  "template": "<span class=\"home-indicator\"></span>",
+  "markup": "<span class=\"home-indicator\"></span>"
+}

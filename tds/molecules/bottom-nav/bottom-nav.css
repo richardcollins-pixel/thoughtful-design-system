@@ -1,4 +1,4 @@
-/* Molecule: bottom nav. Three tabs (home, sessions, profile) over a blurred base, then the phone's home indicator. The current tab is
+/* Molecule: bottom nav. Three tabs (home, sessions, profile) over a blurred base, then the phone's home indicator (a device part). The current tab is
    full strength, the others half. Stuck to the bottom of a screen by the screen, not here. */
 .bottom-nav { box-sizing: border-box; width: 100%; display: flex; flex-direction: column; background: var(--bg-base-80); backdrop-filter: blur(22px); color: var(--text-primary); }
 .bottom-nav__tabs { height: 75px; display: flex; align-items: center; justify-content: center; gap: var(--space-6); }
@@ -8,5 +8,4 @@
 .bottom-nav__tab:hover { opacity: .8; }
 .bottom-nav__tab:focus-visible { outline: 2px solid var(--text-primary); outline-offset: -4px; }
 .bottom-nav__safe { height: 24px; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 8px; box-sizing: border-box; }
-.bottom-nav__safe > i { width: 134px; height: 5px; border-radius: 100px; background: var(--white); opacity: .2; }
 .bottom-nav[data-tabs="2"] [data-tab="home"] { display: none; }

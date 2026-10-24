@@ -4,7 +4,8 @@
   "category": "navigation",
   "stateful": false,
   "uses": [
-    "atoms/icon"
+    "atoms/icon",
+    "device/home-indicator"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-48499",
   "attributes": {
@@ -54,6 +55,6 @@
       "ui": "steps"
     }
   },
-  "template": "<nav class=\"bottom-nav\" data-current=\"{{current}}\" data-tabs=\"{{tabs}}\"><div class=\"bottom-nav__tabs\"><button class=\"bottom-nav__tab\" data-tab=\"home\" aria-label=\"Home\"><i class=\"icon icon-home\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"sessions\" aria-label=\"Sessions\"><i class=\"icon icon-clipboard\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"profile\" aria-label=\"Profile\"><i class=\"icon icon-person\"></i></button></div><div class=\"bottom-nav__safe\"><i></i></div></nav>",
-  "markup": "<nav class=\"bottom-nav\" data-current=\"home\" data-tabs=\"3\"><div class=\"bottom-nav__tabs\"><button class=\"bottom-nav__tab\" data-tab=\"home\" aria-label=\"Home\"><i class=\"icon icon-home\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"sessions\" aria-label=\"Sessions\"><i class=\"icon icon-clipboard\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"profile\" aria-label=\"Profile\"><i class=\"icon icon-person\"></i></button></div><div class=\"bottom-nav__safe\"><i></i></div></nav>"
+  "template": "<nav class=\"bottom-nav\" data-current=\"{{current}}\" data-tabs=\"{{tabs}}\"><div class=\"bottom-nav__tabs\"><button class=\"bottom-nav__tab\" data-tab=\"home\" aria-label=\"Home\"><i class=\"icon icon-home\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"sessions\" aria-label=\"Sessions\"><i class=\"icon icon-clipboard\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"profile\" aria-label=\"Profile\"><i class=\"icon icon-person\"></i></button></div><div class=\"bottom-nav__safe\"><span class=\"home-indicator\"></span></div></nav>",
+  "markup": "<nav class=\"bottom-nav\" data-current=\"home\" data-tabs=\"3\"><div class=\"bottom-nav__tabs\"><button class=\"bottom-nav__tab\" data-tab=\"home\" aria-label=\"Home\"><i class=\"icon icon-home\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"sessions\" aria-label=\"Sessions\"><i class=\"icon icon-clipboard\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"profile\" aria-label=\"Profile\"><i class=\"icon icon-person\"></i></button></div><div class=\"bottom-nav__safe\"><span class=\"home-indicator\"></span></div></nav>"
 }
