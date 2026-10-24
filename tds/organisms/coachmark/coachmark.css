@@ -5,7 +5,7 @@
 /* a soft light behind T, drawn from the blob's own colors (the blob makes it inside this layer, which keeps it inside the bubble) */
 .coachmark { isolation: isolate; }
 .coachmark__light { position: absolute; inset: 0; z-index: -1; border-radius: inherit; overflow: clip; pointer-events: none; }
-.coachmark .glow { --glow-size: 150px; --glow-blur: 36px; --glow-opacity: .5; }
+.coachmark .glow { --glow-size: 150px; --glow-blur: 36px; --glow-opacity: .35; }
 .coachmark__arrow-slot { display: contents; }
 .coachmark .avatar-text { color: var(--purple-900); }
 .coachmark .avatar-text__subline { color: var(--black); }
