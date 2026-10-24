@@ -15,5 +15,5 @@
 .sign-up__lines { display: flex; flex-direction: column; align-items: center; margin-bottom: var(--space-2); }
 .sign-up__bottom { margin-top: auto; }
 .sign-up__submit { padding: 0 var(--space-5, 20px) 23px; }
-.sign-up__scrim { position: absolute; inset: 0; z-index: 3; background: color-mix(in srgb, var(--purple-900) 70%, transparent); backdrop-filter: blur(8px); }
+.sign-up__scrim { position: absolute; inset: 0; z-index: 3; background: color-mix(in srgb, var(--purple-900) 70%, transparent); backdrop-filter: blur(var(--blur-sm)); }
 .sign-up__dialog { position: absolute; z-index: 4; left: var(--space-4); right: var(--space-4); top: 258px; }

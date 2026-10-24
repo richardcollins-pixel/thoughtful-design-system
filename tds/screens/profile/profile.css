@@ -2,7 +2,7 @@
    bottom, over the dark purple page with a soft rose glow at the bottom. Slots: top, sections, nav. */
 .profile { --profile-gap: var(--space-6); position: relative; isolation: isolate; display: flex; flex-direction: column; width: 100%; }
 .profile__glow { --glow-size: 560px; --glow-blur: 80px; --glow-opacity: .55; z-index: -1; position: fixed; }
-.profile__top { position: sticky; top: calc(var(--page-gutter, var(--space-4)) * -1); z-index: 2; margin: calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1) 0; background: var(--bg-base-80); backdrop-filter: blur(22px); }
+.profile__top { position: sticky; top: calc(var(--page-gutter, var(--space-4)) * -1); z-index: 2; margin: calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1) 0; background: var(--bg-base-80); backdrop-filter: blur(var(--blur-md)); }
 .profile__sections { display: flex; flex-direction: column; gap: var(--profile-gap); padding-block: var(--space-4) var(--space-12); }
 .profile__nav { position: sticky; bottom: 0; z-index: 2; margin: 0 calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1); }
 

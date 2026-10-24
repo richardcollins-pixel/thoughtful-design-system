@@ -2,7 +2,7 @@
 .fork-option {
   appearance: none; border: 0; margin: 0; font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent;
   box-sizing: border-box; display: flex; align-items: center; gap: var(--space-4); width: 100%; padding: var(--padding-md);
-  color: var(--text-primary); background: var(--bg-elevation-10); backdrop-filter: blur(22px); border-radius: var(--radius-sm); overflow: clip;
+  color: var(--text-primary); background: var(--bg-elevation-10); backdrop-filter: blur(var(--blur-md)); border-radius: var(--radius-sm); overflow: clip;
 }
 .fork-option__text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .fork-option__title { display: flex; align-items: center; min-height: 32px; font: var(--text-body-md-semibold); letter-spacing: var(--text-body-md-semibold-ls); }
