@@ -1,3 +1,4 @@
-/* Atom: wordmark. "thoughtful" in white, semibold, tight (-5%). 35px by default. Instrument Sans in the Figma; Inter until the font is added. */
-.wordmark { display: inline-block; color: var(--white); font: 600 35px/1.36 "Instrument Sans", var(--font-family-body, Inter, system-ui, sans-serif); letter-spacing: -.05em; white-space: nowrap; }
-.wordmark[data-size="md"] { font-size: 24px; }
+/* Atom: wordmark. The "thoughtful" logotype as an SVG in the current text color (white). 34px tall by default, 24px at md. */
+.wordmark { display: inline-block; color: var(--white); line-height: 0; }
+.wordmark__svg { display: block; height: 34px; width: auto; }
+.wordmark[data-size="md"] .wordmark__svg { height: 24px; }
