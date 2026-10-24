@@ -88,6 +88,7 @@
 @import url("screens/summary/summary.css") layer(screens);
 @import url("screens/profile/profile.css") layer(screens);
 @import url("screens/history/history.css") layer(screens);
+@import url("screens/message/message.css") layer(screens);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */
 

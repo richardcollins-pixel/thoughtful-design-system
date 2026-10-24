@@ -9,3 +9,4 @@
 .bottom-nav__tab:focus-visible { outline: 2px solid var(--text-primary); outline-offset: -4px; }
 .bottom-nav__safe { height: 24px; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 8px; box-sizing: border-box; }
 .bottom-nav__safe > i { width: 134px; height: 5px; border-radius: 100px; background: var(--white); opacity: .2; }
+.bottom-nav[data-tabs="2"] [data-tab="home"] { display: none; }

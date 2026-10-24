@@ -16,12 +16,20 @@
         "profile"
       ],
       "default": "home"
+    },
+    "data-tabs": {
+      "type": "enum",
+      "values": [
+        "3",
+        "2"
+      ],
+      "default": "3"
     }
   },
   "states": [],
   "variables": {},
   "styles": [],
-  "description": "The three tabs at the bottom of the app: Home, Sessions and Profile. The one you are on is full strength, the others half. Under it is the phone's home indicator, which the Device UI mode hides.",
+  "description": "The three tabs at the bottom of the app: Home, Sessions and Profile. The one you are on is full strength, the others half. Under it is the phone's home indicator, which the Device UI mode hides. With two tabs the Home tab is left out (for a screen where you cannot go home).",
   "content": [],
   "props": {
     "current": {
@@ -34,8 +42,18 @@
       ],
       "default": "home",
       "ui": "steps"
+    },
+    "tabs": {
+      "type": "enum",
+      "label": "Tabs",
+      "values": [
+        "3",
+        "2"
+      ],
+      "default": "3",
+      "ui": "steps"
     }
   },
-  "template": "<nav class=\"bottom-nav\" data-current=\"{{current}}\"><div class=\"bottom-nav__tabs\"><button class=\"bottom-nav__tab\" data-tab=\"home\" aria-label=\"Home\"><i class=\"icon icon-home\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"sessions\" aria-label=\"Sessions\"><i class=\"icon icon-clipboard\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"profile\" aria-label=\"Profile\"><i class=\"icon icon-person\"></i></button></div><div class=\"bottom-nav__safe\"><i></i></div></nav>",
-  "markup": "<nav class=\"bottom-nav\" data-current=\"home\"><div class=\"bottom-nav__tabs\"><button class=\"bottom-nav__tab\" data-tab=\"home\" aria-label=\"Home\"><i class=\"icon icon-home\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"sessions\" aria-label=\"Sessions\"><i class=\"icon icon-clipboard\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"profile\" aria-label=\"Profile\"><i class=\"icon icon-person\"></i></button></div><div class=\"bottom-nav__safe\"><i></i></div></nav>"
+  "template": "<nav class=\"bottom-nav\" data-current=\"{{current}}\" data-tabs=\"{{tabs}}\"><div class=\"bottom-nav__tabs\"><button class=\"bottom-nav__tab\" data-tab=\"home\" aria-label=\"Home\"><i class=\"icon icon-home\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"sessions\" aria-label=\"Sessions\"><i class=\"icon icon-clipboard\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"profile\" aria-label=\"Profile\"><i class=\"icon icon-person\"></i></button></div><div class=\"bottom-nav__safe\"><i></i></div></nav>",
+  "markup": "<nav class=\"bottom-nav\" data-current=\"home\" data-tabs=\"3\"><div class=\"bottom-nav__tabs\"><button class=\"bottom-nav__tab\" data-tab=\"home\" aria-label=\"Home\"><i class=\"icon icon-home\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"sessions\" aria-label=\"Sessions\"><i class=\"icon icon-clipboard\"></i></button><button class=\"bottom-nav__tab\" data-tab=\"profile\" aria-label=\"Profile\"><i class=\"icon icon-person\"></i></button></div><div class=\"bottom-nav__safe\"><i></i></div></nav>"
 }
