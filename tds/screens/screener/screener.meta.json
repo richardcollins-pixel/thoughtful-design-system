@@ -1,0 +1,524 @@
+{
+  "name": "Screener",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "molecules/header",
+    "atoms/blob",
+    "atoms/glow",
+    "atoms/button",
+    "molecules/choice-row"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-46826",
+  "align": "top",
+  "states": [
+    {
+      "id": "intro",
+      "name": "Intro",
+      "template": "<section class=\"screener\" data-kind=\"intro\"><div class=\"glow screener__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"screener__top\" data-slot=\"top\">{{item:header}}</div><div class=\"screener__main\" data-slot=\"main\"><div class=\"screener__blob\">{{item:blob}}</div><div class=\"screener__text\">{{item:title}}{{item:body}}</div></div><div class=\"screener__bottom\" data-slot=\"bottom\">{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "body"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "back-button"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue",
+            "state": "default"
+          }
+        }
+      }
+    },
+    {
+      "id": "q1",
+      "name": "Question 1",
+      "template": "<section class=\"screener\" data-kind=\"q1\"><div class=\"glow screener__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"screener__top\" data-slot=\"top\">{{item:header}}</div><div class=\"screener__question\" data-slot=\"question\">{{item:question}}</div><div class=\"screener__bottom\" data-slot=\"bottom\"><div class=\"screener__choices\">{{item:yes}}{{item:no}}</div>{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "question",
+          "label": "Question slot",
+          "items": [
+            "question"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "yes",
+            "no",
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "back-progress",
+            "step": "1",
+            "count": "3"
+          }
+        },
+        "question": {
+          "value": "Within the past month, have you needed emergency or crisis help (like going to an ER, calling 988, or being placed on a psychiatric hold) because of your mental health?"
+        },
+        "yes": {
+          "props": {
+            "label": "Yes",
+            "picked": "false"
+          }
+        },
+        "no": {
+          "props": {
+            "label": "No",
+            "dim": "false"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue",
+            "state": "disabled"
+          }
+        }
+      }
+    },
+    {
+      "id": "q1-picked",
+      "name": "Question 1, answered",
+      "template": "<section class=\"screener\" data-kind=\"q1\"><div class=\"glow screener__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"screener__top\" data-slot=\"top\">{{item:header}}</div><div class=\"screener__question\" data-slot=\"question\">{{item:question}}</div><div class=\"screener__bottom\" data-slot=\"bottom\"><div class=\"screener__choices\">{{item:yes}}{{item:no}}</div>{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "question",
+          "label": "Question slot",
+          "items": [
+            "question"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "yes",
+            "no",
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "back-progress",
+            "step": "1",
+            "count": "3"
+          }
+        },
+        "question": {
+          "value": "Within the past month, have you needed emergency or crisis help (like going to an ER, calling 988, or being placed on a psychiatric hold) because of your mental health?"
+        },
+        "yes": {
+          "props": {
+            "label": "Yes",
+            "picked": "true"
+          }
+        },
+        "no": {
+          "props": {
+            "label": "No",
+            "dim": "true"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue",
+            "state": "default"
+          }
+        }
+      }
+    },
+    {
+      "id": "q2",
+      "name": "Question 2",
+      "template": "<section class=\"screener\" data-kind=\"q2\"><div class=\"glow screener__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"screener__top\" data-slot=\"top\">{{item:header}}</div><div class=\"screener__question\" data-slot=\"question\">{{item:question}}</div><div class=\"screener__bottom\" data-slot=\"bottom\"><div class=\"screener__choices\">{{item:yes}}{{item:no}}</div>{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "question",
+          "label": "Question slot",
+          "items": [
+            "question"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "yes",
+            "no",
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "back-progress",
+            "step": "2",
+            "count": "3"
+          }
+        },
+        "question": {
+          "value": "In the past month, has your use of alcohol or mood-altering substances caused you to feel out of control, unable to care for yourself, or led to an emergency or hospitalization?"
+        },
+        "yes": {
+          "props": {
+            "label": "Yes",
+            "picked": "false"
+          }
+        },
+        "no": {
+          "props": {
+            "label": "No",
+            "dim": "false"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue",
+            "state": "disabled"
+          }
+        }
+      }
+    },
+    {
+      "id": "q2-picked",
+      "name": "Question 2, answered",
+      "template": "<section class=\"screener\" data-kind=\"q2\"><div class=\"glow screener__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"screener__top\" data-slot=\"top\">{{item:header}}</div><div class=\"screener__question\" data-slot=\"question\">{{item:question}}</div><div class=\"screener__bottom\" data-slot=\"bottom\"><div class=\"screener__choices\">{{item:yes}}{{item:no}}</div>{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "question",
+          "label": "Question slot",
+          "items": [
+            "question"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "yes",
+            "no",
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "back-progress",
+            "step": "2",
+            "count": "3"
+          }
+        },
+        "question": {
+          "value": "In the past month, has your use of alcohol or mood-altering substances caused you to feel out of control, unable to care for yourself, or led to an emergency or hospitalization?"
+        },
+        "yes": {
+          "props": {
+            "label": "Yes",
+            "picked": "true"
+          }
+        },
+        "no": {
+          "props": {
+            "label": "No",
+            "dim": "true"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue",
+            "state": "default"
+          }
+        }
+      }
+    },
+    {
+      "id": "q3",
+      "name": "Question 3",
+      "template": "<section class=\"screener\" data-kind=\"q3\"><div class=\"glow screener__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"screener__top\" data-slot=\"top\">{{item:header}}</div><div class=\"screener__question\" data-slot=\"question\">{{item:question}}</div><div class=\"screener__bottom\" data-slot=\"bottom\"><div class=\"screener__choices\">{{item:yes}}{{item:no}}</div>{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "question",
+          "label": "Question slot",
+          "items": [
+            "question"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "yes",
+            "no",
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "back-progress",
+            "step": "3",
+            "count": "3"
+          }
+        },
+        "question": {
+          "value": "Have you recently had any thoughts about wanting to die, not wanting to be alive, or hurting yourself/anyone else?"
+        },
+        "yes": {
+          "props": {
+            "label": "Yes",
+            "picked": "false"
+          }
+        },
+        "no": {
+          "props": {
+            "label": "No",
+            "dim": "false"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue",
+            "state": "disabled"
+          }
+        }
+      }
+    },
+    {
+      "id": "q3-picked",
+      "name": "Question 3, answered",
+      "template": "<section class=\"screener\" data-kind=\"q3\"><div class=\"glow screener__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"screener__top\" data-slot=\"top\">{{item:header}}</div><div class=\"screener__question\" data-slot=\"question\">{{item:question}}</div><div class=\"screener__bottom\" data-slot=\"bottom\"><div class=\"screener__choices\">{{item:yes}}{{item:no}}</div>{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "question",
+          "label": "Question slot",
+          "items": [
+            "question"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "yes",
+            "no",
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "back-progress",
+            "step": "3",
+            "count": "3"
+          }
+        },
+        "question": {
+          "value": "Have you recently had any thoughts about wanting to die, not wanting to be alive, or hurting yourself/anyone else?"
+        },
+        "yes": {
+          "props": {
+            "label": "Yes",
+            "picked": "true"
+          }
+        },
+        "no": {
+          "props": {
+            "label": "No",
+            "dim": "true"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue",
+            "state": "default"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".screener",
+  "description": "The safety check before AI-only care: an intro, then three Yes or No questions, each unanswered (Continue off) and answered (the other answer fades). The “not a fit” result is the Message screen’s Not a fit state.",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "molecules/header",
+      "label": "Header",
+      "props": {
+        "variant": "back-button",
+        "title": "",
+        "action": "Support"
+      },
+      "expose": [
+        "variant",
+        "step",
+        "count",
+        "action"
+      ]
+    },
+    "blob": {
+      "type": "component",
+      "component": "atoms/blob",
+      "label": "T",
+      "props": {
+        "theme": "rose"
+      },
+      "expose": [
+        "theme"
+      ]
+    },
+    "title": {
+      "type": "text",
+      "tag": "h1",
+      "class": "screener__title",
+      "label": "Headline",
+      "value": "Let’s do a quick safety check"
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "screener__body",
+      "label": "Body copy",
+      "value": "This is just to make sure AI support is right for you. Your answers are completely confidential."
+    },
+    "question": {
+      "type": "text",
+      "tag": "p",
+      "class": "screener__q",
+      "label": "Question",
+      "value": "Within the past month, have you needed emergency or crisis help (like going to an ER, calling 988, or being placed on a psychiatric hold) because of your mental health?"
+    },
+    "yes": {
+      "type": "component",
+      "component": "molecules/choice-row",
+      "label": "Yes",
+      "props": {
+        "label": "Yes"
+      },
+      "expose": [
+        "label",
+        "picked"
+      ]
+    },
+    "no": {
+      "type": "component",
+      "component": "molecules/choice-row",
+      "label": "No",
+      "props": {
+        "label": "No"
+      },
+      "expose": [
+        "label",
+        "picked"
+      ]
+    },
+    "submit": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Continue",
+      "props": {
+        "label": "Continue",
+        "variant": "filled",
+        "size": "lg",
+        "width": "full"
+      },
+      "expose": [
+        "label",
+        "state"
+      ]
+    }
+  },
+  "personas": [],
+  "inputs": [],
+  "properties": [],
+  "prompts": []
+}
