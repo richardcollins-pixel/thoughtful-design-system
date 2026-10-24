@@ -1,8 +1,9 @@
 /* Screen: message. T, a headline, a few lines and a button or two, centered in the upper part of the screen; a note, or a button, pinned to the
    bottom; a rose glow rising from the bottom. Slots: top, main, bottom, nav. */
-.message { position: relative; isolation: isolate; display: flex; flex-direction: column; min-height: calc(100dvh - 2 * var(--page-gutter, var(--space-4))); width: 100%; }
+/* full bleed: the screen cancels the page gutter and fills the phone, so a bottom nav can sit on the bottom edge */
+.message { position: relative; isolation: isolate; display: flex; flex-direction: column; box-sizing: border-box; min-height: 100dvh; margin: calc(var(--page-gutter, var(--space-4)) * -1); padding-inline: var(--page-gutter, var(--space-4)); }
 .message__glow { --glow-size: 550px; --glow-blur: 90px; --glow-opacity: .6; z-index: -1; position: fixed; }
-.message__top { margin: calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1) 0; }
+.message__top { margin-inline: calc(var(--page-gutter, var(--space-4)) * -1); }
 .message__main { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); width: 100%; max-width: 320px; margin-inline: auto; padding-block: var(--space-16) 0; text-align: center; }
 .message__blob { height: 180px; display: grid; place-items: center; }
 .message__blob .blob { --blob-size: 100px; }
@@ -13,4 +14,4 @@
 .message__bottom { margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: var(--space-4); padding-block: var(--space-10, 40px) var(--space-8); text-align: center; }
 .message__note { max-width: 305px; margin: 0; color: var(--text-secondary); font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); }
 .message__note-email { color: var(--text-primary); font-weight: 600; }
-.message__nav { margin: 0 calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1); }
+.message__nav { margin: 0 calc(var(--page-gutter, var(--space-4)) * -1); }

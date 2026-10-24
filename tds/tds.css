@@ -54,6 +54,7 @@
 @import url("molecules/fork-option/fork-option.css") layer(molecules);
 @import url("device/keyboard/keyboard.css")            layer(device);
 @import url("device/alert/alert.css") layer(device);
+@import url("device/home-indicator/home-indicator.css") layer(device);
 @import url("molecules/header/header.css")             layer(molecules);
 @import url("molecules/tile/tile.css")                 layer(molecules);
 @import url("molecules/toggle-row/toggle-row.css") layer(molecules);

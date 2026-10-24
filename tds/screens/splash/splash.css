@@ -1,6 +1,6 @@
 /* Screen: splash. The whole screen is the dark rose to orange gradient; the wordmark sits in the middle (a little above center); the phone's
    tracking alert, when shown, is centered over it. Slots: top, logo, alert. */
-.splash { position: relative; display: grid; place-items: center; min-height: calc(100dvh + 2 * var(--page-gutter, var(--space-4))); margin: calc(var(--page-gutter, var(--space-4)) * -1); background: var(--gradient-dark-rose-to-orange); }
+.splash { position: relative; display: grid; place-items: center; min-height: 100dvh; margin: calc(var(--page-gutter, var(--space-4)) * -1); background: var(--gradient-dark-rose-to-orange); }
 .splash__top { position: absolute; inset: 0 0 auto 0; }
 .splash__logo { position: absolute; left: 50%; top: 43%; translate: -50% -50%; }
 .splash__alert { position: absolute; left: 50%; top: 50%; translate: -50% -50%; }
