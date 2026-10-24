@@ -35,6 +35,7 @@
 @import url("atoms/textarea/textarea.css") layer(atoms);
 @import url("atoms/image-placeholder/image-placeholder.css") layer(atoms);
 @import url("atoms/time-chip/time-chip.css") layer(atoms);
+@import url("atoms/wordmark/wordmark.css") layer(atoms);
 
 @import url("molecules/icon-label/icon-label.css")      layer(molecules);
 @import url("molecules/avatar-group/avatar-group.css")  layer(molecules);
@@ -52,6 +53,7 @@
 @import url("molecules/chat-message/chat-message.css") layer(molecules);
 @import url("molecules/fork-option/fork-option.css") layer(molecules);
 @import url("device/keyboard/keyboard.css")            layer(device);
+@import url("device/alert/alert.css") layer(device);
 @import url("molecules/header/header.css")             layer(molecules);
 @import url("molecules/tile/tile.css")                 layer(molecules);
 @import url("molecules/toggle-row/toggle-row.css") layer(molecules);
@@ -89,6 +91,7 @@
 @import url("screens/profile/profile.css") layer(screens);
 @import url("screens/history/history.css") layer(screens);
 @import url("screens/message/message.css") layer(screens);
+@import url("screens/splash/splash.css") layer(screens);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */
 

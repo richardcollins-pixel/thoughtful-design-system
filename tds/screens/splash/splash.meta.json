@@ -1,0 +1,105 @@
+{
+  "name": "Splash",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "device/status-bar",
+    "atoms/wordmark",
+    "device/alert"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3953-56958",
+  "align": "top",
+  "states": [
+    {
+      "id": "logo",
+      "name": "Logo",
+      "template": "<section class=\"splash\"><div class=\"splash__top\" data-slot=\"top\">{{item:status}}</div><div class=\"splash__logo\" data-slot=\"logo\">{{item:logo}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "logo",
+          "label": "Logo slot",
+          "items": [
+            "logo"
+          ]
+        }
+      ],
+      "personas": []
+    },
+    {
+      "id": "tracking",
+      "name": "Tracking prompt",
+      "template": "<section class=\"splash\"><div class=\"splash__top\" data-slot=\"top\">{{item:status}}</div><div class=\"splash__logo\" data-slot=\"logo\">{{item:logo}}</div><div class=\"splash__alert\" data-slot=\"alert\">{{item:alert}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "logo",
+          "label": "Logo slot",
+          "items": [
+            "logo"
+          ]
+        },
+        {
+          "id": "alert",
+          "label": "Alert slot",
+          "items": [
+            "alert"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".splash",
+  "description": "The first screen: the word “thoughtful” on the dark rose to orange gradient. Tracking prompt adds the iPhone’s own “Allow tracking?” alert on top (the alert is the phone’s, so Device UI off hides it).",
+  "items": {
+    "status": {
+      "type": "component",
+      "component": "device/status-bar",
+      "label": "Status bar",
+      "props": {},
+      "expose": []
+    },
+    "logo": {
+      "type": "component",
+      "component": "atoms/wordmark",
+      "label": "Wordmark",
+      "props": {
+        "size": "lg"
+      },
+      "expose": [],
+      "required": true
+    },
+    "alert": {
+      "type": "component",
+      "component": "device/alert",
+      "label": "Tracking alert",
+      "props": {},
+      "expose": [
+        "title",
+        "message",
+        "primary",
+        "secondary"
+      ]
+    }
+  },
+  "personas": [],
+  "inputs": [],
+  "properties": [],
+  "prompts": []
+}

@@ -81,6 +81,19 @@
      ]
     },
     {
+     "id": "system",
+     "label": "System",
+     "items": [
+      {
+       "name": "att-icon",
+       "file": "images/system/att-icon.png",
+       "width": 1170,
+       "height": 2532,
+       "bytes": 511562
+      }
+     ]
+    },
+    {
      "id": "therapists",
      "label": "Therapists",
      "items": [
