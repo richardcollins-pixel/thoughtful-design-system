@@ -17,7 +17,7 @@
     {
       "id": "no-connection",
       "name": "No connection",
-      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"></div></main>",
+      "template": "<section class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"></div></section>",
       "slots": [
         {
           "id": "top",
@@ -53,7 +53,7 @@
     {
       "id": "latest-app",
       "name": "Get the latest app",
-      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}{{item:secondary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"></div></main>",
+      "template": "<section class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}{{item:secondary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"></div></section>",
       "slots": [
         {
           "id": "top",
@@ -93,7 +93,7 @@
     {
       "id": "update-required",
       "name": "Update required",
-      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"></div></main>",
+      "template": "<section class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"></div></section>",
       "slots": [
         {
           "id": "top",
@@ -132,7 +132,7 @@
     {
       "id": "reach-out",
       "name": "Someone might reach out",
-      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"><p class=\"message__note\">{{item:note}} {{item:email}}</p></div></main>",
+      "template": "<section class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"><p class=\"message__note\">{{item:note}} {{item:email}}</p></div></section>",
       "slots": [
         {
           "id": "top",
@@ -179,7 +179,7 @@
     {
       "id": "no-match",
       "name": "No match found",
-      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:header}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:contact}}</div><div class=\"message__bottom\" data-slot=\"bottom\">{{item:pinned}}</div></main>",
+      "template": "<section class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:header}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:contact}}</div><div class=\"message__bottom\" data-slot=\"bottom\">{{item:pinned}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -219,7 +219,7 @@
     {
       "id": "not-a-fit",
       "name": "Not a good fit",
-      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"><p class=\"message__note\">{{item:note}} {{item:email}}</p></div><div class=\"message__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "template": "<section class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"><p class=\"message__note\">{{item:note}} {{item:email}}</p></div><div class=\"message__nav\" data-slot=\"nav\">{{item:nav}}</div></section>",
       "slots": [
         {
           "id": "top",
