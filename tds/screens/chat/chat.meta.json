@@ -9,7 +9,8 @@
     "organisms/chat-composer",
     "organisms/end-of-session-card",
     "atoms/glow",
-    "patterns/session-sharing-sheet"
+    "patterns/session-sharing-sheet",
+    "organisms/coachmark"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046",
   "align": "top",
@@ -17,7 +18,7 @@
     {
       "id": "recommendations",
       "name": "Recommendations",
-      "template": "<section class=\"chat\" data-state=\"recommendations\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div></section>",
+      "template": "<section class=\"chat\" data-state=\"recommendations\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__tour\" data-slot=\"tour\"><div class=\"chat__scrim\"></div>{{item:tour}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -31,6 +32,13 @@
           "label": "Thread slot",
           "items": [
             "thread"
+          ]
+        },
+        {
+          "id": "tour",
+          "label": "Tour slot",
+          "items": [
+            "tour"
           ]
         }
       ],
@@ -46,7 +54,7 @@
     {
       "id": "typing",
       "name": "Typing",
-      "template": "<section class=\"chat\" data-state=\"typing\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div></section>",
+      "template": "<section class=\"chat\" data-state=\"typing\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"chat__tour\" data-slot=\"tour\"><div class=\"chat__scrim\"></div>{{item:tour}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -67,6 +75,13 @@
           "label": "Composer slot",
           "items": [
             "composer"
+          ]
+        },
+        {
+          "id": "tour",
+          "label": "Tour slot",
+          "items": [
+            "tour"
           ]
         }
       ],
@@ -87,7 +102,7 @@
     {
       "id": "session",
       "name": "Session",
-      "template": "<section class=\"chat\" data-state=\"session\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div></section>",
+      "template": "<section class=\"chat\" data-state=\"session\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"chat__tour\" data-slot=\"tour\"><div class=\"chat__scrim\"></div>{{item:tour}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -108,6 +123,13 @@
           "label": "Composer slot",
           "items": [
             "composer"
+          ]
+        },
+        {
+          "id": "tour",
+          "label": "Tour slot",
+          "items": [
+            "tour"
           ]
         }
       ],
@@ -134,7 +156,7 @@
     {
       "id": "session-keyboard",
       "name": "Session, typing",
-      "template": "<section class=\"chat\" data-state=\"session-keyboard\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div></section>",
+      "template": "<section class=\"chat\" data-state=\"session-keyboard\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"chat__tour\" data-slot=\"tour\"><div class=\"chat__scrim\"></div>{{item:tour}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -155,6 +177,13 @@
           "label": "Composer slot",
           "items": [
             "composer"
+          ]
+        },
+        {
+          "id": "tour",
+          "label": "Tour slot",
+          "items": [
+            "tour"
           ]
         }
       ],
@@ -181,7 +210,7 @@
     {
       "id": "end",
       "name": "End of session",
-      "template": "<section class=\"chat\" data-state=\"end\"><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__end\" data-slot=\"end\">{{item:end}}</div></section>",
+      "template": "<section class=\"chat\" data-state=\"end\"><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__end\" data-slot=\"end\">{{item:end}}</div><div class=\"chat__tour\" data-slot=\"tour\"><div class=\"chat__scrim\"></div>{{item:tour}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -203,6 +232,13 @@
           "items": [
             "end"
           ]
+        },
+        {
+          "id": "tour",
+          "label": "Tour slot",
+          "items": [
+            "tour"
+          ]
         }
       ],
       "personas": [],
@@ -222,7 +258,7 @@
     {
       "id": "sharing",
       "name": "Sharing sheet",
-      "template": "<section class=\"chat\" data-state=\"sharing\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"bottom-sheet-backdrop\"></div><div class=\"chat__sheet\" data-slot=\"sheet\">{{item:sheet}}</div></section>",
+      "template": "<section class=\"chat\" data-state=\"sharing\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"bottom-sheet-backdrop\"></div><div class=\"chat__sheet\" data-slot=\"sheet\">{{item:sheet}}</div><div class=\"chat__tour\" data-slot=\"tour\"><div class=\"chat__scrim\"></div>{{item:tour}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -250,6 +286,13 @@
           "label": "Sheet slot",
           "items": [
             "sheet"
+          ]
+        },
+        {
+          "id": "tour",
+          "label": "Tour slot",
+          "items": [
+            "tour"
           ]
         }
       ],
@@ -283,7 +326,7 @@
     {
       "id": "sharing-off-record",
       "name": "Sharing sheet, off the record",
-      "template": "<section class=\"chat\" data-state=\"sharing-off-record\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"bottom-sheet-backdrop\"></div><div class=\"chat__sheet\" data-slot=\"sheet\">{{item:sheet}}</div></section>",
+      "template": "<section class=\"chat\" data-state=\"sharing-off-record\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"bottom-sheet-backdrop\"></div><div class=\"chat__sheet\" data-slot=\"sheet\">{{item:sheet}}</div><div class=\"chat__tour\" data-slot=\"tour\"><div class=\"chat__scrim\"></div>{{item:tour}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -311,6 +354,13 @@
           "label": "Sheet slot",
           "items": [
             "sheet"
+          ]
+        },
+        {
+          "id": "tour",
+          "label": "Tour slot",
+          "items": [
+            "tour"
           ]
         }
       ],
@@ -344,7 +394,7 @@
     {
       "id": "off-record",
       "name": "Off the record",
-      "template": "<section class=\"chat\" data-state=\"off-record\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div></section>",
+      "template": "<section class=\"chat\" data-state=\"off-record\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"chat__tour\" data-slot=\"tour\"><div class=\"chat__scrim\"></div>{{item:tour}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -365,6 +415,13 @@
           "label": "Composer slot",
           "items": [
             "composer"
+          ]
+        },
+        {
+          "id": "tour",
+          "label": "Tour slot",
+          "items": [
+            "tour"
           ]
         }
       ],
@@ -460,9 +517,126 @@
       "expose": [
         "state"
       ]
+    },
+    "tour": {
+      "type": "component",
+      "component": "organisms/coachmark",
+      "label": "Tour step",
+      "props": {
+        "show": "off",
+        "state": "single-cta",
+        "arrow.position": "end"
+      },
+      "expose": [
+        "state"
+      ]
     }
   },
   "personas": [],
   "properties": [],
-  "prompts": []
+  "prompts": [],
+  "inputs": [
+    {
+      "id": "tour",
+      "label": "Tour",
+      "type": "select",
+      "options": [
+        {
+          "value": "Off",
+          "set": [
+            [
+              "tour",
+              "show",
+              "off"
+            ]
+          ]
+        },
+        {
+          "value": "Recap",
+          "set": [
+            [
+              "tour",
+              "show",
+              "on"
+            ],
+            [
+              "tour",
+              "state",
+              "single-cta"
+            ],
+            [
+              "tour",
+              "header.avatar",
+              "t-provider"
+            ],
+            [
+              "tour",
+              "header.title",
+              "I’ll give Kristina a recap"
+            ],
+            [
+              "tour",
+              "body",
+              "By default, your therapist gets a summary on the discoveries we make together so you get the most from your sessions"
+            ],
+            [
+              "tour",
+              "bar.label",
+              "Next"
+            ],
+            [
+              "tour",
+              "header.close",
+              "on"
+            ]
+          ]
+        },
+        {
+          "value": "Off the record",
+          "set": [
+            [
+              "tour",
+              "show",
+              "on"
+            ],
+            [
+              "tour",
+              "state",
+              "single-cta"
+            ],
+            [
+              "tour",
+              "header.avatar",
+              "icon"
+            ],
+            [
+              "tour",
+              "header.icon",
+              "person"
+            ],
+            [
+              "tour",
+              "header.title",
+              "Go off the record"
+            ],
+            [
+              "tour",
+              "body",
+              "Tap the icon to go “off the record” and keep any conversation just between us"
+            ],
+            [
+              "tour",
+              "bar.label",
+              "Got it"
+            ],
+            [
+              "tour",
+              "header.close",
+              "on"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
 }

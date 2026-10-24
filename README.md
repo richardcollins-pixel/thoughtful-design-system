@@ -240,4 +240,6 @@ The **screener screen** (`screens/screener`, Figma "Screener - AI Only"): an int
 
 The **provider booking screen** (`screens/booking`, Figma "Flow: Book a provider during onboarding"): seven states: Interstitial (T and a person with cycle arrows, Continue, Skip for now), four questions with the first answer picked, Your Matches (the provider carousel plus Choose) and Book Session (day chips, time tiles, Confirm Booking). New molecules: **option tile**, **day chip** and **cycle art**. The provider names in the carousel come from the existing sample providers, so “Choose Ron L.” is only a label override.
 
+**Tour and confirmation** are variables, not new screens. Home has a **Tour** variable (Off, Step 1 to 3, Start together): a dim layer over the phone and a coachmark above the bottom nav, with the nav kept bright. It also has a **Confirmed toast** toggle for the “Appointment confirmed” toast at the top. Chat has a **Tour** variable (Off, Recap, Off the record): a coachmark under the header pointing at the buttons on the right. The tour dots always show five, since the coachmark bar has no step count yet.
+
 The **home indicator** (the thin bar at the bottom of an iPhone) is its own device part; for now only the bottom nav shows it, in its safe-area strip, and Device UI off hides it.
