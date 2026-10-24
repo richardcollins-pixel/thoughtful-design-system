@@ -93,6 +93,7 @@
 @import url("screens/history/history.css") layer(screens);
 @import url("screens/message/message.css") layer(screens);
 @import url("screens/splash/splash.css") layer(screens);
+@import url("screens/value-prop/value-prop.css") layer(screens);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */
 
