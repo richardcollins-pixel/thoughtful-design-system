@@ -41,6 +41,7 @@
       "values": [
         "chevron",
         "toggle",
+        "icon",
         "none"
       ],
       "default": "chevron",
@@ -55,8 +56,23 @@
       ],
       "default": "false",
       "ui": "steps"
+    },
+    "icon": {
+      "type": "icon",
+      "label": "Icon",
+      "default": "chevron-right"
+    },
+    "dim": {
+      "type": "enum",
+      "label": "Dim",
+      "values": [
+        "no",
+        "yes"
+      ],
+      "default": "no",
+      "ui": "steps"
     }
   },
-  "template": "<div class=\"action-row\" data-trailing=\"{{trailing}}\"><span class=\"action-row__text\">{{text}}</span><i class=\"icon icon-chevron-right\"></i><button class=\"toggle\" role=\"switch\" aria-checked=\"{{on}}\" data-on=\"{{on}}\"><span></span></button></div>",
+  "template": "<div class=\"action-row\" data-trailing=\"{{trailing}}\" data-dim=\"{{dim}}\"><span class=\"action-row__text\">{{text}}</span><i class=\"icon icon-{{icon}}\"></i><button class=\"toggle\" role=\"switch\" aria-checked=\"{{on}}\" data-on=\"{{on}}\"><span></span></button></div>",
   "markup": "<div class=\"action-row\" data-trailing=\"chevron\"><span class=\"action-row__text\">Row</span><i class=\"icon icon-chevron-right\"></i><button class=\"toggle\" role=\"switch\" aria-checked=\"false\" data-on=\"false\"><span></span></button></div>"
 }

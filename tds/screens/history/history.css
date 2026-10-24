@@ -1,7 +1,8 @@
 /* Screen: history. A blurred title bar stuck to the top, the session history cards in a list (16px apart) scrolling under it, and the bottom nav
-   stuck to the bottom. A soft glow rises from the bottom. Slots: top, list, nav. */
-.history { position: relative; isolation: isolate; display: flex; flex-direction: column; width: 100%; }
+   stuck to the bottom edge of the phone (even when the list is short). A soft glow rises from the bottom. Slots: top, list, nav. */
+.history { --g: var(--page-gutter, var(--space-4)); position: relative; isolation: isolate; display: flex; flex-direction: column; box-sizing: border-box; min-height: 100dvh; margin: calc(var(--g) * -1); padding-inline: var(--g); }
 .history__glow { --glow-size: 560px; --glow-blur: 80px; --glow-opacity: .5; z-index: -1; position: fixed; }
-.history__top { position: sticky; top: calc(var(--page-gutter, var(--space-4)) * -1); z-index: 2; margin: calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1) 0; background: var(--bg-base-80); backdrop-filter: blur(22px); }
-.history__list { display: flex; flex-direction: column; gap: var(--space-4); padding-block: var(--space-4) var(--space-12); }
-.history__nav { position: sticky; bottom: 0; z-index: 2; margin: 0 calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1); }
+.history__top { position: sticky; top: 0; z-index: 2; margin-inline: calc(var(--g) * -1); background: var(--bg-base-80); backdrop-filter: blur(22px); }
+.history__list { flex: 1; display: flex; flex-direction: column; gap: var(--space-4); padding-block: var(--space-4) var(--space-12); }
+.history__nav { position: sticky; bottom: 0; z-index: 2; margin-inline: calc(var(--g) * -1); }
+.history .cta-card { --card-fill: var(--gradient-purple-to-orange); }

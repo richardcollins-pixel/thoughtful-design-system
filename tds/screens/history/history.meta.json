@@ -6,7 +6,8 @@
   "uses": [
     "molecules/header",
     "organisms/session-history-card",
-    "molecules/bottom-nav"
+    "molecules/bottom-nav",
+    "organisms/cta-card"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4196-43599",
   "align": "top",
@@ -14,7 +15,7 @@
     {
       "id": "default",
       "name": "Default",
-      "template": "<main class=\"history\"><div class=\"glow history__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"history__top\" data-slot=\"top\">{{item:header}}</div><div class=\"history__list\" data-slot=\"list\">{{item:c1}}{{item:c2}}{{item:c3}}{{item:c4}}</div><div class=\"history__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "template": "<section class=\"history\"><div class=\"glow history__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"history__top\" data-slot=\"top\">{{item:header}}</div><div class=\"history__list\" data-slot=\"list\">{{item:c1}}{{item:c2}}{{item:c3}}{{item:c4}}</div><div class=\"history__nav\" data-slot=\"nav\">{{item:nav}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -44,6 +45,44 @@
       "personas": [
         "provider"
       ]
+    },
+    {
+      "id": "empty",
+      "name": "Empty",
+      "template": "<section class=\"history\"><div class=\"glow history__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"history__top\" data-slot=\"top\">{{item:header}}</div><div class=\"history__list\" data-slot=\"list\">{{item:empty}}</div><div class=\"history__nav\" data-slot=\"nav\">{{item:nav}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "list",
+          "label": "List slot",
+          "items": [
+            "empty"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "header": {
+          "props": {
+            "title": "Session History"
+          }
+        }
+      }
     }
   ],
   "variables": {},
@@ -148,6 +187,21 @@
       },
       "expose": [
         "current"
+      ]
+    },
+    "empty": {
+      "type": "component",
+      "component": "organisms/cta-card",
+      "label": "Empty card",
+      "props": {
+        "headline": "No sessions yet",
+        "body": "Let’s take the first step and take 10 minutes to get to know each other",
+        "button.label": "Start your first session"
+      },
+      "expose": [
+        "headline",
+        "body",
+        "button.label"
       ]
     }
   },

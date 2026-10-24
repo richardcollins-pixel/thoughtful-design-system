@@ -3,6 +3,7 @@
 .action-row__text { flex: 1; min-width: 0; font: var(--text-body-sm-semibold); letter-spacing: var(--text-body-sm-semibold-ls); }
 .action-row > .icon { --icon-size: 16px; --icon-color: currentColor; flex: none; }
 .action-row > .toggle { display: none; }
-.action-row[data-trailing="chevron"] > .icon { display: block; }
-.action-row:not([data-trailing="chevron"]) > .icon { display: none; }
+.action-row[data-trailing="chevron"] > .icon, .action-row[data-trailing="icon"] > .icon { display: block; }
+.action-row:not([data-trailing="chevron"]):not([data-trailing="icon"]) > .icon { display: none; }
+.action-row[data-dim="yes"] { opacity: .5; }
 .action-row[data-trailing="toggle"] > .toggle { display: flex; }
