@@ -6,7 +6,7 @@
 .rating-option[data-tilt="left"] .rating-option__tile > .face { rotate: -5.76deg; }
 .rating-option[data-tilt="right"] .rating-option__tile > .face { rotate: 5.76deg; }
 .rating-option__label { font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); text-align: center; }
-.rating-option[data-selected="dim"] { opacity: .5; }
+.rating-option[data-selected="dim"] { opacity: var(--opacity-muted, .5); }
 .rating-option[data-selected="yes"] .check-circle { background: var(--bg-elevation-100); }
 .rating-option[data-selected="yes"] .check-circle > .icon { display: block; }
 /* the animation: the faces come up one after the other, and the last one gives a little wobble */

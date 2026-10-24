@@ -13,7 +13,7 @@
 /* T is drawn smaller here than its token sizes (the Figma hero is a large T at about 100px) */
 .home-header .blob { --blob-size: 100px; }
 /* the light behind T: rose, centered on it, not part of the layout */
-.home-header__glow { --glow-size: 520px; --glow-blur: 90px; --glow-opacity: .4; position: absolute; left: 50%; top: 40px; translate: -50% 0; z-index: -1; }
+.home-header__glow { --glow-size: var(--glow-header-size); --glow-blur: var(--glow-header-blur); --glow-opacity: var(--glow-header-opacity); position: absolute; left: 50%; top: 40px; translate: -50% 0; z-index: var(--layer-behind); }
 .home-header__top { width: 100%; }
 .home-header__content { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); width: 100%; box-sizing: border-box; padding: 0 var(--home-header-padding-x); }
 .home-header__titles { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); width: 100%; }

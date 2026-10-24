@@ -2,8 +2,8 @@
    Default fill is the purple-to-blue gradient; wireframe mode flattens it automatically. */
 .card {
   --card-fill: var(--gradient-purple-to-blue);
-  --card-padding-x: var(--padding-md);
-  --card-padding-y: var(--padding-lg);
+  --card-padding-x: var(--container-card-x, var(--padding-md));
+  --card-padding-y: var(--container-card-y, var(--padding-lg));
   --card-radius: var(--radius-md);
   --card-gap: var(--space-4);
 

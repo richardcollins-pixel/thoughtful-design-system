@@ -8,4 +8,4 @@
 .feedback-sheet__ratings { display: flex; align-items: flex-start; }
 /* the faces tilt and rise above their row, so give the content slot the room instead of pulling it up */
 .feedback-sheet .bottom-sheet__content { padding-top: var(--space-2); }
-.feedback-sheet[data-selected="no"] .bottom-sheet__action .button { opacity: .4; pointer-events: none; }
+.feedback-sheet[data-selected="no"] .bottom-sheet__action .button { opacity: var(--opacity-disabled, .4); pointer-events: none; }

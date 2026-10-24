@@ -1,2 +1,2 @@
 /* Device: home indicator. A 134 x 5 bar, white at 20%, fully rounded, centered. It is the phone's, so Device UI off hides it. */
-.home-indicator { display: block; width: 134px; height: 5px; margin-inline: auto; border-radius: 100px; background: var(--white); opacity: .2; }
+.home-indicator { display: block; width: 134px; height: 5px; margin-inline: auto; border-radius: 100px; background: var(--white); opacity: var(--opacity-dim, .2); }

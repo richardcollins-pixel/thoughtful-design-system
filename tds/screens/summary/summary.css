@@ -2,6 +2,6 @@
    version has a soft glow rising from the bottom. Slots are real elements ([data-slot]): header, sections. */
 .summary { --summary-gap: var(--space-12); position: relative; isolation: isolate; display: flex; flex-direction: column; width: 100%; }
 .summary__sections { display: flex; flex-direction: column; gap: var(--summary-gap); padding-block: var(--summary-gap) var(--space-16); }
-.summary__glow { --glow-size: 600px; --glow-blur: 80px; --glow-opacity: .95; z-index: -1; position: fixed; }
+.summary__glow { --glow-size: var(--glow-strong-size); --glow-blur: var(--glow-strong-blur); --glow-opacity: var(--glow-strong-opacity); z-index: var(--layer-behind); position: fixed; }
 /* the T summary header leaves 160px above its text (room for the status bar and the close button); the provider one keeps the default */
 .summary .header-card:not([data-variant="provider"]) { --header-safe-top: 160px; }

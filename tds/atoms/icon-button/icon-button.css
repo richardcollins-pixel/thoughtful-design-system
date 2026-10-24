@@ -32,7 +32,7 @@
 .icon-button:focus-visible, .icon-button[data-state="focus"] { outline: 2px solid var(--border-primary); outline-offset: 2px; }
 .icon-button:disabled, .icon-button[data-state="disabled"] {
   --icon-button-fill: var(--bg-elevation-20); --icon-button-fill-hover: var(--bg-elevation-20); --icon-button-icon: var(--icon-secondary);
-  opacity: 0.6; cursor: not-allowed; pointer-events: none;
+  opacity: var(--opacity-soft, 0.6); cursor: not-allowed; pointer-events: none;
 }
 .icon-button[data-elevation="0"]:disabled, .icon-button[data-elevation="0"][data-state="disabled"] { --icon-button-fill: transparent; --icon-button-fill-hover: transparent; }
 

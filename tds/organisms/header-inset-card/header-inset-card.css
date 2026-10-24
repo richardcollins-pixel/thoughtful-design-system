@@ -1,5 +1,5 @@
 /* Organism: header inset card. A serif headline and copy on the card atom's gradient, roomy padding. Slot: content. */
-.header-inset-card { --card-fill: var(--gradient-purple-to-blue); --card-padding-x: var(--padding-xl); --card-padding-y: var(--space-12); }
+.header-inset-card { --card-fill: var(--gradient-purple-to-blue); --card-padding-x: var(--container-inset-x, var(--padding-xl)); --card-padding-y: var(--container-inset-y, var(--space-12)); }
 .header-inset-card__content { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
 .header-inset-card__headline { font: var(--text-subhead); letter-spacing: var(--text-subhead-ls); }
 .header-inset-card__body { color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }

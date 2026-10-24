@@ -2,7 +2,7 @@
    bottom; a rose glow rising from the bottom. Slots: top, main, bottom, nav. */
 /* full bleed: the screen cancels the page gutter and fills the phone, so a bottom nav can sit on the bottom edge */
 .message { position: relative; isolation: isolate; display: flex; flex-direction: column; box-sizing: border-box; min-height: 100dvh; margin: calc(var(--page-gutter, var(--space-4)) * -1); padding-inline: var(--page-gutter, var(--space-4)); }
-.message__glow { --glow-size: 550px; --glow-blur: 90px; --glow-opacity: .6; z-index: -1; position: fixed; }
+.message__glow { --glow-size: var(--glow-screen-size); --glow-blur: var(--glow-screen-blur); --glow-opacity: var(--glow-screen-opacity); z-index: var(--layer-behind); position: fixed; }
 .message__top { margin-inline: calc(var(--page-gutter, var(--space-4)) * -1); }
 .message__main { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); width: 100%; max-width: 320px; margin-inline: auto; padding-block: var(--space-16) 0; text-align: center; }
 .message__blob { height: 180px; display: grid; place-items: center; }

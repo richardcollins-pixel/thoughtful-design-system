@@ -6,7 +6,7 @@
 .glow[data-placement="bottom"] { position: absolute; left: 50%; bottom: calc(var(--glow-size) * -0.33); translate: -50% 0; scale: 2.2 1; z-index: 0; }
 /* a placed glow sits behind its container's content but above its background, so the container isolates itself */
 :has(> .glow[data-placement]) { isolation: isolate; }
-.glow[data-placement="behind"] { position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: -1; }
+.glow[data-placement="behind"] { position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: var(--layer-behind); }
 @keyframes tds-glow-pulse { from { opacity: var(--glow-opacity); scale: 1; } to { opacity: min(1, calc(var(--glow-opacity) + 0.15)); scale: 1.06; } }
 @media (prefers-reduced-motion: reduce) { .glow > canvas { animation: none; } }
 :root[data-fidelity="wireframe"] .glow > canvas { filter: blur(var(--glow-blur)) grayscale(1); }

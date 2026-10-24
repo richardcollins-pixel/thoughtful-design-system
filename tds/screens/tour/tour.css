@@ -2,12 +2,12 @@
    else drops to 20% (the bottom nav and status bar stay clear). Home states scroll the page so the target sits near the top. Slots: header,
    sections, nav, top, thread, composer, coach. */
 .tour { --g: var(--page-gutter, var(--space-4)); --tour-scroll: 0px; --tour-dim: var(--opacity-dim, .2); position: relative; isolation: isolate; overflow: clip; box-sizing: border-box; height: 100dvh; min-height: 640px; margin: calc(var(--g) * -1); }
-.tour__glow { --glow-size: 560px; --glow-blur: 90px; --glow-opacity: .55; z-index: -1; position: absolute; }
+.tour__glow { --glow-size: var(--glow-page-size); --glow-blur: var(--glow-page-blur); --glow-opacity: var(--glow-page-opacity); z-index: var(--layer-behind); position: absolute; }
 .tour__page { box-sizing: border-box; padding: var(--g); transform: translateY(var(--tour-scroll)); }
 .tour__sections { display: flex; flex-direction: column; gap: var(--space-12); padding-top: var(--space-12); padding-bottom: 200px; }
 .tour .home-header { padding-bottom: var(--space-2); }
-.tour__nav { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; }
-.tour__coach { position: absolute; z-index: 6; left: var(--space-4); right: var(--space-4); bottom: 89px; }
+.tour__nav { position: absolute; z-index: var(--layer-sticky); left: 0; right: 0; bottom: 0; }
+.tour__coach { position: absolute; z-index: var(--layer-sheet); left: var(--space-4); right: var(--space-4); bottom: 89px; }
 .tour__coach .coachmark { width: auto; max-width: none; }
 .tour[data-base="chat"] { display: flex; flex-direction: column; }
 .tour[data-base="chat"] .tour__coach { bottom: auto; top: 128px; }

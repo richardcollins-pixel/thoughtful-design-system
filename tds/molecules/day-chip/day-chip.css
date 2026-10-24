@@ -3,4 +3,4 @@
 .day-chip span { color: var(--text-secondary); font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); }
 .day-chip b { font: var(--text-body-md-semibold); letter-spacing: var(--text-body-md-semibold-ls); }
 .day-chip[data-selected="yes"] { background: var(--bg-elevation-100); color: var(--bg-elevation-100-inverse); }
-.day-chip[data-selected="yes"] span { color: var(--bg-elevation-100-inverse); opacity: .6; }
+.day-chip[data-selected="yes"] span { color: var(--bg-elevation-100-inverse); opacity: var(--opacity-soft, .6); }

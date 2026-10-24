@@ -20,7 +20,7 @@
 .cycle-art__pause { display: none; width: 8px; height: 10px; border-inline: 3px solid var(--black); box-sizing: border-box; }
 .cycle-art[data-state="paused"] .cycle-art__pause { display: block; }
 .cycle-art__arrow { width: 124px; height: 36px; }
-.cycle-art[data-state="find"] .cycle-art__arrow[data-end="bottom"] { opacity: .3; }
+.cycle-art[data-state="find"] .cycle-art__arrow[data-end="bottom"] { opacity: var(--opacity-faint, .3); }
 
 /* the sequence */
 .cycle-art[data-animate="on"] .cycle-art__t { --travel-x: calc((var(--art-blob) + var(--art-gap) + var(--art-person)) / 2 - var(--art-blob) / 2); --travel-scale: 1.6;

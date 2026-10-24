@@ -1,16 +1,16 @@
 /* Screen: profile. A blurred title bar stuck to the top, the card and the groups scrolling under it (24px apart), and the bottom nav stuck to the
    bottom, over the dark purple page with a soft rose glow at the bottom. Slots: top, sections, nav. */
 .profile { --profile-gap: var(--space-6); position: relative; isolation: isolate; display: flex; flex-direction: column; width: 100%; }
-.profile__glow { --glow-size: 560px; --glow-blur: 80px; --glow-opacity: .55; z-index: -1; position: fixed; }
-.profile__top { position: sticky; top: calc(var(--page-gutter, var(--space-4)) * -1); z-index: 2; margin: calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1) 0; background: var(--bg-base-80); backdrop-filter: blur(var(--blur-md)); }
+.profile__glow { --glow-size: var(--glow-page-size); --glow-blur: var(--glow-page-blur); --glow-opacity: var(--glow-page-opacity); z-index: var(--layer-behind); position: fixed; }
+.profile__top { position: sticky; top: calc(var(--page-gutter, var(--space-4)) * -1); z-index: var(--layer-sticky); margin: calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1) 0; background: var(--bg-base-80); backdrop-filter: blur(var(--blur-md)); }
 .profile__sections { display: flex; flex-direction: column; gap: var(--profile-gap); padding-block: var(--space-4) var(--space-12); }
-.profile__nav { position: sticky; bottom: 0; z-index: 2; margin: 0 calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1); }
+.profile__nav { position: sticky; bottom: 0; z-index: var(--layer-sticky); margin: 0 calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1); }
 
 /* Screen: profile-pages. The pages one level under Profile. Hero pages (About, Support): the gradient hero runs to the screen edges and the groups follow
    (24px apart). Feedback: a tall text area, the checkbox row, the button above the keyboard. Read page: the header, a card, then sections. Slots: hero, top,
    sections, form, bottom. */
 .profile-pages { position: relative; isolation: isolate; display: flex; flex-direction: column; box-sizing: border-box; min-height: 100dvh; margin: calc(var(--page-gutter, var(--space-4)) * -1); }
-.profile-pages__glow { --glow-size: 560px; --glow-blur: 80px; --glow-opacity: .55; z-index: -1; position: fixed; }
+.profile-pages__glow { --glow-size: var(--glow-page-size); --glow-blur: var(--glow-page-blur); --glow-opacity: var(--glow-page-opacity); z-index: var(--layer-behind); position: fixed; }
 .profile-pages__sections { display: flex; flex-direction: column; gap: var(--space-6); padding: var(--space-6) var(--space-4) var(--space-12); }
 .profile-pages[data-kind="what-is"] .profile-pages__sections { gap: var(--space-12); padding-top: var(--space-4); }
 .profile-pages__form { display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-3, 12px) var(--space-4) 0; }
