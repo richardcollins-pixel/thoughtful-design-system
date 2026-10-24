@@ -1,0 +1,406 @@
+{
+  "name": "Message",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "molecules/header",
+    "atoms/blob",
+    "atoms/button",
+    "molecules/bottom-nav",
+    "atoms/glow",
+    "device/status-bar"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-48616",
+  "align": "top",
+  "states": [
+    {
+      "id": "no-connection",
+      "name": "No connection",
+      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"></div></main>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "body",
+            "primary"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "No connection"
+        },
+        "primary": {
+          "props": {
+            "label": "Try Again",
+            "variant": "filled"
+          }
+        }
+      }
+    },
+    {
+      "id": "latest-app",
+      "name": "Get the latest app",
+      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}{{item:secondary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"></div></main>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "body",
+            "primary",
+            "secondary"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Get the latest app"
+        },
+        "body": {
+          "value": "Update to the latest version to get the most out of Thoughtful."
+        },
+        "primary": {
+          "props": {
+            "label": "Update App",
+            "variant": "filled"
+          }
+        }
+      }
+    },
+    {
+      "id": "update-required",
+      "name": "Update required",
+      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"></div></main>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "body",
+            "primary"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Update Required"
+        },
+        "body": {
+          "value": "Please update to the latest version to continue using the app."
+        },
+        "primary": {
+          "props": {
+            "label": "Update App",
+            "variant": "filled"
+          }
+        }
+      }
+    },
+    {
+      "id": "reach-out",
+      "name": "Someone might reach out",
+      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"><p class=\"message__note\">{{item:note}} {{item:email}}</p></div></main>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "body",
+            "primary"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "note",
+            "email"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Someone might reach out"
+        },
+        "body": {
+          "value": "Based on what you shared today, someone from our care team might reach out to chat further. This may or may not be necessary, and this is a normal part of how we care for our members."
+        },
+        "primary": {
+          "props": {
+            "label": "Continue",
+            "variant": "outline"
+          }
+        }
+      }
+    },
+    {
+      "id": "no-match",
+      "name": "No match found",
+      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:header}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:contact}}</div><div class=\"message__bottom\" data-slot=\"bottom\">{{item:pinned}}</div></main>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "body",
+            "contact"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "pinned"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "I couldn’t find a therapist in your area right now"
+        },
+        "body": {
+          "value": "I’ll keep supporting you in the meantime — check back soon, or get in touch and we’ll help you find the right fit."
+        }
+      }
+    },
+    {
+      "id": "not-a-fit",
+      "name": "Not a good fit",
+      "template": "<main class=\"message\"><div class=\"glow message__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"message__top\" data-slot=\"top\">{{item:status}}</div><div class=\"message__main\" data-slot=\"main\"><div class=\"message__blob\">{{item:blob}}</div><div class=\"message__text\">{{item:title}}{{item:body}}</div>{{item:primary}}</div><div class=\"message__bottom\" data-slot=\"bottom\"><p class=\"message__note\">{{item:note}} {{item:email}}</p></div><div class=\"message__nav\" data-slot=\"nav\">{{item:nav}}</div></main>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "body",
+            "primary"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "note",
+            "email"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "AI care may not be the best fit right now"
+        },
+        "body": {
+          "value": "From what you shared, we think speaking with a licensed professional could be more helpful than using the app right now."
+        },
+        "primary": {
+          "props": {
+            "label": "Get Support",
+            "variant": "outline"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".message",
+  "description": "A full screen with one message from T: T, a headline, a few lines, and a button or two, with a footer note when there is somewhere to turn. States: No connection, Get the latest app (with Skip), Update required, Someone might reach out, No match found (the matches screen when there is no therapist nearby) and Not a good fit (what the safety check leads to).",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "molecules/header",
+      "label": "Header",
+      "props": {
+        "variant": "sub-section",
+        "title": "Your Matches"
+      },
+      "expose": [
+        "title"
+      ]
+    },
+    "blob": {
+      "type": "component",
+      "component": "atoms/blob",
+      "label": "T",
+      "props": {
+        "theme": "rose"
+      },
+      "expose": [
+        "shape",
+        "theme"
+      ],
+      "required": true
+    },
+    "title": {
+      "type": "text",
+      "tag": "h1",
+      "class": "message__title",
+      "label": "Headline",
+      "value": "No connection"
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "message__body",
+      "label": "Body Copy",
+      "value": "Your connection is very slow at the moment or you’re disconnected from the internet. Please check your settings and try again."
+    },
+    "primary": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Primary button",
+      "props": {
+        "label": "Try Again",
+        "variant": "filled",
+        "size": "md",
+        "width": "full"
+      },
+      "expose": [
+        "label"
+      ]
+    },
+    "secondary": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Secondary button",
+      "props": {
+        "label": "Skip Update",
+        "variant": "flat",
+        "size": "sm",
+        "width": "hug"
+      },
+      "expose": [
+        "label"
+      ]
+    },
+    "contact": {
+      "type": "text",
+      "tag": "p",
+      "class": "message__contact",
+      "label": "Contact line",
+      "value": "Reach out to careteam@thoughtful.com"
+    },
+    "pinned": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Bottom button",
+      "props": {
+        "label": "Continue",
+        "variant": "filled",
+        "size": "md",
+        "width": "full"
+      },
+      "expose": [
+        "label"
+      ]
+    },
+    "note": {
+      "type": "text",
+      "tag": "span",
+      "class": "message__note-text",
+      "label": "Footer note",
+      "value": "If you think this is an error, please reach out to"
+    },
+    "email": {
+      "type": "text",
+      "tag": "b",
+      "class": "message__note-email",
+      "label": "Footer email",
+      "value": "careteam@thoughtful.com"
+    },
+    "nav": {
+      "type": "component",
+      "component": "molecules/bottom-nav",
+      "label": "Bottom nav",
+      "props": {
+        "current": "sessions",
+        "tabs": "2"
+      },
+      "expose": [
+        "current",
+        "tabs"
+      ]
+    },
+    "status": {
+      "type": "component",
+      "component": "device/status-bar",
+      "label": "Status bar",
+      "props": {},
+      "expose": []
+    }
+  },
+  "personas": [],
+  "inputs": [],
+  "properties": [],
+  "prompts": []
+}
