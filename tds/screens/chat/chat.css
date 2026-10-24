@@ -17,3 +17,9 @@
 /* a sheet opened over the chat: a dimmed backdrop over everything, the sheet stuck to the bottom */
 .chat__sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 6; }
 .chat__sheet .session-sharing { margin: 0; }
+
+/* tour: a dim layer and a coachmark under the header, pointing at the buttons on the right */
+.chat__tour:not(:has(.coachmark)) { display: none; }
+.chat__scrim { position: fixed; inset: 0; z-index: 3; background: color-mix(in srgb, var(--purple-900) 70%, transparent); }
+.chat__tour .coachmark { position: fixed; z-index: 4; left: var(--space-4); right: var(--space-4); top: 128px; width: auto; max-width: none; margin-inline: auto; }
+.chat:has(.chat__tour .coachmark) .chat__top { position: relative; z-index: 4; }

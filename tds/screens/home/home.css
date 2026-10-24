@@ -5,3 +5,11 @@
 /* the sections come right after the header, so the header's own bottom room is not needed */
 .home .home-header { padding-bottom: var(--space-2); }
 .home__nav { position: sticky; bottom: 0; z-index: 2; margin: 0 calc(var(--page-gutter, var(--space-6)) * -1) calc(var(--page-gutter, var(--space-6)) * -1); }
+
+/* tour: a dim layer over the phone and a coachmark above the bottom nav; the confirmed toast drops from the top */
+.home__tour:not(:has(.coachmark)) { display: none; }
+.home__scrim { position: fixed; inset: 0; z-index: 3; background: color-mix(in srgb, var(--purple-900) 70%, transparent); }
+.home__tour .coachmark { position: fixed; z-index: 4; left: var(--space-4); right: var(--space-4); bottom: 89px; width: auto; max-width: none; margin-inline: auto; }
+.home__toast { position: fixed; z-index: 5; left: var(--space-4); right: var(--space-4); top: 62px; }
+.home__toast:not(:has(.toast)) { display: none; }
+.home:has(.home__tour .coachmark) .home__nav { z-index: 5; }
