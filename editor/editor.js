@@ -771,10 +771,10 @@ function variantThumbs(m) {
   return { attr: k, selected: Math.max(0, a.values.indexOf(cstate.attrs[k] || a.default)), items: a.values.map((v) => ({ label: v, param: { set: { [k]: v } }, apply: (api) => { cstate.attrs[k] = v; api.setAttr(k, v); } })) };
 }
 const thumbSrc = (param) => `../preview/component.html?c=${component.path}&thumb=${encodeURIComponent(JSON.stringify(param))}${window.__V ? `&v=${window.__V}` : ''}`;
-// Each thumbnail is a real 390px-wide page, scaled down to fit its tile.
+// Each thumbnail is a real 402px-wide page, scaled down to fit its tile.
 function scaleThumbs() {
   requestAnimationFrame(() => document.querySelectorAll('.thumb-frame').forEach((f) => {
-    f.firstElementChild.style.transform = `scale(${f.clientWidth / 390})`;
+    f.firstElementChild.style.transform = `scale(${f.clientWidth / 402})`;
     f.firstElementChild.addEventListener('load', applyModes);
   }));
 }
@@ -925,7 +925,7 @@ $('#stage').addEventListener('click', (e) => {
 
 /* ---------- canvas ---------- */
 const DEVICES = [
-  { name: 'iPhone 17', w: 390, h: 874, phone: true },
+  { name: 'iPhone 17', w: 402, h: 874, phone: true },
   { name: 'iPhone 17 Pro Max', w: 440, h: 956, phone: true },
   { name: 'iPhone SE', w: 375, h: 667, phone: true },
   { name: 'Pixel 9', w: 412, h: 915, phone: true },

@@ -7,7 +7,7 @@
 .coachmark__light { position: absolute; inset: 0; z-index: var(--layer-behind); border-radius: inherit; overflow: clip; pointer-events: none; }
 .coachmark .glow { --glow-size: var(--glow-card-size); --glow-blur: var(--glow-card-blur); --glow-opacity: var(--glow-card-opacity); }
 .coachmark__arrow-slot { display: contents; }
-.coachmark .avatar-text { color: var(--purple-900); }
+.coachmark .avatar-text { color: var(--purple-900); gap: var(--space-2); }
 .coachmark .avatar-text__subline { color: var(--black); }
 .coachmark__content { display: flex; flex-direction: column; gap: var(--space-2); }
 .coachmark__body { margin: 0; font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
