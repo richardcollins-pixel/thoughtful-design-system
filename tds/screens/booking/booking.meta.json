@@ -1,0 +1,916 @@
+{
+  "name": "Provider booking",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "device/status-bar",
+    "molecules/header",
+    "atoms/blob",
+    "atoms/glow",
+    "atoms/button",
+    "atoms/avatar",
+    "atoms/icon-button",
+    "molecules/cycle-art",
+    "molecules/option-tile",
+    "molecules/day-chip",
+    "patterns/provider-carousel"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-47431",
+  "align": "top",
+  "states": [
+    {
+      "id": "interstitial",
+      "name": "Interstitial",
+      "template": "<section class=\"booking\" data-kind=\"interstitial\"><div class=\"glow booking__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"booking__top\" data-slot=\"top\">{{item:status}}</div><div class=\"booking__main\" data-slot=\"main\"><div class=\"booking__art\">{{item:art}}</div><div class=\"booking__text\">{{item:title}}{{item:body}}</div></div><div class=\"booking__bottom booking__bottom--tight\" data-slot=\"bottom\">{{item:submit}}{{item:skip}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "art",
+            "title",
+            "body"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "submit",
+            "skip"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "First, let’s find your therapist"
+        },
+        "body": {
+          "value": "I'll match you with a therapist from our nationwide network, so you get the support you need"
+        },
+        "submit": {
+          "props": {
+            "label": "Continue"
+          }
+        }
+      }
+    },
+    {
+      "id": "q-why",
+      "name": "Question 1",
+      "template": "<section class=\"booking\" data-kind=\"q\"><div class=\"glow booking__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"booking__top\" data-slot=\"top\">{{item:header}}</div><div class=\"booking__main\" data-slot=\"main\"><div class=\"booking__blob\">{{item:blob}}</div>{{item:title}}<div class=\"booking__options\" data-slot=\"options\">{{item:opt1}}{{item:opt2}}{{item:opt3}}{{item:opt4}}</div></div><div class=\"booking__bottom\" data-slot=\"bottom\">{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title"
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Options slot",
+          "items": [
+            "opt1",
+            "opt2",
+            "opt3",
+            "opt4"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "back-progress",
+            "step": "1",
+            "count": "4"
+          }
+        },
+        "title": {
+          "value": "What brings you here today?"
+        },
+        "submit": {
+          "props": {
+            "label": "Continue"
+          }
+        },
+        "opt1": {
+          "props": {
+            "label": "Going through something hard",
+            "selected": "yes"
+          }
+        },
+        "opt2": {
+          "props": {
+            "label": "Working on my mental health",
+            "selected": "no"
+          }
+        },
+        "opt3": {
+          "props": {
+            "label": "Curious to explore",
+            "selected": "no"
+          }
+        },
+        "opt4": {
+          "props": {
+            "label": "Checking out my employer benefit",
+            "selected": "no"
+          }
+        }
+      }
+    },
+    {
+      "id": "q-state",
+      "name": "Question 2",
+      "template": "<section class=\"booking\" data-kind=\"q\"><div class=\"glow booking__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"booking__top\" data-slot=\"top\">{{item:header}}</div><div class=\"booking__main\" data-slot=\"main\"><div class=\"booking__blob\">{{item:blob}}</div>{{item:title}}<div class=\"booking__options\" data-slot=\"options\">{{item:opt1}}{{item:opt2}}{{item:opt3}}{{item:opt4}}</div></div><div class=\"booking__bottom\" data-slot=\"bottom\">{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title"
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Options slot",
+          "items": [
+            "opt1",
+            "opt2",
+            "opt3",
+            "opt4"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "back-progress",
+            "step": "2",
+            "count": "4"
+          }
+        },
+        "title": {
+          "value": "How would you describe your mental health right now?"
+        },
+        "submit": {
+          "props": {
+            "label": "Continue"
+          }
+        },
+        "opt1": {
+          "props": {
+            "label": "Struggling and need support",
+            "selected": "yes"
+          }
+        },
+        "opt2": {
+          "props": {
+            "label": "Hard but managing",
+            "selected": "no"
+          }
+        },
+        "opt3": {
+          "props": {
+            "label": "Okay, want to be better",
+            "selected": "no"
+          }
+        },
+        "opt4": {
+          "props": {
+            "label": "Doing well",
+            "selected": "no"
+          }
+        }
+      }
+    },
+    {
+      "id": "q-support",
+      "name": "Question 3",
+      "template": "<section class=\"booking\" data-kind=\"q\"><div class=\"glow booking__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"booking__top\" data-slot=\"top\">{{item:header}}</div><div class=\"booking__main\" data-slot=\"main\"><div class=\"booking__blob\">{{item:blob}}</div>{{item:title}}<div class=\"booking__options\" data-slot=\"options\">{{item:opt1}}{{item:opt2}}{{item:opt3}}{{item:opt4}}</div></div><div class=\"booking__bottom\" data-slot=\"bottom\">{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title"
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Options slot",
+          "items": [
+            "opt1",
+            "opt2",
+            "opt3",
+            "opt4"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "back-progress",
+            "step": "3",
+            "count": "4"
+          }
+        },
+        "title": {
+          "value": "What does support look like for you?"
+        },
+        "submit": {
+          "props": {
+            "label": "Continue"
+          }
+        },
+        "opt1": {
+          "props": {
+            "label": "Someone to listen",
+            "selected": "yes"
+          }
+        },
+        "opt2": {
+          "props": {
+            "label": "Practical advice and tools",
+            "selected": "no"
+          }
+        },
+        "opt3": {
+          "props": {
+            "label": "Help understanding myself better",
+            "selected": "no"
+          }
+        },
+        "opt4": {
+          "props": {
+            "label": "A mix",
+            "selected": "no"
+          }
+        }
+      }
+    },
+    {
+      "id": "q-before",
+      "name": "Question 4",
+      "template": "<section class=\"booking\" data-kind=\"q\"><div class=\"glow booking__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"booking__top\" data-slot=\"top\">{{item:header}}</div><div class=\"booking__main\" data-slot=\"main\"><div class=\"booking__blob\">{{item:blob}}</div>{{item:title}}<div class=\"booking__options\" data-slot=\"options\">{{item:opt1}}{{item:opt2}}{{item:opt3}}{{item:opt4}}</div></div><div class=\"booking__bottom\" data-slot=\"bottom\">{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title"
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Options slot",
+          "items": [
+            "opt1",
+            "opt2",
+            "opt3",
+            "opt4"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "back-progress",
+            "step": "4",
+            "count": "4"
+          }
+        },
+        "title": {
+          "value": "Have you worked with a therapist before?"
+        },
+        "submit": {
+          "props": {
+            "label": "Continue"
+          }
+        },
+        "opt1": {
+          "props": {
+            "label": "Yes, currently",
+            "selected": "yes"
+          }
+        },
+        "opt2": {
+          "props": {
+            "label": "Yes, in the past",
+            "selected": "no"
+          }
+        },
+        "opt3": {
+          "props": {
+            "label": "Tried it, wasn't for me",
+            "selected": "no"
+          }
+        },
+        "opt4": {
+          "props": {
+            "label": "Never have",
+            "selected": "no"
+          }
+        }
+      }
+    },
+    {
+      "id": "matches",
+      "name": "Your matches",
+      "template": "<section class=\"booking\" data-kind=\"matches\"><div class=\"glow booking__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"booking__top\" data-slot=\"top\">{{item:header}}</div><div class=\"booking__main booking__main--wide\" data-slot=\"main\">{{item:title}}{{item:carousel}}</div><div class=\"booking__bottom\" data-slot=\"bottom\">{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "title",
+            "carousel"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "sub-section",
+            "title": "Your Matches"
+          }
+        },
+        "title": {
+          "value": "Choose your therapist"
+        },
+        "submit": {
+          "props": {
+            "label": "Choose Ron L."
+          }
+        }
+      }
+    },
+    {
+      "id": "book",
+      "name": "Book session",
+      "template": "<section class=\"booking\" data-kind=\"book\"><div class=\"glow booking__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"booking__top\" data-slot=\"top\">{{item:header}}</div><div class=\"booking__main booking__main--left\" data-slot=\"main\"><div class=\"booking__who\">{{item:avatar}}{{item:who}}</div><div class=\"booking__row\">{{item:daysTitle}}<span class=\"booking__arrows\">{{item:prev}}{{item:next}}</span></div><div class=\"booking__days\" data-slot=\"days\">{{item:day1}}{{item:day2}}{{item:day3}}{{item:day4}}{{item:day5}}</div><div class=\"booking__times-head\">{{item:timesTitle}}{{item:timesNote}}</div><div class=\"booking__slots\" data-slot=\"slots\">{{item:slot1}}{{item:slot2}}{{item:slot3}}{{item:slot4}}</div></div><div class=\"booking__bottom\" data-slot=\"bottom\">{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "avatar",
+            "who",
+            "daysTitle",
+            "prev",
+            "next",
+            "timesTitle",
+            "timesNote"
+          ]
+        },
+        {
+          "id": "days",
+          "label": "Days slot",
+          "items": [
+            "day1",
+            "day2",
+            "day3",
+            "day4",
+            "day5"
+          ]
+        },
+        {
+          "id": "slots",
+          "label": "Times slot",
+          "items": [
+            "slot1",
+            "slot2",
+            "slot3",
+            "slot4"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "submit"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "sub-section",
+            "title": "Book Session"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Confirm Booking"
+          }
+        },
+        "day1": {
+          "props": {
+            "day": "Mon",
+            "date": "2",
+            "selected": "yes"
+          }
+        },
+        "day2": {
+          "props": {
+            "day": "Tue",
+            "date": "3",
+            "selected": "no"
+          }
+        },
+        "day3": {
+          "props": {
+            "day": "Wed",
+            "date": "4",
+            "selected": "no"
+          }
+        },
+        "day4": {
+          "props": {
+            "day": "Thu",
+            "date": "5",
+            "selected": "no"
+          }
+        },
+        "day5": {
+          "props": {
+            "day": "Fri",
+            "date": "6",
+            "selected": "no"
+          }
+        },
+        "slot1": {
+          "props": {
+            "label": "9:00 am",
+            "selected": "no"
+          }
+        },
+        "slot2": {
+          "props": {
+            "label": "1:30 pm",
+            "selected": "yes"
+          }
+        },
+        "slot3": {
+          "props": {
+            "label": "3:30 am",
+            "selected": "no"
+          }
+        },
+        "slot4": {
+          "props": {
+            "label": "5:00 pm",
+            "selected": "no"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".booking",
+  "description": "Booking a therapist during onboarding: an interstitial, four questions (the first answer picked), Your Matches (the provider carousel with Choose), and Book Session (pick a day and a time, then Confirm Booking).",
+  "items": {
+    "status": {
+      "type": "component",
+      "component": "device/status-bar",
+      "label": "Status bar",
+      "props": {},
+      "expose": []
+    },
+    "header": {
+      "type": "component",
+      "component": "molecules/header",
+      "label": "Header",
+      "props": {
+        "variant": "back-progress",
+        "title": "",
+        "action": "Support"
+      },
+      "expose": [
+        "variant",
+        "title",
+        "step",
+        "count",
+        "action"
+      ]
+    },
+    "blob": {
+      "type": "component",
+      "component": "atoms/blob",
+      "label": "T",
+      "props": {
+        "theme": "rose"
+      },
+      "expose": [
+        "theme"
+      ]
+    },
+    "art": {
+      "type": "component",
+      "component": "molecules/cycle-art",
+      "label": "T and therapist",
+      "props": {},
+      "expose": [
+        "icon",
+        "second"
+      ]
+    },
+    "title": {
+      "type": "text",
+      "tag": "h1",
+      "class": "booking__title",
+      "label": "Headline",
+      "value": ""
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "booking__body",
+      "label": "Body copy",
+      "value": ""
+    },
+    "submit": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Primary button",
+      "props": {
+        "label": "Continue",
+        "variant": "filled",
+        "size": "lg",
+        "width": "full"
+      },
+      "expose": [
+        "label",
+        "state"
+      ]
+    },
+    "skip": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Skip button",
+      "props": {
+        "label": "Skip for now",
+        "variant": "flat",
+        "size": "md",
+        "width": "full"
+      },
+      "expose": [
+        "label"
+      ]
+    },
+    "carousel": {
+      "type": "component",
+      "component": "patterns/provider-carousel",
+      "label": "Provider carousel",
+      "props": {},
+      "expose": []
+    },
+    "avatar": {
+      "type": "component",
+      "component": "atoms/avatar",
+      "label": "Therapist photo",
+      "props": {
+        "person": "kristina",
+        "size": "lg"
+      },
+      "expose": [
+        "person"
+      ]
+    },
+    "who": {
+      "type": "text",
+      "tag": "p",
+      "class": "booking__who-name",
+      "label": "Name",
+      "value": "Ron L."
+    },
+    "daysTitle": {
+      "type": "text",
+      "tag": "h2",
+      "class": "booking__subhead",
+      "label": "Days heading",
+      "value": "Soonest Availability"
+    },
+    "prev": {
+      "type": "component",
+      "component": "atoms/icon-button",
+      "label": "Previous",
+      "props": {
+        "icon": "chevron-left",
+        "elevation": "0",
+        "size": "xs"
+      },
+      "expose": [
+        "icon"
+      ]
+    },
+    "next": {
+      "type": "component",
+      "component": "atoms/icon-button",
+      "label": "Next",
+      "props": {
+        "icon": "chevron-right",
+        "elevation": "0",
+        "size": "xs"
+      },
+      "expose": [
+        "icon"
+      ]
+    },
+    "timesTitle": {
+      "type": "text",
+      "tag": "h2",
+      "class": "booking__subhead",
+      "label": "Times heading",
+      "value": "Wednesday Openings"
+    },
+    "timesNote": {
+      "type": "text",
+      "tag": "p",
+      "class": "booking__note",
+      "label": "Time zone note",
+      "value": "All times are shown in [time zone]"
+    },
+    "opt1": {
+      "type": "component",
+      "component": "molecules/option-tile",
+      "label": "Option 1",
+      "props": {
+        "label": "Option",
+        "selected": "no"
+      },
+      "expose": [
+        "label",
+        "selected"
+      ]
+    },
+    "opt2": {
+      "type": "component",
+      "component": "molecules/option-tile",
+      "label": "Option 2",
+      "props": {
+        "label": "Option",
+        "selected": "no"
+      },
+      "expose": [
+        "label",
+        "selected"
+      ]
+    },
+    "opt3": {
+      "type": "component",
+      "component": "molecules/option-tile",
+      "label": "Option 3",
+      "props": {
+        "label": "Option",
+        "selected": "no"
+      },
+      "expose": [
+        "label",
+        "selected"
+      ]
+    },
+    "opt4": {
+      "type": "component",
+      "component": "molecules/option-tile",
+      "label": "Option 4",
+      "props": {
+        "label": "Option",
+        "selected": "no"
+      },
+      "expose": [
+        "label",
+        "selected"
+      ]
+    },
+    "day1": {
+      "type": "component",
+      "component": "molecules/day-chip",
+      "label": "Day 1",
+      "props": {
+        "day": "Mon",
+        "date": "2",
+        "selected": "no"
+      },
+      "expose": [
+        "day",
+        "date",
+        "selected"
+      ]
+    },
+    "day2": {
+      "type": "component",
+      "component": "molecules/day-chip",
+      "label": "Day 2",
+      "props": {
+        "day": "Mon",
+        "date": "2",
+        "selected": "no"
+      },
+      "expose": [
+        "day",
+        "date",
+        "selected"
+      ]
+    },
+    "day3": {
+      "type": "component",
+      "component": "molecules/day-chip",
+      "label": "Day 3",
+      "props": {
+        "day": "Mon",
+        "date": "2",
+        "selected": "no"
+      },
+      "expose": [
+        "day",
+        "date",
+        "selected"
+      ]
+    },
+    "day4": {
+      "type": "component",
+      "component": "molecules/day-chip",
+      "label": "Day 4",
+      "props": {
+        "day": "Mon",
+        "date": "2",
+        "selected": "no"
+      },
+      "expose": [
+        "day",
+        "date",
+        "selected"
+      ]
+    },
+    "day5": {
+      "type": "component",
+      "component": "molecules/day-chip",
+      "label": "Day 5",
+      "props": {
+        "day": "Mon",
+        "date": "2",
+        "selected": "no"
+      },
+      "expose": [
+        "day",
+        "date",
+        "selected"
+      ]
+    },
+    "slot1": {
+      "type": "component",
+      "component": "molecules/option-tile",
+      "label": "Time 1",
+      "props": {
+        "label": "9:00 am",
+        "selected": "no"
+      },
+      "expose": [
+        "label",
+        "selected"
+      ]
+    },
+    "slot2": {
+      "type": "component",
+      "component": "molecules/option-tile",
+      "label": "Time 2",
+      "props": {
+        "label": "9:00 am",
+        "selected": "no"
+      },
+      "expose": [
+        "label",
+        "selected"
+      ]
+    },
+    "slot3": {
+      "type": "component",
+      "component": "molecules/option-tile",
+      "label": "Time 3",
+      "props": {
+        "label": "9:00 am",
+        "selected": "no"
+      },
+      "expose": [
+        "label",
+        "selected"
+      ]
+    },
+    "slot4": {
+      "type": "component",
+      "component": "molecules/option-tile",
+      "label": "Time 4",
+      "props": {
+        "label": "9:00 am",
+        "selected": "no"
+      },
+      "expose": [
+        "label",
+        "selected"
+      ]
+    }
+  },
+  "personas": [],
+  "inputs": [],
+  "properties": [],
+  "prompts": []
+}

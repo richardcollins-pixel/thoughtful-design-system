@@ -1,0 +1,32 @@
+{
+  "name": "Option tile",
+  "tier": "molecules",
+  "category": "forms",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-47475",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A wide frosted tile with one centered label, for picking an answer or a time. Selected adds a white outline.",
+  "props": {
+    "label": {
+      "type": "text",
+      "label": "Label",
+      "default": "Going through something hard"
+    },
+    "selected": {
+      "type": "enum",
+      "label": "Selected",
+      "ui": "steps",
+      "values": [
+        "no",
+        "yes"
+      ],
+      "default": "no"
+    }
+  },
+  "template": "<button class=\"option-tile\" data-selected=\"{{selected}}\">{{label}}</button>",
+  "markup": "<button class=\"option-tile\" data-selected=\"no\">Option</button>"
+}

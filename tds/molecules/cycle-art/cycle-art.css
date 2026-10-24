@@ -1,0 +1,8 @@
+/* Molecule: cycle art. T (80px blob) and a 84px person circle with arrows above and below; the lower arrow can be dimmed. */
+.cycle-art { display: grid; justify-items: center; gap: var(--space-2); color: var(--white); }
+.cycle-art__pair { display: flex; align-items: center; gap: 48px; }
+.cycle-art .blob { --blob-size: 80px; }
+.cycle-art__person { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 50%; background: var(--bg-elevation-20); }
+.cycle-art__person > .icon { --icon-size: 24px; --icon-color: var(--white); }
+.cycle-art__arrow { width: 124px; height: 36px; }
+.cycle-art__arrow[data-dim="yes"] { opacity: .3; }

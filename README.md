@@ -238,4 +238,6 @@ The **sign-up screen** (`screens/sign-up`, Figma "Onboarding"): fourteen states 
 
 The **screener screen** (`screens/screener`, Figma "Screener - AI Only"): an intro (T, light headline, Continue) and three Yes or No safety questions, each unanswered (Continue disabled) and answered (the other answer fades). New **choice row** molecule (outlined pill with a check circle); the header gained a Steps prop for how many progress dots to show. The “not a fit” result already exists as the Message screen’s Not a fit state.
 
+The **provider booking screen** (`screens/booking`, Figma "Flow: Book a provider during onboarding"): seven states: Interstitial (T and a person with cycle arrows, Continue, Skip for now), four questions with the first answer picked, Your Matches (the provider carousel plus Choose) and Book Session (day chips, time tiles, Confirm Booking). New molecules: **option tile**, **day chip** and **cycle art**. The provider names in the carousel come from the existing sample providers, so “Choose Ron L.” is only a label override.
+
 The **home indicator** (the thin bar at the bottom of an iPhone) is its own device part; for now only the bottom nav shows it, in its safe-area strip, and Device UI off hides it.
