@@ -1,8 +1,36 @@
-/* Molecule: cycle art. T (80px blob) and a 84px person circle with arrows above and below; the lower arrow can be dimmed. */
-.cycle-art { display: grid; justify-items: center; gap: var(--space-2); color: var(--white); }
-.cycle-art__pair { display: flex; align-items: center; gap: 48px; }
-.cycle-art .blob { --blob-size: 80px; }
-.cycle-art__person { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 50%; background: var(--bg-elevation-20); }
-.cycle-art__person > .icon { --icon-size: 24px; --icon-color: var(--white); }
+/* Molecule: cycle art. T (an 80px blob) and an 84px person circle with arrows above and below. Three states: find (an icon, the lower arrow faded),
+   booked (the photo and a check badge), paused (an icon and a pause badge). It plays on its own (Animate on), in this order, using the motion styles:
+   the blob starts large in the middle and travels left, shrinking; the top arrow draws left to right; the person circle pops in, then what is in it, then
+   the badge; the lower arrow draws right to left, back to T. Animate off shows the end picture. */
+.cycle-art { --art-blob: 80px; --art-person: 84px; --art-gap: 48px; display: grid; justify-items: center; gap: var(--space-2); color: var(--white); }
+.cycle-art__pair { display: flex; align-items: center; gap: var(--art-gap); }
+.cycle-art .blob { --blob-size: var(--art-blob); }
+.cycle-art__partner { position: relative; width: var(--art-person); height: var(--art-person); }
+.cycle-art__person { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; background: var(--bg-elevation-20); }
+.cycle-art__inner { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; }
+.cycle-art__icon { --icon-size: 24px; --icon-color: var(--white); }
+.cycle-art__photo { --avatar-size: var(--art-person); display: none; }
+.cycle-art[data-state="booked"] .cycle-art__icon { display: none; }
+.cycle-art[data-state="booked"] .cycle-art__photo { display: block; }
+.cycle-art[data-state="booked"] .cycle-art__person { background: none; }
+.cycle-art__badge { position: absolute; right: -8px; top: -6px; display: none; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--white); color: var(--black); }
+.cycle-art[data-state="booked"] .cycle-art__badge, .cycle-art[data-state="paused"] .cycle-art__badge { display: grid; }
+.cycle-art__badge .icon { --icon-size: 14px; --icon-color: var(--black); display: none; }
+.cycle-art[data-state="booked"] .cycle-art__badge .icon { display: block; }
+.cycle-art__pause { display: none; width: 8px; height: 10px; border-inline: 3px solid var(--black); box-sizing: border-box; }
+.cycle-art[data-state="paused"] .cycle-art__pause { display: block; }
 .cycle-art__arrow { width: 124px; height: 36px; }
-.cycle-art__arrow[data-dim="yes"] { opacity: .3; }
+.cycle-art[data-state="find"] .cycle-art__arrow[data-end="bottom"] { opacity: .3; }
+
+/* the sequence */
+.cycle-art[data-animate="on"] .cycle-art__t { --travel-x: calc((var(--art-blob) + var(--art-gap) + var(--art-person)) / 2 - var(--art-blob) / 2); --travel-scale: 1.6;
+  animation: tds-travel 800ms var(--ease-standard) 300ms both; }
+.cycle-art[data-animate="on"] [data-end="top"] .cycle-art__line { stroke-dasharray: 1; animation: tds-draw 600ms var(--ease-standard) 1100ms both; }
+.cycle-art[data-animate="on"] [data-end="top"] .cycle-art__head { animation: tds-fade-in 150ms linear 1550ms both; }
+.cycle-art[data-animate="on"] .cycle-art__person { animation: tds-scale-in 350ms var(--ease-emphasized) 1700ms both; }
+.cycle-art[data-animate="on"] .cycle-art__inner { animation: tds-scale-in 300ms var(--ease-emphasized) 2000ms both; }
+.cycle-art[data-animate="on"] .cycle-art__badge { animation: tds-scale-in 300ms var(--ease-emphasized) 2250ms both; }
+.cycle-art[data-animate="on"] [data-end="bottom"] .cycle-art__line { stroke-dasharray: 1; animation: tds-draw 600ms var(--ease-standard) 2450ms both; }
+.cycle-art[data-animate="on"] [data-end="bottom"] .cycle-art__head { animation: tds-fade-in 150ms linear 2900ms both; }
+.cycle-art[data-animate="on"][data-state="find"] [data-end="bottom"] { animation: none; }
+@media (prefers-reduced-motion: reduce) { .cycle-art[data-animate="on"] * { animation: none !important; } }

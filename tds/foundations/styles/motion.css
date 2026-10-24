@@ -1,5 +1,12 @@
-/* Named motion presets. Apply with data-motion="enter" etc.; components use the
-   --motion-* custom properties for transitions. */
+/* Named motion presets. Apply with data-motion="enter" etc.; components use the --motion-* custom properties for transitions.
+   Any preset can be held back with --motion-delay and re-timed with --motion-duration, so several can play one after another:
+     fade-in   opacity 0 to 1
+     enter     slide up 12px and fade in
+     pop       scale up from 94% and fade in (a small settle)
+     scale-in  grow from nothing with a little overshoot (an avatar or badge appearing)
+     draw      a line draws itself along its path (SVG path with pathLength="1": the stroke runs from the start to the end)
+     travel    move and resize from somewhere else to where it sits (--travel-x, --travel-y, --travel-scale)
+   Reduced motion: presets jump to their end state with no delay. */
 :root {
   --distance-enter: 12px;
   --motion-press: transform var(--duration-instant) var(--ease-standard);
@@ -10,10 +17,17 @@
 }
 @keyframes tds-fade-in  { from { opacity: 0; } }
 @keyframes tds-slide-up { from { opacity: 0; transform: translateY(var(--distance-enter)); } }
-@keyframes tds-spin    { to { transform: rotate(1turn); } }
+@keyframes tds-spin     { to { transform: rotate(1turn); } }
 @keyframes tds-pop      { from { opacity: 0; transform: scale(0.94); } }
+@keyframes tds-scale-in { from { opacity: 0; transform: scale(0); } }
+@keyframes tds-draw     { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes tds-travel   { from { transform: translate(var(--travel-x, 0), var(--travel-y, 0)) scale(var(--travel-scale, 1)); } }
 
-[data-motion="fade-in"]  { animation: tds-fade-in  var(--duration-base) var(--ease-standard) both; }
-[data-motion="enter"]    { animation: tds-slide-up var(--duration-base) var(--ease-standard) both; }
-[data-motion="pop"]      { animation: tds-pop      var(--duration-base) var(--ease-emphasized) both; }
-@media (prefers-reduced-motion: reduce) { :root { --distance-enter: 0; } }
+[data-motion="fade-in"]  { animation: tds-fade-in  var(--motion-duration, var(--duration-base)) var(--ease-standard) both; }
+[data-motion="enter"]    { animation: tds-slide-up var(--motion-duration, var(--duration-base)) var(--ease-standard) both; }
+[data-motion="pop"]      { animation: tds-pop      var(--motion-duration, var(--duration-base)) var(--ease-emphasized) both; }
+[data-motion="scale-in"] { animation: tds-scale-in var(--motion-duration, var(--duration-base)) var(--ease-emphasized) both; }
+[data-motion="draw"]     { stroke-dasharray: 1; animation: tds-draw var(--motion-duration, var(--duration-slow)) var(--ease-standard) both; }
+[data-motion="travel"]   { animation: tds-travel   var(--motion-duration, var(--duration-slow)) var(--ease-standard) both; }
+[data-motion] { animation-delay: var(--motion-delay, 0ms); }
+@media (prefers-reduced-motion: reduce) { :root { --distance-enter: 0; } [data-motion] { animation-delay: 0ms; } }

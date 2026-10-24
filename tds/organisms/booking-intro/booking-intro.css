@@ -1,0 +1,6 @@
+/* Organism: booking intro. The cycle art over a light headline and a line of copy, all centered. Slots: art, text. */
+.booking-intro { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); width: 100%; max-width: 352px; margin-inline: auto; text-align: center; color: var(--text-primary); }
+.booking-intro__art { display: grid; place-items: center; height: 224px; }
+.booking-intro__text { display: flex; flex-direction: column; gap: var(--space-4); }
+.booking-intro__title { margin: 0; font: var(--text-headline-1); letter-spacing: var(--text-headline-1-ls); text-wrap: balance; }
+.booking-intro__body { margin: 0; color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }

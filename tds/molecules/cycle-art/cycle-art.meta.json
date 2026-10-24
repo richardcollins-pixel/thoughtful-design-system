@@ -4,31 +4,46 @@
   "category": "media",
   "stateful": false,
   "uses": [
-    "atoms/blob"
+    "atoms/blob",
+    "atoms/avatar"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-47550",
   "attributes": {},
   "states": [],
   "variables": {},
-  "styles": [],
-  "description": "T and a person with two arrows going round between them. The second arrow can be dimmed, for “not yet”.",
+  "styles": [
+    "motion-draw",
+    "motion-scale-in",
+    "motion-travel"
+  ],
+  "description": "T and a person with two arrows going round between them, and it plays: T starts big in the middle, moves left and shrinks, the top arrow draws to the right, the person circle and what is in it (the icon or the photo) and the badge pop in one after another, then the bottom arrow draws back to T. Find: no therapist yet (an icon, the lower arrow faded). Booked: the therapist\\u2019s photo with a check. Paused: an icon with a pause, for when you chose to start with T alone. Animate off shows the finished picture.",
   "props": {
-    "icon": {
-      "type": "icon",
-      "label": "Icon",
-      "default": "person"
-    },
-    "second": {
+    "state": {
       "type": "enum",
-      "label": "Dim second arrow",
+      "label": "State",
+      "values": [
+        "find",
+        "booked",
+        "paused"
+      ],
+      "default": "find"
+    },
+    "person": {
+      "type": "person",
+      "label": "Provider",
+      "default": "kristina"
+    },
+    "animate": {
+      "type": "enum",
+      "label": "Animate",
       "ui": "steps",
       "values": [
-        "no",
-        "yes"
+        "on",
+        "off"
       ],
-      "default": "yes"
+      "default": "on"
     }
   },
-  "template": "<div class=\"cycle-art\"><svg class=\"cycle-art__arrow\" viewBox=\"0 0 124 36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2 34C20 6 90 -8 120 28\"/><path d=\"m112 28 8 1 1-9\"/></svg><div class=\"cycle-art__pair\"><span class=\"blob\" data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"cycle-art__person\"><i class=\"icon icon-{{icon}}\"></i></span></div><svg class=\"cycle-art__arrow\" data-dim=\"{{second}}\" viewBox=\"0 0 124 36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M122 2C104 30 34 44 4 8\"/><path d=\"m12 8-8-1-1 9\"/></svg></div>",
-  "markup": "<div class=\"cycle-art\"><svg class=\"cycle-art__arrow\" viewBox=\"0 0 124 36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2 34C20 6 90 -8 120 28\"/><path d=\"m112 28 8 1 1-9\"/></svg><div class=\"cycle-art__pair\"><span class=\"blob\" data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"cycle-art__person\"><i class=\"icon icon-person\"></i></span></div><svg class=\"cycle-art__arrow\" data-dim=\"yes\" viewBox=\"0 0 124 36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M122 2C104 30 34 44 4 8\"/><path d=\"m12 8-8-1-1 9\"/></svg></div>"
+  "template": "<div class=\"cycle-art\" data-state=\"{{state}}\" data-animate=\"{{animate}}\"><svg class=\"cycle-art__arrow\" data-end=\"top\" viewBox=\"0 0 124 36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path class=\"cycle-art__line\" pathLength=\"1\" d=\"M2 34C20 6 90 -8 120 28\"/><path class=\"cycle-art__head\" d=\"m112 28 8 1 1-9\"/></svg><div class=\"cycle-art__pair\"><span class=\"blob cycle-art__t\" data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"cycle-art__partner\"><span class=\"cycle-art__person\"><span class=\"cycle-art__inner\"><i class=\"icon icon-person cycle-art__icon\"></i><span class=\"avatar cycle-art__photo\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span></span></span><span class=\"cycle-art__badge\"><i class=\"icon icon-check\"></i><b class=\"cycle-art__pause\"></b></span></span></div><svg class=\"cycle-art__arrow\" data-end=\"bottom\" viewBox=\"0 0 124 36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path class=\"cycle-art__line\" pathLength=\"1\" d=\"M122 2C104 30 34 44 4 8\"/><path class=\"cycle-art__head\" d=\"m12 8-8-1-1 9\"/></svg></div>",
+  "markup": "<div class=\"cycle-art\" data-state=\"find\" data-animate=\"on\"><svg class=\"cycle-art__arrow\" data-end=\"top\" viewBox=\"0 0 124 36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path class=\"cycle-art__line\" pathLength=\"1\" d=\"M2 34C20 6 90 -8 120 28\"/><path class=\"cycle-art__head\" d=\"m112 28 8 1 1-9\"/></svg><div class=\"cycle-art__pair\"><span class=\"blob cycle-art__t\" data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"cycle-art__partner\"><span class=\"cycle-art__person\"><span class=\"cycle-art__inner\"><i class=\"icon icon-person cycle-art__icon\"></i><span class=\"avatar cycle-art__photo\"><img src=\"../tds/assets/images/therapists/Therapist-1.png\" alt=\"\"></span></span></span><span class=\"cycle-art__badge\"><i class=\"icon icon-check\"></i><b class=\"cycle-art__pause\"></b></span></span></div><svg class=\"cycle-art__arrow\" data-end=\"bottom\" viewBox=\"0 0 124 36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path class=\"cycle-art__line\" pathLength=\"1\" d=\"M122 2C104 30 34 44 4 8\"/><path class=\"cycle-art__head\" d=\"m12 8-8-1-1 9\"/></svg></div>"
 }

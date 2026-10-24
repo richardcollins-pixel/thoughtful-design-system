@@ -1,0 +1,169 @@
+{
+  "name": "Booking intro",
+  "tier": "organisms",
+  "category": "intro",
+  "stateful": false,
+  "uses": [
+    "molecules/cycle-art"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-47550",
+  "align": "top",
+  "states": [
+    {
+      "id": "find",
+      "name": "Find a therapist",
+      "template": "<section class=\"booking-intro\"><div class=\"booking-intro__art\" data-slot=\"art\">{{item:art}}</div><div class=\"booking-intro__text\" data-slot=\"text\">{{item:title}}{{item:body}}</div></section>",
+      "slots": [
+        {
+          "id": "art",
+          "label": "Art slot",
+          "items": [
+            "art"
+          ]
+        },
+        {
+          "id": "text",
+          "label": "Text slot",
+          "items": [
+            "title",
+            "body"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "art": {
+          "props": {
+            "state": "find"
+          }
+        },
+        "title": {
+          "value": "First, let’s find your therapist"
+        },
+        "body": {
+          "value": "I'll match you with a therapist from our nationwide network, so you get the support you need"
+        }
+      }
+    },
+    {
+      "id": "booked",
+      "name": "Therapist booked",
+      "template": "<section class=\"booking-intro\"><div class=\"booking-intro__art\" data-slot=\"art\">{{item:art}}</div><div class=\"booking-intro__text\" data-slot=\"text\">{{item:title}}{{item:body}}</div></section>",
+      "slots": [
+        {
+          "id": "art",
+          "label": "Art slot",
+          "items": [
+            "art"
+          ]
+        },
+        {
+          "id": "text",
+          "label": "Text slot",
+          "items": [
+            "title",
+            "body"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "art": {
+          "props": {
+            "state": "booked"
+          }
+        },
+        "title": {
+          "value": "Before your first appointment"
+        },
+        "body": {
+          "value": "We can start talking about what brought you here. You don’t have to wait to get support."
+        }
+      }
+    },
+    {
+      "id": "paused",
+      "name": "Support from T first",
+      "template": "<section class=\"booking-intro\"><div class=\"booking-intro__art\" data-slot=\"art\">{{item:art}}</div><div class=\"booking-intro__text\" data-slot=\"text\">{{item:title}}{{item:body}}</div></section>",
+      "slots": [
+        {
+          "id": "art",
+          "label": "Art slot",
+          "items": [
+            "art"
+          ]
+        },
+        {
+          "id": "text",
+          "label": "Text slot",
+          "items": [
+            "title",
+            "body"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "art": {
+          "props": {
+            "state": "paused"
+          }
+        },
+        "title": {
+          "value": "I’ll support you fully"
+        },
+        "body": {
+          "value": "And when you’re ready, we can expand your care team without losing any progress we’ve made."
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".booking-intro",
+  "description": "The picture that opens the booking flow, with its words: the animated cycle art (T and a therapist), a light headline and a line of copy. Find: before you pick a therapist. Booked: you picked one. Support from T first: you chose to start with T alone, and can add a therapist later.",
+  "items": {
+    "art": {
+      "type": "component",
+      "component": "molecules/cycle-art",
+      "label": "T and therapist",
+      "props": {
+        "state": "find"
+      },
+      "bind": {
+        "person": "provider"
+      },
+      "expose": [
+        "state",
+        "person",
+        "animate"
+      ]
+    },
+    "title": {
+      "type": "text",
+      "tag": "h1",
+      "class": "booking-intro__title",
+      "label": "Headline",
+      "value": ""
+    },
+    "body": {
+      "type": "text",
+      "tag": "p",
+      "class": "booking-intro__body",
+      "label": "Body copy",
+      "value": ""
+    }
+  },
+  "personas": [
+    "provider"
+  ],
+  "inputs": [],
+  "properties": [],
+  "prompts": []
+}
