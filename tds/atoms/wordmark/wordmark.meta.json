@@ -18,7 +18,7 @@
   "states": [],
   "variables": {},
   "styles": [],
-  "description": "The word “thoughtful” in white, in the brand’s rounded sans (Instrument Sans in the Figma; it falls back to Inter until that font is added).",
+  "description": "The word “thoughtful” as the logotype (an SVG in the current text color, white). 34px tall at lg, 24px at md.",
   "content": [],
   "props": {
     "size": {
