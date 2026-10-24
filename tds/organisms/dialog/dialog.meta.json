@@ -8,7 +8,6 @@
     "atoms/button"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-46738",
-  "align": "top",
   "states": [
     {
       "id": "default",
