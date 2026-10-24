@@ -222,6 +222,63 @@
   --ease-exit: cubic-bezier(0.4, 0, 1, 1);
 }
 
+:root {
+  --blur-xs: 5px;
+  --blur-sm: 8px;
+  --blur-md: 22px;
+  --blur-lg: 40px;
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.08);
+  --shadow-2: 0 4px 12px rgb(0 0 0 / 0.12);
+  --shadow-3: 0 12px 32px rgb(0 0 0 / 0.18);
+  --opacity-dim: 0.2;
+  --opacity-disabled: 0.4;
+  --opacity-muted: 0.5;
+}
+
+:root {
+  --elevation-0-fill: var(--bg-base);
+  --elevation-0-blur: 0px;
+  --elevation-0-radius: 0px;
+  --elevation-0-shadow: none;
+  --elevation-1-fill: var(--bg-elevation-5);
+  --elevation-1-blur: 0px;
+  --elevation-1-radius: var(--radius-sm);
+  --elevation-1-shadow: var(--shadow-1);
+  --elevation-2-fill: var(--bg-elevation-10);
+  --elevation-2-blur: 0px;
+  --elevation-2-radius: var(--radius-sm);
+  --elevation-2-shadow: var(--shadow-2);
+  --elevation-3-fill: var(--bg-elevation-20);
+  --elevation-3-blur: 0px;
+  --elevation-3-radius: var(--radius-md);
+  --elevation-3-shadow: var(--shadow-3);
+  --elevation-glass-fill: var(--bg-elevation-20);
+  --elevation-glass-blur: var(--blur-md);
+  --elevation-glass-radius: var(--radius-md);
+  --elevation-glass-shadow: none;
+}
+
+:root {
+  --motion-fade-in-duration: var(--duration-base);
+  --motion-fade-in-ease: var(--ease-standard);
+  --motion-fade-in-delay: 0ms;
+  --motion-enter-duration: var(--duration-base);
+  --motion-enter-ease: var(--ease-standard);
+  --motion-enter-delay: 0ms;
+  --motion-pop-duration: var(--duration-base);
+  --motion-pop-ease: var(--ease-emphasized);
+  --motion-pop-delay: 0ms;
+  --motion-scale-in-duration: var(--duration-base);
+  --motion-scale-in-ease: var(--ease-emphasized);
+  --motion-scale-in-delay: 0ms;
+  --motion-draw-duration: var(--duration-slow);
+  --motion-draw-ease: var(--ease-standard);
+  --motion-draw-delay: 0ms;
+  --motion-travel-duration: var(--duration-slow);
+  --motion-travel-ease: var(--ease-standard);
+  --motion-travel-delay: 0ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root { --duration-instant: 0.01ms; --duration-fast: 0.01ms; --duration-base: 0.01ms; --duration-slow: 0.01ms; --duration-shimmer: 0.01ms; }
 }

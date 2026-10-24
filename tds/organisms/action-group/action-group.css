@@ -3,5 +3,5 @@
 .action-group { display: flex; flex-direction: column; gap: 10px; width: 100%; }
 .action-group__header { padding-inline: var(--space-4); }
 .action-group__title { margin: 0; color: color-mix(in srgb, var(--white) 70%, transparent); font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); }
-.action-group__rows { box-sizing: border-box; display: flex; flex-direction: column; padding-inline: var(--space-4); background: var(--bg-elevation-10); backdrop-filter: blur(22px); border-radius: 10px; overflow: clip; }
+.action-group__rows { box-sizing: border-box; display: flex; flex-direction: column; padding-inline: var(--space-4); background: var(--bg-elevation-10); backdrop-filter: blur(var(--blur-md)); border-radius: 10px; overflow: clip; }
 .action-group__rows > .action-row:not(:last-child) { border-bottom: 1px solid var(--border-tertiary); }

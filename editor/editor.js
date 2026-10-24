@@ -86,7 +86,53 @@ const KINDS = {
   easing: simple(['tokens', 'motion', 'easing'], 'easing', () => ({ bezier: [0.2, 0, 0, 1] }), [{ key: 'bezier', label: 'cubic-bezier (x1, y1, x2, y2)', type: 'bezier' }],
     [['cubic-bezier', (t) => `<span class="mute">${t.bezier.join(', ')}</span>`], ['', (t) => curve(t.bezier, 40)]],
     (t) => curve(t.bezier, 120)),
+  blur: simple(['styles', 'elevation', 'blur'], 'blur', () => ({ px: 8 }), [px()],
+    [['px', (t) => `${t.px}px`], ['', (t) => blurSpec(t.px, 'sm')]],
+    (t) => blurSpec(t.px, 'lg')),
+  shadow: simple(['styles', 'elevation', 'shadow'], 'shadow', () => ({ y: 4, blur: 12, opacity: 12 }),
+    [{ key: 'y', label: 'Offset down (px)', type: 'number', step: 1 }, px('blur', 'Blur (px)'), { key: 'opacity', label: 'Opacity (%)', type: 'number', min: 0, step: 1 }],
+    [['Value', (t) => `<span class="mute">0 ${t.y}px ${t.blur}px · ${t.opacity}%</span>`], ['', (t) => `<div class="blurbg sm"><div class="elspec" style="background:#fff;box-shadow:${shadowCss(t)}"></div></div>`]],
+    (t) => `<div class="blurbg lg"><div class="elspec" style="background:#fff;box-shadow:${shadowCss(t)}"></div></div>`),
+  opacity: simple(['styles', 'elevation', 'opacity'], 'opacity', () => ({ percent: 50 }), [{ key: 'percent', label: 'Opacity (%)', type: 'number', min: 0, step: 5 }],
+    [['%', (t) => `${t.percent}%`], ['', (t) => `<i class="sw" style="--rgba:rgba(255,255,255,${t.percent / 100});border:1px solid #ddd"></i>`]],
+    (t) => `<span class="sample" style="font-size:24px;opacity:${t.percent / 100}">Thoughtful design</span>`),
+  elevation: simple(['styles', 'elevation'], 'elevation', () => ({ fill: 'bg-elevation-10', blur: 'none', radius: 'radius-sm', shadow: 'none' }),
+    [{ section: 'Surface color' }, { key: 'fill', label: 'Fill', type: 'select', options: () => tokOpts('role', (t) => t.group === 'background') },
+     { section: 'Background blur' }, { key: 'blur', label: 'Blur', type: 'select', options: () => [['none', 'None'], ...tokOpts('blur')] },
+     { section: 'Corner radius' }, { key: 'radius', label: 'Radius', type: 'select', options: () => [['none', 'None'], ...tokOpts('radius')] },
+     { section: 'Shadow' }, { key: 'shadow', label: 'Shadow', type: 'select', options: () => [['none', 'None'], ...tokOpts('shadow')] }],
+    [['Preview', (t) => elevSpec(t, 'sm')], ['Surface', (t) => `<span class="mute">${esc(t.fill)}</span>`], ['Blur', (t) => `<span class="mute">${esc(t.blur)}</span>`], ['Radius', (t) => `<span class="mute">${esc(t.radius)}</span>`], ['Shadow', (t) => `<span class="mute">${esc(t.shadow)}</span>`]],
+    (t) => elevSpec(t, 'lg')),
+  motion: simple(['styles', 'motion'], 'motion', () => ({ duration: 'duration-base', easing: 'ease-standard', delay: 0 }),
+    [{ key: 'duration', label: 'Duration', type: 'select', options: () => tokOpts('duration') }, { key: 'easing', label: 'Easing', type: 'select', options: () => tokOpts('easing') },
+     { key: 'delay', label: 'Delay (ms)', type: 'number', min: 0, step: 50 }],
+    [['Duration', (t) => `<span class="mute">${esc(t.duration)}</span>`], ['Easing', (t) => `<span class="mute">${esc(t.easing)}</span>`], ['Delay', (t) => `${t.delay || 0}ms`], ['', (t) => motionSpec(t, false)]],
+    (t) => motionSpec(t, true)),
 };
+
+// ---- helpers for the styles pages (elevation, motion)
+const tokOf = (name) => tokens.find((t) => t.name === name);
+const tokOpts = (k, f = () => true) => tokens.filter((t) => t.kind === k && f(t)).map((t) => [t.name, t.name]);
+const shadowCss = (t) => `0 ${t.y}px ${t.blur}px rgba(0,0,0,${t.opacity / 100})`;
+function blurSpec(pxv, size) { return `<div class="blurbg ${size}"><div class="elspec" style="backdrop-filter:blur(${pxv}px);-webkit-backdrop-filter:blur(${pxv}px);background:rgba(255,255,255,.12)"></div></div>`; }
+function fillCss(name) { const r = tokOf(name); return r && r.kind === 'role' ? rgba(primHex(r.values.base.ref), r.values.base.opacity) : 'transparent'; }
+function elevSpec(t, size) {
+  const b = tokOf(t.blur), r = tokOf(t.radius), sh = tokOf(t.shadow);
+  const css = `background:${fillCss(t.fill)};${b ? `backdrop-filter:blur(${b.px}px);-webkit-backdrop-filter:blur(${b.px}px);` : ''}border-radius:${r ? r.px : 0}px;${sh ? `box-shadow:${shadowCss(sh)};` : ''}`;
+  return `<div class="blurbg ${size}"><div class="elspec" style="${css}"></div></div>`;
+}
+function motionSpec(t, big) {
+  const d = tokOf(t.duration), e = tokOf(t.easing);
+  const ms = (d ? d.ms : 240) + (t.delay || 0);
+  const bz = e ? `cubic-bezier(${e.bezier.join(',')})` : 'ease';
+  return `<div class="dot-track"><div class="dot" style="--d:${Math.max(ms, 30) * 4}ms;animation-timing-function:${bz}"></div></div>${big ? '<p class="mute" style="margin-top:8px">Preview plays 4× slower</p>' : ''}`;
+}
+// which token kinds a styles page shows, in sections
+const GROUPS = {
+  elevation: [['Elevation styles', 'elevation'], ['Background blur', 'blur'], ['Corner radius', 'radius'], ['Shadow', 'shadow']],
+  motion: [['Motion styles', 'motion'], ['Duration', 'duration'], ['Easing', 'easing']],
+};
+
 
 function curve([x1, y1, x2, y2], size) {
   const s = 60, f = (v) => +(v * s).toFixed(2);
@@ -95,11 +141,11 @@ function curve([x1, y1, x2, y2], size) {
 
 /* ---------- nav: tokens, styles, atoms, molecules, organisms, patterns (sections), screens, device (phone chrome) ---------- */
 const LEVELS = ['tokens', 'styles', 'atoms', 'molecules', 'organisms', 'patterns', 'screens'];
-const TOKEN_LEAVES = [['primitives', 'primitive'], ['roles', 'role'], ['padding', 'padding'], ['spacing', 'spacing'], ['radius', 'radius'], ['font family', 'font-family'], ['weight', 'font-weight'], ['size', 'font-size'], ['line height', 'line-height'], ['letter spacing', 'letter-spacing'], ['duration', 'duration'], ['easing', 'easing']];
+const TOKEN_LEAVES = [['primitives', 'primitive'], ['roles', 'role'], ['padding', 'padding'], ['spacing', 'spacing'], ['radius', 'radius'], ['opacity', 'opacity'], ['font family', 'font-family'], ['weight', 'font-weight'], ['size', 'font-size'], ['line height', 'line-height'], ['letter spacing', 'letter-spacing'], ['duration', 'duration'], ['easing', 'easing']];
 const camel = (str) => str.replace(/-(\w)/g, (m, c) => c.toUpperCase());
 const levelLeaves = (level) => {
   if (level === 'tokens') return TOKEN_LEAVES.map(([label, k]) => ({ label, kind: k }));
-  if (level === 'styles') return [{ label: 'color', kind: 'gradient' }, { label: 'type', kind: 'typestyles' }, { label: 'elevation' }, { label: 'motion' }];
+  if (level === 'styles') return [{ label: 'color', kind: 'gradient' }, { label: 'type', kind: 'typestyles' }, { label: 'elevation', kind: 'elevation' }, { label: 'motion', kind: 'motion' }];
   return components.filter((c) => c.tier === level).map((c) => ({ label: camel(c.path.split('/')[1]), component: c.path }));
 };
 let openLevel = 'tokens';   // one level open at a time
@@ -151,6 +197,8 @@ const DESC = {
   primitive: 'The raw values. Reference these only when defining tokens, not in components.',
   role: 'Semantic tokens mapped to roles: background, text, icon, border, status.',
   gradient: 'Named gradient styles for surfaces and chat UI.',
+  elevation: 'Elevation styles: a surface color, a background blur, a corner radius and a shadow used together. The blur, radius and shadow they point to are listed below, so a change there changes every style that uses it.',
+  motion: 'Motion styles: each animation preset (data-motion) is a duration, an easing and a delay. Duration and easing are the shared tokens; the preview plays 4× slower.',
   typestyles: 'Text styles. Each one bundles a font, weight, size, line height and letter spacing; components use the style, so changing it here changes it everywhere.',
 };
 
@@ -161,6 +209,16 @@ function renderTable() {
   if (library) return renderLibrary();
   if (!kind) { body.innerHTML = '<p class="empty">Placeholder — coming in a later step.</p>'; return; }
   if (kind === 'typestyles') return renderTypeStyles();
+  if (GROUPS[kind]) {
+    $('#add').style.display = 'none';
+    body.innerHTML = GROUPS[kind].map(([label, k]) => {
+      const def = KINDS[k], list = tokens.filter((t) => t.kind === k);
+      const rows = list.map((t) => `<tr class="item${t === selected ? ' sel' : ''}" data-i="${tokens.indexOf(t)}"><td class="name">${esc(t.name)}</td>${def.cols.map(([, f]) => `<td>${f(t)}</td>`).join('')}</tr>`).join('');
+      return `<div class="secbar"><h3>${label}</h3><button class="btn sm" type="button" data-addkind="${k}">+ Add</button></div><table><thead><tr><th>Name</th>${def.cols.map(([h]) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>`;
+    }).join('');
+    return;
+  }
+  $('#add').style.display = '';
   const def = KINDS[kind];
   const list = tokens.filter((t) => t.kind === kind);
   if (!list.length) { body.innerHTML = `<p class="empty">No ${def.noun}s yet. Use “Add token”.</p>`; return; }
@@ -214,7 +272,7 @@ function renderPanel() {
   const p = $('#panel-body');
   if (kind === 'typestyles') return renderTypePanel(p);
   if (!selected) { p.innerHTML = '<h2>Variables and Properties</h2><p class="mute">Select a token to edit it.</p>'; return; }
-  const def = KINDS[kind];
+  const def = KINDS[selected.kind];
   p.innerHTML = `<h2>Variables and Properties</h2><div id="pv">${def.preview(selected)}</div>
     ${def.fields.map((f) => fieldHtml(f, selected)).join('')}
     <div class="spacer"></div><button class="btn" id="del">Delete token</button>`;
@@ -233,7 +291,7 @@ $('#panel').addEventListener('input', (e) => {
     el.closest('.hexrow').querySelectorAll('input').forEach((i) => { if (i !== el) i.value = v; });
   }
   setPath(selected, key, v);
-  $('#pv').innerHTML = KINDS[kind].preview(selected);
+  $('#pv').innerHTML = KINDS[selected.kind].preview(selected);
   renderTable(); scheduleSave();
 });
 
@@ -246,11 +304,15 @@ $('#panel').addEventListener('change', (e) => {
   if (tokens.some((t) => t !== selected && t.name === v)) { err.textContent = 'That name is taken.'; return; }
   err.textContent = '';
   if (selected.kind === 'primitive') tokens.forEach((t) => { if (t.kind === 'role') for (const m of ['base', 'inverse']) if (t.values[m].ref === selected.name) t.values[m].ref = v; });
+  for (const t of tokens) for (const f of REF_FIELDS) if (t[f] === selected.name) t[f] = v;
   selected.name = v; renderTable(); scheduleSave();
 });
 
+const REF_FIELDS = ['fill', 'blur', 'radius', 'shadow', 'duration', 'easing'];
 $('#panel').addEventListener('click', (e) => {
   if (e.target.id !== 'del' || !selected) return;
+  const used = tokens.filter((t) => REF_FIELDS.some((f) => t[f] === selected.name));
+  if (used.length) { setStatus(`Can't delete: used by ${used.map((u) => u.name).join(', ')}`, true); return; }
   if (selected.kind === 'primitive') {
     const users = tokens.filter((t) => t.kind === 'role' && ['base', 'inverse'].some((m) => t.values[m].ref === selected.name));
     if (users.length) { setStatus(`Can't delete: used by ${users.map((u) => u.name).join(', ')}`, true); return; }
@@ -259,8 +321,10 @@ $('#panel').addEventListener('click', (e) => {
   renderTable(); renderPanel(); scheduleSave();
 });
 
-$('#add').addEventListener('click', () => {
-  if (!kind || kind === 'typestyles') return;   // adding a type style comes later
+$('#add').addEventListener('click', () => addToken(kind));
+$('#body').addEventListener('click', (e) => { const b = e.target.closest('[data-addkind]'); if (b) addToken(b.dataset.addkind); });
+function addToken(kind) {
+  if (!kind || kind === 'typestyles' || !KINDS[kind]) return;   // adding a type style comes later
   const def = KINDS[kind];
   let base = `new-${def.noun.replace(' ', '-')}`, name = base, i = 2;
   while (tokens.some((t) => t.name === name)) name = `${base}-${i++}`;
@@ -269,7 +333,7 @@ $('#add').addEventListener('click', () => {
   tokens.splice(last + 1, 0, t); selected = t;
   renderTable(); renderPanel(); scheduleSave();
   const n = document.querySelector('[data-key="name"]'); n.focus(); n.select();
-});
+}
 
 /* ---------- type styles ---------- */
 const TYPE_JSON = 'tds/foundations/styles/type.json', TYPE_CSS = 'tds/foundations/styles/type.css';

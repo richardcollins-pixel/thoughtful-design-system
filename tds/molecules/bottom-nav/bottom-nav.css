@@ -1,6 +1,6 @@
 /* Molecule: bottom nav. Three tabs (home, sessions, profile) over a blurred base, then the phone's home indicator (a device part). The current tab is
    full strength, the others half. Stuck to the bottom of a screen by the screen, not here. */
-.bottom-nav { box-sizing: border-box; width: 100%; display: flex; flex-direction: column; background: var(--bg-base-80); backdrop-filter: blur(22px); color: var(--text-primary); }
+.bottom-nav { box-sizing: border-box; width: 100%; display: flex; flex-direction: column; background: var(--bg-base-80); backdrop-filter: blur(var(--blur-md)); color: var(--text-primary); }
 .bottom-nav__tabs { height: 75px; display: flex; align-items: center; justify-content: center; gap: var(--space-6); }
 .bottom-nav__tab { appearance: none; border: 0; background: none; padding: 0; margin: 0; width: 64px; height: 64px; display: grid; place-items: center; border-radius: var(--radius-full); color: inherit; opacity: .5; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: opacity .2s; }
 .bottom-nav__tab > .icon { --icon-color: currentColor; }

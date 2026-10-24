@@ -1,5 +1,5 @@
 /* Molecule: toast. A message on the base purple (tinted by its status) with a 4px color bar on top, an icon, a bold line and a line under. */
-.toast { --toast-color: var(--status-success-primary); --toast-tint: var(--status-success-secondary); box-sizing: border-box; width: 100%; display: flex; flex-direction: column; overflow: clip; border-radius: var(--radius-sm); backdrop-filter: blur(22px); color: var(--text-primary); background: linear-gradient(var(--toast-tint), var(--toast-tint)), var(--purple-900); }
+.toast { --toast-color: var(--status-success-primary); --toast-tint: var(--status-success-secondary); box-sizing: border-box; width: 100%; display: flex; flex-direction: column; overflow: clip; border-radius: var(--radius-sm); backdrop-filter: blur(var(--blur-md)); color: var(--text-primary); background: linear-gradient(var(--toast-tint), var(--toast-tint)), var(--purple-900); }
 .toast[data-status="warning"] { --toast-color: var(--status-warning-primary); --toast-tint: var(--status-warning-secondary); }
 .toast[data-status="error"] { --toast-color: var(--status-error-primary, var(--red)); --toast-tint: var(--status-error-secondary, color-mix(in srgb, var(--red) 10%, transparent)); }
 .toast__bar { height: 4px; background: var(--toast-color); }

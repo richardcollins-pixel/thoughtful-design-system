@@ -1,5 +1,5 @@
 /* Device: numeric keyboard. The dark number pad (3 by 4 keys, letters under the digits, delete), with an optional “From Messages” strip. A picture only. */
-.numpad { position: relative; box-sizing: border-box; width: 100%; padding: 8px 7px 74px; border-radius: 27px 27px 0 0; background: rgba(28, 28, 28, .86); backdrop-filter: blur(5px); box-shadow: inset 0 0 1px rgba(0, 0, 0, .1), inset 0 0 1px rgba(255, 255, 255, .5); color: #fff; font-family: system-ui, -apple-system, sans-serif; }
+.numpad { position: relative; box-sizing: border-box; width: 100%; padding: 8px 7px 74px; border-radius: 27px 27px 0 0; background: rgba(28, 28, 28, .86); backdrop-filter: blur(var(--blur-xs)); box-shadow: inset 0 0 1px rgba(0, 0, 0, .1), inset 0 0 1px rgba(255, 255, 255, .5); color: #fff; font-family: system-ui, -apple-system, sans-serif; }
 .numpad__strip { display: flex; flex-direction: column; align-items: center; padding-bottom: 2px; font-size: 13px; line-height: 1.2; }
 .numpad__strip span { font-size: 12px; }
 .numpad__strip b { font-weight: 400; letter-spacing: .5px; }

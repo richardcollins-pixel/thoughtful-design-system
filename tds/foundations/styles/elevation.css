@@ -1,10 +1,8 @@
-/* Elevation = surface color + shadow. Wireframe swaps shadows for outlines (modes/). */
-:root {
-  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.08), 0 1px 1px rgb(0 0 0 / 0.04);
-  --shadow-2: 0 4px 12px rgb(0 0 0 / 0.12), 0 1px 3px rgb(0 0 0 / 0.08);
-  --shadow-3: 0 12px 32px rgb(0 0 0 / 0.18), 0 2px 6px rgb(0 0 0 / 0.1);
-}
-.elevation-0 { background: var(--bg-base); }
-.elevation-1 { background: var(--bg-elevation-5); box-shadow: var(--shadow-1); }
-.elevation-2 { background: var(--bg-elevation-10); box-shadow: var(--shadow-2); }
-.elevation-3 { background: var(--bg-elevation-20); box-shadow: var(--shadow-3); }
+/* Elevation styles. An elevation is a surface color, a background blur, a corner radius and a shadow used together; each one is defined as
+   tokens in styles > elevation (--elevation-N-fill, -blur, -radius, -shadow, and the blur and shadow tokens they point to). Apply with a class.
+   Wireframe mode swaps shadows for outlines (modes/). */
+.elevation-0 { background: var(--elevation-0-fill); backdrop-filter: blur(var(--elevation-0-blur)); border-radius: var(--elevation-0-radius); box-shadow: var(--elevation-0-shadow); }
+.elevation-1 { background: var(--elevation-1-fill); backdrop-filter: blur(var(--elevation-1-blur)); border-radius: var(--elevation-1-radius); box-shadow: var(--elevation-1-shadow); }
+.elevation-2 { background: var(--elevation-2-fill); backdrop-filter: blur(var(--elevation-2-blur)); border-radius: var(--elevation-2-radius); box-shadow: var(--elevation-2-shadow); }
+.elevation-3 { background: var(--elevation-3-fill); backdrop-filter: blur(var(--elevation-3-blur)); border-radius: var(--elevation-3-radius); box-shadow: var(--elevation-3-shadow); }
+.elevation-glass { background: var(--elevation-glass-fill); backdrop-filter: blur(var(--elevation-glass-blur)); border-radius: var(--elevation-glass-radius); box-shadow: var(--elevation-glass-shadow); }

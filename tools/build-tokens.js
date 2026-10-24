@@ -55,6 +55,22 @@ export function buildCss(tokens, schema) {
     ...of('duration').map((t) => `--${t.name}: ${fmt(t.ms)}ms;`),
     ...of('easing').map((t) => `--${t.name}: cubic-bezier(${t.bezier.map(fmt).join(', ')});`),
   ]);
+  const fmtShadow = (t) => `0 ${fmt(t.y)}px ${fmt(t.blur)}px rgb(0 0 0 / ${fmt(t.opacity / 100)})`;
+  block(':root', [
+    ...of('blur').map((t) => `--${t.name}: ${fmt(t.px)}px;`),
+    ...of('shadow').map((t) => `--${t.name}: ${fmtShadow(t)};`),
+    ...of('opacity').map((t) => `--${t.name}: ${fmt(t.percent / 100)};`),
+  ]);
+  // an elevation style is a surface color, a background blur, a corner radius and a shadow, used together
+  const ref = (v, none) => (v === 'none' || !v ? none : `var(--${v})`);
+  block(':root', of('elevation').flatMap((t) => [
+    `--${t.name}-fill: ${ref(t.fill, 'transparent')};`, `--${t.name}-blur: ${ref(t.blur, '0px')};`,
+    `--${t.name}-radius: ${ref(t.radius, '0px')};`, `--${t.name}-shadow: ${ref(t.shadow, 'none')};`,
+  ]));
+  // a motion style is a duration, an easing and a delay; data-motion presets read them
+  block(':root', of('motion').flatMap((t) => [
+    `--${t.name}-duration: ${ref(t.duration, 'var(--duration-base)')};`, `--${t.name}-ease: ${ref(t.easing, 'var(--ease-standard)')};`, `--${t.name}-delay: ${fmt(t.delay || 0)}ms;`,
+  ]));
   out.push(`@media (prefers-reduced-motion: reduce) {\n  :root { ${of('duration').map((t) => `--${t.name}: 0.01ms;`).join(' ')} }\n}\n`);
   return out.join('\n');
 }

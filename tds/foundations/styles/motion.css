@@ -23,11 +23,12 @@
 @keyframes tds-draw     { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes tds-travel   { from { transform: translate(var(--travel-x, 0), var(--travel-y, 0)) scale(var(--travel-scale, 1)); } }
 
-[data-motion="fade-in"]  { animation: tds-fade-in  var(--motion-duration, var(--duration-base)) var(--ease-standard) both; }
-[data-motion="enter"]    { animation: tds-slide-up var(--motion-duration, var(--duration-base)) var(--ease-standard) both; }
-[data-motion="pop"]      { animation: tds-pop      var(--motion-duration, var(--duration-base)) var(--ease-emphasized) both; }
-[data-motion="scale-in"] { animation: tds-scale-in var(--motion-duration, var(--duration-base)) var(--ease-emphasized) both; }
-[data-motion="draw"]     { stroke-dasharray: 1; animation: tds-draw var(--motion-duration, var(--duration-slow)) var(--ease-standard) both; }
-[data-motion="travel"]   { animation: tds-travel   var(--motion-duration, var(--duration-slow)) var(--ease-standard) both; }
-[data-motion] { animation-delay: var(--motion-delay, 0ms); }
-@media (prefers-reduced-motion: reduce) { :root { --distance-enter: 0; } [data-motion] { animation-delay: 0ms; } }
+/* each preset reads its own timing from the motion styles (--motion-<name>-duration, -ease, -delay: styles > motion in the editor);
+   --motion-duration and --motion-delay on the element override them */
+[data-motion="fade-in"]  { animation: tds-fade-in  var(--motion-duration, var(--motion-fade-in-duration, var(--duration-base))) var(--motion-fade-in-ease, var(--ease-standard)) var(--motion-delay, var(--motion-fade-in-delay, 0ms)) both; }
+[data-motion="enter"]    { animation: tds-slide-up var(--motion-duration, var(--motion-enter-duration, var(--duration-base))) var(--motion-enter-ease, var(--ease-standard)) var(--motion-delay, var(--motion-enter-delay, 0ms)) both; }
+[data-motion="pop"]      { animation: tds-pop      var(--motion-duration, var(--motion-pop-duration, var(--duration-base))) var(--motion-pop-ease, var(--ease-emphasized)) var(--motion-delay, var(--motion-pop-delay, 0ms)) both; }
+[data-motion="scale-in"] { animation: tds-scale-in var(--motion-duration, var(--motion-scale-in-duration, var(--duration-base))) var(--motion-scale-in-ease, var(--ease-emphasized)) var(--motion-delay, var(--motion-scale-in-delay, 0ms)) both; }
+[data-motion="draw"]     { stroke-dasharray: 1; animation: tds-draw var(--motion-duration, var(--motion-draw-duration, var(--duration-slow))) var(--motion-draw-ease, var(--ease-standard)) var(--motion-delay, var(--motion-draw-delay, 0ms)) both; }
+[data-motion="travel"]   { animation: tds-travel   var(--motion-duration, var(--motion-travel-duration, var(--duration-slow))) var(--motion-travel-ease, var(--ease-standard)) var(--motion-delay, var(--motion-travel-delay, 0ms)) both; }
+@media (prefers-reduced-motion: reduce) { :root { --distance-enter: 0; } [data-motion] { animation-delay: 0ms !important; } }

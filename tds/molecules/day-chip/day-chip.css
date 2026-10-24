@@ -1,5 +1,5 @@
 /* Molecule: day chip. 68 by 64, frosted, 8px corners: weekday (14px) over date (16px semibold). Selected is white with dark text. */
-.day-chip { box-sizing: border-box; flex: 1; min-width: 0; height: 64px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 0; border-radius: var(--radius-sm); background: var(--bg-elevation-20); backdrop-filter: blur(22px); color: var(--text-primary); cursor: pointer; }
+.day-chip { box-sizing: border-box; flex: 1; min-width: 0; height: 64px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 0; border-radius: var(--radius-sm); background: var(--bg-elevation-20); backdrop-filter: blur(var(--blur-md)); color: var(--text-primary); cursor: pointer; }
 .day-chip span { color: var(--text-secondary); font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); }
 .day-chip b { font: var(--text-body-md-semibold); letter-spacing: var(--text-body-md-semibold-ls); }
 .day-chip[data-selected="yes"] { background: var(--bg-elevation-100); color: var(--bg-elevation-100-inverse); }
