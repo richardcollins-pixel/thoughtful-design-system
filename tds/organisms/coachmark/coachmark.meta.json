@@ -157,7 +157,7 @@
       "label": "Header",
       "props": {
         "avatar": "t",
-        "size": "28",
+        "size": "24",
         "style": "large",
         "title": "Expand your care team"
       },
