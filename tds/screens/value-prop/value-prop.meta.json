@@ -1,0 +1,724 @@
+{
+  "name": "Value prop",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "device/status-bar",
+    "atoms/blob",
+    "atoms/glow",
+    "atoms/dots",
+    "atoms/icon-button",
+    "atoms/button"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-46421",
+  "align": "top",
+  "states": [
+    {
+      "id": "b1",
+      "name": "BLEND 1 · Meet T",
+      "template": "<section class=\"value-prop\" data-set=\"blend\"><div class=\"glow value-prop__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\">{{item:blob}}</div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyA}}</p></div></div><div class=\"value-prop__notes\" data-slot=\"note\">{{item:note}}</div><div class=\"value-prop__bottom value-prop__bottom--steps\" data-slot=\"bottom\">{{item:dots}}{{item:next}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "bodyA"
+          ]
+        },
+        {
+          "id": "note",
+          "label": "Disclaimer slot",
+          "items": [
+            "note"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "dots",
+            "next"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Hi, I'm T, your mental health partner"
+        },
+        "bodyA": {
+          "value": "Let’s get acquainted. I'll help you find the right therapist and keep you supported every step of the way."
+        },
+        "note": {
+          "value": "Thoughtful cannot diagnose, give medical advice, or replace professional care. Remember, AI can make mistakes. Always verify the information provided."
+        },
+        "blob": {
+          "props": {
+            "theme": "rose"
+          }
+        },
+        "dots": {
+          "props": {
+            "current": "1"
+          }
+        }
+      }
+    },
+    {
+      "id": "b2",
+      "name": "BLEND 2 · Find the right care",
+      "template": "<section class=\"value-prop\" data-set=\"blend\"><div class=\"glow value-prop__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\"><div class=\"value-prop__people\"><span class=\"value-prop__person\" data-n=\"1\"><img src=\"../tds/assets/images/therapists/Therapist-6.png\" alt=\"\"></span><span class=\"value-prop__person\" data-n=\"2\"><img src=\"../tds/assets/images/therapists/Therapist-5.png\" alt=\"\"></span><span class=\"value-prop__person\" data-n=\"3\"><img src=\"../tds/assets/images/therapists/Therapist-2.png\" alt=\"\"></span><span class=\"value-prop__person\" data-n=\"4\"><img src=\"../tds/assets/images/therapists/Therapist-3.png\" alt=\"\"></span><span class=\"value-prop__person\" data-n=\"5\"><img src=\"../tds/assets/images/therapists/Therapist-4.png\" alt=\"\"></span></div></div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyA}}</p></div></div><div class=\"value-prop__bottom value-prop__bottom--steps\" data-slot=\"bottom\">{{item:dots}}{{item:next}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "title",
+            "bodyA"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "dots",
+            "next"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "I’ll help find the right care for you"
+        },
+        "bodyA": {
+          "value": "Ready to talk to someone? Our network of therapists is ready to help any time. Connect in days, not weeks."
+        },
+        "blob": {
+          "props": {
+            "theme": "rose"
+          }
+        },
+        "dots": {
+          "props": {
+            "current": "2"
+          }
+        }
+      }
+    },
+    {
+      "id": "b3",
+      "name": "BLEND 3 · Between sessions",
+      "template": "<section class=\"value-prop\" data-set=\"blend\"><div class=\"glow value-prop__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\">{{item:blob}}<span class=\"value-prop__bubble\" aria-hidden=\"true\"><i></i><i></i><i></i></span></div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyA}}</p></div></div><div class=\"value-prop__bottom value-prop__bottom--steps\" data-slot=\"bottom\">{{item:dots}}{{item:next}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "bodyA"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "dots",
+            "next"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "We can talk between sessions"
+        },
+        "bodyA": {
+          "value": "I'm here for you in any moment. Late nights, 2 minute check-ins, whatever you need, whenever you want."
+        },
+        "blob": {
+          "props": {
+            "theme": "cool"
+          }
+        },
+        "dots": {
+          "props": {
+            "current": "3"
+          }
+        }
+      }
+    },
+    {
+      "id": "b4",
+      "name": "BLEND 4 · Zero judgment",
+      "template": "<section class=\"value-prop\" data-set=\"blend\"><div class=\"glow value-prop__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\">{{item:blob}}</div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyA}}</p></div></div><div class=\"value-prop__bottom value-prop__bottom--steps\" data-slot=\"bottom\">{{item:dots}}{{item:next}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "bodyA"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "dots",
+            "next"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Zero judgment, Total honesty"
+        },
+        "bodyA": {
+          "value": "Tell me the irrational, messy, half-formed thing - without performing for anyone. This is the one place you don’t have to present yourself well."
+        },
+        "blob": {
+          "props": {
+            "theme": "warm"
+          }
+        },
+        "dots": {
+          "props": {
+            "current": "4"
+          }
+        }
+      }
+    },
+    {
+      "id": "b5",
+      "name": "BLEND 5 · Care around the clock",
+      "template": "<section class=\"value-prop\" data-set=\"blend\"><div class=\"glow value-prop__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\"><div class=\"value-prop__cycle\"><svg class=\"value-prop__arrow\" data-dir=\"top\" viewBox=\"0 0 124 36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2 34C20 6 90 -8 120 28\"/><path d=\"m112 28 8 1 1-9\"/></svg><div class=\"value-prop__pair\">{{item:blob}}<span class=\"value-prop__person value-prop__person--lg\"><img src=\"../tds/assets/images/therapists/Therapist-1.png\" alt=\"\"></span></div><svg class=\"value-prop__arrow\" data-dir=\"bottom\" viewBox=\"0 0 124 36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M122 2C104 30 34 44 4 8\"/><path d=\"m12 8-8-1-1 9\"/></svg></div></div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyA}}{{item:bodyB}}{{item:bodyC}}</p></div></div><div class=\"value-prop__bottom\" data-slot=\"bottom\">{{item:start}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "bodyA",
+            "bodyB",
+            "bodyC"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "start"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Care around the clock"
+        },
+        "bodyA": {
+          "value": "Your therapist and I "
+        },
+        "bodyB": {
+          "value": "help you grow"
+        },
+        "bodyC": {
+          "value": " through every session and every moment in between."
+        },
+        "blob": {
+          "props": {
+            "theme": "rose"
+          }
+        },
+        "dots": {
+          "props": {
+            "current": "5"
+          }
+        }
+      }
+    },
+    {
+      "id": "a1",
+      "name": "AI 1 · 24/7 AI",
+      "template": "<section class=\"value-prop\" data-set=\"ai\"><div class=\"glow value-prop__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\">{{item:blob}}</div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyA}}{{item:bodyB}}{{item:bodyC}}</p></div></div><div class=\"value-prop__notes\" data-slot=\"note\">{{item:note}}</div><div class=\"value-prop__bottom value-prop__bottom--steps\" data-slot=\"bottom\">{{item:dots}}{{item:next}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "bodyA",
+            "bodyB",
+            "bodyC"
+          ]
+        },
+        {
+          "id": "note",
+          "label": "Disclaimer slot",
+          "items": [
+            "note"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "dots",
+            "next"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "24/7 AI For Mental Wellbeing"
+        },
+        "bodyA": {
+          "value": "Thoughtful provides exercises built on "
+        },
+        "bodyB": {
+          "value": "expert insights"
+        },
+        "bodyC": {
+          "value": "."
+        },
+        "note": {
+          "value": "Thoughtful cannot diagnose, give medical advice, or replace professional care. Remember, AI can make mistakes. Always verify the information provided."
+        },
+        "blob": {
+          "props": {
+            "theme": "rose"
+          }
+        },
+        "dots": {
+          "props": {
+            "current": "1"
+          }
+        }
+      }
+    },
+    {
+      "id": "a2",
+      "name": "AI 2 · Emotional resilience",
+      "template": "<section class=\"value-prop\" data-set=\"ai\"><div class=\"glow value-prop__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\">{{item:blob}}</div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyA}}{{item:bodyB}}{{item:bodyC}}</p></div></div><div class=\"value-prop__notes\" data-slot=\"note\">{{item:note}}</div><div class=\"value-prop__bottom value-prop__bottom--steps\" data-slot=\"bottom\">{{item:dots}}{{item:next}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "bodyA",
+            "bodyB",
+            "bodyC"
+          ]
+        },
+        {
+          "id": "note",
+          "label": "Disclaimer slot",
+          "items": [
+            "note"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "dots",
+            "next"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Build emotional resilience"
+        },
+        "bodyA": {
+          "value": "Use "
+        },
+        "bodyB": {
+          "value": "practical strategies"
+        },
+        "bodyC": {
+          "value": " to build emotional resilience and gain skills to navigate challenges."
+        },
+        "note": {
+          "value": "Thoughtful cannot diagnose, give medical advice, or replace professional care. Remember, AI can make mistakes. Always verify the information provided."
+        },
+        "blob": {
+          "props": {
+            "theme": "rose"
+          }
+        },
+        "dots": {
+          "props": {
+            "current": "2"
+          }
+        }
+      }
+    },
+    {
+      "id": "a3",
+      "name": "AI 3 · Remember what guides you",
+      "template": "<section class=\"value-prop\" data-set=\"ai\"><div class=\"glow value-prop__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\">{{item:blob}}</div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyB}}{{item:bodyC}}</p></div></div><div class=\"value-prop__notes\" data-slot=\"note\">{{item:note}}</div><div class=\"value-prop__bottom value-prop__bottom--steps\" data-slot=\"bottom\">{{item:dots}}{{item:next}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "bodyB",
+            "bodyC"
+          ]
+        },
+        {
+          "id": "note",
+          "label": "Disclaimer slot",
+          "items": [
+            "note"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "dots",
+            "next"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Remember what guides you"
+        },
+        "bodyB": {
+          "value": "Thoughtful remembers"
+        },
+        "bodyC": {
+          "value": " your goals, preferences, and progress—so each session builds on the last."
+        },
+        "note": {
+          "value": "Thoughtful cannot diagnose, give medical advice, or replace professional care. Remember, AI can make mistakes. Always verify the information provided."
+        },
+        "blob": {
+          "props": {
+            "theme": "rose"
+          }
+        },
+        "dots": {
+          "props": {
+            "current": "3"
+          }
+        }
+      }
+    },
+    {
+      "id": "a4",
+      "name": "AI 4 · Private by design",
+      "template": "<section class=\"value-prop\" data-set=\"ai\"><div class=\"glow value-prop__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\">{{item:blob}}</div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyA}}{{item:bodyB}}{{item:bodyC}}</p></div></div><div class=\"value-prop__notes\" data-slot=\"note\">{{item:note}}</div><div class=\"value-prop__bottom value-prop__bottom--steps\" data-slot=\"bottom\">{{item:dots}}{{item:next}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "bodyA",
+            "bodyB",
+            "bodyC"
+          ]
+        },
+        {
+          "id": "note",
+          "label": "Disclaimer slot",
+          "items": [
+            "note"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "dots",
+            "next"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Private by design"
+        },
+        "bodyA": {
+          "value": "Your data is encrypted, you’re not personally identified, and your "
+        },
+        "bodyB": {
+          "value": "conversations are confidential"
+        },
+        "bodyC": {
+          "value": "."
+        },
+        "note": {
+          "value": "Thoughtful cannot diagnose, give medical advice, or replace professional care. Remember, AI can make mistakes. Always verify the information provided."
+        },
+        "blob": {
+          "props": {
+            "theme": "rose"
+          }
+        },
+        "dots": {
+          "props": {
+            "current": "4"
+          }
+        }
+      }
+    },
+    {
+      "id": "a5",
+      "name": "AI 5 · Human help",
+      "template": "<section class=\"value-prop\" data-set=\"ai\"><div class=\"glow value-prop__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\">{{item:blob}}</div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyA}}{{item:bodyB}}{{item:bodyC}}</p></div></div><div class=\"value-prop__notes\" data-slot=\"note\">{{item:note}}</div><div class=\"value-prop__bottom value-prop__bottom--steps\" data-slot=\"bottom\">{{item:dots}}{{item:next}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "bodyA",
+            "bodyB",
+            "bodyC"
+          ]
+        },
+        {
+          "id": "note",
+          "label": "Disclaimer slot",
+          "items": [
+            "note"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "dots",
+            "next"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Human help when it matters"
+        },
+        "bodyA": {
+          "value": "Our"
+        },
+        "bodyB": {
+          "value": " licensed therapists"
+        },
+        "bodyC": {
+          "value": " can step in to support you when you need it."
+        },
+        "note": {
+          "value": "Thoughtful AI is not a human therapist and cannot provide medical advice or diagnose conditions. If you are in a crisis or need immediate help, please contact 988."
+        },
+        "blob": {
+          "props": {
+            "theme": "rose"
+          }
+        },
+        "dots": {
+          "props": {
+            "current": "5"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".value-prop",
+  "description": "The onboarding slides after the splash: a picture, a headline and a few lines on the dark purple background, with progress dots and a round next button (the last BLEND slide has a full-width Let’s get started button instead). Two sets: BLEND (five slides) and AI only (five slides, lighter headline, bold phrases in the body).",
+  "items": {
+    "status": {
+      "type": "component",
+      "component": "device/status-bar",
+      "label": "Status bar",
+      "props": {},
+      "expose": []
+    },
+    "blob": {
+      "type": "component",
+      "component": "atoms/blob",
+      "label": "T",
+      "props": {
+        "theme": "rose"
+      },
+      "expose": [
+        "shape",
+        "theme"
+      ]
+    },
+    "title": {
+      "type": "text",
+      "tag": "h1",
+      "class": "value-prop__title",
+      "label": "Headline",
+      "value": ""
+    },
+    "bodyA": {
+      "type": "text",
+      "tag": "span",
+      "class": "value-prop__run",
+      "label": "Body copy",
+      "value": ""
+    },
+    "bodyB": {
+      "type": "text",
+      "tag": "strong",
+      "class": "value-prop__strong",
+      "label": "Body emphasis",
+      "value": ""
+    },
+    "bodyC": {
+      "type": "text",
+      "tag": "span",
+      "class": "value-prop__run",
+      "label": "Body copy (after)",
+      "value": ""
+    },
+    "note": {
+      "type": "text",
+      "tag": "p",
+      "class": "value-prop__note",
+      "label": "Disclaimer",
+      "value": "Thoughtful cannot diagnose, give medical advice, or replace professional care. Remember, AI can make mistakes. Always verify the information provided."
+    },
+    "dots": {
+      "type": "component",
+      "component": "atoms/dots",
+      "label": "Progress",
+      "props": {
+        "current": "1",
+        "count": "5"
+      },
+      "expose": [
+        "current"
+      ]
+    },
+    "next": {
+      "type": "component",
+      "component": "atoms/icon-button",
+      "label": "Next button",
+      "props": {
+        "icon": "arrow-right",
+        "elevation": "70",
+        "size": "lg"
+      },
+      "expose": [
+        "icon",
+        "elevation"
+      ]
+    },
+    "start": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Get started",
+      "props": {
+        "label": "Let’s get started",
+        "variant": "filled",
+        "size": "lg",
+        "width": "full"
+      },
+      "expose": [
+        "label"
+      ]
+    }
+  },
+  "personas": [],
+  "inputs": [],
+  "properties": [],
+  "prompts": []
+}

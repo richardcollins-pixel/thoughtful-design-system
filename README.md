@@ -232,4 +232,6 @@ The **message screen** (`screens/message`, Figma "Other Screens"): T, a headline
 
 The **splash screen** (`screens/splash`, Figma "Splash Screen"): the wordmark (new **wordmark** atom) on the dark rose to orange gradient, and a Tracking prompt state with the iPhone's own alert (new **alert** in the device group, hidden by Device UI off). The wordmark is set in Instrument Sans in the Figma; it falls back to Inter until that font is added.
 
+The **value prop screen** (`screens/value-prop`, Figma "BLEND / AI ONLY - Value Prop Screens"): ten slide states in two sets (BLEND 1–5, AI 1–5). Each has a picture (T, the provider cluster, T with a chat bubble, or T and a provider with cycle arrows), a headline, body copy with optional bold phrases (split into separate text items), the disclaimer, and progress dots with a round next button. The last BLEND slide swaps the bottom row for a full-width “Let’s get started” button; AI only uses the lighter, larger headline. The BLEND slide order after slide 2 is a best guess from the frames, so check it.
+
 The **home indicator** (the thin bar at the bottom of an iPhone) is its own device part; for now only the bottom nav shows it, in its safe-area strip, and Device UI off hides it.
