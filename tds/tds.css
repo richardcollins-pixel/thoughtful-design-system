@@ -107,6 +107,7 @@
 @import url("screens/sign-up/sign-up.css") layer(screens);
 @import url("screens/screener/screener.css") layer(screens);
 @import url("screens/booking/booking.css") layer(screens);
+@import url("screens/tour/tour.css") layer(screens);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */
 
