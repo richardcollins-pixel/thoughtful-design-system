@@ -1,0 +1,22 @@
+{
+  "name": "Numeric keyboard",
+  "tier": "device",
+  "category": "device",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-46801",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "The dark phone number pad. Add a suggestion to show the “From Messages” strip with a one-time code above the keys. A picture only: the keys do nothing.",
+  "props": {
+    "suggestion": {
+      "type": "text",
+      "label": "From Messages code",
+      "default": ""
+    }
+  },
+  "template": "<div class=\"numpad\">{{?suggestion}}<div class=\"numpad__strip\"><span>From Messages</span><b>{{suggestion}}</b></div>{{/suggestion}}<div class=\"numpad__keys\"><i><b>1</b></i><i><b>2</b><small>ABC</small></i><i><b>3</b><small>DEF</small></i><i><b>4</b><small>GHI</small></i><i><b>5</b><small>JKL</small></i><i><b>6</b><small>MNO</small></i><i><b>7</b><small>PQRS</small></i><i><b>8</b><small>TUV</small></i><i><b>9</b><small>WXYZ</small></i><i data-blank></i><i><b>0</b></i><i data-wide aria-label=\"Delete\">⌫</i></div></div>",
+  "markup": "<div class=\"numpad\"><div class=\"numpad__strip\"><span>From Messages</span><b>123456</b></div><div class=\"numpad__keys\"><i><b>1</b></i><i><b>2</b><small>ABC</small></i><i><b>3</b><small>DEF</small></i><i><b>4</b><small>GHI</small></i><i><b>5</b><small>JKL</small></i><i><b>6</b><small>MNO</small></i><i><b>7</b><small>PQRS</small></i><i><b>8</b><small>TUV</small></i><i><b>9</b><small>WXYZ</small></i><i data-blank></i><i><b>0</b></i><i data-wide aria-label=\"Delete\">⌫</i></div></div>"
+}

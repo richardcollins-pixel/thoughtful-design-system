@@ -1,0 +1,12 @@
+/* Device: numeric keyboard. The dark number pad (3 by 4 keys, letters under the digits, delete), with an optional “From Messages” strip. A picture only. */
+.numpad { position: relative; box-sizing: border-box; width: 100%; padding: 8px 7px 74px; border-radius: 27px 27px 0 0; background: rgba(28, 28, 28, .86); backdrop-filter: blur(5px); box-shadow: inset 0 0 1px rgba(0, 0, 0, .1), inset 0 0 1px rgba(255, 255, 255, .5); color: #fff; font-family: system-ui, -apple-system, sans-serif; }
+.numpad__strip { display: flex; flex-direction: column; align-items: center; padding-bottom: 2px; font-size: 13px; line-height: 1.2; }
+.numpad__strip span { font-size: 12px; }
+.numpad__strip b { font-weight: 400; letter-spacing: .5px; }
+.numpad__keys { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 50px; gap: 6px; padding-top: 10px; }
+.numpad__keys i { position: relative; display: grid; place-items: center; border-radius: 8.5px; background: rgba(255, 255, 255, .27); font-style: normal; }
+.numpad__keys i b { font: normal 400 25px/1 system-ui, -apple-system, sans-serif; margin-top: -8px; }
+.numpad__keys i:not(:has(small)) b { margin-top: 0; }
+.numpad__keys i small { position: absolute; left: 0; right: 0; bottom: 6px; font: 700 10px/1 system-ui, -apple-system, sans-serif; letter-spacing: 2px; text-indent: 2px; text-align: center; }
+.numpad__keys i[data-blank], .numpad__keys i[data-wide] { background: none; }
+.numpad__keys i[data-wide] { font-size: 22px; }

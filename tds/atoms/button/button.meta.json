@@ -115,8 +115,18 @@
       "type": "icon",
       "label": "Icon",
       "default": "none"
+    },
+    "state": {
+      "type": "enum",
+      "label": "State",
+      "values": [
+        "default",
+        "disabled",
+        "loading"
+      ],
+      "default": "default"
     }
   },
-  "template": "<button class=\"button\" data-variant=\"{{variant}}\" data-size=\"{{size}}\" data-width=\"{{width}}\">{{?icon}}<i class=\"icon icon-{{icon}}\"></i>{{/icon}}{{label}}</button>",
+  "template": "<button class=\"button\" data-variant=\"{{variant}}\" data-size=\"{{size}}\" data-width=\"{{width}}\" data-state=\"{{state}}\">{{?icon}}<i class=\"icon icon-{{icon}}\"></i>{{/icon}}{{label}}</button>",
   "skeleton": "<span class=\"skeleton\" data-shape=\"pill\" data-size=\"{{size}}\"></span>"
 }

@@ -1,0 +1,5 @@
+/* Atom: checkbox. 24px square, 4px corners, 40% white fill and a faint border; checked turns solid white with a dark check. */
+.checkbox { flex: none; box-sizing: border-box; width: var(--space-6); height: var(--space-6); display: grid; place-items: center; border: 1px solid color-mix(in srgb, var(--white) 14%, transparent); border-radius: var(--radius-xs, 4px); background: var(--bg-elevation-40); }
+.checkbox .icon { --icon-size: 16px; --icon-color: var(--black); display: none; }
+.checkbox[data-checked="yes"] { background: var(--white); border-color: var(--white); }
+.checkbox[data-checked="yes"] .icon { display: block; }

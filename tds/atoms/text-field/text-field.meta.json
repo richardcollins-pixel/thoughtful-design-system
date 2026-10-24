@@ -1,0 +1,57 @@
+{
+  "name": "Text field",
+  "tier": "atoms",
+  "category": "forms",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=21-2500",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A single-line input: 48px tall, 80% white with a white border, dark text, and the prompt at half strength. Add a country code to make it a phone field. Focused shows the cursor; error turns the border red.",
+  "props": {
+    "text": {
+      "type": "text",
+      "label": "Text",
+      "default": "Enter address"
+    },
+    "filled": {
+      "type": "enum",
+      "label": "Has text",
+      "ui": "steps",
+      "values": [
+        "no",
+        "yes"
+      ],
+      "default": "no"
+    },
+    "focused": {
+      "type": "enum",
+      "label": "Focused",
+      "ui": "steps",
+      "values": [
+        "no",
+        "yes"
+      ],
+      "default": "yes"
+    },
+    "error": {
+      "type": "enum",
+      "label": "Error",
+      "ui": "steps",
+      "values": [
+        "no",
+        "yes"
+      ],
+      "default": "no"
+    },
+    "country": {
+      "type": "text",
+      "label": "Country code",
+      "default": ""
+    }
+  },
+  "template": "<div class=\"text-field\" data-filled=\"{{filled}}\" data-focused=\"{{focused}}\" data-error=\"{{error}}\">{{?country}}<span class=\"text-field__country\"><img class=\"text-field__flag\" src=\"../tds/assets/images/system/flag-us.svg\" alt=\"\"><span>{{country}}</span><i class=\"icon icon-chevron-right\" aria-hidden=\"true\"></i></span>{{/country}}<span class=\"text-field__cursor\"></span><span class=\"text-field__text\">{{text}}</span></div>",
+  "markup": "<div class=\"text-field\" data-filled=\"no\" data-focused=\"yes\" data-error=\"no\"><span class=\"text-field__cursor\"></span><span class=\"text-field__text\">Enter address</span></div>"
+}

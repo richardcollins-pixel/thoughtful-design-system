@@ -1,0 +1,27 @@
+{
+  "name": "Checkbox",
+  "tier": "atoms",
+  "category": "forms",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=21-2515",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A 24px square box with rounded corners. Unchecked is a soft white fill; checked is solid white with a dark check.",
+  "props": {
+    "checked": {
+      "type": "enum",
+      "label": "Checked",
+      "ui": "steps",
+      "values": [
+        "no",
+        "yes"
+      ],
+      "default": "no"
+    }
+  },
+  "template": "<span class=\"checkbox\" data-checked=\"{{checked}}\" role=\"checkbox\" aria-checked=\"{{checked}}\"><i class=\"icon icon-check\" aria-hidden=\"true\"></i></span>",
+  "markup": "<span class=\"checkbox\" data-checked=\"no\" role=\"checkbox\" aria-checked=\"false\"><i class=\"icon icon-check\" aria-hidden=\"true\"></i></span>"
+}

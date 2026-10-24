@@ -1,0 +1,19 @@
+/* Screen: sign-up. A back button and Support on top, T, a serif question, one field, a hint or the terms; the button sits just above the keyboard
+   (which fills the bottom of the phone). A rose glow rises from the bottom. Slots: top, toast, main, submit, keyboard, dialog. */
+.sign-up { position: relative; isolation: isolate; display: flex; flex-direction: column; box-sizing: border-box; min-height: 100dvh; margin: calc(var(--page-gutter, var(--space-4)) * -1); }
+.sign-up__glow { --glow-size: 550px; --glow-blur: 90px; --glow-opacity: .6; z-index: -1; position: fixed; }
+.sign-up__top .header__title { display: none; }
+.sign-up__toast { position: absolute; z-index: 2; left: var(--space-4); right: var(--space-4); top: 62px; }
+.sign-up__main { display: flex; flex-direction: column; align-items: center; gap: var(--space-5, 20px); padding: var(--space-5, 20px); }
+.sign-up__blob .blob { --blob-size: 64px; }
+.sign-up__title { margin: 0; font-family: var(--font-family-display); font-weight: 400; font-size: var(--font-size-xl, 24px); line-height: 1.2; letter-spacing: -0.48px; text-align: center; }
+.sign-up__suggestions { width: 100%; margin-top: calc(var(--space-5, 20px) * -1); }
+.sign-up__terms { display: flex; align-items: flex-start; gap: 10px; width: 100%; color: var(--text-secondary); font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); }
+.sign-up__link { color: inherit; text-decoration: underline; }
+.sign-up__hint { margin: 0; color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); text-align: center; }
+.sign-up__hint--sm { color: var(--text-primary); font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); }
+.sign-up__lines { display: flex; flex-direction: column; align-items: center; margin-bottom: var(--space-2); }
+.sign-up__bottom { margin-top: auto; }
+.sign-up__submit { padding: 0 var(--space-5, 20px) 23px; }
+.sign-up__scrim { position: absolute; inset: 0; z-index: 3; background: color-mix(in srgb, var(--purple-900) 70%, transparent); backdrop-filter: blur(8px); }
+.sign-up__dialog { position: absolute; z-index: 4; left: var(--space-4); right: var(--space-4); top: 258px; }
