@@ -1,0 +1,37 @@
+{
+  "name": "Address suggestions",
+  "tier": "molecules",
+  "category": "forms",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-46751",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A frosted list of address matches that drops under a text field as someone types: four rows with hairline dividers, the last one cut off by the keyboard.",
+  "props": {
+    "row1": {
+      "type": "text",
+      "label": "Row 1",
+      "default": "83 Carlton Ave, Jersey City, NJ"
+    },
+    "row2": {
+      "type": "text",
+      "label": "Row 2",
+      "default": "83 Ogden, Brooklyn, NY"
+    },
+    "row3": {
+      "type": "text",
+      "label": "Row 3",
+      "default": "83 Ege Ave, Jersey City, NJ"
+    },
+    "row4": {
+      "type": "text",
+      "label": "Row 4",
+      "default": "83 Ege Ave, Jersey City, NJ"
+    }
+  },
+  "template": "<ul class=\"address-suggestions\"><li>{{row1}}</li><li>{{row2}}</li><li>{{row3}}</li><li>{{row4}}</li></ul>",
+  "markup": "<ul class=\"address-suggestions\"><li>83 Carlton Ave, Jersey City, NJ</li><li>83 Ogden, Brooklyn, NY</li><li>83 Ege Ave, Jersey City, NJ</li><li>83 Ege Ave, Jersey City, NJ</li></ul>"
+}

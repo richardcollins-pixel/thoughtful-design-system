@@ -96,3 +96,8 @@
 
 /* an optional leading icon, sized with the button */
 .button > .icon { --icon-size: var(--button-icon-size); }
+
+/* loading: a small spinner before the label */
+.button[data-state="loading"]::before { content: ""; flex: none; width: 20px; height: 20px; margin-right: var(--space-2); border: 2px solid color-mix(in srgb, currentColor 30%, transparent); border-top-color: currentColor; border-radius: 50%; animation: tds-spin .9s linear infinite; }
+@keyframes tds-spin { to { rotate: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .button[data-state="loading"]::before { animation: none; } }

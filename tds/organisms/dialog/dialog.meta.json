@@ -1,0 +1,103 @@
+{
+  "name": "Dialog",
+  "tier": "organisms",
+  "category": "overlay",
+  "stateful": false,
+  "uses": [
+    "atoms/icon-button",
+    "atoms/button"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-46738",
+  "align": "top",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<div class=\"dialog\" role=\"dialog\"><div class=\"dialog__head\" data-slot=\"head\">{{item:title}}{{item:close}}</div><div class=\"dialog__body\" data-slot=\"body\">{{item:body1}}{{item:body2}}</div><div class=\"dialog__actions\" data-slot=\"actions\">{{item:action}}</div></div>",
+      "slots": [
+        {
+          "id": "head",
+          "label": "Head slot",
+          "items": [
+            "title",
+            "close"
+          ]
+        },
+        {
+          "id": "body",
+          "label": "Body slot",
+          "items": [
+            "body1",
+            "body2"
+          ]
+        },
+        {
+          "id": "actions",
+          "label": "Actions slot",
+          "items": [
+            "action"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".dialog",
+  "description": "A frosted glass card for a short explanation over a dimmed screen: a serif title with a close button, a few paragraphs and one full-width button.",
+  "items": {
+    "title": {
+      "type": "text",
+      "tag": "h2",
+      "class": "dialog__title",
+      "label": "Title",
+      "value": "Why we ask for address"
+    },
+    "close": {
+      "type": "component",
+      "component": "atoms/icon-button",
+      "label": "Close button",
+      "props": {
+        "icon": "x",
+        "elevation": "0",
+        "size": "xs"
+      },
+      "expose": [
+        "icon"
+      ]
+    },
+    "body1": {
+      "type": "text",
+      "tag": "p",
+      "class": "dialog__text",
+      "label": "Paragraph",
+      "value": "This is only used to help quickly if you are in an immediate, life-threatening situation. We will always try to reach you first before making any external contact."
+    },
+    "body2": {
+      "type": "text",
+      "tag": "p",
+      "class": "dialog__text",
+      "label": "Second paragraph",
+      "value": "Your safety is our priority, and your data is 100% private and secure."
+    },
+    "action": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Button",
+      "props": {
+        "label": "Button",
+        "variant": "filled",
+        "size": "lg",
+        "width": "full"
+      },
+      "expose": [
+        "label"
+      ]
+    }
+  },
+  "personas": [],
+  "inputs": [],
+  "properties": [],
+  "prompts": []
+}

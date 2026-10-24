@@ -1,0 +1,988 @@
+{
+  "name": "Sign up",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "molecules/header",
+    "atoms/blob",
+    "atoms/glow",
+    "atoms/text-field",
+    "atoms/checkbox",
+    "atoms/button",
+    "molecules/address-suggestions",
+    "molecules/toast",
+    "device/keyboard",
+    "device/numeric-keyboard",
+    "organisms/dialog"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-46640",
+  "align": "top",
+  "states": [
+    {
+      "id": "phone-empty",
+      "name": "Phone",
+      "template": "<section class=\"sign-up\" data-kind=\"phone\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}<label class=\"sign-up__terms\">{{item:checkbox}}<span class=\"sign-up__terms-text\">{{item:termsA}}{{item:termsB}}{{item:termsC}}{{item:termsD}}{{item:termsE}}</span></label></div><div class=\"sign-up__bottom\"></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "checkbox",
+            "termsA",
+            "termsB",
+            "termsC",
+            "termsD",
+            "termsE"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Sign In to Thoughtful"
+        },
+        "field": {
+          "props": {
+            "filled": "no",
+            "focused": "no",
+            "error": "no",
+            "country": "+1",
+            "text": "(555) 555-5555"
+          }
+        }
+      }
+    },
+    {
+      "id": "phone-focus",
+      "name": "Phone, typing",
+      "template": "<section class=\"sign-up\" data-kind=\"phone\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}<label class=\"sign-up__terms\">{{item:checkbox}}<span class=\"sign-up__terms-text\">{{item:termsA}}{{item:termsB}}{{item:termsC}}{{item:termsD}}{{item:termsE}}</span></label></div><div class=\"sign-up__bottom\"><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:numpad}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "checkbox",
+            "termsA",
+            "termsB",
+            "termsC",
+            "termsD",
+            "termsE"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "numpad"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Sign In to Thoughtful"
+        },
+        "field": {
+          "props": {
+            "filled": "no",
+            "focused": "yes",
+            "error": "no",
+            "country": "+1",
+            "text": "(555) 555-5555"
+          }
+        }
+      }
+    },
+    {
+      "id": "phone-filled",
+      "name": "Phone, filled",
+      "template": "<section class=\"sign-up\" data-kind=\"phone\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}<label class=\"sign-up__terms\">{{item:checkbox}}<span class=\"sign-up__terms-text\">{{item:termsA}}{{item:termsB}}{{item:termsC}}{{item:termsD}}{{item:termsE}}</span></label></div><div class=\"sign-up__bottom\"><div class=\"sign-up__submit\" data-slot=\"submit\">{{item:submit}}</div><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:numpad}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "checkbox",
+            "termsA",
+            "termsB",
+            "termsC",
+            "termsD",
+            "termsE"
+          ]
+        },
+        {
+          "id": "submit",
+          "label": "Button slot",
+          "items": [
+            "submit"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "numpad"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Sign In to Thoughtful"
+        },
+        "field": {
+          "props": {
+            "filled": "yes",
+            "focused": "no",
+            "error": "no",
+            "country": "+1",
+            "text": "(862) 881-2857"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue"
+          }
+        },
+        "checkbox": {
+          "props": {
+            "checked": "yes"
+          }
+        }
+      }
+    },
+    {
+      "id": "verify-empty",
+      "name": "Verify code",
+      "template": "<section class=\"sign-up\" data-kind=\"verify\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}<div class=\"sign-up__lines\">{{item:codeA}}{{item:codeB}}</div>{{item:resend}}</div><div class=\"sign-up__bottom\"><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:numpad}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "codeA",
+            "codeB",
+            "resend"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "numpad"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Verify Phone Number"
+        },
+        "field": {
+          "props": {
+            "filled": "no",
+            "focused": "yes",
+            "error": "no",
+            "country": "",
+            "text": "Enter code"
+          }
+        },
+        "numpad": {
+          "props": {
+            "suggestion": "123456"
+          }
+        }
+      }
+    },
+    {
+      "id": "verify-sending",
+      "name": "Verify, sending",
+      "template": "<section class=\"sign-up\" data-kind=\"verify\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}<div class=\"sign-up__lines\">{{item:codeA}}{{item:codeB}}</div>{{item:resend}}</div><div class=\"sign-up__bottom\"><div class=\"sign-up__submit\" data-slot=\"submit\">{{item:submit}}</div><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:numpad}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "codeA",
+            "codeB",
+            "resend"
+          ]
+        },
+        {
+          "id": "submit",
+          "label": "Button slot",
+          "items": [
+            "submit"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "numpad"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "Verify Phone Number"
+        },
+        "field": {
+          "props": {
+            "filled": "yes",
+            "focused": "no",
+            "error": "no",
+            "country": "",
+            "text": "123456"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Verify",
+            "state": "loading"
+          }
+        }
+      }
+    },
+    {
+      "id": "name-empty",
+      "name": "Name",
+      "template": "<section class=\"sign-up\" data-kind=\"name\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}</div><div class=\"sign-up__bottom\"><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "keyboard"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "What should we call you?"
+        },
+        "field": {
+          "props": {
+            "filled": "no",
+            "focused": "yes",
+            "error": "no",
+            "country": "",
+            "text": "Name"
+          }
+        }
+      }
+    },
+    {
+      "id": "name-filled",
+      "name": "Name, filled",
+      "template": "<section class=\"sign-up\" data-kind=\"name\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}</div><div class=\"sign-up__bottom\"><div class=\"sign-up__submit\" data-slot=\"submit\">{{item:submit}}</div><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field"
+          ]
+        },
+        {
+          "id": "submit",
+          "label": "Button slot",
+          "items": [
+            "submit"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "keyboard"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "What should we call you?"
+        },
+        "field": {
+          "props": {
+            "filled": "yes",
+            "focused": "no",
+            "error": "no",
+            "country": "",
+            "text": "Alexa"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue"
+          }
+        }
+      }
+    },
+    {
+      "id": "email-empty",
+      "name": "Email",
+      "template": "<section class=\"sign-up\" data-kind=\"email\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}{{item:hintSm}}</div><div class=\"sign-up__bottom\"><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "hintSm"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "keyboard"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "What’s your email?"
+        },
+        "field": {
+          "props": {
+            "filled": "no",
+            "focused": "yes",
+            "error": "no",
+            "country": "",
+            "text": "Enter email"
+          }
+        }
+      }
+    },
+    {
+      "id": "email-filled",
+      "name": "Email, filled",
+      "template": "<section class=\"sign-up\" data-kind=\"email\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}{{item:hintSm}}</div><div class=\"sign-up__bottom\"><div class=\"sign-up__submit\" data-slot=\"submit\">{{item:submit}}</div><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "hintSm"
+          ]
+        },
+        {
+          "id": "submit",
+          "label": "Button slot",
+          "items": [
+            "submit"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "keyboard"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "What’s your email?"
+        },
+        "field": {
+          "props": {
+            "filled": "yes",
+            "focused": "no",
+            "error": "no",
+            "country": "",
+            "text": "alexa@thoughtful.com"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue"
+          }
+        }
+      }
+    },
+    {
+      "id": "email-error",
+      "name": "Email, unsupported",
+      "template": "<section class=\"sign-up\" data-kind=\"email\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__toast\" data-slot=\"toast\">{{item:toast}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}{{item:hintSm}}</div><div class=\"sign-up__bottom\"><div class=\"sign-up__submit\" data-slot=\"submit\">{{item:submit}}</div><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "toast",
+          "label": "Toast slot",
+          "items": [
+            "toast"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "hintSm"
+          ]
+        },
+        {
+          "id": "submit",
+          "label": "Button slot",
+          "items": [
+            "submit"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "keyboard"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "What’s your email?"
+        },
+        "field": {
+          "props": {
+            "filled": "yes",
+            "focused": "no",
+            "error": "yes",
+            "country": "",
+            "text": "alexa@gmail.com"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue",
+            "state": "disabled"
+          }
+        }
+      }
+    },
+    {
+      "id": "address-empty",
+      "name": "Address",
+      "template": "<section class=\"sign-up\" data-kind=\"address\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}<p class=\"sign-up__hint\">{{item:hintA}}{{item:hintLink}}</p></div><div class=\"sign-up__bottom\"><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:numpad}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "hintA",
+            "hintLink"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "numpad"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "What’s your home address?"
+        },
+        "field": {
+          "props": {
+            "filled": "no",
+            "focused": "yes",
+            "error": "no",
+            "country": "",
+            "text": "Enter address"
+          }
+        }
+      }
+    },
+    {
+      "id": "address-typing",
+      "name": "Address, suggestions",
+      "template": "<section class=\"sign-up\" data-kind=\"address\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}<div class=\"sign-up__suggestions\">{{item:suggestions}}</div></div><div class=\"sign-up__bottom\"><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:numpad}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "suggestions"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "numpad"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "What’s your home address?"
+        },
+        "field": {
+          "props": {
+            "filled": "yes",
+            "focused": "yes",
+            "error": "no",
+            "country": "",
+            "text": "83"
+          }
+        }
+      }
+    },
+    {
+      "id": "address-filled",
+      "name": "Address, filled",
+      "template": "<section class=\"sign-up\" data-kind=\"address\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}<p class=\"sign-up__hint\">{{item:hintA}}{{item:hintLink}}</p></div><div class=\"sign-up__bottom\"><div class=\"sign-up__submit\" data-slot=\"submit\">{{item:submit}}</div><div class=\"sign-up__keyboard\" data-slot=\"keyboard\">{{item:keyboard}}</div></div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "hintA",
+            "hintLink"
+          ]
+        },
+        {
+          "id": "submit",
+          "label": "Button slot",
+          "items": [
+            "submit"
+          ]
+        },
+        {
+          "id": "keyboard",
+          "label": "Keyboard slot",
+          "items": [
+            "keyboard"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "What’s your home address?"
+        },
+        "field": {
+          "props": {
+            "filled": "yes",
+            "focused": "no",
+            "error": "no",
+            "country": "",
+            "text": "83 Carlton Ave, Jersey City, NJ"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Continue"
+          }
+        }
+      }
+    },
+    {
+      "id": "address-info",
+      "name": "Address, why we ask",
+      "template": "<section class=\"sign-up\" data-kind=\"address\"><div class=\"glow sign-up__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"sign-up__top\" data-slot=\"top\">{{item:header}}</div><div class=\"sign-up__main\" data-slot=\"main\"><div class=\"sign-up__blob\">{{item:blob}}</div>{{item:title}}{{item:field}}<p class=\"sign-up__hint\">{{item:hintA}}{{item:hintLink}}</p></div><div class=\"sign-up__bottom\"></div><div class=\"sign-up__scrim\"></div><div class=\"sign-up__dialog\" data-slot=\"dialog\">{{item:dialog}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "blob",
+            "title",
+            "field",
+            "hintA",
+            "hintLink"
+          ]
+        },
+        {
+          "id": "dialog",
+          "label": "Dialog slot",
+          "items": [
+            "dialog"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "title": {
+          "value": "What’s your home address?"
+        },
+        "field": {
+          "props": {
+            "filled": "no",
+            "focused": "no",
+            "error": "no",
+            "country": "",
+            "text": "Enter address"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".sign-up",
+  "description": "The onboarding form, one question per screen: phone number (with the terms checkbox), verify code, name, email and home address, each empty and filled. Email has an unsupported-email error with a toast; address has suggestions while typing and a “why we ask” dialog.",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "molecules/header",
+      "label": "Header",
+      "props": {
+        "variant": "back-button",
+        "title": "",
+        "action": "Support"
+      },
+      "expose": [
+        "action"
+      ]
+    },
+    "blob": {
+      "type": "component",
+      "component": "atoms/blob",
+      "label": "T",
+      "props": {
+        "theme": "rose"
+      },
+      "expose": [
+        "theme"
+      ]
+    },
+    "title": {
+      "type": "text",
+      "tag": "h1",
+      "class": "sign-up__title",
+      "label": "Title",
+      "value": ""
+    },
+    "field": {
+      "type": "component",
+      "component": "atoms/text-field",
+      "label": "Field",
+      "props": {},
+      "expose": [
+        "text",
+        "filled",
+        "error",
+        "country"
+      ],
+      "required": true
+    },
+    "suggestions": {
+      "type": "component",
+      "component": "molecules/address-suggestions",
+      "label": "Address suggestions",
+      "props": {},
+      "expose": [
+        "row1",
+        "row2",
+        "row3",
+        "row4"
+      ]
+    },
+    "checkbox": {
+      "type": "component",
+      "component": "atoms/checkbox",
+      "label": "Terms checkbox",
+      "props": {
+        "checked": "no"
+      },
+      "expose": [
+        "checked"
+      ]
+    },
+    "termsA": {
+      "type": "text",
+      "tag": "span",
+      "class": "sign-up__run",
+      "label": "Terms",
+      "value": "By signing up for Thoughtful, you agree to our "
+    },
+    "termsB": {
+      "type": "text",
+      "tag": "a",
+      "class": "sign-up__link",
+      "label": "Terms link",
+      "value": "terms of service"
+    },
+    "termsC": {
+      "type": "text",
+      "tag": "span",
+      "class": "sign-up__run",
+      "label": "Terms (and)",
+      "value": " & "
+    },
+    "termsD": {
+      "type": "text",
+      "tag": "a",
+      "class": "sign-up__link",
+      "label": "Privacy link",
+      "value": "privacy policy"
+    },
+    "termsE": {
+      "type": "text",
+      "tag": "span",
+      "class": "sign-up__run",
+      "label": "Terms (end)",
+      "value": " and to receive marketing messages. Msg and data rates apply."
+    },
+    "hint": {
+      "type": "text",
+      "tag": "p",
+      "class": "sign-up__hint",
+      "label": "Hint",
+      "value": ""
+    },
+    "hintSm": {
+      "type": "text",
+      "tag": "p",
+      "class": "sign-up__hint sign-up__hint--sm",
+      "label": "Hint",
+      "value": "If you’re signing up through your employer, use your work email. If you’re signing up for a research study, use the email you registered with."
+    },
+    "hintA": {
+      "type": "text",
+      "tag": "span",
+      "class": "sign-up__run",
+      "label": "Hint",
+      "value": "This will only be used to get you help in case of an emergency. "
+    },
+    "hintLink": {
+      "type": "text",
+      "tag": "a",
+      "class": "sign-up__link",
+      "label": "Hint link",
+      "value": "Learn More"
+    },
+    "codeA": {
+      "type": "text",
+      "tag": "p",
+      "class": "sign-up__hint",
+      "label": "Code line",
+      "value": "Enter the six digit code sent to:"
+    },
+    "codeB": {
+      "type": "text",
+      "tag": "p",
+      "class": "sign-up__hint",
+      "label": "Phone number",
+      "value": "555-123-4567"
+    },
+    "resend": {
+      "type": "text",
+      "tag": "p",
+      "class": "sign-up__hint",
+      "label": "Resend",
+      "value": "Resend Code in 00:48"
+    },
+    "submit": {
+      "type": "component",
+      "component": "atoms/button",
+      "label": "Button",
+      "props": {
+        "label": "Continue",
+        "variant": "filled",
+        "size": "md",
+        "width": "full"
+      },
+      "expose": [
+        "label",
+        "state"
+      ]
+    },
+    "keyboard": {
+      "type": "component",
+      "component": "device/keyboard",
+      "label": "Keyboard",
+      "props": {},
+      "expose": []
+    },
+    "numpad": {
+      "type": "component",
+      "component": "device/numeric-keyboard",
+      "label": "Number pad",
+      "props": {},
+      "expose": [
+        "suggestion"
+      ]
+    },
+    "toast": {
+      "type": "component",
+      "component": "molecules/toast",
+      "label": "Error toast",
+      "props": {
+        "status": "error",
+        "title": "Unsupported Email",
+        "body": "Please make sure you’re using you’re using the correct email as described below"
+      },
+      "expose": [
+        "title",
+        "body"
+      ]
+    },
+    "dialog": {
+      "type": "component",
+      "component": "organisms/dialog",
+      "label": "Dialog",
+      "props": {},
+      "expose": [
+        "title",
+        "body1",
+        "body2"
+      ]
+    }
+  },
+  "personas": [],
+  "inputs": [],
+  "properties": [],
+  "prompts": []
+}

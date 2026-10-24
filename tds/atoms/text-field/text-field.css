@@ -1,0 +1,13 @@
+/* Atom: text field. 48px tall, 80% white with a white border, 8px corners, 13px side padding. Dark text; the prompt is half strength.
+   An optional country selector (flag, code, chevron) turns it into a phone field. Focused shows the cursor; error turns the border red. */
+.text-field { box-sizing: border-box; width: 100%; height: var(--space-12, 48px); display: flex; align-items: center; gap: var(--space-2); padding-inline: 13px; background: color-mix(in srgb, var(--white) 80%, transparent); border: 1px solid var(--white); border-radius: var(--radius-sm); color: var(--black); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); text-align: left; }
+.text-field[data-error="yes"] { border-color: var(--status-error-primary, var(--red)); }
+.text-field__country { flex: none; display: flex; align-items: center; gap: var(--space-2); color: color-mix(in srgb, var(--black) 50%, transparent); }
+.text-field__flag { width: 16px; height: 16px; display: block; }
+.text-field__country .icon { --icon-size: 16px; --icon-color: currentColor; rotate: 90deg; }
+.text-field__cursor { flex: none; width: 1.5px; height: 26px; margin-right: 2px; background: var(--black); animation: tds-caret 1s steps(1) infinite; }
+.text-field[data-focused="no"] .text-field__cursor { display: none; }
+.text-field[data-filled="no"] .text-field__text { color: color-mix(in srgb, var(--black) 50%, transparent); }
+.text-field[data-filled="yes"] .text-field__cursor { order: 1; margin: 0 0 0 -7px; }
+@keyframes tds-caret { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .text-field__cursor { animation: none; } }
