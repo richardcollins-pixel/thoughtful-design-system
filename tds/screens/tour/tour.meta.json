@@ -1,0 +1,466 @@
+{
+  "name": "Tour",
+  "tier": "screens",
+  "category": "screens",
+  "stateful": false,
+  "uses": [
+    "organisms/home-header",
+    "patterns/bite-size-support-section",
+    "patterns/topics-section",
+    "patterns/therapist-section",
+    "molecules/bottom-nav",
+    "molecules/chat-header",
+    "organisms/chat-thread",
+    "organisms/chat-composer",
+    "organisms/coachmark",
+    "atoms/glow"
+  ],
+  "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4226-65802",
+  "align": "top",
+  "states": [
+    {
+      "id": "step-1",
+      "name": "Home, step 1",
+      "template": "<section class=\"tour\" data-base=\"home\" data-spot=\"composer\"><div class=\"glow tour__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"tour__page\" data-slot=\"page\"><div class=\"tour__header\" data-slot=\"header\">{{item:header}}</div><div class=\"tour__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div></div><div class=\"tour__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"tour__coach\" data-slot=\"coach\">{{item:coach}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "bite",
+            "topics",
+            "deep",
+            "therapist"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        },
+        {
+          "id": "coach",
+          "label": "Coachmark slot",
+          "items": [
+            "coach"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "coach": {
+          "props": {
+            "state": "step",
+            "header.title": "Get the messy thoughts out",
+            "body": "Get clarity now and prepare for your first appointment without the homework",
+            "bar.step": "1",
+            "bar.label": "Next",
+            "header.close": "on"
+          }
+        }
+      }
+    },
+    {
+      "id": "step-2",
+      "name": "Home, step 2",
+      "template": "<section class=\"tour\" data-base=\"home\" data-spot=\"bite\"><div class=\"glow tour__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"tour__page\" data-slot=\"page\"><div class=\"tour__header\" data-slot=\"header\">{{item:header}}</div><div class=\"tour__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div></div><div class=\"tour__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"tour__coach\" data-slot=\"coach\">{{item:coach}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "bite",
+            "topics",
+            "deep",
+            "therapist"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        },
+        {
+          "id": "coach",
+          "label": "Coachmark slot",
+          "items": [
+            "coach"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "coach": {
+          "props": {
+            "state": "step",
+            "header.title": "Get immediate support",
+            "body": "We’ll use clinically-backed techniques designed to move you forward",
+            "bar.step": "2",
+            "bar.label": "Next",
+            "header.close": "on"
+          }
+        }
+      }
+    },
+    {
+      "id": "step-3",
+      "name": "Home, step 3",
+      "template": "<section class=\"tour\" data-base=\"home\" data-spot=\"topics\"><div class=\"glow tour__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"tour__page\" data-slot=\"page\"><div class=\"tour__header\" data-slot=\"header\">{{item:header}}</div><div class=\"tour__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div></div><div class=\"tour__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"tour__coach\" data-slot=\"coach\">{{item:coach}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "bite",
+            "topics",
+            "deep",
+            "therapist"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        },
+        {
+          "id": "coach",
+          "label": "Coachmark slot",
+          "items": [
+            "coach"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "coach": {
+          "props": {
+            "state": "step",
+            "header.title": "Dig even deeper and unpack",
+            "body": "I’ll help unpack the reasons behind your challenges and build a plan with you.",
+            "bar.step": "3",
+            "bar.label": "Next",
+            "header.close": "on"
+          }
+        }
+      }
+    },
+    {
+      "id": "choice",
+      "name": "Home, start together",
+      "template": "<section class=\"tour\" data-base=\"home\" data-spot=\"composer\"><div class=\"glow tour__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"tour__page\" data-slot=\"page\"><div class=\"tour__header\" data-slot=\"header\">{{item:header}}</div><div class=\"tour__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}</div></div><div class=\"tour__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"tour__coach\" data-slot=\"coach\">{{item:coach}}</div></section>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "bite",
+            "topics",
+            "deep",
+            "therapist"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        },
+        {
+          "id": "coach",
+          "label": "Coachmark slot",
+          "items": [
+            "coach"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "coach": {
+          "props": {
+            "state": "choice"
+          }
+        }
+      }
+    },
+    {
+      "id": "recap",
+      "name": "Chat, recap",
+      "template": "<section class=\"tour\" data-base=\"chat\" data-spot=\"record\"><div class=\"glow tour__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"tour__chat-top\" data-slot=\"top\">{{item:chatHeader}}</div><div class=\"tour__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"tour__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"tour__coach\" data-slot=\"coach\">{{item:coach}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "chatHeader"
+          ]
+        },
+        {
+          "id": "thread",
+          "label": "Thread slot",
+          "items": [
+            "thread"
+          ]
+        },
+        {
+          "id": "composer",
+          "label": "Composer slot",
+          "items": [
+            "composer"
+          ]
+        },
+        {
+          "id": "coach",
+          "label": "Coachmark slot",
+          "items": [
+            "coach"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "coach": {
+          "props": {
+            "state": "single-cta",
+            "header.avatar": "t-provider",
+            "header.title": "I’ll give Kristina a recap",
+            "body": "By default, your therapist gets a summary on the discoveries we make together so you get the most from your sessions",
+            "bar.label": "Next",
+            "header.close": "on",
+            "arrow.position": "end"
+          }
+        },
+        "chatHeader": {
+          "props": {
+            "timer": "on",
+            "recap": "on"
+          }
+        }
+      }
+    },
+    {
+      "id": "record",
+      "name": "Chat, off the record",
+      "template": "<section class=\"tour\" data-base=\"chat\" data-spot=\"record\"><div class=\"glow tour__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"tour__chat-top\" data-slot=\"top\">{{item:chatHeader}}</div><div class=\"tour__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"tour__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"tour__coach\" data-slot=\"coach\">{{item:coach}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "chatHeader"
+          ]
+        },
+        {
+          "id": "thread",
+          "label": "Thread slot",
+          "items": [
+            "thread"
+          ]
+        },
+        {
+          "id": "composer",
+          "label": "Composer slot",
+          "items": [
+            "composer"
+          ]
+        },
+        {
+          "id": "coach",
+          "label": "Coachmark slot",
+          "items": [
+            "coach"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "coach": {
+          "props": {
+            "state": "single-cta",
+            "header.avatar": "icon",
+            "header.icon": "person",
+            "header.title": "Go off the record",
+            "body": "Tap the icon to go “off the record” and keep any conversation just between us",
+            "bar.label": "Got it",
+            "header.close": "on",
+            "arrow.position": "end"
+          }
+        },
+        "chatHeader": {
+          "props": {
+            "timer": "on",
+            "recap": "otr"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {},
+  "styles": [],
+  "selector": ".tour",
+  "description": "The first-run tour: a coachmark that points at one thing while everything else on the screen fades to 20%. Home steps 1 to 3 and Start together point at the chat box, Bite Size Support and Recent Topics; the chat steps point at the record button (the recap, then off the record).",
+  "items": {
+    "header": {
+      "type": "component",
+      "component": "organisms/home-header",
+      "label": "Home header",
+      "props": {
+        "state": "default"
+      },
+      "expose": [
+        "headline",
+        "body",
+        "input.text"
+      ]
+    },
+    "bite": {
+      "type": "component",
+      "component": "patterns/bite-size-support-section",
+      "label": "Bite size support",
+      "props": {
+        "state": "default"
+      },
+      "expose": [
+        "heading",
+        "copy"
+      ]
+    },
+    "topics": {
+      "type": "component",
+      "component": "patterns/topics-section",
+      "label": "Your topics",
+      "props": {
+        "state": "start",
+        "heading": "Recent Topics"
+      },
+      "expose": [
+        "state",
+        "heading",
+        "copy"
+      ]
+    },
+    "deep": {
+      "type": "component",
+      "component": "patterns/topics-section",
+      "label": "Deep dives",
+      "props": {
+        "state": "deep-dive"
+      },
+      "expose": [
+        "heading",
+        "copy"
+      ]
+    },
+    "therapist": {
+      "type": "component",
+      "component": "patterns/therapist-section",
+      "label": "Your therapist",
+      "props": {
+        "state": "find"
+      },
+      "expose": [
+        "state",
+        "heading",
+        "copy"
+      ]
+    },
+    "nav": {
+      "type": "component",
+      "component": "molecules/bottom-nav",
+      "label": "Bottom nav",
+      "props": {
+        "current": "home"
+      },
+      "expose": [
+        "current"
+      ]
+    },
+    "chatHeader": {
+      "type": "component",
+      "component": "molecules/chat-header",
+      "label": "Chat header",
+      "props": {
+        "title": "Leave it here",
+        "timer": "on",
+        "recap": "on"
+      },
+      "expose": [
+        "recap",
+        "title"
+      ]
+    },
+    "thread": {
+      "type": "component",
+      "component": "organisms/chat-thread",
+      "label": "Thread",
+      "props": {
+        "state": "session"
+      },
+      "expose": [
+        "state"
+      ]
+    },
+    "composer": {
+      "type": "component",
+      "component": "organisms/chat-composer",
+      "label": "Composer",
+      "props": {
+        "state": "input"
+      },
+      "expose": [
+        "state"
+      ]
+    },
+    "coach": {
+      "type": "component",
+      "component": "organisms/coachmark",
+      "label": "Tour step",
+      "props": {
+        "state": "step"
+      },
+      "expose": [
+        "state"
+      ]
+    }
+  },
+  "personas": [
+    "provider"
+  ],
+  "inputs": [],
+  "properties": [],
+  "prompts": []
+}

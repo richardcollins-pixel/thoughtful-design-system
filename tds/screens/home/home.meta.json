@@ -10,7 +10,6 @@
     "patterns/therapist-section",
     "organisms/cta-card",
     "molecules/bottom-nav",
-    "organisms/coachmark",
     "molecules/toast"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-48499",
@@ -19,7 +18,7 @@
     {
       "id": "new",
       "name": "New",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__tour\" data-slot=\"tour\"><div class=\"home__scrim\"></div>{{item:tour}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -44,13 +43,6 @@
           "label": "Nav slot",
           "items": [
             "nav"
-          ]
-        },
-        {
-          "id": "tour",
-          "label": "Tour slot",
-          "items": [
-            "tour"
           ]
         },
         {
@@ -80,7 +72,7 @@
     {
       "id": "one-topic",
       "name": "One topic",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__tour\" data-slot=\"tour\"><div class=\"home__scrim\"></div>{{item:tour}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -105,13 +97,6 @@
           "label": "Nav slot",
           "items": [
             "nav"
-          ]
-        },
-        {
-          "id": "tour",
-          "label": "Tour slot",
-          "items": [
-            "tour"
           ]
         },
         {
@@ -141,7 +126,7 @@
     {
       "id": "several-topics",
       "name": "Several topics",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__tour\" data-slot=\"tour\"><div class=\"home__scrim\"></div>{{item:tour}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -166,13 +151,6 @@
           "label": "Nav slot",
           "items": [
             "nav"
-          ]
-        },
-        {
-          "id": "tour",
-          "label": "Tour slot",
-          "items": [
-            "tour"
           ]
         },
         {
@@ -202,7 +180,7 @@
     {
       "id": "booked",
       "name": "Session booked",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__tour\" data-slot=\"tour\"><div class=\"home__scrim\"></div>{{item:tour}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -227,13 +205,6 @@
           "label": "Nav slot",
           "items": [
             "nav"
-          ]
-        },
-        {
-          "id": "tour",
-          "label": "Tour slot",
-          "items": [
-            "tour"
           ]
         },
         {
@@ -258,7 +229,7 @@
     {
       "id": "no-appointment",
       "name": "No appointment",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__tour\" data-slot=\"tour\"><div class=\"home__scrim\"></div>{{item:tour}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:bite}}{{item:topics}}{{item:deep}}{{item:therapist}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -283,13 +254,6 @@
           "label": "Nav slot",
           "items": [
             "nav"
-          ]
-        },
-        {
-          "id": "tour",
-          "label": "Tour slot",
-          "items": [
-            "tour"
           ]
         },
         {
@@ -314,7 +278,7 @@
     {
       "id": "join",
       "name": "Session today",
-      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:therapist}}{{item:bite}}{{item:topics}}{{item:deep}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__tour\" data-slot=\"tour\"><div class=\"home__scrim\"></div>{{item:tour}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
+      "template": "<main class=\"home\"><div class=\"home__header\" data-slot=\"header\">{{item:header}}</div><div class=\"home__sections\" data-slot=\"sections\">{{item:therapist}}{{item:bite}}{{item:topics}}{{item:deep}}{{item:reminders}}</div><div class=\"home__nav\" data-slot=\"nav\">{{item:nav}}</div><div class=\"home__toast\" data-slot=\"toast\">{{item:toast}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -339,13 +303,6 @@
           "label": "Nav slot",
           "items": [
             "nav"
-          ]
-        },
-        {
-          "id": "tour",
-          "label": "Tour slot",
-          "items": [
-            "tour"
           ]
         },
         {
@@ -468,18 +425,6 @@
         "current"
       ]
     },
-    "tour": {
-      "type": "component",
-      "component": "organisms/coachmark",
-      "label": "Tour step",
-      "props": {
-        "show": "off",
-        "state": "step"
-      },
-      "expose": [
-        "state"
-      ]
-    },
     "toast": {
       "type": "component",
       "component": "molecules/toast",
@@ -507,158 +452,6 @@
       "label": "Reminders card",
       "type": "toggle",
       "item": "reminders"
-    },
-    {
-      "id": "tour",
-      "label": "Tour",
-      "type": "select",
-      "options": [
-        {
-          "value": "Off",
-          "set": [
-            [
-              "tour",
-              "show",
-              "off"
-            ]
-          ]
-        },
-        {
-          "value": "Step 1",
-          "set": [
-            [
-              "tour",
-              "header.close",
-              "on"
-            ],
-            [
-              "tour",
-              "bar.label",
-              "Next"
-            ],
-            [
-              "tour",
-              "show",
-              "on"
-            ],
-            [
-              "tour",
-              "state",
-              "step"
-            ],
-            [
-              "tour",
-              "header.title",
-              "Get the messy thoughts out"
-            ],
-            [
-              "tour",
-              "body",
-              "Get clarity now and prepare for your first appointment without the homework"
-            ],
-            [
-              "tour",
-              "bar.step",
-              "1"
-            ]
-          ]
-        },
-        {
-          "value": "Step 2",
-          "set": [
-            [
-              "tour",
-              "header.close",
-              "on"
-            ],
-            [
-              "tour",
-              "bar.label",
-              "Next"
-            ],
-            [
-              "tour",
-              "show",
-              "on"
-            ],
-            [
-              "tour",
-              "state",
-              "step"
-            ],
-            [
-              "tour",
-              "header.title",
-              "Get immediate support"
-            ],
-            [
-              "tour",
-              "body",
-              "We’ll use clinically-backed techniques designed to move you forward"
-            ],
-            [
-              "tour",
-              "bar.step",
-              "2"
-            ]
-          ]
-        },
-        {
-          "value": "Step 3",
-          "set": [
-            [
-              "tour",
-              "header.close",
-              "on"
-            ],
-            [
-              "tour",
-              "bar.label",
-              "Next"
-            ],
-            [
-              "tour",
-              "show",
-              "on"
-            ],
-            [
-              "tour",
-              "state",
-              "step"
-            ],
-            [
-              "tour",
-              "header.title",
-              "Dig even deeper and unpack"
-            ],
-            [
-              "tour",
-              "body",
-              "I’ll help unpack the reasons behind your challenges and build a plan with you."
-            ],
-            [
-              "tour",
-              "bar.step",
-              "3"
-            ]
-          ]
-        },
-        {
-          "value": "Start together",
-          "set": [
-            [
-              "tour",
-              "show",
-              "on"
-            ],
-            [
-              "tour",
-              "state",
-              "choice"
-            ]
-          ]
-        }
-      ]
     },
     {
       "id": "toast",
