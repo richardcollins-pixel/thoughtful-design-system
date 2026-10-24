@@ -1326,7 +1326,7 @@ const attrs = (el) => ({ shape: el.dataset.shape || 'blob', theme: el.dataset.th
 const keyOf = (a) => [a.shape, a.theme, a.cycle, a.loop, a.loopDelay].join('|');
 
 function mount(el) {
-  if (live.has(el) || el.__blobPending) return;
+  if (live.has(el) || el.__blobPending || el.__linked) return;   // a glow that belongs to a blob is drawn by that blob, never started on its own
   let canvas = el.querySelector(':scope > canvas');
   if (!canvas) { canvas = document.createElement('canvas'); canvas.setAttribute('aria-hidden', 'true'); el.append(canvas); }
   // wait until the canvas has a size (the stylesheet may still be loading)
