@@ -11,10 +11,10 @@
     "atoms/button",
     "atoms/avatar",
     "atoms/icon-button",
-    "molecules/cycle-art",
     "molecules/option-tile",
     "molecules/day-chip",
-    "patterns/provider-carousel"
+    "patterns/provider-carousel",
+    "organisms/booking-intro"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-47431",
   "align": "top",
@@ -22,7 +22,7 @@
     {
       "id": "interstitial",
       "name": "Interstitial",
-      "template": "<section class=\"booking\" data-kind=\"interstitial\"><div class=\"glow booking__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"booking__top\" data-slot=\"top\">{{item:status}}</div><div class=\"booking__main\" data-slot=\"main\"><div class=\"booking__art\">{{item:art}}</div><div class=\"booking__text\">{{item:title}}{{item:body}}</div></div><div class=\"booking__bottom booking__bottom--tight\" data-slot=\"bottom\">{{item:submit}}{{item:skip}}</div></section>",
+      "template": "<section class=\"booking\" data-kind=\"interstitial\"><div class=\"glow booking__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"booking__top\" data-slot=\"top\">{{item:status}}</div><div class=\"booking__main\" data-slot=\"main\">{{item:intro}}</div><div class=\"booking__bottom booking__bottom--tight\" data-slot=\"bottom\">{{item:submit}}{{item:skip}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -35,9 +35,7 @@
           "id": "main",
           "label": "Main slot",
           "items": [
-            "art",
-            "title",
-            "body"
+            "intro"
           ]
         },
         {
@@ -49,17 +47,104 @@
           ]
         }
       ],
-      "personas": [],
+      "personas": [
+        "provider"
+      ],
       "overrides": {
-        "title": {
-          "value": "First, let’s find your therapist"
-        },
-        "body": {
-          "value": "I'll match you with a therapist from our nationwide network, so you get the support you need"
+        "intro": {
+          "props": {
+            "state": "find"
+          }
         },
         "submit": {
           "props": {
             "label": "Continue"
+          }
+        }
+      }
+    },
+    {
+      "id": "interstitial-booked",
+      "name": "Interstitial, booked",
+      "template": "<section class=\"booking\" data-kind=\"interstitial\"><div class=\"glow booking__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"booking__top\" data-slot=\"top\">{{item:status}}</div><div class=\"booking__main\" data-slot=\"main\">{{item:intro}}</div><div class=\"booking__bottom booking__bottom--tight\" data-slot=\"bottom\">{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "intro"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "submit"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "intro": {
+          "props": {
+            "state": "booked"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Get started"
+          }
+        }
+      }
+    },
+    {
+      "id": "interstitial-paused",
+      "name": "Interstitial, T first",
+      "template": "<section class=\"booking\" data-kind=\"interstitial\"><div class=\"glow booking__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"booking__top\" data-slot=\"top\">{{item:status}}</div><div class=\"booking__main\" data-slot=\"main\">{{item:intro}}</div><div class=\"booking__bottom booking__bottom--tight\" data-slot=\"bottom\">{{item:submit}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "status"
+          ]
+        },
+        {
+          "id": "main",
+          "label": "Main slot",
+          "items": [
+            "intro"
+          ]
+        },
+        {
+          "id": "bottom",
+          "label": "Bottom slot",
+          "items": [
+            "submit"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "intro": {
+          "props": {
+            "state": "paused"
+          }
+        },
+        "submit": {
+          "props": {
+            "label": "Get started"
           }
         }
       }
@@ -603,28 +688,11 @@
         "theme"
       ]
     },
-    "art": {
-      "type": "component",
-      "component": "molecules/cycle-art",
-      "label": "T and therapist",
-      "props": {},
-      "expose": [
-        "icon",
-        "second"
-      ]
-    },
     "title": {
       "type": "text",
       "tag": "h1",
       "class": "booking__title",
       "label": "Headline",
-      "value": ""
-    },
-    "body": {
-      "type": "text",
-      "tag": "p",
-      "class": "booking__body",
-      "label": "Body copy",
       "value": ""
     },
     "submit": {
@@ -907,9 +975,22 @@
         "label",
         "selected"
       ]
+    },
+    "intro": {
+      "type": "component",
+      "component": "organisms/booking-intro",
+      "label": "Intro",
+      "props": {
+        "state": "find"
+      },
+      "expose": [
+        "state"
+      ]
     }
   },
-  "personas": [],
+  "personas": [
+    "provider"
+  ],
   "inputs": [],
   "properties": [],
   "prompts": []
