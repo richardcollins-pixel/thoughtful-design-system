@@ -95,7 +95,7 @@
     {
       "id": "prompt",
       "name": "Follow-up prompt",
-      "template": "<article class=\"card header-card\" data-variant=\"prompt\"><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\">{{item:photo}}<div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div><div class=\"header-card__chat\" data-slot=\"chat\">{{item:chat}}{{item:prompt}}</div></div></article>",
+      "template": "<article class=\"card header-card\" data-variant=\"prompt\"><span class=\"header-card__light\" data-glow-layer aria-hidden=\"true\"></span><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\">{{item:photo}}<div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div><div class=\"header-card__chat\" data-slot=\"chat\">{{item:chat}}{{item:prompt}}</div></div></article>",
       "slots": [
         {
           "id": "top",

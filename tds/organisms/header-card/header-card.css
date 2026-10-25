@@ -34,3 +34,7 @@
 .header-card__chat { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); width: 100%; margin-top: var(--space-4); text-align: left; }
 .header-card__chat .avatar-text { width: auto; }
 .header-card[data-variant="prompt"] { min-height: 0; }
+.header-card[data-variant="prompt"] { padding-bottom: var(--card-padding-x); }   /* the same room under the chat box as at its sides */
+.header-card__light { position: absolute; inset: 0; z-index: -1; border-radius: inherit; overflow: clip; pointer-events: none; }
+.header-card[data-variant="prompt"] { isolation: isolate; }
+.header-card .glow { --glow-size: var(--glow-card-size); --glow-blur: var(--glow-card-blur); --glow-opacity: var(--glow-card-opacity); }
