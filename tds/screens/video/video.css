@@ -1,11 +1,11 @@
-/* Screen: video. In the call: the therapist's video as a square across the screen, with a blurred, see-through copy of it filling the background; leave top left,
-   mute and camera top right; your video small in the corner; T taking notes at the bottom. Slots: backdrop, top, controls, remote, self, notes. */
+/* Screen: video. In the call: the therapist's video as a square across the screen, with a blurred, see-through copy of it filling the background; mute and camera top left,
+   leave top right; your video small in the corner; T taking notes at the bottom. Slots: backdrop, top, controls, remote, self, notes. */
 .video { position: relative; isolation: isolate; display: flex; flex-direction: column; box-sizing: border-box; min-height: 100dvh; margin: calc(var(--page-gutter, var(--space-4)) * -1); overflow: clip; background: var(--bg-base); }
 .video__backdrop { position: absolute; inset: 0; z-index: var(--layer-behind); }
 .video__top { position: relative; }
 .video__bar { position: absolute; left: var(--space-4); right: var(--space-4); top: 62px; display: flex; align-items: center; justify-content: space-between; }
-.video__bar-right { display: flex; gap: var(--space-2); }
+.video__bar-left { display: flex; gap: var(--space-2); }
 .video__remote { margin-top: 118px; }
-.video__self { position: absolute; right: var(--space-4); top: 605px; z-index: var(--layer-raised); }
+.video__self { position: absolute; right: var(--space-4); top: 657px;   /* its bottom edge lines up with the bottom of T is taking notes */ z-index: var(--layer-raised); }
 .video__notes { position: absolute; left: var(--space-8); top: 797px; }
 .video__notes .avatar-text { width: auto; gap: var(--space-2); }

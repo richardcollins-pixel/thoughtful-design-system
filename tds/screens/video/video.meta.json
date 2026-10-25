@@ -15,7 +15,7 @@
     {
       "id": "call",
       "name": "In the call",
-      "template": "<section class=\"video\"><div class=\"video__backdrop\" data-slot=\"backdrop\">{{item:backdrop}}</div><div class=\"video__top\" data-slot=\"top\">{{item:status}}<div class=\"video__bar\" data-slot=\"controls\">{{item:leave}}<span class=\"video__bar-right\">{{item:micTop}}{{item:camTop}}</span></div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
+      "template": "<section class=\"video\"><div class=\"video__backdrop\" data-slot=\"backdrop\">{{item:backdrop}}</div><div class=\"video__top\" data-slot=\"top\">{{item:status}}<div class=\"video__bar\" data-slot=\"controls\"><span class=\"video__bar-left\">{{item:micTop}}{{item:camTop}}</span>{{item:leave}}</div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
       "slots": [
         {
           "id": "backdrop",
@@ -70,7 +70,7 @@
     {
       "id": "call-waiting",
       "name": "Therapist not here yet",
-      "template": "<section class=\"video\"><div class=\"video__backdrop\" data-slot=\"backdrop\">{{item:backdrop}}</div><div class=\"video__top\" data-slot=\"top\">{{item:status}}<div class=\"video__bar\" data-slot=\"controls\">{{item:leave}}<span class=\"video__bar-right\">{{item:micTop}}{{item:camTop}}</span></div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
+      "template": "<section class=\"video\"><div class=\"video__backdrop\" data-slot=\"backdrop\">{{item:backdrop}}</div><div class=\"video__top\" data-slot=\"top\">{{item:status}}<div class=\"video__bar\" data-slot=\"controls\"><span class=\"video__bar-left\">{{item:micTop}}{{item:camTop}}</span>{{item:leave}}</div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
       "slots": [
         {
           "id": "backdrop",
@@ -137,7 +137,7 @@
     {
       "id": "call-paused",
       "name": "Video paused",
-      "template": "<section class=\"video\"><div class=\"video__backdrop\" data-slot=\"backdrop\">{{item:backdrop}}</div><div class=\"video__top\" data-slot=\"top\">{{item:status}}<div class=\"video__bar\" data-slot=\"controls\">{{item:leave}}<span class=\"video__bar-right\">{{item:micTop}}{{item:camTop}}</span></div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
+      "template": "<section class=\"video\"><div class=\"video__backdrop\" data-slot=\"backdrop\">{{item:backdrop}}</div><div class=\"video__top\" data-slot=\"top\">{{item:status}}<div class=\"video__bar\" data-slot=\"controls\"><span class=\"video__bar-left\">{{item:micTop}}{{item:camTop}}</span>{{item:leave}}</div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
       "slots": [
         {
           "id": "backdrop",
@@ -216,7 +216,7 @@
   "variables": {},
   "styles": [],
   "selector": ".video",
-  "description": "Being in an in-app video appointment (full blend): the therapist’s video as a square across the screen with a blurred, see-through copy of it filling the background, your own video small in the corner, leave on the top left, mute and camera on the top right, and T taking notes at the bottom. Also the therapist not here yet, and video paused.",
+  "description": "Being in an in-app video appointment (full blend): the therapist’s video as a square across the screen with a blurred, see-through copy of it filling the background, your own video small in the corner, mute and camera on the top left, leave on the top right, and T taking notes at the bottom. Also the therapist not here yet, and video paused.",
   "items": {
     "backdrop": {
       "type": "component",
