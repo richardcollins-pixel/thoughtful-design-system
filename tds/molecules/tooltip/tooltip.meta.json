@@ -1,0 +1,43 @@
+{
+  "name": "Tooltip",
+  "tier": "molecules",
+  "category": "feedback",
+  "stateful": false,
+  "uses": [],
+  "figma": "https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=196:8125",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A small frosted bubble with one line of help and an arrow pointing at what it explains (“Turn on your microphone to join”). The arrow can sit at the start, middle or end, and point down or up.",
+  "props": {
+    "text": {
+      "type": "text",
+      "label": "Text",
+      "default": "Turn on your microphone to join"
+    },
+    "arrow": {
+      "type": "enum",
+      "label": "Arrow",
+      "ui": "steps",
+      "values": [
+        "start",
+        "center",
+        "end"
+      ],
+      "default": "center"
+    },
+    "direction": {
+      "type": "enum",
+      "label": "Points",
+      "ui": "steps",
+      "values": [
+        "down",
+        "up"
+      ],
+      "default": "down"
+    }
+  },
+  "template": "<div class=\"tooltip\" data-arrow=\"{{arrow}}\" data-direction=\"{{direction}}\" role=\"tooltip\">{{text}}<span class=\"tooltip__arrow\"></span></div>",
+  "markup": "<div class=\"tooltip\" data-arrow=\"{{arrow}}\" data-direction=\"{{direction}}\" role=\"tooltip\">{{text}}<span class=\"tooltip__arrow\"></span></div>"
+}

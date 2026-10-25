@@ -78,8 +78,18 @@
         "xs"
       ],
       "default": "md"
+    },
+    "tone": {
+      "type": "enum",
+      "label": "Tone",
+      "ui": "steps",
+      "values": [
+        "default",
+        "error"
+      ],
+      "default": "default"
     }
   },
-  "template": "<button class=\"icon-button\" data-elevation=\"{{elevation}}\" data-size=\"{{size}}\" aria-label=\"{{icon}}\"><i class=\"icon icon-{{icon}}\"></i></button>",
+  "template": "<button class=\"icon-button\" data-elevation=\"{{elevation}}\" data-size=\"{{size}}\" data-tone=\"{{tone}}\" aria-label=\"{{icon}}\"><i class=\"icon icon-{{icon}}\"></i></button>",
   "skeleton": "<span class=\"icon-button\" data-state=\"loading\" data-size=\"{{size}}\" data-elevation=\"{{elevation}}\"></span>"
 }

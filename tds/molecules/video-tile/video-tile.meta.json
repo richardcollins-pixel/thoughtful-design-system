@@ -1,0 +1,67 @@
+{
+  "name": "Video tile",
+  "tier": "molecules",
+  "category": "media",
+  "stateful": false,
+  "uses": [
+    "atoms/blob",
+    "atoms/avatar"
+  ],
+  "figma": "https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=133:2460",
+  "attributes": {},
+  "states": [],
+  "variables": {},
+  "styles": [],
+  "description": "A person’s video in a rounded frame. Video shows the picture; Paused shows T with a no-signal badge and a note (“Video paused”); Waiting shows the therapist’s photo and “Hang tight”; Empty is a plain tint (a camera that is off, or a call that did not connect). Preview is the tall frame on Get Ready (268 by 357); Remote runs edge to edge at 4:3 (402 by 536, the therapist cropped); Self is the small corner picture (126 by 168).",
+  "props": {
+    "kind": {
+      "type": "enum",
+      "label": "Kind",
+      "values": [
+        "video",
+        "paused",
+        "waiting",
+        "empty"
+      ],
+      "default": "video"
+    },
+    "size": {
+      "type": "enum",
+      "label": "Size",
+      "ui": "steps",
+      "values": [
+        "preview",
+        "remote",
+        "self"
+      ],
+      "default": "preview"
+    },
+    "source": {
+      "type": "enum",
+      "label": "Picture",
+      "ui": "steps",
+      "values": [
+        "therapist",
+        "self"
+      ],
+      "default": "therapist"
+    },
+    "person": {
+      "type": "person",
+      "label": "Provider",
+      "default": "kristina"
+    },
+    "title": {
+      "type": "text",
+      "label": "Title",
+      "default": "Video paused"
+    },
+    "body": {
+      "type": "text",
+      "label": "Body",
+      "default": "Join the call - I’ll fix the video once you have better signal"
+    }
+  },
+  "template": "<div class=\"video-tile\" data-kind=\"{{kind}}\" data-size=\"{{size}}\"><img class=\"video-tile__image\" src=\"../tds/assets/images/video/{{source}}-video.png\" alt=\"\"><div class=\"video-tile__status\"><span class=\"video-tile__t\"><span class=\"blob\" data-size=\"48\" data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"video-tile__badge\"><i class=\"icon icon-wifi-off\"></i></span></span><span class=\"avatar video-tile__avatar\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span><b class=\"video-tile__title\">{{title}}</b><span class=\"video-tile__body\">{{body}}</span></div><div class=\"video-tile__controls\" data-slot=\"controls\"></div></div>",
+  "markup": "<div class=\"video-tile\" data-kind=\"{{kind}}\" data-size=\"{{size}}\"><img class=\"video-tile__image\" src=\"../tds/assets/images/video/{{source}}-video.png\" alt=\"\"><div class=\"video-tile__status\"><span class=\"video-tile__t\"><span class=\"blob\" data-size=\"48\" data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"video-tile__badge\"><i class=\"icon icon-wifi-off\"></i></span></span><span class=\"avatar video-tile__avatar\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span><b class=\"video-tile__title\">{{title}}</b><span class=\"video-tile__body\">{{body}}</span></div><div class=\"video-tile__controls\" data-slot=\"controls\"></div></div>"
+}

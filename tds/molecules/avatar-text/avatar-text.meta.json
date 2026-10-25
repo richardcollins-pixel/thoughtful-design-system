@@ -51,7 +51,8 @@
         "none",
         "t",
         "t-provider",
-        "icon"
+        "icon",
+        "provider"
       ],
       "default": "t"
     },

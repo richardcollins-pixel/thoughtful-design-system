@@ -52,6 +52,8 @@
 @import url("molecules/option-tile/option-tile.css") layer(molecules);
 @import url("molecules/day-chip/day-chip.css") layer(molecules);
 @import url("molecules/cycle-art/cycle-art.css") layer(molecules);
+@import url("molecules/video-tile/video-tile.css") layer(molecules);
+@import url("molecules/tooltip/tooltip.css") layer(molecules);
 @import url("molecules/action-row/action-row.css") layer(molecules);
 @import url("molecules/text-section/text-section.css") layer(molecules);
 @import url("molecules/coachmark-arrow/coachmark-arrow.css") layer(molecules);
@@ -111,6 +113,7 @@
 @import url("screens/screener/screener.css") layer(screens);
 @import url("screens/booking/booking.css") layer(screens);
 @import url("screens/tour/tour.css") layer(screens);
+@import url("screens/video/video.css") layer(screens);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */
 
