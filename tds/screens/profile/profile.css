@@ -20,4 +20,4 @@
 .profile-pages__bottom > .button, .profile-pages__bottom > [data-item="submit"] { margin-inline: var(--space-4); width: calc(100% - var(--space-8)); margin-bottom: 23px; }
 .profile-pages[data-kind="what-is"] .header-inset-card { --card-fill: var(--gradient-purple-to-orange); }
 
-.profile-pages__hero .hero-header { margin: 0; width: 100%; }
+.profile-pages__hero .header-card { margin: 0; width: 100%; }   /* the screen already runs to the edges */

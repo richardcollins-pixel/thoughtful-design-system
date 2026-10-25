@@ -1,6 +1,0 @@
-/* Organism: hero header. A full-width gradient (warm: purple to orange, cool: purple to blue) with 48px bottom corners: the header on top, a big centered
-   headline under it. Slots: top, content. */
-.hero-header { box-sizing: border-box; width: calc(100% + 2 * var(--page-gutter, var(--space-4))); margin: calc(var(--page-gutter, var(--space-4)) * -1) calc(var(--page-gutter, var(--space-4)) * -1) 0; padding-bottom: var(--space-16); border-radius: 0 0 48px 48px; background: var(--gradient-purple-to-orange); color: var(--text-primary); }
-.hero-header[data-tone="cool"] { background: var(--gradient-purple-to-blue); }
-.hero-header__content { padding: var(--space-6) var(--space-4) 0; text-align: center; }
-.hero-header__headline { margin: 0; font: var(--text-headline-2); letter-spacing: var(--text-headline-2-ls); }

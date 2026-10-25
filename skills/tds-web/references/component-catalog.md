@@ -121,7 +121,7 @@ A T avatar (or none) beside a title and an optional line under it, with an optio
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4359-55294
 
 ### `molecules/video-tile` — Video tile
-A person’s video in a rounded frame. Video plays the video (muted, looping: the therapist’s horizontal clip or yours, a vertical one, cropped to fill); Paused shows T with a no-signal badge and a note (“Video paused”); Waiting shows the therapist’s photo and “Hang tight”; Empty is a plain tint (a camera that is off, or a call that did not connect). Preview is the tall frame on Get Ready (268 by 357); Remote runs edge to edge as a square (402 by 402, the therapist cropped); Backdrop is the same video full screen, blurred and see-through, to sit behind a screen; Self is the small corner picture (126 by 168).
+A person’s video in a rounded frame. Video plays the video (muted, looping: the therapist’s horizontal clip or yours, a vertical one, cropped to fill); Paused shows T with a no-signal badge and a note (“Video paused”); Waiting shows the therapist’s photo and “Hang tight”; Empty is a plain tint (a camera that is off, or a call that did not connect). Preview is the tall frame on Get Ready (268 by 357); Remote runs edge to edge tall at 3:4 (402 by 536, the whole height of the horizontal clip, cropped at the sides); Backdrop is the same video full screen, blurred and see-through, to sit behind a screen; Self is the small corner picture (126 by 168).
 - Props: kind (video | paused | waiting | empty), size (preview | remote | self | backdrop), source (provider | user), person (person), title (text), body (text)
 - Built from: `atoms/blob`, `atoms/avatar`
 - Figma: https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=133:2460
@@ -264,8 +264,8 @@ The top of the home screen: the status bar and a Feedback button, T (the blob) w
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4140-107377
 
 ### `organisms/header-card` — Header card
-The card that opens a screen, with the header (status bar and close button) on top: it runs to the screen edges and its bottom corners are rounded. Default is the colorful one with an overline, headline, a line of copy and a duration. Provider is the quiet one with the provider's photo on top.
-- States: default, provider, prompt
+The card that opens a screen, with the header (status bar and close button) on top: it runs to the screen edges and its bottom corners are rounded. Default is the colorful one with an overline, headline, a line of copy and a duration. Provider is the quiet one with the provider's photo on top. Hero is the title page version: the back button and page title on top and one big centered headline, in the warm gradient (Support) or the cool one (About).
+- States: default, provider, prompt, hero, hero-cool
 - Built from: `atoms/card`, `atoms/avatar`, `molecules/icon-label`, `molecules/skeleton-text`, `molecules/header`, `molecules/avatar-text`, `molecules/chat-input`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988
 
@@ -274,12 +274,6 @@ A card that sits inset on a screen, under its header: a serif headline and a few
 - States: default, profile
 - Built from: `atoms/card`, `molecules/skeleton-text`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988
-
-### `organisms/hero-header` — Hero header
-A full-width gradient header with rounded bottom corners: the back button and page title on top, and a big centered headline. Warm is purple to orange (Support); Cool is purple to blue (About).
-- States: warm, cool
-- Built from: `molecules/header`
-- Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4570-20673
 
 ### `organisms/session-card` — Session card
 A card that invites the user into a session. Medium is the carousel size, Large is the tall one for the top of a screen, and New topic is the centered card that starts a conversation. Each ends in the input pill.
@@ -465,18 +459,6 @@ The first-run tour: a coachmark that points at one thing while everything else o
 - Built from: `organisms/home-header`, `patterns/bite-size-support-section`, `patterns/topics-section`, `patterns/therapist-section`, `molecules/bottom-nav`, `molecules/chat-header`, `organisms/chat-thread`, `organisms/chat-composer`, `organisms/coachmark`, `atoms/glow`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4226-65802
 
-### `screens/appointment-preview` — Appointment preview
-Getting ready to join an in-app video appointment: the preview of you (your own video), mute and camera buttons and Join Appointment, with the microphone and camera permission prompts, no microphone (Join is off until it is on; a tooltip says what to do), no camera (you can still join), access blocked (the phone’s notice with Settings), video paused (a weak signal) and unable to join (Try Again).
-- States: ready, ready-mic-prompt, ready-camera-prompt, ready-no-mic, ready-no-camera, ready-mic-blocked, ready-camera-blocked, ready-paused, ready-unable
-- Built from: `molecules/header`, `molecules/avatar-text`, `molecules/video-tile`, `molecules/tooltip`, `atoms/icon-button`, `atoms/button`, `atoms/glow`, `device/alert`
-- Figma: https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=0-1
-
-### `screens/video` — Video
-Being in an in-app video appointment (full blend): the therapist’s video as a square across the screen with a blurred, see-through copy of it filling the background, your own video small in the corner, leave on the top left, mute and camera on the top right, and T taking notes at the bottom. Also the therapist not here yet, and video paused.
-- States: call, call-waiting, call-paused
-- Built from: `device/status-bar`, `molecules/avatar-text`, `molecules/video-tile`, `atoms/icon-button`
-- Figma: https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=0-1
-
 ### `screens/home` — Home
 The home screen: the home header, then sections one under the other, and the bottom nav stuck to the bottom. The states follow your care: New, One topic, Several topics, Session booked, No appointment and Session today (your therapist first, with Join session).
 - States: new, one-topic, several-topics, booked, no-appointment, join
@@ -488,6 +470,18 @@ A whole chat screen: the header, the thread, and either the composer (with the k
 - States: recommendations, typing, session, session-keyboard, end, sharing, sharing-off-record, off-record, compare-notes
 - Built from: `molecules/chat-header`, `organisms/chat-thread`, `organisms/chat-composer`, `organisms/end-of-session-card`, `atoms/glow`, `patterns/session-sharing-sheet`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046
+
+### `screens/appointment-preview` — Appointment preview
+Getting ready to join an in-app video appointment: the preview of you (your own video), mute and camera buttons and Join Appointment, with the microphone and camera permission prompts, no microphone (Join is off until it is on; a tooltip says what to do), no camera (you can still join), access blocked (the phone’s notice with Settings), video paused (a weak signal) and unable to join (Try Again).
+- States: ready, ready-mic-prompt, ready-camera-prompt, ready-no-mic, ready-no-camera, ready-mic-blocked, ready-camera-blocked, ready-paused, ready-unable
+- Built from: `molecules/header`, `molecules/avatar-text`, `molecules/video-tile`, `molecules/tooltip`, `atoms/icon-button`, `atoms/button`, `atoms/glow`, `device/alert`
+- Figma: https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=0-1
+
+### `screens/video` — Video
+Being in an in-app video appointment (full blend): the therapist’s video as a square across the screen with a blurred, see-through copy of it filling the background, your own video small in the corner, mute and camera on the top left, leave on the top right, and T taking notes at the bottom. Also the therapist not here yet, and video paused.
+- States: call, call-waiting, call-paused
+- Built from: `device/status-bar`, `molecules/avatar-text`, `molecules/video-tile`, `atoms/icon-button`
+- Figma: https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=0-1
 
 ### `screens/summary` — Summary
 What T writes up after a session. A header (the date, the title, a line and how long it took) over sections you can show or hide in the Sections slot: Today’s Topic, The Reframe and The Plan (T can leave one out if it does not fit the session), Suggestions (only for LIWT conversations), and, for higher acuity, Your therapist and Support Resources. Off the record shows a label in the header when the person chose it, in any conversation. T is the version T writes; Provider is the version a provider reads, with their photo in a flat header. The provider’s summary has the post-appointment thoughts flow as states: T’s follow-up prompt in place of the summary, then Your Thoughts loading, then added by you.
@@ -504,7 +498,7 @@ The history screen: a title bar, then a list of past sessions as session history
 ### `screens/profile` — Profile
 The profile screen: a title bar, a card with your name, phone and address, then groups of rows: Your Therapist, Preferences (with the SMS reminders toggle), Support & Feedback, and Account & Privacy. The bottom nav is on Profile. The title bar and the nav are blurred over the content as it scrolls. Under it, the pages you reach from Profile are states: About (Meet Thoughtful, with About and Legal), Support (and with the call requested), Share feedback and What is Thoughtful?.
 - States: default, about, support, support-called, feedback, what-is
-- Built from: `atoms/button`, `atoms/checkbox`, `atoms/glow`, `atoms/textarea`, `device/keyboard`, `molecules/bottom-nav`, `molecules/header`, `molecules/text-section`, `organisms/action-group`, `organisms/header-inset-card`, `organisms/hero-header`
+- Built from: `atoms/button`, `atoms/checkbox`, `atoms/glow`, `atoms/textarea`, `device/keyboard`, `molecules/bottom-nav`, `molecules/header`, `molecules/text-section`, `organisms/action-group`, `organisms/header-inset-card`, `organisms/header-card`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4196-43598
 
 ### `screens/message` — Message

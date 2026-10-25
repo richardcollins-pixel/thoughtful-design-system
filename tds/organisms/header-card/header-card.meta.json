@@ -125,6 +125,72 @@
           "value": "Appointment with Kristina"
         }
       }
+    },
+    {
+      "id": "hero",
+      "name": "Hero, warm",
+      "template": "<article class=\"card header-card\" data-variant=\"hero\"><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\"><div class=\"header-card__titles\">{{item:headline}}</div></div></article>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "headline"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "sub-section",
+            "title": "Support"
+          }
+        },
+        "headline": {
+          "value": "How can we help?"
+        }
+      }
+    },
+    {
+      "id": "hero-cool",
+      "name": "Hero, cool",
+      "template": "<article class=\"card header-card\" data-variant=\"hero-cool\"><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\"><div class=\"header-card__titles\">{{item:headline}}</div></div></article>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "headline"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "variant": "sub-section",
+            "title": "Support"
+          }
+        },
+        "headline": {
+          "value": "How can we help?"
+        }
+      }
     }
   ],
   "variables": {
@@ -133,7 +199,7 @@
   },
   "styles": [],
   "selector": ".header-card",
-  "description": "The card that opens a screen, with the header (status bar and close button) on top: it runs to the screen edges and its bottom corners are rounded. Default is the colorful one with an overline, headline, a line of copy and a duration. Provider is the quiet one with the provider's photo on top.",
+  "description": "The card that opens a screen, with the header (status bar and close button) on top: it runs to the screen edges and its bottom corners are rounded. Default is the colorful one with an overline, headline, a line of copy and a duration. Provider is the quiet one with the provider's photo on top. Hero is the title page version: the back button and page title on top and one big centered headline, in the warm gradient (Support) or the cool one (About).",
   "items": {
     "photo": {
       "type": "component",

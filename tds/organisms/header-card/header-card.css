@@ -38,3 +38,7 @@
 .header-card__light { position: absolute; inset: 0; z-index: -1; border-radius: inherit; overflow: clip; pointer-events: none; }
 .header-card[data-variant="prompt"] { isolation: isolate; }
 .header-card .glow { --glow-size: var(--glow-card-size); --glow-blur: var(--glow-card-blur); --glow-opacity: var(--glow-card-opacity); }
+/* hero: the back header and one big headline (the pages under Profile); warm is the default gradient, cool is purple to blue */
+.header-card[data-variant="hero"], .header-card[data-variant="hero-cool"] { --header-radius: 48px; min-height: 0; padding: 152px var(--space-4) var(--space-16); }
+.header-card[data-variant="hero-cool"] { --card-fill: var(--gradient-purple-to-blue); }
+.header-card[data-variant="hero"] .header-card__headline, .header-card[data-variant="hero-cool"] .header-card__headline { font: var(--text-headline-2); letter-spacing: var(--text-headline-2-ls); }
