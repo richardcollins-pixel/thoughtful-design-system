@@ -5,7 +5,7 @@
 .video__top { position: relative; }
 .video__bar { position: absolute; left: var(--space-4); right: var(--space-4); top: 62px; display: flex; align-items: center; justify-content: space-between; }
 .video__bar-right { display: flex; gap: var(--space-2); }
-.video__remote { margin-top: 191px; }
-.video__self { position: absolute; right: var(--space-4); top: 583px; z-index: var(--layer-raised); }
+.video__remote { margin-top: 118px; }
+.video__self { position: absolute; right: var(--space-4); top: 605px; z-index: var(--layer-raised); }
 .video__notes { position: absolute; left: var(--space-8); top: 797px; }
 .video__notes .avatar-text { width: auto; gap: var(--space-2); }
