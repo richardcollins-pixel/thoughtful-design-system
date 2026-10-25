@@ -85,6 +85,7 @@
 @import url("organisms/bottom-sheet/bottom-sheet.css") layer(organisms);
 @import url("organisms/chat-composer/chat-composer.css") layer(organisms);
 @import url("organisms/booking-intro/booking-intro.css") layer(organisms);
+@import url("organisms/loading-state/loading-state.css") layer(organisms);
 @import url("organisms/dialog/dialog.css") layer(organisms);
 @import url("organisms/hero-header/hero-header.css") layer(organisms);
 @import url("organisms/end-of-session-card/end-of-session-card.css") layer(organisms);

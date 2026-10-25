@@ -84,7 +84,8 @@
         "small",
         "medium",
         "large",
-        "subhead"
+        "subhead",
+        "chat"
       ],
       "default": "large",
       "ui": "steps"

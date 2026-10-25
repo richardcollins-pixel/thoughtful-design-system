@@ -6,6 +6,7 @@
 .avatar-text__title { font: var(--text-body-lg-semibold); letter-spacing: var(--text-body-lg-semibold-ls); }
 .avatar-text[data-style="small"] .avatar-text__title { font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); }
 .avatar-text[data-style="medium"] .avatar-text__title { font: var(--text-body-md-semibold); letter-spacing: var(--text-body-md-semibold-ls); }
+.avatar-text[data-style="chat"] .avatar-text__title { font: var(--text-body-lg); letter-spacing: var(--text-body-lg-ls); }
 .avatar-text[data-style="subhead"] .avatar-text__title { font: var(--text-subhead); letter-spacing: var(--text-subhead-ls); }
 .avatar-text__subline { font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); opacity: var(--opacity-muted, .5); }
 .avatar-text__close { display: none; appearance: none; border: 0; background: none; padding: 0; margin: 0; width: 16px; height: 16px; align-self: flex-start; color: inherit; cursor: pointer; }

@@ -389,6 +389,62 @@
           }
         }
       }
+    },
+    {
+      "id": "compare-notes",
+      "name": "Compare notes",
+      "template": "<section class=\"chat\" data-state=\"sharing\"><div class=\"glow chat__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"chat__top\" data-slot=\"top\">{{item:header}}</div><div class=\"chat__thread\" data-slot=\"thread\">{{item:thread}}</div><div class=\"chat__composer\" data-slot=\"composer\">{{item:composer}}</div><div class=\"bottom-sheet-backdrop\"></div><div class=\"chat__sheet\" data-slot=\"sheet\">{{item:sheet}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "thread",
+          "label": "Thread slot",
+          "items": [
+            "thread"
+          ]
+        },
+        {
+          "id": "composer",
+          "label": "Composer slot",
+          "items": [
+            "composer"
+          ]
+        },
+        {
+          "id": "sheet",
+          "label": "Sheet slot",
+          "items": [
+            "sheet"
+          ]
+        }
+      ],
+      "personas": [],
+      "overrides": {
+        "header": {
+          "props": {
+            "timer": "off",
+            "recap": "on",
+            "title": "Compare Notes"
+          }
+        },
+        "thread": {
+          "props": {
+            "state": "start",
+            "bot1.text": "[This is the first message from T]"
+          }
+        },
+        "composer": {
+          "props": {
+            "state": "keyboard"
+          }
+        }
+      }
     }
   ],
   "variables": {},
