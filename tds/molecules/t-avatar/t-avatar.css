@@ -9,3 +9,6 @@
 .t-avatar[data-type="t-provider"] .t-avatar__provider { --avatar-size: var(--t-size); margin-left: calc(var(--t-size) / -2); position: relative; z-index: var(--layer-raised); box-shadow: 0 0 0 var(--t-gap) var(--t-avatar-ring, var(--bg-base)); }
 .t-avatar[data-type="icon"] .t-avatar__icon { display: grid; place-items: center; width: var(--t-size); height: var(--t-size); border-radius: 50%; color: var(--white); background: var(--gradient-dark-rose-to-orange); }
 .t-avatar__icon > .icon { --icon-size: calc(var(--t-size) / 2); --icon-color: currentColor; }
+
+/* the provider alone: just the photo */
+.t-avatar[data-type="provider"] .t-avatar__provider { display: block; --avatar-size: var(--t-size); }

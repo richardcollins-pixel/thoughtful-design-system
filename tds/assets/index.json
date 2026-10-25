@@ -85,11 +85,25 @@
      "label": "System",
      "items": [
       {
+       "name": "app-icon",
+       "file": "images/system/app-icon.png",
+       "width": 167,
+       "height": 167,
+       "bytes": 19351
+      },
+      {
        "name": "att-icon",
        "file": "images/system/att-icon.png",
        "width": 1170,
        "height": 2532,
        "bytes": 511562
+      },
+      {
+       "name": "flag-us",
+       "file": "images/system/flag-us.svg",
+       "width": 16.0,
+       "height": 16.0,
+       "bytes": 19457
       }
      ]
     },
@@ -145,6 +159,26 @@
        "width": 800,
        "height": 600,
        "bytes": 540387
+      }
+     ]
+    },
+    {
+     "id": "video",
+     "label": "Video",
+     "items": [
+      {
+       "name": "self-video",
+       "file": "images/video/self-video.png",
+       "width": 268,
+       "height": 357,
+       "bytes": 153679
+      },
+      {
+       "name": "therapist-video",
+       "file": "images/video/therapist-video.png",
+       "width": 402,
+       "height": 536,
+       "bytes": 334837
       }
      ]
     }

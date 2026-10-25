@@ -340,6 +340,7 @@
       reset() { this.clearVars(); Object.keys(attrState).forEach((k) => delete attrState[k]); stateName = ''; surfaceState = 'normal'; curExample = 0; if (spec) { clearTimeout(this._t); state = { state: meta.states[0].id, personas: {}, items: {} }; } place(build(examples[0] && examples[0].markup)); },
     };
     import('../tds/behaviors/carousel.js' + (ver ? `?v=${ver}` : ''));
+    import('../tds/behaviors/loader.js' + (ver ? `?v=${ver}` : ''));
     // the blob engine is big (about 80 KB), so it loads only once something on the page needs it: a .blob or a .glow, now or later
     const loadBlob = () => import('../tds/behaviors/blob.js' + (ver ? `?v=${ver}` : ''));
     if (document.querySelector('.blob, .glow')) loadBlob();

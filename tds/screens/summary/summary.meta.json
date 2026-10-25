@@ -8,7 +8,8 @@
     "molecules/text-section",
     "patterns/suggestions-section",
     "patterns/therapist-section",
-    "patterns/resources-section"
+    "patterns/resources-section",
+    "organisms/loading-state"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4197-43941",
   "align": "top",
@@ -16,7 +17,7 @@
     {
       "id": "t",
       "name": "T",
-      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:reframe}}{{item:plan}}{{item:suggestions}}{{item:therapist}}{{item:resources}}</div></main>",
+      "template": "<main class=\"summary\"><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:thoughts}}{{item:topic}}{{item:reframe}}{{item:plan}}{{item:suggestions}}{{item:therapist}}{{item:resources}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -29,6 +30,7 @@
           "id": "sections",
           "label": "Sections slot",
           "items": [
+            "thoughts",
             "topic",
             "reframe",
             "plan",
@@ -52,7 +54,7 @@
     {
       "id": "provider",
       "name": "Provider",
-      "template": "<main class=\"summary\"><div class=\"glow summary__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:topic}}{{item:reframe}}{{item:plan}}{{item:suggestions}}{{item:therapist}}{{item:resources}}</div></main>",
+      "template": "<main class=\"summary\"><div class=\"glow summary__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:thoughts}}{{item:topic}}{{item:reframe}}{{item:plan}}{{item:suggestions}}{{item:therapist}}{{item:resources}}</div></main>",
       "slots": [
         {
           "id": "header",
@@ -65,6 +67,7 @@
           "id": "sections",
           "label": "Sections slot",
           "items": [
+            "thoughts",
             "topic",
             "reframe",
             "plan",
@@ -80,10 +83,27 @@
       "overrides": {
         "header": {
           "props": {
-            "state": "provider"
+            "state": "provider",
+            "headline": "Appointment with Kristina",
+            "duration.text": "45 min"
           }
         }
       }
+    },
+    {
+      "id": "loading",
+      "name": "Loading",
+      "template": "<section class=\"summary-loading\"><div class=\"summary-loading__body\" data-slot=\"loader\">{{item:loader}}</div></section>",
+      "slots": [
+        {
+          "id": "loader",
+          "label": "Loader slot",
+          "items": [
+            "loader"
+          ]
+        }
+      ],
+      "personas": []
     }
   ],
   "variables": {},
@@ -187,6 +207,35 @@
       "expose": [
         "heading",
         "copy"
+      ]
+    },
+    "thoughts": {
+      "type": "component",
+      "component": "molecules/text-section",
+      "label": "Your Thoughts",
+      "props": {
+        "heading": "Your Thoughts",
+        "body": "You came in feeling overwhelmed by low-grade depression and anxiety primarily driven by the financial uncertainty of your work situation.",
+        "show": "off"
+      },
+      "expose": [
+        "heading",
+        "body",
+        "tag",
+        "loading"
+      ]
+    },
+    "loader": {
+      "type": "component",
+      "component": "organisms/loading-state",
+      "label": "Loading state",
+      "props": {
+        "state": "default"
+      },
+      "expose": [
+        "msg1",
+        "msg2",
+        "msg3"
       ]
     }
   },
@@ -347,6 +396,95 @@
               "header",
               "header.title",
               "History"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "follow",
+      "label": "Top of the summary",
+      "type": "select",
+      "options": [
+        {
+          "value": "summary",
+          "label": "Summary",
+          "set": [
+            [
+              "header",
+              "state",
+              "provider"
+            ]
+          ]
+        },
+        {
+          "value": "prompt",
+          "label": "T’s follow-up prompt",
+          "set": [
+            [
+              "header",
+              "state",
+              "prompt"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thoughts",
+      "label": "Your Thoughts",
+      "type": "select",
+      "options": [
+        {
+          "value": "off",
+          "label": "Off",
+          "set": [
+            [
+              "thoughts",
+              "show",
+              "off"
+            ]
+          ]
+        },
+        {
+          "value": "loading",
+          "label": "Loading",
+          "set": [
+            [
+              "thoughts",
+              "show",
+              "on"
+            ],
+            [
+              "thoughts",
+              "loading",
+              "yes"
+            ],
+            [
+              "thoughts",
+              "tag",
+              ""
+            ]
+          ]
+        },
+        {
+          "value": "added",
+          "label": "Added by you",
+          "set": [
+            [
+              "thoughts",
+              "show",
+              "on"
+            ],
+            [
+              "thoughts",
+              "loading",
+              "no"
+            ],
+            [
+              "thoughts",
+              "tag",
+              "Added by you"
             ]
           ]
         }

@@ -12,3 +12,13 @@
 .device-alert__message { margin: 0; font-weight: 400; }
 .device-alert__buttons { display: flex; flex-direction: column; gap: 10px; }
 .device-alert__button { appearance: none; border: 0; margin: 0; width: 100%; padding: 13px 16px; border-radius: 100px; background: rgb(120 120 128 / .32); color: #fff; font: 510 17px/22px var(--alert-font); letter-spacing: -.43px; cursor: pointer; }
+
+/* variants: microphone and camera permission prompts, and a plain notice */
+.device-alert__tile { display: none; position: absolute; left: 0; top: 0; width: 62.667px; height: 61.667px; border-radius: 15.3px; background: linear-gradient(180deg, #ffb25b, #f2882b); place-items: center; }
+.device-alert__tile .icon { --icon-size: 0px; --icon-color: #fff; }   /* the icon atom sets display, so hide by size */
+.device-alert[data-icon="mic"] .device-alert__tile, .device-alert[data-icon="camera"] .device-alert__tile { display: grid; }
+.device-alert[data-icon="mic"] .device-alert__tile .icon-mic-on, .device-alert[data-icon="camera"] .device-alert__tile .icon-video-chat { --icon-size: 36px; }
+.device-alert[data-icon="mic"] .device-alert__app, .device-alert[data-icon="camera"] .device-alert__app { display: none; }
+.device-alert[data-icon="none"] .device-alert__icon { display: none; }
+.device-alert[data-buttons="row"] .device-alert__buttons { flex-direction: row; }
+.device-alert[data-buttons="row"] .device-alert__button { flex: 1; }

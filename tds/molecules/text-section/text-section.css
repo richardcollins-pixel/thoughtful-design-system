@@ -1,4 +1,13 @@
-/* Molecule: text section. A serif subhead and plain text under it (Today's Topic, The Reframe, The Plan). Line breaks in the text are kept. */
+/* Molecule: text section. A serif subhead and plain text under it (Today's Topic, The Reframe, The Plan). Line breaks in the text are kept.
+   Loading swaps the text for three shimmering lines; a tag (Added by you) sits at the end of the subhead. */
 .text-section { display: flex; flex-direction: column; gap: var(--space-2); width: 100%; }
+.text-section__head { display: flex; align-items: center; gap: var(--space-2); }
 .text-section__title { margin: 0; font: var(--text-subhead); letter-spacing: var(--text-subhead-ls); }
+.text-section__tag { padding: 2px var(--space-2); border-radius: var(--radius-full); background: var(--bg-elevation-20); color: var(--text-primary); font: var(--text-body-xs); letter-spacing: var(--text-body-xs-ls); }
 .text-section__body { margin: 0; color: var(--text-secondary); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); white-space: pre-line; }
+.text-section__skeleton { display: none; grid-auto-rows: 1lh; align-items: center; font: var(--text-body-md); }
+.text-section__skeleton > .skeleton:nth-child(1) { width: 82%; }
+.text-section__skeleton > .skeleton:nth-child(2) { width: 100%; }
+.text-section__skeleton > .skeleton:nth-child(3) { width: 70%; }
+.text-section[data-loading="yes"] .text-section__body { display: none; }
+.text-section[data-loading="yes"] .text-section__skeleton { display: grid; }

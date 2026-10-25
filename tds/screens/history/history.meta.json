@@ -47,6 +47,54 @@
       ]
     },
     {
+      "id": "appointment",
+      "name": "With an appointment",
+      "template": "<section class=\"history\"><div class=\"glow history__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"history__top\" data-slot=\"top\">{{item:header}}</div><div class=\"history__list\" data-slot=\"list\">{{item:c1}}{{item:c2}}{{item:c3}}{{item:c4}}</div><div class=\"history__nav\" data-slot=\"nav\">{{item:nav}}</div></section>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "list",
+          "label": "List slot",
+          "items": [
+            "c1",
+            "c2",
+            "c3",
+            "c4"
+          ]
+        },
+        {
+          "id": "nav",
+          "label": "Nav slot",
+          "items": [
+            "nav"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "header": {
+          "props": {
+            "title": "History"
+          }
+        },
+        "c1": {
+          "props": {
+            "state": "image",
+            "headline": "Appointment with Kristina",
+            "duration.text": "45 min"
+          }
+        }
+      }
+    },
+    {
       "id": "empty",
       "name": "Empty",
       "template": "<section class=\"history\"><div class=\"glow history__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"history__top\" data-slot=\"top\">{{item:header}}</div><div class=\"history__list\" data-slot=\"list\">{{item:empty}}</div><div class=\"history__nav\" data-slot=\"nav\">{{item:nav}}</div></section>",

@@ -1,0 +1,64 @@
+{
+  "name": "Loading state",
+  "tier": "organisms",
+  "category": "feedback",
+  "stateful": false,
+  "uses": [
+    "atoms/blob",
+    "atoms/glow"
+  ],
+  "figma": "https://www.figma.com/design/Qx2GM9Q3Q8TYpTDs9URJEK/SATT?node-id=128-18614",
+  "align": "top",
+  "states": [
+    {
+      "id": "default",
+      "name": "Default",
+      "template": "<section class=\"loading-state\" data-loader data-loader-shapes=\"blob,pencil,bubble\" data-loader-themes=\"ember,bloom,bloom\"><div class=\"glow loading-state__glow\" data-for=\"loader-blob\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"loading-state__content\"><span class=\"blob loading-state__blob\" id=\"loader-blob\" data-theme=\"ember\"><canvas aria-hidden=\"true\"></canvas></span><div class=\"loading-state__captions\" data-slot=\"captions\">{{item:msg1}}{{item:msg2}}{{item:msg3}}</div></div></section>",
+      "slots": [
+        {
+          "id": "captions",
+          "label": "Captions slot",
+          "items": [
+            "msg1",
+            "msg2",
+            "msg3"
+          ]
+        }
+      ],
+      "personas": []
+    }
+  ],
+  "variables": {},
+  "styles": [
+    "motion-travel"
+  ],
+  "selector": ".loading-state",
+  "description": "T while something is being made for you (the appointment summary). T morphs between shapes as the line under it changes: it starts as the plain blob (“Wrapping up your appointment…”), becomes a pencil (“Finishing up my notes…”), goes back, becomes a speech bubble (“Packaging it up for you…”), and loops. The caption only changes while T is a blob, enters from below and leaves upward. A blurred copy of T, in the same shape and colors, glows at the bottom of the screen. Timing is in `behaviors/loader.js` (from the loading prototype v4); reduced motion shows the first line and a still T.",
+  "items": {
+    "msg1": {
+      "type": "text",
+      "tag": "p",
+      "class": "loading-state__line",
+      "label": "Line 1 (T as a blob)",
+      "value": "Wrapping up your appointment..."
+    },
+    "msg2": {
+      "type": "text",
+      "tag": "p",
+      "class": "loading-state__line",
+      "label": "Line 2 (T as a pencil)",
+      "value": "Finishing up my notes..."
+    },
+    "msg3": {
+      "type": "text",
+      "tag": "p",
+      "class": "loading-state__line",
+      "label": "Line 3 (T as a bubble)",
+      "value": "Packaging it up for you..."
+    }
+  },
+  "personas": [],
+  "inputs": [],
+  "properties": [],
+  "prompts": []
+}

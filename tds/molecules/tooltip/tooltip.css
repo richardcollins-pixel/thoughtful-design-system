@@ -1,0 +1,7 @@
+/* Molecule: tooltip. A frosted light bubble (70% white), dark 16px text, 16px corners and a small arrow. */
+.tooltip { --tooltip-arrow-x: 50%; position: relative; box-sizing: border-box; display: inline-block; max-width: 100%; white-space: nowrap; padding: var(--space-4) var(--space-4); border-radius: var(--radius-md); background: var(--bg-elevation-70); backdrop-filter: blur(var(--blur-md)); color: var(--text-primary-inverse); font: var(--text-body-md); letter-spacing: var(--text-body-md-ls); }
+.tooltip[data-arrow="start"] { --tooltip-arrow-x: 24px; }
+.tooltip[data-arrow="end"] { --tooltip-arrow-x: calc(100% - 24px); }
+.tooltip__arrow { position: absolute; left: var(--tooltip-arrow-x); width: 16px; height: 8px; translate: -50% 0; background: inherit; clip-path: polygon(50% 100%, 0 0, 100% 0); backdrop-filter: inherit; }
+.tooltip[data-direction="down"] .tooltip__arrow { top: 100%; }
+.tooltip[data-direction="up"] .tooltip__arrow { bottom: 100%; rotate: 180deg; }

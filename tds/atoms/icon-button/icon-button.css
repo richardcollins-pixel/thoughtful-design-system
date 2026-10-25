@@ -39,3 +39,6 @@
 /* loading: the shared shimmer, no icon, not clickable */
 .icon-button[data-state="loading"] { background: var(--skeleton-fill); background-size: 200% 100%; animation: var(--skeleton-animation); pointer-events: none; }
 .icon-button[data-state="loading"] > * { visibility: hidden; }
+
+/* error tone: the icon is red (a muted mic or camera that needs fixing) */
+.icon-button[data-tone="error"] { --icon-button-icon: var(--status-error-primary); }

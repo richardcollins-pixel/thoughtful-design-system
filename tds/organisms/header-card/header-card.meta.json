@@ -8,7 +8,9 @@
     "atoms/avatar",
     "molecules/icon-label",
     "molecules/skeleton-text",
-    "molecules/header"
+    "molecules/header",
+    "molecules/avatar-text",
+    "molecules/chat-input"
   ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988",
   "states": [
@@ -87,6 +89,40 @@
           "props": {
             "text": "1 hr"
           }
+        }
+      }
+    },
+    {
+      "id": "prompt",
+      "name": "Follow-up prompt",
+      "template": "<article class=\"card header-card\" data-variant=\"prompt\"><div class=\"header-card__top\" data-slot=\"top\">{{item:header}}</div><div class=\"header-card__content\" data-slot=\"content\">{{item:photo}}<div class=\"header-card__titles\">{{item:overline}}{{item:headline}}</div><div class=\"header-card__chat\" data-slot=\"chat\">{{item:chat}}{{item:prompt}}</div></div></article>",
+      "slots": [
+        {
+          "id": "top",
+          "label": "Top slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "content",
+          "label": "Content slot",
+          "items": [
+            "photo",
+            "overline",
+            "headline",
+            "chat",
+            "prompt"
+          ],
+          "skeleton": true
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "headline": {
+          "value": "Appointment with Kristina"
         }
       }
     }
@@ -186,6 +222,32 @@
       "expose": [
         "text",
         "icon"
+      ]
+    },
+    "chat": {
+      "type": "component",
+      "component": "molecules/avatar-text",
+      "label": "T line",
+      "props": {
+        "avatar": "t",
+        "size": "24",
+        "style": "chat",
+        "title": "I’m here to chat"
+      },
+      "expose": [
+        "title"
+      ]
+    },
+    "prompt": {
+      "type": "component",
+      "component": "molecules/chat-input",
+      "label": "Follow-up prompt",
+      "props": {
+        "variant": "large",
+        "text": "Want to follow up on [three to four generated words]?"
+      },
+      "expose": [
+        "text"
       ]
     }
   },

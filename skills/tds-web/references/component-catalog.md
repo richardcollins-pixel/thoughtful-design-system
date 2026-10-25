@@ -48,7 +48,7 @@ A single glyph from the icon library, drawn in the current text color so it work
 
 ### `atoms/icon-button` — Icon button
 A circular button that holds only an icon. Use it for compact actions such as edit, close or share. Elevation controls how strongly it stands off the background.
-- Props: elevation (100 | 70 | 40 | 20 | 0), icon (icon), size (lg | md | sm | xs)
+- Props: elevation (100 | 70 | 40 | 20 | 0), icon (icon), size (lg | md | sm | xs), tone (default | error)
 - States: hover, pressed, focus, disabled, loading
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=119-7050
 
@@ -110,15 +110,26 @@ Avatars overlapping in a row. Use it to suggest several people at once, such as 
 
 ### `molecules/t-avatar` — T avatar
 T as an avatar: T by itself (the blob), T with your provider’s photo overlapping it, or a round gradient with an icon (a person, or a person with an x). Three sizes: 24, 32 and 48 (and 28 as the coachmarks use).
-- Props: type (t | t-provider | icon), size (24 | 28 | 32 | 48), icon (icon), person (person)
+- Props: type (t | t-provider | icon | provider), size (24 | 28 | 32 | 48), icon (icon), person (person)
 - Built from: `atoms/blob`, `atoms/avatar`, `atoms/icon`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4359-55294
 
 ### `molecules/avatar-text` — Avatar with text
 A T avatar (or none) beside a title and an optional line under it, with an optional close button. Pick the type style for the title: small, medium or large semibold, or the serif subhead. It is the top of a coachmark and of the session sharing sheet.
-- Props: avatar (none | t | t-provider | icon), size (24 | 28 | 32 | 48), icon (icon), person (person), style (small | medium | large | subhead), title (text), subline (text), close (off | on)
+- Props: avatar (none | t | t-provider | icon | provider), size (24 | 28 | 32 | 48), icon (icon), person (person), style (small | medium | large | subhead | chat), title (text), subline (text), close (off | on)
 - Built from: `atoms/blob`, `atoms/avatar`, `atoms/icon`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4359-55294
+
+### `molecules/video-tile` — Video tile
+A person’s video in a rounded frame. Video shows the picture; Paused shows T with a no-signal badge and a note (“Video paused”); Waiting shows the therapist’s photo and “Hang tight”; Empty is a plain tint (a camera that is off, or a call that did not connect). Preview is the tall frame on Get Ready (268 by 357); Remote runs edge to edge at 4:3 (402 by 536, the therapist cropped); Self is the small corner picture (126 by 168).
+- Props: kind (video | paused | waiting | empty), size (preview | remote | self), source (therapist | self), person (person), title (text), body (text)
+- Built from: `atoms/blob`, `atoms/avatar`
+- Figma: https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=133:2460
+
+### `molecules/tooltip` — Tooltip
+A small frosted bubble with one line of help and an arrow pointing at what it explains (“Turn on your microphone to join”). The arrow can sit at the start, middle or end, and point down or up.
+- Props: text (text), arrow (start | center | end), direction (down | up)
+- Figma: https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=196:8125
 
 ### `molecules/cycle-art` — Cycle art
 T and a person with two arrows going round between them, and it plays: T starts big in the middle, moves left and shrinks, the top arrow draws to the right, the person circle and what is in it (the icon or the photo) and the badge pop in one after another, then the bottom arrow draws back to T. Find: no therapist yet (an icon, the lower arrow faded). Booked: the therapist\u2019s photo with a check. Paused: an icon with a pause, for when you chose to start with T alone. Animate off shows the finished picture.
@@ -146,7 +157,8 @@ The three tabs at the bottom of the app: Home, Sessions and Profile. The one you
 
 ### `molecules/text-section` — Text section
 A section of plain text: a serif subhead and a few lines under it (Today’s Topic, The Reframe, The Plan). Line breaks in the text are kept.
-- Props: heading (text), body (text)
+- Props: heading (text), body (text), loading (no | yes), tag (text)
+- Built from: `atoms/skeleton`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4197-43941
 
 ### `molecules/icon-label` — Icon label
@@ -253,8 +265,8 @@ The top of the home screen: the status bar and a Feedback button, T (the blob) w
 
 ### `organisms/header-card` — Header card
 The card that opens a screen, with the header (status bar and close button) on top: it runs to the screen edges and its bottom corners are rounded. Default is the colorful one with an overline, headline, a line of copy and a duration. Provider is the quiet one with the provider's photo on top.
-- States: default, provider
-- Built from: `atoms/card`, `atoms/avatar`, `molecules/icon-label`, `molecules/skeleton-text`, `molecules/header`
+- States: default, provider, prompt
+- Built from: `atoms/card`, `atoms/avatar`, `molecules/icon-label`, `molecules/skeleton-text`, `molecules/header`, `molecules/avatar-text`, `molecules/chat-input`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=41-3988
 
 ### `organisms/header-inset-card` — Header inset card
@@ -346,6 +358,12 @@ The shell every bottom sheet shares: a slate surface with 24px top corners and a
 - States: default, no-header
 - Built from: `atoms/button`, `atoms/image-placeholder`
 - Figma: https://www.figma.com/design/2dd93uRGMkAzwfaUu9CcSi/Session-Sharing?node-id=629-3943
+
+### `organisms/loading-state` — Loading state
+T while something is being made for you (the appointment summary). T morphs between shapes as the line under it changes: it starts as the plain blob (“Wrapping up your appointment…”), becomes a pencil (“Finishing up my notes…”), goes back, becomes a speech bubble (“Packaging it up for you…”), and loops. The caption only changes while T is a blob, enters from below and leaves upward. A blurred copy of T, in the same shape and colors, glows at the bottom of the screen. Timing is in `behaviors/loader.js` (from the loading prototype v4); reduced motion shows the first line and a still T.
+- States: default
+- Built from: `atoms/blob`, `atoms/glow`
+- Figma: https://www.figma.com/design/Qx2GM9Q3Q8TYpTDs9URJEK/SATT?node-id=128-18614
 
 ### `organisms/booking-intro` — Booking intro
 The picture that opens the booking flow, with its words: the animated cycle art (T and a therapist), a light headline and a line of copy. Find: before you pick a therapist. Booked: you picked one. Support from T first: you chose to start with T alone, and can add a therapist later.
@@ -447,6 +465,12 @@ The first-run tour: a coachmark that points at one thing while everything else o
 - Built from: `organisms/home-header`, `patterns/bite-size-support-section`, `patterns/topics-section`, `patterns/therapist-section`, `molecules/bottom-nav`, `molecules/chat-header`, `organisms/chat-thread`, `organisms/chat-composer`, `organisms/coachmark`, `atoms/glow`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4226-65802
 
+### `screens/video` — Video appointment
+Joining and being in an in-app video appointment. Get Ready: the preview, mute and camera buttons and Join Appointment, with the microphone and camera permission prompts, no microphone (Join is off until it is on; a tooltip says what to do), no camera (you can still join), access blocked (the phone’s notice with Settings), video paused (a weak signal) and unable to join (Try Again). In the call: the therapist full width at 4:3, your own video small in the corner, mute, camera and leave on top, and T taking notes at the bottom; plus the therapist not here yet and video paused.
+- States: ready, ready-mic-prompt, ready-camera-prompt, ready-no-mic, ready-no-camera, ready-mic-blocked, ready-camera-blocked, ready-paused, ready-unable, call, call-waiting, call-paused
+- Built from: `molecules/header`, `molecules/avatar-text`, `molecules/video-tile`, `molecules/tooltip`, `atoms/icon-button`, `atoms/button`, `atoms/glow`, `device/alert`
+- Figma: https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=0-1
+
 ### `screens/home` — Home
 The home screen: the home header, then sections one under the other, and the bottom nav stuck to the bottom. The states follow your care: New, One topic, Several topics, Session booked, No appointment and Session today (your therapist first, with Join session).
 - States: new, one-topic, several-topics, booked, no-appointment, join
@@ -455,19 +479,19 @@ The home screen: the home header, then sections one under the other, and the bot
 
 ### `screens/chat` — Chat
 A whole chat screen: the header, the thread, and either the composer (with the keyboard up or not) or the end of session card. Recommendations, Typing, Session and Session typing (the timer runs) and End of session are the states in the Figma. Sharing sheet and Sharing sheet, off the record show the session sharing sheet opened from the record icon; Off the record is the chat after you have gone off the record (the icon becomes a person with an x).
-- States: recommendations, typing, session, session-keyboard, end, sharing, sharing-off-record, off-record
+- States: recommendations, typing, session, session-keyboard, end, sharing, sharing-off-record, off-record, compare-notes
 - Built from: `molecules/chat-header`, `organisms/chat-thread`, `organisms/chat-composer`, `organisms/end-of-session-card`, `atoms/glow`, `patterns/session-sharing-sheet`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046
 
 ### `screens/summary` — Summary
 What T writes up after a session. A header (the date, the title, a line and how long it took) over sections you can show or hide in the Sections slot: Today’s Topic, The Reframe and The Plan (T can leave one out if it does not fit the session), Suggestions (only for LIWT conversations), and, for higher acuity, Your therapist and Support Resources. Off the record shows a label in the header when the person chose it, in any conversation. T is the version T writes; Provider is the version a provider reads, with their photo in a flat header.
-- States: t, provider
-- Built from: `organisms/header-card`, `molecules/text-section`, `patterns/suggestions-section`, `patterns/therapist-section`, `patterns/resources-section`
+- States: t, provider, loading
+- Built from: `organisms/header-card`, `molecules/text-section`, `patterns/suggestions-section`, `patterns/therapist-section`, `patterns/resources-section`, `organisms/loading-state`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4197-43941
 
 ### `screens/history` — History
 The history screen: a title bar, then a list of past sessions as session history cards (the first one with the provider’s photo, off the record), and the bottom nav on Sessions. The title bar and the nav are blurred over the cards as they scroll.
-- States: default, empty
+- States: default, appointment, empty
 - Built from: `molecules/header`, `organisms/session-history-card`, `molecules/bottom-nav`, `organisms/cta-card`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4196-43599
 
@@ -499,8 +523,8 @@ The dark phone number pad. Add a suggestion to show the “From Messages” stri
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3938-46801
 
 ### `device/alert` — Alert
-The iPhone’s own alert (here the tracking permission): a dark glass card with the app’s icon, a bold title, a message and two pill buttons. It belongs to the phone, not the app, so Device UI off hides it.
-- Props: title (text), message (text), primary (text), secondary (text)
+The iPhone’s own alert (here the tracking permission): a dark glass card with the app’s icon, a bold title, a message and two pill buttons. It belongs to the phone, not the app, so Device UI off hides it. The icon can be the app, the microphone or the camera (an orange tile with the permission badge) or none; the two buttons stack or sit side by side (the permission prompts).
+- Props: title (text), message (text), primary (text), secondary (text), icon (app | mic | camera | none), buttons (stacked | row)
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=3953-56958
 
 ### `device/home-indicator` — Home indicator

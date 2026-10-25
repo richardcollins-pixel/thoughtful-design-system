@@ -51,7 +51,8 @@
         "none",
         "t",
         "t-provider",
-        "icon"
+        "icon",
+        "provider"
       ],
       "default": "t"
     },
@@ -84,7 +85,8 @@
         "small",
         "medium",
         "large",
-        "subhead"
+        "subhead",
+        "chat"
       ],
       "default": "large",
       "ui": "steps"

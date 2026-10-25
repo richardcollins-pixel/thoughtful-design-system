@@ -38,6 +38,7 @@
 .icon-person { -webkit-mask-image: url("glyphs/Name%3Dperson.svg"); mask-image: url("glyphs/Name%3Dperson.svg"); }
 .icon-plus { -webkit-mask-image: url("glyphs/Name%3DPlus.svg"); mask-image: url("glyphs/Name%3DPlus.svg"); }
 .icon-provider { -webkit-mask-image: url("glyphs/Name%3DProvider.svg"); mask-image: url("glyphs/Name%3DProvider.svg"); }
+.icon-refresh { -webkit-mask-image: url("glyphs/Name%3Drefresh.svg"); mask-image: url("glyphs/Name%3Drefresh.svg"); }
 .icon-send { -webkit-mask-image: url("glyphs/Name%3DSend.svg"); mask-image: url("glyphs/Name%3DSend.svg"); }
 .icon-sentiment-1 { -webkit-mask-image: url("glyphs/Name%3DSentiment%201.svg"); mask-image: url("glyphs/Name%3DSentiment%201.svg"); }
 .icon-settings { -webkit-mask-image: url("glyphs/Name%3DSettings.svg"); mask-image: url("glyphs/Name%3DSettings.svg"); }
@@ -47,9 +48,11 @@
 .icon-therapy { -webkit-mask-image: url("glyphs/Name%3DTherapy.svg"); mask-image: url("glyphs/Name%3DTherapy.svg"); }
 .icon-trash { -webkit-mask-image: url("glyphs/Name%3Dtrash.svg"); mask-image: url("glyphs/Name%3Dtrash.svg"); }
 .icon-video-chat { -webkit-mask-image: url("glyphs/Name%3DVideo%20chat.svg"); mask-image: url("glyphs/Name%3DVideo%20chat.svg"); }
+.icon-video-off { -webkit-mask-image: url("glyphs/Name%3Dvideo%20off.svg"); mask-image: url("glyphs/Name%3Dvideo%20off.svg"); }
 .icon-visibility-on { -webkit-mask-image: url("glyphs/Name%3DVisibility%20on.svg"); mask-image: url("glyphs/Name%3DVisibility%20on.svg"); }
 .icon-volume-high { -webkit-mask-image: url("glyphs/Name%3DVolume%20high.svg"); mask-image: url("glyphs/Name%3DVolume%20high.svg"); }
 .icon-volume-off { -webkit-mask-image: url("glyphs/Name%3DVolume%20off.svg"); mask-image: url("glyphs/Name%3DVolume%20off.svg"); }
 .icon-warning { -webkit-mask-image: url("glyphs/Name%3Dwarning.svg"); mask-image: url("glyphs/Name%3Dwarning.svg"); }
 .icon-waveform { -webkit-mask-image: url("glyphs/Name%3Dwaveform.svg"); mask-image: url("glyphs/Name%3Dwaveform.svg"); }
+.icon-wifi-off { -webkit-mask-image: url("glyphs/Name%3Dwifi%20off.svg"); mask-image: url("glyphs/Name%3Dwifi%20off.svg"); }
 .icon-x { -webkit-mask-image: url("glyphs/Name%3DX.svg"); mask-image: url("glyphs/Name%3DX.svg"); }

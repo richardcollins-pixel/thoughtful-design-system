@@ -3,7 +3,9 @@
   "tier": "molecules",
   "category": "content",
   "stateful": false,
-  "uses": [],
+  "uses": [
+    "atoms/skeleton"
+  ],
   "figma": "https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4197-43941",
   "attributes": {},
   "states": [],
@@ -30,8 +32,23 @@
       "type": "text",
       "label": "Body Copy",
       "default": "You came in feeling overwhelmed by low-grade depression and anxiety primarily driven by the financial uncertainty of your work situation."
+    },
+    "loading": {
+      "type": "enum",
+      "label": "Loading",
+      "ui": "steps",
+      "values": [
+        "no",
+        "yes"
+      ],
+      "default": "no"
+    },
+    "tag": {
+      "type": "text",
+      "label": "Tag",
+      "default": ""
     }
   },
-  "template": "<section class=\"text-section\"><h2 class=\"text-section__title\">{{heading}}</h2><p class=\"text-section__body\">{{body}}</p></section>",
-  "markup": "<section class=\"text-section\"><h2 class=\"text-section__title\">Today’s Topic</h2><p class=\"text-section__body\">You came in feeling overwhelmed by low-grade depression and anxiety primarily driven by the financial uncertainty of your work situation.</p></section>"
+  "template": "<section class=\"text-section\" data-loading=\"{{loading}}\"><div class=\"text-section__head\"><h2 class=\"text-section__title\">{{heading}}</h2>{{?tag}}<span class=\"text-section__tag\">{{tag}}</span>{{/tag}}</div><p class=\"text-section__body\">{{body}}</p><span class=\"text-section__skeleton\"><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span></span></section>",
+  "markup": "<section class=\"text-section\" data-loading=\"no\"><div class=\"text-section__head\"><h2 class=\"text-section__title\">Today’s Topic</h2><span class=\"text-section__tag\"></span></div><p class=\"text-section__body\">You came in feeling overwhelmed.</p><span class=\"text-section__skeleton\"><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span><span class=\"skeleton\" data-shape=\"line\"></span></span></section>"
 }

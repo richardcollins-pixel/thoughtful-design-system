@@ -1,0 +1,25 @@
+/* Molecule: video tile. A frame for someone's video, in three sizes (preview 268x357, remote 402x536, self 126x168) and four kinds: video (the picture,
+   cropped to fill), paused (a tint, T with a no-signal badge, a bold line and a note), waiting (a tint, the therapist's photo and one line), empty
+   (a tint). Controls (mute, camera) can be laid over the bottom of the frame: they go in the [data-slot="controls"] it carries. */
+.video-tile { position: relative; box-sizing: border-box; overflow: hidden; display: grid; place-items: center; background: var(--bg-elevation-20); color: var(--text-primary); text-align: center; border-radius: var(--radius-md); }
+.video-tile[data-size="preview"] { width: 268px; height: 357px; }
+.video-tile[data-size="remote"] { width: 100%; height: 536px; border-radius: 0; }
+.video-tile[data-size="self"] { width: 126px; height: 168px; box-shadow: var(--shadow-3); background: var(--purple-700); }
+.video-tile__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: none; }
+.video-tile[data-kind="video"] .video-tile__image { display: block; }
+.video-tile__status { display: none; position: relative; flex-direction: column; align-items: center; gap: var(--space-2); padding-inline: var(--space-6); }
+.video-tile[data-kind="paused"] .video-tile__status, .video-tile[data-kind="waiting"] .video-tile__status { display: flex; }
+.video-tile__t { display: none; position: relative; width: 84px; height: 48px; margin-bottom: var(--space-3); }
+.video-tile[data-kind="paused"] .video-tile__t { display: block; }
+.video-tile__t .blob { --blob-size: 48px; position: absolute; left: 0; top: 0; }
+.video-tile__badge { position: absolute; right: 0; top: 0; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--bg-base); }
+.video-tile__badge .icon { --icon-size: 24px; --icon-color: var(--white); }
+.video-tile__avatar { display: none; --avatar-size: 48px; }
+.video-tile[data-kind="waiting"] .video-tile__avatar { display: block; }
+.video-tile__title { display: none; font: var(--text-body-sm-semibold); letter-spacing: var(--text-body-sm-semibold-ls); }
+.video-tile[data-kind="paused"] .video-tile__title { display: block; }
+.video-tile__body { display: block; white-space: pre-line; color: var(--text-secondary); font: var(--text-body-sm); letter-spacing: var(--text-body-sm-ls); max-width: 220px; }
+.video-tile[data-kind="waiting"] .video-tile__body { color: var(--text-primary); font: var(--text-body-sm); }
+.video-tile[data-kind="video"] .video-tile__body, .video-tile[data-kind="empty"] .video-tile__body { display: none; }
+.video-tile__controls { position: absolute; left: 0; right: 0; bottom: var(--space-4); display: flex; justify-content: center; gap: var(--space-4); }
+.video-tile[data-size="self"][data-kind="empty"], .video-tile[data-size="self"][data-kind="paused"] { background: var(--bg-elevation-20); }
