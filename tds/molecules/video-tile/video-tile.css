@@ -5,7 +5,7 @@
 .video-tile[data-size="preview"] { width: 268px; height: 357px; }
 .video-tile[data-size="remote"] { width: 100%; aspect-ratio: 1; border-radius: 0; }
 .video-tile[data-size="backdrop"] { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 0; background: none; z-index: var(--layer-behind); pointer-events: none; }
-.video-tile[data-size="backdrop"] .video-tile__video { filter: blur(48px) saturate(1.2); scale: 1.5; opacity: var(--opacity-muted); }
+.video-tile[data-size="backdrop"] .video-tile__video { filter: blur(48px) saturate(1.2); scale: 1.5; opacity: var(--opacity-faint); }
 .video-tile[data-size="self"] { width: 126px; height: 168px; box-shadow: var(--shadow-3); background: var(--purple-700); }
 .video-tile__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: none; }
 .video-tile[data-kind="video"] .video-tile__video { display: block; }
