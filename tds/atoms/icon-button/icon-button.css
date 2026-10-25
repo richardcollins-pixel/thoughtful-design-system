@@ -42,3 +42,6 @@
 
 /* error tone: the icon is red (a muted mic or camera that needs fixing) */
 .icon-button[data-tone="error"] { --icon-button-icon: var(--status-error-primary); }
+
+/* a see-through button blurs what is behind it */
+.icon-button { backdrop-filter: blur(var(--blur-md)); }
