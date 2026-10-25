@@ -351,6 +351,13 @@
    "bytes": 376
   },
   {
+   "name": "video-on",
+   "file": "glyphs/Name=video on.svg",
+   "width": 24.0,
+   "height": 24.0,
+   "bytes": 334
+  },
+  {
    "name": "visibility-on",
    "file": "glyphs/Name=Visibility on.svg",
    "width": 25.0,

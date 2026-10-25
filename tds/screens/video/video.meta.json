@@ -1,716 +1,41 @@
 {
-  "name": "Video appointment",
+  "name": "Video",
   "tier": "screens",
   "category": "screens",
   "stateful": false,
   "uses": [
-    "molecules/header",
+    "device/status-bar",
     "molecules/avatar-text",
     "molecules/video-tile",
-    "molecules/tooltip",
-    "atoms/icon-button",
-    "atoms/button",
-    "atoms/glow",
-    "device/alert"
+    "atoms/icon-button"
   ],
   "figma": "https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=0-1",
   "align": "top",
   "states": [
     {
-      "id": "ready",
-      "name": "Get ready",
-      "template": "<section class=\"video\" data-kind=\"ready\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}</div><div class=\"video__main\" data-slot=\"main\">{{item:title}}<div class=\"video__who\">{{item:who}}</div><div class=\"video__preview\" data-focus=\"mic\">{{item:tile}}<div class=\"video__controls\" data-slot=\"controls\">{{item:mic}}{{item:cam}}</div><div class=\"video__tooltip\" data-slot=\"tooltip\">{{item:tooltip}}</div></div></div><div class=\"video__bottom\" data-slot=\"bottom\">{{item:join}}</div><div class=\"video__scrim\"></div><div class=\"video__alert\" data-slot=\"alert\">{{item:alert}}</div></section>",
-      "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "main",
-          "label": "Main slot",
-          "items": [
-            "title",
-            "who",
-            "tile"
-          ]
-        },
-        {
-          "id": "controls",
-          "label": "Controls slot",
-          "items": [
-            "mic",
-            "cam"
-          ]
-        },
-        {
-          "id": "tooltip",
-          "label": "Tooltip slot",
-          "items": [
-            "tooltip"
-          ]
-        },
-        {
-          "id": "bottom",
-          "label": "Bottom slot",
-          "items": [
-            "join"
-          ]
-        },
-        {
-          "id": "alert",
-          "label": "Alert slot",
-          "items": [
-            "alert"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {}
-    },
-    {
-      "id": "ready-mic-prompt",
-      "name": "Get ready, microphone prompt",
-      "template": "<section class=\"video\" data-kind=\"ready\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}</div><div class=\"video__main\" data-slot=\"main\">{{item:title}}<div class=\"video__who\">{{item:who}}</div><div class=\"video__preview\" data-focus=\"mic\">{{item:tile}}<div class=\"video__controls\" data-slot=\"controls\">{{item:mic}}{{item:cam}}</div><div class=\"video__tooltip\" data-slot=\"tooltip\">{{item:tooltip}}</div></div></div><div class=\"video__bottom\" data-slot=\"bottom\">{{item:join}}</div><div class=\"video__scrim\"></div><div class=\"video__alert\" data-slot=\"alert\">{{item:alert}}</div></section>",
-      "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "main",
-          "label": "Main slot",
-          "items": [
-            "title",
-            "who",
-            "tile"
-          ]
-        },
-        {
-          "id": "controls",
-          "label": "Controls slot",
-          "items": [
-            "mic",
-            "cam"
-          ]
-        },
-        {
-          "id": "tooltip",
-          "label": "Tooltip slot",
-          "items": [
-            "tooltip"
-          ]
-        },
-        {
-          "id": "bottom",
-          "label": "Bottom slot",
-          "items": [
-            "join"
-          ]
-        },
-        {
-          "id": "alert",
-          "label": "Alert slot",
-          "items": [
-            "alert"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "tile": {
-          "props": {
-            "kind": "empty"
-          }
-        },
-        "join": {
-          "props": {
-            "state": "disabled"
-          }
-        },
-        "alert": {
-          "props": {
-            "icon": "mic",
-            "title": "“Thoughtful” Would Like to Access the Microphone",
-            "message": "We need to access your microphone so you can speak during sessions.",
-            "primary": "Don’t allow",
-            "secondary": "Allow",
-            "buttons": "row",
-            "show": "on"
-          }
-        }
-      }
-    },
-    {
-      "id": "ready-camera-prompt",
-      "name": "Get ready, camera prompt",
-      "template": "<section class=\"video\" data-kind=\"ready\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}</div><div class=\"video__main\" data-slot=\"main\">{{item:title}}<div class=\"video__who\">{{item:who}}</div><div class=\"video__preview\" data-focus=\"mic\">{{item:tile}}<div class=\"video__controls\" data-slot=\"controls\">{{item:mic}}{{item:cam}}</div><div class=\"video__tooltip\" data-slot=\"tooltip\">{{item:tooltip}}</div></div></div><div class=\"video__bottom\" data-slot=\"bottom\">{{item:join}}</div><div class=\"video__scrim\"></div><div class=\"video__alert\" data-slot=\"alert\">{{item:alert}}</div></section>",
-      "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "main",
-          "label": "Main slot",
-          "items": [
-            "title",
-            "who",
-            "tile"
-          ]
-        },
-        {
-          "id": "controls",
-          "label": "Controls slot",
-          "items": [
-            "mic",
-            "cam"
-          ]
-        },
-        {
-          "id": "tooltip",
-          "label": "Tooltip slot",
-          "items": [
-            "tooltip"
-          ]
-        },
-        {
-          "id": "bottom",
-          "label": "Bottom slot",
-          "items": [
-            "join"
-          ]
-        },
-        {
-          "id": "alert",
-          "label": "Alert slot",
-          "items": [
-            "alert"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "tile": {
-          "props": {
-            "kind": "empty"
-          }
-        },
-        "join": {
-          "props": {
-            "state": "disabled"
-          }
-        },
-        "alert": {
-          "props": {
-            "icon": "camera",
-            "title": "“Thoughtful” Would Like to Access the Camera",
-            "message": "We need to access your camera so your therapist can see you during the session.",
-            "primary": "Don’t allow",
-            "secondary": "Allow",
-            "buttons": "row",
-            "show": "on"
-          }
-        }
-      }
-    },
-    {
-      "id": "ready-no-mic",
-      "name": "Get ready, no microphone",
-      "template": "<section class=\"video\" data-kind=\"ready\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}</div><div class=\"video__main\" data-slot=\"main\">{{item:title}}<div class=\"video__who\">{{item:who}}</div><div class=\"video__preview\" data-focus=\"mic\">{{item:tile}}<div class=\"video__controls\" data-slot=\"controls\">{{item:mic}}{{item:cam}}</div><div class=\"video__tooltip\" data-slot=\"tooltip\">{{item:tooltip}}</div></div></div><div class=\"video__bottom\" data-slot=\"bottom\">{{item:join}}</div><div class=\"video__scrim\"></div><div class=\"video__alert\" data-slot=\"alert\">{{item:alert}}</div></section>",
-      "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "main",
-          "label": "Main slot",
-          "items": [
-            "title",
-            "who",
-            "tile"
-          ]
-        },
-        {
-          "id": "controls",
-          "label": "Controls slot",
-          "items": [
-            "mic",
-            "cam"
-          ]
-        },
-        {
-          "id": "tooltip",
-          "label": "Tooltip slot",
-          "items": [
-            "tooltip"
-          ]
-        },
-        {
-          "id": "bottom",
-          "label": "Bottom slot",
-          "items": [
-            "join"
-          ]
-        },
-        {
-          "id": "alert",
-          "label": "Alert slot",
-          "items": [
-            "alert"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "mic": {
-          "props": {
-            "icon": "mic-off",
-            "tone": "error"
-          }
-        },
-        "join": {
-          "props": {
-            "state": "disabled"
-          }
-        },
-        "tooltip": {
-          "props": {
-            "show": "on",
-            "text": "Turn on your microphone to join",
-            "arrow": "center"
-          }
-        }
-      }
-    },
-    {
-      "id": "ready-no-camera",
-      "name": "Get ready, no camera",
-      "template": "<section class=\"video\" data-kind=\"ready\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}</div><div class=\"video__main\" data-slot=\"main\">{{item:title}}<div class=\"video__who\">{{item:who}}</div><div class=\"video__preview\" data-focus=\"camera\">{{item:tile}}<div class=\"video__controls\" data-slot=\"controls\">{{item:mic}}{{item:cam}}</div><div class=\"video__tooltip\" data-slot=\"tooltip\">{{item:tooltip}}</div></div></div><div class=\"video__bottom\" data-slot=\"bottom\">{{item:join}}</div><div class=\"video__scrim\"></div><div class=\"video__alert\" data-slot=\"alert\">{{item:alert}}</div></section>",
-      "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "main",
-          "label": "Main slot",
-          "items": [
-            "title",
-            "who",
-            "tile"
-          ]
-        },
-        {
-          "id": "controls",
-          "label": "Controls slot",
-          "items": [
-            "mic",
-            "cam"
-          ]
-        },
-        {
-          "id": "tooltip",
-          "label": "Tooltip slot",
-          "items": [
-            "tooltip"
-          ]
-        },
-        {
-          "id": "bottom",
-          "label": "Bottom slot",
-          "items": [
-            "join"
-          ]
-        },
-        {
-          "id": "alert",
-          "label": "Alert slot",
-          "items": [
-            "alert"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "cam": {
-          "props": {
-            "icon": "video-off",
-            "tone": "error"
-          }
-        },
-        "tile": {
-          "props": {
-            "kind": "empty"
-          }
-        },
-        "tooltip": {
-          "props": {
-            "show": "on",
-            "text": "Turn on your camera so Kristina can see you",
-            "arrow": "center"
-          }
-        }
-      }
-    },
-    {
-      "id": "ready-mic-blocked",
-      "name": "Get ready, microphone blocked",
-      "template": "<section class=\"video\" data-kind=\"ready\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}</div><div class=\"video__main\" data-slot=\"main\">{{item:title}}<div class=\"video__who\">{{item:who}}</div><div class=\"video__preview\" data-focus=\"mic\">{{item:tile}}<div class=\"video__controls\" data-slot=\"controls\">{{item:mic}}{{item:cam}}</div><div class=\"video__tooltip\" data-slot=\"tooltip\">{{item:tooltip}}</div></div></div><div class=\"video__bottom\" data-slot=\"bottom\">{{item:join}}</div><div class=\"video__scrim\"></div><div class=\"video__alert\" data-slot=\"alert\">{{item:alert}}</div></section>",
-      "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "main",
-          "label": "Main slot",
-          "items": [
-            "title",
-            "who",
-            "tile"
-          ]
-        },
-        {
-          "id": "controls",
-          "label": "Controls slot",
-          "items": [
-            "mic",
-            "cam"
-          ]
-        },
-        {
-          "id": "tooltip",
-          "label": "Tooltip slot",
-          "items": [
-            "tooltip"
-          ]
-        },
-        {
-          "id": "bottom",
-          "label": "Bottom slot",
-          "items": [
-            "join"
-          ]
-        },
-        {
-          "id": "alert",
-          "label": "Alert slot",
-          "items": [
-            "alert"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "mic": {
-          "props": {
-            "icon": "mic-off",
-            "tone": "error"
-          }
-        },
-        "cam": {
-          "props": {
-            "icon": "video-off",
-            "tone": "error"
-          }
-        },
-        "join": {
-          "props": {
-            "state": "disabled"
-          }
-        },
-        "alert": {
-          "props": {
-            "icon": "none",
-            "title": "Unable to access the microphone",
-            "message": "Allow Thoughtful to access your microphone from device menu: Settings > Privacy > Microphone",
-            "primary": "Cancel",
-            "secondary": "Settings",
-            "buttons": "row",
-            "show": "on"
-          }
-        }
-      }
-    },
-    {
-      "id": "ready-camera-blocked",
-      "name": "Get ready, camera blocked",
-      "template": "<section class=\"video\" data-kind=\"ready\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}</div><div class=\"video__main\" data-slot=\"main\">{{item:title}}<div class=\"video__who\">{{item:who}}</div><div class=\"video__preview\" data-focus=\"mic\">{{item:tile}}<div class=\"video__controls\" data-slot=\"controls\">{{item:mic}}{{item:cam}}</div><div class=\"video__tooltip\" data-slot=\"tooltip\">{{item:tooltip}}</div></div></div><div class=\"video__bottom\" data-slot=\"bottom\">{{item:join}}</div><div class=\"video__scrim\"></div><div class=\"video__alert\" data-slot=\"alert\">{{item:alert}}</div></section>",
-      "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "main",
-          "label": "Main slot",
-          "items": [
-            "title",
-            "who",
-            "tile"
-          ]
-        },
-        {
-          "id": "controls",
-          "label": "Controls slot",
-          "items": [
-            "mic",
-            "cam"
-          ]
-        },
-        {
-          "id": "tooltip",
-          "label": "Tooltip slot",
-          "items": [
-            "tooltip"
-          ]
-        },
-        {
-          "id": "bottom",
-          "label": "Bottom slot",
-          "items": [
-            "join"
-          ]
-        },
-        {
-          "id": "alert",
-          "label": "Alert slot",
-          "items": [
-            "alert"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "cam": {
-          "props": {
-            "icon": "video-off",
-            "tone": "error"
-          }
-        },
-        "tile": {
-          "props": {
-            "kind": "empty"
-          }
-        },
-        "alert": {
-          "props": {
-            "icon": "none",
-            "title": "Unable to access the camera",
-            "message": "Allow Thoughtful to access your camera from device menu: Settings > Privacy > Camera",
-            "primary": "Cancel",
-            "secondary": "Settings",
-            "buttons": "row",
-            "show": "on"
-          }
-        }
-      }
-    },
-    {
-      "id": "ready-paused",
-      "name": "Get ready, video paused",
-      "template": "<section class=\"video\" data-kind=\"ready\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}</div><div class=\"video__main\" data-slot=\"main\">{{item:title}}<div class=\"video__who\">{{item:who}}</div><div class=\"video__preview\" data-focus=\"mic\">{{item:tile}}<div class=\"video__controls\" data-slot=\"controls\">{{item:mic}}{{item:cam}}</div><div class=\"video__tooltip\" data-slot=\"tooltip\">{{item:tooltip}}</div></div></div><div class=\"video__bottom\" data-slot=\"bottom\">{{item:join}}</div><div class=\"video__scrim\"></div><div class=\"video__alert\" data-slot=\"alert\">{{item:alert}}</div></section>",
-      "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "main",
-          "label": "Main slot",
-          "items": [
-            "title",
-            "who",
-            "tile"
-          ]
-        },
-        {
-          "id": "controls",
-          "label": "Controls slot",
-          "items": [
-            "mic",
-            "cam"
-          ]
-        },
-        {
-          "id": "tooltip",
-          "label": "Tooltip slot",
-          "items": [
-            "tooltip"
-          ]
-        },
-        {
-          "id": "bottom",
-          "label": "Bottom slot",
-          "items": [
-            "join"
-          ]
-        },
-        {
-          "id": "alert",
-          "label": "Alert slot",
-          "items": [
-            "alert"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "tile": {
-          "props": {
-            "kind": "paused",
-            "title": "Video paused",
-            "body": "Join the call - I’ll fix the video once you have better signal"
-          }
-        },
-        "cam": {
-          "props": {
-            "icon": "video-off"
-          }
-        }
-      }
-    },
-    {
-      "id": "ready-unable",
-      "name": "Get ready, unable to join",
-      "template": "<section class=\"video\" data-kind=\"ready\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}</div><div class=\"video__main\" data-slot=\"main\">{{item:title}}<div class=\"video__who\">{{item:who}}</div><div class=\"video__preview\" data-focus=\"mic\">{{item:tile}}<div class=\"video__controls\" data-slot=\"controls\">{{item:mic}}{{item:cam}}</div><div class=\"video__tooltip\" data-slot=\"tooltip\">{{item:tooltip}}</div></div></div><div class=\"video__bottom\" data-slot=\"bottom\">{{item:note}}{{item:join}}</div><div class=\"video__scrim\"></div><div class=\"video__alert\" data-slot=\"alert\">{{item:alert}}</div></section>",
-      "slots": [
-        {
-          "id": "top",
-          "label": "Top slot",
-          "items": [
-            "header"
-          ]
-        },
-        {
-          "id": "main",
-          "label": "Main slot",
-          "items": [
-            "title",
-            "who",
-            "tile"
-          ]
-        },
-        {
-          "id": "controls",
-          "label": "Controls slot",
-          "items": [
-            "mic",
-            "cam"
-          ]
-        },
-        {
-          "id": "tooltip",
-          "label": "Tooltip slot",
-          "items": [
-            "tooltip"
-          ]
-        },
-        {
-          "id": "bottom",
-          "label": "Bottom slot",
-          "items": [
-            "note",
-            "join"
-          ]
-        },
-        {
-          "id": "alert",
-          "label": "Alert slot",
-          "items": [
-            "alert"
-          ]
-        }
-      ],
-      "personas": [
-        "provider"
-      ],
-      "overrides": {
-        "who": {
-          "props": {
-            "title": "Meeting with Kristina"
-          }
-        },
-        "tile": {
-          "props": {
-            "kind": "empty"
-          }
-        },
-        "mic": {
-          "props": {
-            "elevation": "20"
-          }
-        },
-        "cam": {
-          "props": {
-            "elevation": "20"
-          }
-        },
-        "join": {
-          "props": {
-            "label": "Try Again",
-            "icon": "refresh"
-          }
-        }
-      }
-    },
-    {
       "id": "call",
       "name": "In the call",
-      "template": "<section class=\"video\" data-kind=\"call\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}<div class=\"video__top-controls\" data-slot=\"controls\">{{item:micTop}}{{item:camTop}}</div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
+      "template": "<section class=\"video\"><div class=\"video__backdrop\" data-slot=\"backdrop\">{{item:backdrop}}</div><div class=\"video__top\" data-slot=\"top\">{{item:status}}<div class=\"video__bar\" data-slot=\"controls\">{{item:leave}}<span class=\"video__bar-right\">{{item:micTop}}{{item:camTop}}</span></div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
       "slots": [
+        {
+          "id": "backdrop",
+          "label": "Backdrop slot",
+          "items": [
+            "backdrop"
+          ]
+        },
         {
           "id": "top",
           "label": "Top slot",
           "items": [
-            "header"
+            "status"
           ]
         },
         {
           "id": "controls",
           "label": "Controls slot",
           "items": [
+            "leave",
             "micTop",
             "camTop"
           ]
@@ -744,20 +69,28 @@
     },
     {
       "id": "call-waiting",
-      "name": "In the call, therapist not here yet",
-      "template": "<section class=\"video\" data-kind=\"call\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}<div class=\"video__top-controls\" data-slot=\"controls\">{{item:micTop}}{{item:camTop}}</div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
+      "name": "Therapist not here yet",
+      "template": "<section class=\"video\"><div class=\"video__backdrop\" data-slot=\"backdrop\">{{item:backdrop}}</div><div class=\"video__top\" data-slot=\"top\">{{item:status}}<div class=\"video__bar\" data-slot=\"controls\">{{item:leave}}<span class=\"video__bar-right\">{{item:micTop}}{{item:camTop}}</span></div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
       "slots": [
+        {
+          "id": "backdrop",
+          "label": "Backdrop slot",
+          "items": [
+            "backdrop"
+          ]
+        },
         {
           "id": "top",
           "label": "Top slot",
           "items": [
-            "header"
+            "status"
           ]
         },
         {
           "id": "controls",
           "label": "Controls slot",
           "items": [
+            "leave",
             "micTop",
             "camTop"
           ]
@@ -793,25 +126,38 @@
             "kind": "waiting",
             "body": "Hang tight!\nKristina will join shortly..."
           }
+        },
+        "backdrop": {
+          "props": {
+            "kind": "empty"
+          }
         }
       }
     },
     {
       "id": "call-paused",
-      "name": "In the call, video paused",
-      "template": "<section class=\"video\" data-kind=\"call\"><div class=\"glow video__glow\" data-theme=\"rose\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"video__top\" data-slot=\"top\">{{item:header}}<div class=\"video__top-controls\" data-slot=\"controls\">{{item:micTop}}{{item:camTop}}</div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
+      "name": "Video paused",
+      "template": "<section class=\"video\"><div class=\"video__backdrop\" data-slot=\"backdrop\">{{item:backdrop}}</div><div class=\"video__top\" data-slot=\"top\">{{item:status}}<div class=\"video__bar\" data-slot=\"controls\">{{item:leave}}<span class=\"video__bar-right\">{{item:micTop}}{{item:camTop}}</span></div></div><div class=\"video__remote\" data-slot=\"remote\">{{item:remote}}</div><div class=\"video__self\" data-slot=\"self\">{{item:selfView}}</div><div class=\"video__notes\" data-slot=\"notes\">{{item:notes}}</div></section>",
       "slots": [
+        {
+          "id": "backdrop",
+          "label": "Backdrop slot",
+          "items": [
+            "backdrop"
+          ]
+        },
         {
           "id": "top",
           "label": "Top slot",
           "items": [
-            "header"
+            "status"
           ]
         },
         {
           "id": "controls",
           "label": "Controls slot",
           "items": [
+            "leave",
             "micTop",
             "camTop"
           ]
@@ -858,6 +204,11 @@
           "props": {
             "kind": "empty"
           }
+        },
+        "backdrop": {
+          "props": {
+            "kind": "empty"
+          }
         }
       }
     }
@@ -865,132 +216,38 @@
   "variables": {},
   "styles": [],
   "selector": ".video",
-  "description": "Joining and being in an in-app video appointment. Get Ready: the preview, mute and camera buttons and Join Appointment, with the microphone and camera permission prompts, no microphone (Join is off until it is on; a tooltip says what to do), no camera (you can still join), access blocked (the phone’s notice with Settings), video paused (a weak signal) and unable to join (Try Again). In the call: the therapist full width at 4:3, your own video small in the corner, mute, camera and leave on top, and T taking notes at the bottom; plus the therapist not here yet and video paused.",
+  "description": "Being in an in-app video appointment (full blend): the therapist’s video as a square across the screen with a blurred, see-through copy of it filling the background, your own video small in the corner, leave on the top left, mute and camera on the top right, and T taking notes at the bottom. Also the therapist not here yet, and video paused.",
   "items": {
-    "header": {
-      "type": "component",
-      "component": "molecules/header",
-      "label": "Header",
-      "props": {
-        "variant": "close",
-        "title": ""
-      },
-      "expose": []
-    },
-    "title": {
-      "type": "text",
-      "tag": "h1",
-      "class": "video__title",
-      "label": "Title",
-      "value": "Get Ready for Your Appointment"
-    },
-    "who": {
-      "type": "component",
-      "component": "molecules/avatar-text",
-      "label": "Who is here",
-      "props": {
-        "avatar": "provider",
-        "size": "24",
-        "style": "medium",
-        "title": "Kristina is here"
-      },
-      "expose": [
-        "title",
-        "person"
-      ]
-    },
-    "tile": {
+    "backdrop": {
       "type": "component",
       "component": "molecules/video-tile",
-      "label": "Video",
+      "label": "Backdrop video",
       "props": {
         "kind": "video",
-        "size": "preview"
+        "size": "backdrop",
+        "source": "provider"
       },
       "expose": [
-        "kind",
-        "title",
-        "body",
-        "person"
+        "kind"
       ]
     },
-    "mic": {
+    "status": {
+      "type": "component",
+      "component": "device/status-bar",
+      "label": "Status bar",
+      "props": {},
+      "expose": []
+    },
+    "leave": {
       "type": "component",
       "component": "atoms/icon-button",
-      "label": "Microphone",
+      "label": "Leave",
       "props": {
-        "icon": "mic-on",
-        "elevation": "70",
+        "icon": "x",
+        "elevation": "20",
         "size": "md"
       },
       "expose": [
-        "icon",
-        "tone"
-      ]
-    },
-    "cam": {
-      "type": "component",
-      "component": "atoms/icon-button",
-      "label": "Camera",
-      "props": {
-        "icon": "video-chat",
-        "elevation": "70",
-        "size": "md"
-      },
-      "expose": [
-        "icon",
-        "tone"
-      ]
-    },
-    "tooltip": {
-      "type": "component",
-      "component": "molecules/tooltip",
-      "label": "Tooltip",
-      "props": {
-        "text": "Turn on your microphone to join",
-        "show": "off"
-      },
-      "expose": [
-        "text"
-      ]
-    },
-    "note": {
-      "type": "text",
-      "tag": "p",
-      "class": "video__note",
-      "label": "Note",
-      "value": "Unable to join session"
-    },
-    "join": {
-      "type": "component",
-      "component": "atoms/button",
-      "label": "Join",
-      "props": {
-        "label": "Join Appointment",
-        "variant": "filled",
-        "size": "lg",
-        "width": "full"
-      },
-      "expose": [
-        "label",
-        "state",
-        "icon"
-      ]
-    },
-    "alert": {
-      "type": "component",
-      "component": "device/alert",
-      "label": "Permission alert",
-      "props": {
-        "icon": "mic",
-        "buttons": "row",
-        "show": "off"
-      },
-      "expose": [
-        "title",
-        "message",
-        "primary",
-        "secondary",
         "icon"
       ]
     },
@@ -1013,7 +270,7 @@
       "component": "atoms/icon-button",
       "label": "Camera",
       "props": {
-        "icon": "video-chat",
+        "icon": "video-on",
         "elevation": "20",
         "size": "md"
       },
@@ -1028,7 +285,8 @@
       "label": "Therapist video",
       "props": {
         "kind": "video",
-        "size": "remote"
+        "size": "remote",
+        "source": "provider"
       },
       "expose": [
         "kind",
@@ -1044,7 +302,7 @@
       "props": {
         "kind": "video",
         "size": "self",
-        "source": "self"
+        "source": "user"
       },
       "expose": [
         "kind"

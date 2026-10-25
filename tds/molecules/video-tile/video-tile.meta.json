@@ -12,7 +12,7 @@
   "states": [],
   "variables": {},
   "styles": [],
-  "description": "A person’s video in a rounded frame. Video shows the picture; Paused shows T with a no-signal badge and a note (“Video paused”); Waiting shows the therapist’s photo and “Hang tight”; Empty is a plain tint (a camera that is off, or a call that did not connect). Preview is the tall frame on Get Ready (268 by 357); Remote runs edge to edge at 4:3 (402 by 536, the therapist cropped); Self is the small corner picture (126 by 168).",
+  "description": "A person’s video in a rounded frame. Video plays the video (muted, looping: the therapist’s horizontal clip or yours, a vertical one, cropped to fill); Paused shows T with a no-signal badge and a note (“Video paused”); Waiting shows the therapist’s photo and “Hang tight”; Empty is a plain tint (a camera that is off, or a call that did not connect). Preview is the tall frame on Get Ready (268 by 357); Remote runs edge to edge as a square (402 by 402, the therapist cropped); Backdrop is the same video full screen, blurred and see-through, to sit behind a screen; Self is the small corner picture (126 by 168).",
   "props": {
     "kind": {
       "type": "enum",
@@ -32,19 +32,20 @@
       "values": [
         "preview",
         "remote",
-        "self"
+        "self",
+        "backdrop"
       ],
       "default": "preview"
     },
     "source": {
       "type": "enum",
-      "label": "Picture",
+      "label": "Video",
       "ui": "steps",
       "values": [
-        "therapist",
-        "self"
+        "provider",
+        "user"
       ],
-      "default": "therapist"
+      "default": "provider"
     },
     "person": {
       "type": "person",
@@ -62,6 +63,6 @@
       "default": "Join the call - I’ll fix the video once you have better signal"
     }
   },
-  "template": "<div class=\"video-tile\" data-kind=\"{{kind}}\" data-size=\"{{size}}\"><img class=\"video-tile__image\" src=\"../tds/assets/images/video/{{source}}-video.png\" alt=\"\"><div class=\"video-tile__status\"><span class=\"video-tile__t\"><span class=\"blob\" data-size=\"48\" data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"video-tile__badge\"><i class=\"icon icon-wifi-off\"></i></span></span><span class=\"avatar video-tile__avatar\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span><b class=\"video-tile__title\">{{title}}</b><span class=\"video-tile__body\">{{body}}</span></div><div class=\"video-tile__controls\" data-slot=\"controls\"></div></div>",
-  "markup": "<div class=\"video-tile\" data-kind=\"{{kind}}\" data-size=\"{{size}}\"><img class=\"video-tile__image\" src=\"../tds/assets/images/video/{{source}}-video.png\" alt=\"\"><div class=\"video-tile__status\"><span class=\"video-tile__t\"><span class=\"blob\" data-size=\"48\" data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"video-tile__badge\"><i class=\"icon icon-wifi-off\"></i></span></span><span class=\"avatar video-tile__avatar\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span><b class=\"video-tile__title\">{{title}}</b><span class=\"video-tile__body\">{{body}}</span></div><div class=\"video-tile__controls\" data-slot=\"controls\"></div></div>"
+  "template": "<div class=\"video-tile\" data-kind=\"{{kind}}\" data-size=\"{{size}}\"><video class=\"video-tile__video\" src=\"../tds/assets/videos/{{source}}-video.mp4\" poster=\"../tds/assets/videos/{{source}}-video.jpg\" autoplay muted loop playsinline preload=\"metadata\"></video><div class=\"video-tile__status\"><span class=\"video-tile__t\"><span class=\"blob\" data-size=\"48\" data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"video-tile__badge\"><i class=\"icon icon-wifi-off\"></i></span></span><span class=\"avatar video-tile__avatar\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span><b class=\"video-tile__title\">{{title}}</b><span class=\"video-tile__body\">{{body}}</span></div><div class=\"video-tile__controls\" data-slot=\"controls\"></div></div>",
+  "markup": "<div class=\"video-tile\" data-kind=\"{{kind}}\" data-size=\"{{size}}\"><video class=\"video-tile__video\" src=\"../tds/assets/videos/{{source}}-video.mp4\" poster=\"../tds/assets/videos/{{source}}-video.jpg\" autoplay muted loop playsinline preload=\"metadata\"></video><div class=\"video-tile__status\"><span class=\"video-tile__t\"><span class=\"blob\" data-size=\"48\" data-theme=\"rose\"><canvas aria-hidden=\"true\"></canvas></span><span class=\"video-tile__badge\"><i class=\"icon icon-wifi-off\"></i></span></span><span class=\"avatar video-tile__avatar\"><img src=\"../tds/assets/{{person.photo}}\" alt=\"{{person.name}}\"></span><b class=\"video-tile__title\">{{title}}</b><span class=\"video-tile__body\">{{body}}</span></div><div class=\"video-tile__controls\" data-slot=\"controls\"></div></div>"
 }

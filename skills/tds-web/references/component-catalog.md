@@ -121,8 +121,8 @@ A T avatar (or none) beside a title and an optional line under it, with an optio
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4359-55294
 
 ### `molecules/video-tile` — Video tile
-A person’s video in a rounded frame. Video shows the picture; Paused shows T with a no-signal badge and a note (“Video paused”); Waiting shows the therapist’s photo and “Hang tight”; Empty is a plain tint (a camera that is off, or a call that did not connect). Preview is the tall frame on Get Ready (268 by 357); Remote runs edge to edge at 4:3 (402 by 536, the therapist cropped); Self is the small corner picture (126 by 168).
-- Props: kind (video | paused | waiting | empty), size (preview | remote | self), source (therapist | self), person (person), title (text), body (text)
+A person’s video in a rounded frame. Video plays the video (muted, looping: the therapist’s horizontal clip or yours, a vertical one, cropped to fill); Paused shows T with a no-signal badge and a note (“Video paused”); Waiting shows the therapist’s photo and “Hang tight”; Empty is a plain tint (a camera that is off, or a call that did not connect). Preview is the tall frame on Get Ready (268 by 357); Remote runs edge to edge as a square (402 by 402, the therapist cropped); Backdrop is the same video full screen, blurred and see-through, to sit behind a screen; Self is the small corner picture (126 by 168).
+- Props: kind (video | paused | waiting | empty), size (preview | remote | self | backdrop), source (provider | user), person (person), title (text), body (text)
 - Built from: `atoms/blob`, `atoms/avatar`
 - Figma: https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=133:2460
 
@@ -465,10 +465,16 @@ The first-run tour: a coachmark that points at one thing while everything else o
 - Built from: `organisms/home-header`, `patterns/bite-size-support-section`, `patterns/topics-section`, `patterns/therapist-section`, `molecules/bottom-nav`, `molecules/chat-header`, `organisms/chat-thread`, `organisms/chat-composer`, `organisms/coachmark`, `atoms/glow`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4226-65802
 
-### `screens/video` — Video appointment
-Joining and being in an in-app video appointment. Get Ready: the preview, mute and camera buttons and Join Appointment, with the microphone and camera permission prompts, no microphone (Join is off until it is on; a tooltip says what to do), no camera (you can still join), access blocked (the phone’s notice with Settings), video paused (a weak signal) and unable to join (Try Again). In the call: the therapist full width at 4:3, your own video small in the corner, mute, camera and leave on top, and T taking notes at the bottom; plus the therapist not here yet and video paused.
-- States: ready, ready-mic-prompt, ready-camera-prompt, ready-no-mic, ready-no-camera, ready-mic-blocked, ready-camera-blocked, ready-paused, ready-unable, call, call-waiting, call-paused
+### `screens/appointment-preview` — Appointment preview
+Getting ready to join an in-app video appointment: the preview of you (your own video), mute and camera buttons and Join Appointment, with the microphone and camera permission prompts, no microphone (Join is off until it is on; a tooltip says what to do), no camera (you can still join), access blocked (the phone’s notice with Settings), video paused (a weak signal) and unable to join (Try Again).
+- States: ready, ready-mic-prompt, ready-camera-prompt, ready-no-mic, ready-no-camera, ready-mic-blocked, ready-camera-blocked, ready-paused, ready-unable
 - Built from: `molecules/header`, `molecules/avatar-text`, `molecules/video-tile`, `molecules/tooltip`, `atoms/icon-button`, `atoms/button`, `atoms/glow`, `device/alert`
+- Figma: https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=0-1
+
+### `screens/video` — Video
+Being in an in-app video appointment (full blend): the therapist’s video as a square across the screen with a blurred, see-through copy of it filling the background, your own video small in the corner, leave on the top left, mute and camera on the top right, and T taking notes at the bottom. Also the therapist not here yet, and video paused.
+- States: call, call-waiting, call-paused
+- Built from: `device/status-bar`, `molecules/avatar-text`, `molecules/video-tile`, `atoms/icon-button`
 - Figma: https://www.figma.com/design/n0xLsDhR2Fim2d6ShDMHQw/In-App-Video-Appointments?node-id=0-1
 
 ### `screens/home` — Home
@@ -484,8 +490,8 @@ A whole chat screen: the header, the thread, and either the composer (with the k
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4446-19046
 
 ### `screens/summary` — Summary
-What T writes up after a session. A header (the date, the title, a line and how long it took) over sections you can show or hide in the Sections slot: Today’s Topic, The Reframe and The Plan (T can leave one out if it does not fit the session), Suggestions (only for LIWT conversations), and, for higher acuity, Your therapist and Support Resources. Off the record shows a label in the header when the person chose it, in any conversation. T is the version T writes; Provider is the version a provider reads, with their photo in a flat header.
-- States: t, provider, loading
+What T writes up after a session. A header (the date, the title, a line and how long it took) over sections you can show or hide in the Sections slot: Today’s Topic, The Reframe and The Plan (T can leave one out if it does not fit the session), Suggestions (only for LIWT conversations), and, for higher acuity, Your therapist and Support Resources. Off the record shows a label in the header when the person chose it, in any conversation. T is the version T writes; Provider is the version a provider reads, with their photo in a flat header. The provider’s summary has the post-appointment thoughts flow as states: T’s follow-up prompt in place of the summary, then Your Thoughts loading, then added by you.
+- States: t, provider, provider-follow-up, provider-thoughts-loading, provider-thoughts, loading
 - Built from: `organisms/header-card`, `molecules/text-section`, `patterns/suggestions-section`, `patterns/therapist-section`, `patterns/resources-section`, `organisms/loading-state`
 - Figma: https://www.figma.com/design/pdq8KcTCIJAtXwcgReiwlC/Thoughtful-Design-System?node-id=4197-43941
 
