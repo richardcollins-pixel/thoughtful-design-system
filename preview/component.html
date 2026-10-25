@@ -103,6 +103,8 @@
     // ?thumb={"state":"provider-cta"} or {"set":{"data-variant":"outline"}}: render just that variant, for the panel's thumbnails.
     const thumbParam = new URLSearchParams(location.search).get('thumb');
     const thumb = thumbParam ? JSON.parse(thumbParam) : null;
+    // a thumbnail shows a video's poster only: no autoplay, so twelve thumbnails don't download twelve videos
+    if (thumb) new MutationObserver(() => document.querySelectorAll('video[autoplay]').forEach((v) => { v.removeAttribute('autoplay'); v.removeAttribute('src'); v.load(); })).observe(document.documentElement, { childList: true, subtree: true });
     const spec = !!meta.items;   // composed organisms have items (atoms use "states" for hover, pressed, …)
     let compose, ctx, state;
     if (spec) {

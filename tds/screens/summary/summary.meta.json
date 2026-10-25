@@ -91,6 +91,137 @@
       }
     },
     {
+      "id": "provider-follow-up",
+      "name": "Provider, follow-up prompt",
+      "template": "<main class=\"summary\"><div class=\"glow summary__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:thoughts}}{{item:topic}}{{item:reframe}}{{item:plan}}{{item:suggestions}}{{item:therapist}}{{item:resources}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "thoughts",
+            "topic",
+            "reframe",
+            "plan",
+            "suggestions",
+            "therapist",
+            "resources"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "header": {
+          "props": {
+            "state": "prompt",
+            "headline": "Appointment with Kristina",
+            "duration.text": "45 min"
+          }
+        }
+      }
+    },
+    {
+      "id": "provider-thoughts-loading",
+      "name": "Provider, your thoughts loading",
+      "template": "<main class=\"summary\"><div class=\"glow summary__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:thoughts}}{{item:topic}}{{item:reframe}}{{item:plan}}{{item:suggestions}}{{item:therapist}}{{item:resources}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "thoughts",
+            "topic",
+            "reframe",
+            "plan",
+            "suggestions",
+            "therapist",
+            "resources"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "header": {
+          "props": {
+            "state": "provider",
+            "headline": "Appointment with Kristina",
+            "duration.text": "45 min"
+          }
+        },
+        "thoughts": {
+          "props": {
+            "show": "on",
+            "loading": "yes",
+            "tag": ""
+          }
+        }
+      }
+    },
+    {
+      "id": "provider-thoughts",
+      "name": "Provider, your thoughts added",
+      "template": "<main class=\"summary\"><div class=\"glow summary__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"summary__header\" data-slot=\"header\">{{item:header}}</div><div class=\"summary__sections\" data-slot=\"sections\">{{item:thoughts}}{{item:topic}}{{item:reframe}}{{item:plan}}{{item:suggestions}}{{item:therapist}}{{item:resources}}</div></main>",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header slot",
+          "items": [
+            "header"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections slot",
+          "items": [
+            "thoughts",
+            "topic",
+            "reframe",
+            "plan",
+            "suggestions",
+            "therapist",
+            "resources"
+          ]
+        }
+      ],
+      "personas": [
+        "provider"
+      ],
+      "overrides": {
+        "header": {
+          "props": {
+            "state": "provider",
+            "headline": "Appointment with Kristina",
+            "duration.text": "45 min"
+          }
+        },
+        "thoughts": {
+          "props": {
+            "show": "on",
+            "loading": "no",
+            "tag": "Added by you"
+          }
+        }
+      }
+    },
+    {
       "id": "loading",
       "name": "Loading",
       "template": "<section class=\"summary-loading\"><div class=\"summary-loading__body\" data-slot=\"loader\">{{item:loader}}</div></section>",
@@ -109,7 +240,7 @@
   "variables": {},
   "styles": [],
   "selector": ".summary",
-  "description": "What T writes up after a session. A header (the date, the title, a line and how long it took) over sections you can show or hide in the Sections slot: Today’s Topic, The Reframe and The Plan (T can leave one out if it does not fit the session), Suggestions (only for LIWT conversations), and, for higher acuity, Your therapist and Support Resources. Off the record shows a label in the header when the person chose it, in any conversation. T is the version T writes; Provider is the version a provider reads, with their photo in a flat header.",
+  "description": "What T writes up after a session. A header (the date, the title, a line and how long it took) over sections you can show or hide in the Sections slot: Today’s Topic, The Reframe and The Plan (T can leave one out if it does not fit the session), Suggestions (only for LIWT conversations), and, for higher acuity, Your therapist and Support Resources. Off the record shows a label in the header when the person chose it, in any conversation. T is the version T writes; Provider is the version a provider reads, with their photo in a flat header. The provider’s summary has the post-appointment thoughts flow as states: T’s follow-up prompt in place of the summary, then Your Thoughts loading, then added by you.",
   "items": {
     "header": {
       "type": "component",

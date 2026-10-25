@@ -113,6 +113,7 @@
 @import url("screens/screener/screener.css") layer(screens);
 @import url("screens/booking/booking.css") layer(screens);
 @import url("screens/tour/tour.css") layer(screens);
+@import url("screens/appointment-preview/appointment-preview.css") layer(screens);
 @import url("screens/video/video.css") layer(screens);
 
 @import url("defaults.css");                              /* generated: components' saved defaults */

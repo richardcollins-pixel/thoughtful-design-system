@@ -192,7 +192,42 @@
   {
    "id": "videos",
    "label": "Videos",
-   "groups": []
+   "groups": [
+    {
+     "id": "all",
+     "label": "All",
+     "items": [
+      {
+       "name": "provider-video",
+       "file": "videos/provider-video.jpg",
+       "width": null,
+       "height": null,
+       "bytes": 61540
+      },
+      {
+       "name": "provider-video",
+       "file": "videos/provider-video.mp4",
+       "width": null,
+       "height": null,
+       "bytes": 9243375
+      },
+      {
+       "name": "user-video",
+       "file": "videos/user-video.jpg",
+       "width": null,
+       "height": null,
+       "bytes": 41807
+      },
+      {
+       "name": "user-video",
+       "file": "videos/user-video.mp4",
+       "width": null,
+       "height": null,
+       "bytes": 6676054
+      }
+     ]
+    }
+   ]
   }
  ]
 }

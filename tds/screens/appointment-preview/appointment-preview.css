@@ -1,0 +1,21 @@
+/* Screen: appointment preview. Get Ready: close on top, a title, who is here, the video preview (268x357) with mute and camera buttons over its bottom edge and an optional
+   tooltip above them, then Join Appointment pinned to the bottom (with an optional note above it). The phone's own permission or access alert, when shown, sits
+   in the middle over a dimmed backdrop. In the call: mute and camera top left, leave top right, the therapist's video full width (4:3), your video in the corner,
+   and T taking notes at the bottom. Slots: top, main, controls, tooltip, bottom, alert, remote, self, notes. */
+.appt-preview { position: relative; isolation: isolate; display: flex; flex-direction: column; box-sizing: border-box; min-height: 100dvh; margin: calc(var(--page-gutter, var(--space-4)) * -1); overflow: clip; background: var(--bg-base); }
+.appt-preview__glow { --glow-size: var(--glow-screen-size); --glow-blur: var(--glow-screen-blur); --glow-opacity: var(--glow-screen-opacity); z-index: var(--layer-behind); position: absolute; }
+.appt-preview__main { display: flex; flex-direction: column; align-items: center; padding: var(--space-4) var(--space-8) 0; }
+.appt-preview__title { margin: 0; max-width: 290px; font: var(--text-headline-2); letter-spacing: var(--text-headline-2-ls); text-align: center; }
+.appt-preview__who { margin-top: var(--space-6); color: var(--text-secondary); }
+.appt-preview__who .avatar-text { width: auto; gap: var(--space-2); }
+.appt-preview__preview { position: relative; margin-top: var(--space-10, 40px); }
+.appt-preview__controls { position: absolute; left: 0; right: 0; bottom: var(--space-4); display: flex; justify-content: center; gap: var(--space-4); }
+.appt-preview__tooltip { position: absolute; left: 50%; bottom: calc(var(--space-4) + 48px + var(--space-3)); width: max-content; max-width: 320px; translate: calc(-50% - 32px) 0; }
+.appt-preview__preview[data-focus="camera"] .appt-preview__tooltip { translate: calc(-50% + 32px) 0; }
+.appt-preview__tooltip .tooltip { display: block; }
+.appt-preview__bottom { margin-top: auto; display: flex; flex-direction: column; gap: var(--space-4); padding: 0 var(--space-8) 50px; }
+.appt-preview__note { margin: 0; text-align: center; font: var(--text-body-md-semibold); letter-spacing: var(--text-body-md-semibold-ls); }
+.appt-preview__scrim { display: none; position: absolute; inset: 0; z-index: var(--layer-scrim); background: color-mix(in srgb, var(--background-backdrop-fill) calc(var(--background-backdrop-alpha) * 100%), transparent); backdrop-filter: blur(var(--background-backdrop-blur)); }
+.appt-preview__alert { position: absolute; inset: 0; z-index: var(--layer-overlay); display: grid; place-items: center; pointer-events: none; }
+.appt-preview__alert:not(:has(.device-alert)), .appt-preview:not(:has(.appt-preview__alert .device-alert)) .appt-preview__scrim { display: none; }
+.appt-preview:has(.appt-preview__alert .device-alert) .appt-preview__scrim { display: block; }
