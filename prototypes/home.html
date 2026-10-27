@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prototype · Home</title>
+  <link rel="stylesheet" href="../tds/tds.css">
+  <style>
+    /* Prototype-only layout. Lives in its own layer so it wins over the design system on purpose. */
+    @layer app {
+      html, body { margin: 0; min-height: 100%; }
+      body { background: var(--bg-page, #0b0b0f); display: grid; place-items: center; }
+      .phone { width: 390px; min-height: 844px; position: relative; overflow: hidden; background: var(--bg-page, #0b0b0f); }
+      .phone__scroll { padding-bottom: 120px; }
+      .app-section { padding: 0 var(--page-gutter, 20px); }
+      .app-section + .app-section { margin-top: 32px; }
+      .tiles { display: grid; gap: 12px; }
+      .tiles .tile { width: 100%; }
+      .phone .bottom-nav { position: absolute; inset: auto 0 0 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="phone__scroll">
+
+      <!-- Home header: status bar + action -->
+      <header class="header" data-variant="home">
+        <div class="header__status">
+          <div class="status-bar"><span>9:41</span></div>
+        </div>
+        <div class="header__bar">
+          <span class="header__title">Good morning</span>
+          <button class="button header__action" data-variant="glass" data-size="sm">Support</button>
+        </div>
+      </header>
+
+      <!-- Topics: two or more recent topics -> carousel with New Topic -->
+      <section class="app-section">
+        <section class="topics-section" data-layout="carousel">
+          <div class="topics-section__header" data-slot="header">
+            <h2 class="topics-section__title">Your Topics</h2>
+            <p class="topics-section__copy">Let's pick up where you left off</p>
+          </div>
+          <div class="topics-section__cards" data-slot="cards" data-carousel>
+            <article class="card session-card" data-size="md">
+              <div class="session-card__content" data-slot="content">
+                <h3 class="session-card__headline">Feeling stretched thin at work</h3>
+                <p class="session-card__body">Last time we talked about setting limits with your team.</p>
+                <span class="icon-label"><i class="icon icon-clock"></i><span>10 min</span></span>
+              </div>
+              <div class="session-card__input" data-slot="input">
+                <a class="chat-input" data-variant="pill" href="session.html"><span>Continue</span><i class="icon icon-arrow-up" data-size="md"></i></a>
+              </div>
+            </article>
+            <article class="card session-card" data-size="md">
+              <div class="session-card__content" data-slot="content">
+                <h3 class="session-card__headline">Sleep has been hard</h3>
+                <p class="session-card__body">Let's look at what's keeping you up at night.</p>
+                <span class="icon-label"><i class="icon icon-clock"></i><span>10 min</span></span>
+              </div>
+              <div class="session-card__input" data-slot="input">
+                <a class="chat-input" data-variant="pill" href="session.html"><span>Continue</span><i class="icon icon-arrow-up" data-size="md"></i></a>
+              </div>
+            </article>
+          </div>
+          <div class="topics-section__actions" data-slot="actions">
+            <button class="button" data-variant="outline" data-size="lg" data-width="full"><i class="icon icon-plus"></i>New Topic</button>
+          </div>
+        </section>
+      </section>
+
+      <!-- Bite-size support tiles -->
+      <section class="app-section">
+        <h2 class="topics-section__title">Bite-size support</h2>
+        <div class="tiles">
+          <button class="tile" type="button"><span class="face" data-face="calm-down"><i></i></span><span class="tile__content"><span class="tile__title">Calm Down</span><span class="tile__label"><i class="icon icon-clock" data-size="sm"></i><span>5 mins</span></span></span><span class="icon-button" data-elevation="20" data-size="sm" aria-hidden="true"><i class="icon icon-arrow-up"></i></span></button>
+          <button class="tile" type="button"><span class="face" data-face="set-boundaries"><i></i></span><span class="tile__content"><span class="tile__title">Set Boundaries</span><span class="tile__label"><i class="icon icon-clock" data-size="sm"></i><span>7 mins</span></span></span><span class="icon-button" data-elevation="20" data-size="sm" aria-hidden="true"><i class="icon icon-arrow-up"></i></span></button>
+        </div>
+      </section>
+    </div>
+
+    <nav class="bottom-nav" data-current="home" data-tabs="3">
+      <div class="bottom-nav__tabs">
+        <button class="bottom-nav__tab" data-tab="home" aria-label="Home"><i class="icon icon-home"></i></button>
+        <button class="bottom-nav__tab" data-tab="sessions" aria-label="Sessions"><i class="icon icon-clipboard"></i></button>
+        <button class="bottom-nav__tab" data-tab="profile" aria-label="Profile"><i class="icon icon-person"></i></button>
+      </div>
+      <div class="bottom-nav__safe"><span class="home-indicator"></span></div>
+    </nav>
+  </div>
+
+  <script src="../tds/behaviors/carousel.js"></script>
+</body>
+</html>
