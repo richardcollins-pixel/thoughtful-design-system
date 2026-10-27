@@ -125,8 +125,8 @@
     },
     {
       "id": "b3",
-      "name": "BLEND 3 · Between sessions",
-      "template": "<section class=\"value-prop\" data-set=\"blend\"><div class=\"glow value-prop__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\">{{item:blob}}<span class=\"value-prop__bubble\" aria-hidden=\"true\"><i></i><i></i><i></i></span></div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyA}}</p></div></div><div class=\"value-prop__bottom value-prop__bottom--steps\" data-slot=\"bottom\">{{item:dots}}{{item:next}}</div></section>",
+      "name": "BLEND 3 · Chat whenever you want",
+      "template": "<section class=\"value-prop\" data-set=\"blend\"><div class=\"glow value-prop__glow\" data-theme=\"cool\" data-placement=\"bottom\" aria-hidden=\"true\"><canvas></canvas></div><div class=\"value-prop__top\" data-slot=\"top\">{{item:status}}</div><div class=\"value-prop__main\" data-slot=\"main\"><div class=\"value-prop__art\">{{item:blob}}</div><div class=\"value-prop__text\">{{item:title}}<p class=\"value-prop__body\">{{item:bodyA}}</p></div></div><div class=\"value-prop__bottom value-prop__bottom--steps\" data-slot=\"bottom\">{{item:dots}}{{item:next}}</div></section>",
       "slots": [
         {
           "id": "top",
@@ -156,14 +156,15 @@
       "personas": [],
       "overrides": {
         "title": {
-          "value": "We can talk between sessions"
+          "value": "You and I can chat whenever you want"
         },
         "bodyA": {
-          "value": "I'm here for you in any moment. Late nights, 2 minute check-ins, whatever you need, whenever you want."
+          "value": "I'll provide support for you in the moment and we can build on anything you've discussed with your therapist."
         },
         "blob": {
           "props": {
-            "theme": "cool"
+            "theme": "cool",
+            "shape": "chat"
           }
         },
         "dots": {

@@ -39,5 +39,5 @@
     }
   },
   "template": "<div class=\"tooltip\" data-arrow=\"{{arrow}}\" data-direction=\"{{direction}}\" role=\"tooltip\">{{text}}<span class=\"tooltip__arrow\"></span></div>",
-  "markup": "<div class=\"tooltip\" data-arrow=\"{{arrow}}\" data-direction=\"{{direction}}\" role=\"tooltip\">{{text}}<span class=\"tooltip__arrow\"></span></div>"
+  "markup": "<div class=\"tooltip\" data-arrow=\"center\" data-direction=\"down\" role=\"tooltip\">Turn on your microphone to join<span class=\"tooltip__arrow\"></span></div>"
 }

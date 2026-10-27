@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prototype · Session</title>
+  <link rel="stylesheet" href="../tds/tds.css">
+  <style>
+    /* Prototype-only layout. Lives in its own layer so it wins over the design system on purpose. */
+    @layer app {
+      html, body { margin: 0; min-height: 100%; }
+      body { background: var(--bg-page, #0b0b0f); display: grid; place-items: center; }
+      .phone { width: 390px; min-height: 844px; position: relative; overflow: hidden; background: var(--bg-page, #0b0b0f); display: flex; flex-direction: column; }
+      .thread { flex: 1; padding: 16px var(--page-gutter, 20px) 140px; display: grid; gap: 14px; align-content: start; }
+      .composer { position: absolute; inset: auto 0 0 0; padding: 12px var(--page-gutter, 20px) 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <header class="chat-header" data-bar="on" data-timer="off" data-recap="on">
+      <div class="chat-header__status">
+        <div class="status-bar"><span>9:41</span></div>
+      </div>
+      <div class="chat-header__bar">
+        <div class="chat-header__left">
+          <span class="chat-header__title">Feeling stretched thin at work</span>
+        </div>
+        <button class="icon-button" data-elevation="20" data-size="sm" aria-label="Finish session"><i class="icon icon-x"></i></button>
+      </div>
+    </header>
+
+    <main class="thread">
+      <div class="chat-message" data-from="bot"><p>Hi, what is on your mind today?</p></div>
+      <div class="chat-message" data-from="user"><p>Work has been a lot lately. I keep saying yes to everything.</p></div>
+      <div class="chat-message" data-from="bot"><p>That sounds heavy. What happens when you say no?</p></div>
+    </main>
+
+    <div class="composer">
+      <div class="chat-input" data-variant="pill"><span>Type a message</span><i class="icon icon-arrow-up" data-size="md"></i></div>
+    </div>
+  </div>
+
+  <script src="../tds/behaviors/blob.js"></script>
+</body>
+</html>
