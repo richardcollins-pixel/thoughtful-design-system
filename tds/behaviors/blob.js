@@ -1233,6 +1233,9 @@ export function create(canvas, opts = {}) {
   function setCycle(on) { cycleOn = !!on; lastCycle = null; }
   function setShape(name, ms) {
     if (!SHAPES.includes(name)) name = 'blob';
+    // chat is T as the plain blob with a speech bubble beside it: the bubble is drawn by CSS (atoms/blob), this only switches it
+    if (canvas.parentElement) { if (name === 'chat') canvas.parentElement.dataset.chat = ''; else delete canvas.parentElement.dataset.chat; }
+    if (name === 'chat') name = 'blob';
     want = { shape: name, ms: reduceMotion ? 0 : (ms === undefined ? 1100 : ms) };
     if (o.asGlow && TRACED.has(name)) want.shape = 'blob';   // an independent glow only ever swells with the polar shapes
   }

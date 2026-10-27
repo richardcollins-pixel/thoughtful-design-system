@@ -12,3 +12,13 @@
 .blob > canvas { position: absolute; left: 50%; top: 50%; width: var(--blob-canvas); height: var(--blob-canvas); margin: calc(var(--blob-canvas) / -2) 0 0 calc(var(--blob-canvas) / -2); display: block; pointer-events: none; }
 /* Charcoal: the accent colors go, so the blob goes gray */
 :root[data-fidelity="wireframe"] .blob > canvas { filter: grayscale(1); }
+
+/* chat: T stays the blob and a glass speech bubble with three dots pops in at its upper right (behaviors/blob.js sets data-chat) */
+.blob { --bubble-line: color-mix(in srgb, var(--white) 55%, transparent); --bubble-fill: color-mix(in srgb, var(--white) 16%, var(--bg-base)); --bubble-dot: color-mix(in srgb, var(--white) 55%, transparent); }
+.blob::before, .blob::after { content: ""; position: absolute; pointer-events: none; opacity: 0; scale: .4; transform-origin: 20% 100%; transition: opacity var(--duration-base) var(--ease-standard), scale var(--duration-slow) var(--ease-emphasized); }
+.blob::after { z-index: 1; left: 68%; bottom: 76%; width: 112%; height: 62%; box-sizing: border-box; border: 1px solid var(--bubble-line); border-radius: calc(var(--blob-size) * .22); background:
+  radial-gradient(circle at 36% 50%, var(--bubble-dot) 0 5%, transparent 5.5%), radial-gradient(circle at 50% 50%, var(--bubble-dot) 0 5%, transparent 5.5%), radial-gradient(circle at 64% 50%, var(--bubble-dot) 0 5%, transparent 5.5%), var(--bubble-fill); }
+.blob::before { z-index: 0; left: calc(68% + 22%); bottom: calc(76% - 9px); width: 18px; height: 18px; box-sizing: border-box; rotate: 45deg; border: solid var(--bubble-line); border-width: 0 1px 1px 0; border-bottom-right-radius: 3px; background: var(--bubble-fill); }
+.blob[data-chat]::before, .blob[data-chat]::after { opacity: 1; scale: 1; }
+:root[data-fidelity="wireframe"] .blob::before, :root[data-fidelity="wireframe"] .blob::after { filter: grayscale(1); }
+@media (prefers-reduced-motion: reduce) { .blob::before, .blob::after { transition: none; } }
